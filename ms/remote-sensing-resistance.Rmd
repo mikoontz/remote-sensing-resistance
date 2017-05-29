@@ -12,35 +12,36 @@ author:
     - 1
     - 2
 - name: Constance I Millar
-  affiliation: 2
-- name: Stephen E Fick
   affiliation: 3
-- name: Chhaya M Werner
+- name: Stephen E Fick
   affiliation: 4
+- name: Chhaya M Werner
+  affiliation: 5
 - name: Andrew M Latimer
   affiliation: 1
 affiliations:
-- name: Graduate Group in Ecology, University of California, Davis
+- name: Graduate Group in Ecology, University of California, Davis, CA 95616 USA
   code: 1
-- name: USDA Forest Service, Region 5
+- name: USDA Forest Service, Pacific Southwest Research Station, Davis, CA 95618 USA
   code: 2
-- name: Stockholm Environment Institute
+- name: USDA Forest Service, Sierra Nevada Research Center, Pacific Southwest Research Station, Albany, CA 94710 USA
   code: 3
-- name: Center for Population Biology, University of California, Davis
+- name: Stockholm Environment Institute, Stockholm 115 23, Sweden
   code: 4
+- name: Center for Population Biology, University of California, Davis, CA 95616 USA
+  code: 5
 bibliography: /Users/mikoontz/dev/bibliography/BibTeX_Library/library.bib
 csl: /Users/mikoontz/dev/bibliography/Bibliography_Format/ecology.csl
 header-includes: 
 - \usepackage{graphicx}
-- \usepackage{setspace}\doublespacing
+- \usepackage{setspace}
 - \usepackage[left]{lineno}
 - \linenumbers
 
 abstract: "Variation in the size and distribution of trees can enable a forest to withstand ongoing disturbances and retain its essential identity and function. In the few centuries prior to Euro-American settlement, Sierra Nevadan mixed conifer forests in California exhibited such structural variation, and persisted with a disturbance regime of frequent, low- to moderate-severity wildfire and bark beetle activity. Climate change-induced hotter droughts and a century of fire suppression have disrupted this variability in forest structure, with unknown consequences for forest persistence. I use three approaches to assess how variability in forest structure affects resilience of mixed conifer forests: 1) correlate remote-sensed measures of forest structure variability with wildfire severity, 2) simulate an agent-based model of western pine beetle (WPB) outbreak spread through different forest structures, and 3) rear WPB from different forest structures in a common garden to assess variation in its pheromone-mediated dispersal."
 
 ---
-
-\author{Mike K}
+\doublespacing
 
 # Introduction
 
@@ -65,9 +66,11 @@ Approach
 Wildfire severity is defined by the percentage of fire-killed vegetation in an area, and it can be reliably measured by comparing pre- and post-fire satellite imagery. I used imagery from the Landsat 5 satellite, which provided publically available imagery of the whole earth at 30m spatial resolution every 16 days from 1984 to 2013. The relativized difference in normalized burn ratio (RdNBR) is a measurement of wildfire severity that is calculated using the near infrared (band 4) and short wave infrared band (band 7) of the Landsat 5 satellite according to @Miller2007:
 
 $$
-NBR = NIR4-SWIR7/(NIR4+SWIR7) \\
-dNBR = NBRpost-fire – NBRpre-fire \\
-RdNBR = dNBR/sqrt(|NBRprefire / 1000|)
+\begin{aligned}
+NBR &= \frac{NIR(Band 4)-SWIR(Band 7)}{NIR(Band 4) + SWIR (Band 7)} \\
+dNBR &= NBR_{postfire} – NBR_{prefire} \\
+RdNBR &= \frac{dNBR}{\sqrt{\left|\frac{NBR_{prefire}}{1000}\right|}}
+\end{aligned}
 $$
 
 This measure positively correlates with burn severity in mixed conifer forests in California [@Miller2009a]. All analyses were performed within the bounds of known fire perimeters >4 hectares in the Sierra Nevada region since 1984 as defined by the Fire and Resource Assessment Program (FRAP, http://frap.fire.ca.gov/projects/fire_data/fire_perimeters_index), which is the most comprehensive digital record of fire occurrence in California. Prefire NBR was calculated as the median NBR value per pixel for the 3 months prior to the fire date after masking clouds and non-forest pixels (median of approximately 6 images). The post-fire NBR was calculated as the median NBR value per pixel from images between 9 and 12 months after the fire (i.e. exactly one year after the set of pre-fire NBR images). RdNBR was calculated for all fires within the Sierra Nevada between 1985 and 2012. 
@@ -77,7 +80,7 @@ What is the effect of spatial heterogeneity on wildfire resistance?
 Publically available digital elevation maps (DEM) were used to assess slope and aspect of the forested area within fire perimeters at a 30m spatial resolution. I added 135 degrees to all aspect values and cosine transformed them so that values of -1 represented northeast aspects, and values of 1 represented southwest aspects to best capture heat loading in the northern hemisphere [@McCune2002]. The normalized difference in water index (NDWI) can be used to assess canopy density, and it was calculated for all pixels according to Jackson et al. (2004) using bands 4 and 5 from the Landsat 5 imagery:
 
 $$
-NDWI = NIR4-SWIR5/(NIR4+SWIR5) 
+NDWI = \frac{NIR(Band 4) -SWIR (Band 5)}{NIR(Band 4) + SWIR(Band 5) }
 $$
 
 A measure of heterogeneity was derived which used focal operations to calculate the standard deviation of NDWI within a certain sized neighborhood around each pixel [@Tuanmu2015]. Five neighborhood sizes were used (radii of 30m, 45m, 56m, 79m, 113m) corresponding to a moving neighborhood window of 0.28 ha, 0.64 ha, 0.99 ha, 2.0 ha, and 4.0 ha. Imagery was downsampled by a factor of 100 to reduce spatial autocorrelation. I scaled all predictor variables, and treated each individual fire as having a random intercept effect using the following mixed effects model:
