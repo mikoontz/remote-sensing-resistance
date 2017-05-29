@@ -1,7 +1,7 @@
 ---
 output: 
   pdf_document:
-    template: "~/Box Sync/manuscripts/latex_templates/mjk_ms_template.tex"
+    template: "../ms/ms_carpentry/mjk_ms_template.tex"
 geometry: margin=1in
 title: 'Greater variability in local forest structure increases resistance to wildfire'
 author: 
