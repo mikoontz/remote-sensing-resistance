@@ -2,12 +2,13 @@ library(raster)
 library(lubridate)
 library(ggmap)
 library(rgdal)
+library(sf)
 
-landfire <- shapefile("../data/cbi-data/firesev-landfire/firesev_cbi_data/firesev_cbi_plots.shp")
-sn <- shapefile("../data/sierra-nevada-CA-perim/sierra-nevada-CA-perim.shp")
-landfire <- spTransform(landfire, crs(sn))
+landfire <- st_read("data/features/cbi_data/firesev_landfire/firesev_cbi_data")
+sn <- st_read("data/features/SierraEcoregion_TNC/")
+landfire <- st_transform(landfire, st_crs(sn))
 
-filepaths <- paste0("../data/cbi-data/usgs/", dir("../data/cbi-data/usgs/", pattern = ".csv"))
+filepaths <- list.files(path = "data/features/cbi_data/usgs", full.names = TRUE, pattern = ".csv")
 
 usgs_list <- lapply(filepaths, FUN = function(file) read.csv(file, stringsAsFactors = FALSE))
 usgs_list <- lapply(usgs_list, function(x) subset(x[which(x$qual_ea == 1), ]))
