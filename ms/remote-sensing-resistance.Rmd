@@ -4,7 +4,30 @@ output:
     template: "~/Box Sync/manuscripts/latex_templates/mjk_ms_template.tex"
 geometry: margin=1in
 title: 'Greater variability in local forest structure increases resistance to wildfire'
-
+author: 
+- name: Michael J Koontz
+  affiliation: 1
+- name: Malcolm P North
+  affiliation:
+    - 1
+    - 2
+- name: Constance I Millar
+  affiliation: 2
+- name: Stephen E Fick
+  affiliation: 3
+- name: Chhaya M Werner
+  affiliation: 4
+- name: Andrew M Latimer
+  affiliation: 1
+affiliations:
+- name: Graduate Group in Ecology, University of California, Davis
+  code: 1
+- name: USDA Forest Service, Region 5
+  code: 2
+- name: Stockholm Environment Institute
+  code: 3
+- name: Center for Population Biology, University of California, Davis
+  code: 4
 bibliography: /Users/mikoontz/dev/bibliography/BibTeX_Library/library.bib
 csl: /Users/mikoontz/dev/bibliography/Bibliography_Format/ecology.csl
 header-includes: 
@@ -17,7 +40,7 @@ abstract: "Variation in the size and distribution of trees can enable a forest t
 
 ---
 
-\author{"Mike K"}
+\author{Mike K}
 
 # Introduction
 
