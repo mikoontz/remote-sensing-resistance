@@ -1,3 +1,4 @@
+# rm(list = ls())
 library(raster)
 library(lubridate)
 library(ggmap)
@@ -10,175 +11,182 @@ landfire <- st_transform(landfire, st_crs(sn))
 
 filepaths <- list.files(path = "data/features/cbi_data/usgs", full.names = TRUE, pattern = ".csv")
 
+# USGS Data from Zhu et al. 2006 (https://www.firescience.gov/projects/01-1-4-12/project/01-1-4-12_final_report.pdf)
+# Spatial data from https://archive.usgs.gov/archive/sites/www.nrmsc.usgs.gov/science/fire/cbi/plotdata.html
 usgs_list <- lapply(filepaths, FUN = function(file) read.csv(file, stringsAsFactors = FALSE))
 usgs_list <- lapply(usgs_list, function(x) subset(x[which(x$qual_ea == 1), ]))
-usgs <- do.call(rbind, usgs_list)
+usgs_cbi <- do.call(rbind, usgs_list)
 
-hist(as.numeric(usgs$cbi_totl), breaks = 100)
 # usgs_compact <- subset(usgs, select = c(fireyr, firedate, fire_nam, plot_id,  utmeast, utmnorth, utm_zone, utme_rep, utmn_rep, utmz_rep, cbi_undr, cbi_over, cbi_totl))
-usgs_compact <- usgs 
-unique(usgs$firedate)
+unique(usgs_cbi$firedate)
 
-bad_dates <- c("7/2000", "7/2001", "01-AUG-200", "15-JUL-200", "8/2001", "Nov-01", "30-OCT-200", "01-NOV-200", "03-NOV-200", "29-JUL-200", "15-AUG-200", "10-SEP-200", "25-AUG-200", "16-AUG-200", "01-JUL-200", "May-00", "20-JUL-200")
-y2k_bug <- c("07/01/02", "04/01/02", "04/02/02", "03/02/02", "07/02/02")
+# Which dates don't parse?
+# Indices of bad dates
+bad_dates_idx <- is.na(mdy(unique(usgs_cbi$firedate)))
+# Bad dates themselves (c("7/2000", "7/2001", "01-AUG-200", "15-JUL-200", "8/2001", "Nov-01", "30-OCT-200", "01-NOV-200", "03-NOV-200", "29-JUL-200", "15-AUG-200", "10-SEP-200", "25-AUG-200", "16-AUG-200", "01-JUL-200", "May-00", "20-JUL-200"))
+bad_dates <- unique(usgs_cbi$firedate)[bad_dates_idx]
 
+# Convenience function for checking the dates on wildfires that don't have a parseable date
 check_date <- function(data, bad_date) {
-  list(bad_date, 
-       unique(data[data$firedate == bad_date, "fire_nam"]),
-       usgs_compact[usgs_compact$firedate == current, ])
+  list(bad_date, # The bad date
+       unique(data[data$firedate == bad_date, "fire_nam"]), # The fires that have the bad date
+       usgs_cbi[usgs_cbi$firedate == current, ]) # The whole record of all plots with the bad date
 }
+
+# I systematically checked each of the 17 bad dates to confirm the date of those fires
+# using the Monitoring Trends in Burn Severity dataset (http://mtbs.gov/data/individualfiredata.html)
 
 # 7/2000
 (current <- bad_dates[1])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Foraker", "firedate"] <- "06-23-2000"
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Otter Creek", "firedate"] <- "06-24-2000"
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Chitsia", "firedate"] <- "06-26-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Foraker", "firedate"] <- "06-23-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Otter Creek", "firedate"] <- "06-24-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Chitsia", "firedate"] <- "06-26-2000"
 
 # 7/2001
 (current <- bad_dates[2])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Herron River", "firedate"] <- "06-26-2001"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Herron River", "firedate"] <- "06-26-2001"
 
 # 01-AUG-200
 (current <- bad_dates[3])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Milepost 85", "firedate"] <- "08-04-2002"
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "FALCON", "firedate"] <- "08-06-2001"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Milepost 85", "firedate"] <- "08-04-2002"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "FALCON", "firedate"] <- "08-06-2001"
 
 # 15-JUL-200
 (current <- bad_dates[4])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Cottonwood Bar", "firedate"] <- "08-02-2002"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Cottonwood Bar", "firedate"] <- "08-02-2002"
 
 # 8/2001
 (current <- bad_dates[5])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Hoover", "firedate"] <- "07-10-2001"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Hoover", "firedate"] <- "07-10-2001"
 
 # Nov-01
 (current <- bad_dates[6])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Green Mtn", "firedate"] <- "11-10-2001"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Green Mtn", "firedate"] <- "11-10-2001"
 
 # 30-OCT-2000
 (current <- bad_dates[7])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Schoolhouse", "firedate"] <- "10-30-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Schoolhouse", "firedate"] <- "10-30-2000"
 
 # 01-NOV-200
 (current <- bad_dates[8])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Camp Branch", "firedate"] <- "11-01-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Camp Branch", "firedate"] <- "11-01-2000"
 
 # 03-NOV-200
 (current <- bad_dates[9])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Darrow Ridge", "firedate"] <- "11-03-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Darrow Ridge", "firedate"] <- "11-03-2000"
 
 # 29-JUL-200
 (current <- bad_dates[10])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Arthur", "firedate"] <- "07-29-2001"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Arthur", "firedate"] <- "07-29-2001"
 
 # 15-AUG-200
 (current <- bad_dates[11])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Boundary00", "firedate"] <- "08-15-2000"
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Moose00", "firedate"] <- "08-15-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Boundary00", "firedate"] <- "08-15-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Moose00", "firedate"] <- "08-15-2000"
 
 # 10-SEP-200
 (current <- bad_dates[12])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Little", "firedate"] <- "09-10-2001"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Little", "firedate"] <- "09-10-2001"
 
 # 15-AUG-200
 (current <- bad_dates[13])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Little Joe", "firedate"] <- "08-25-2001"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Little Joe", "firedate"] <- "08-25-2001"
 
 # 16-AUG-200
 (current <- bad_dates[14])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Stone", "firedate"] <- "08-16-2001"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Stone", "firedate"] <- "08-16-2001"
 
 # 15-AUG-200
 (current <- bad_dates[15])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "FALCON", "firedate"] <- "08-06-2001"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "FALCON", "firedate"] <- "08-06-2001"
 
 # May-00
 (current <- bad_dates[16])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Viveash", "firedate"] <- "05-29-2000"
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Cerro Grande", "firedate"] <- "05-05-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Viveash", "firedate"] <- "05-29-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Cerro Grande", "firedate"] <- "05-05-2000"
 
 # 20-JUL-200
 (current <- bad_dates[17])
-check_date(usgs_compact, current)[[1]]
-check_date(usgs_compact, current)[[2]]
-check_date(usgs_compact, current)[[3]]
+check_date(usgs_cbi, current)[[1]]
+check_date(usgs_cbi, current)[[2]]
+check_date(usgs_cbi, current)[[3]]
 
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Bircher", "firedate"] <- "07-20-2000"
-usgs_compact[usgs_compact$firedate == current & usgs_compact$fire_nam == "Pony", "firedate"] <- "08-02-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Bircher", "firedate"] <- "07-20-2000"
+usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Pony", "firedate"] <- "08-02-2000"
 
-# Final clean-up for dates whose years were designated as 2-digit years
-idx <- which(usgs_compact$firedate %in% y2k_bug)
-usgs_compact$FireDate <- mdy("01-01-1970")
-usgs_compact$FireDate[idx] <- mdy(usgs_compact[idx, "firedate"])
-usgs_compact$FireDate[-idx] <- mdy(usgs_compact[-idx, "firedate"])
+usgs_cbi$firedate <- mdy(usgs_cbi$firedate)
 
 #######################
+# Now we have a dataset with all clean dates
+# We need to fix the spatial component
+# Replace the USFS "missingness" value (#NULL!) with R's missingness value (NA)
+# and convert to numeric
 
-clean_dates <- usgs_compact
+clean_dates <- usgs_cbi
 
 clean_dates$utm_zone[clean_dates$utm_zone == "#NULL!"] <- NA
 clean_dates$utm_zone <- as.numeric(clean_dates$utm_zone)
@@ -194,6 +202,8 @@ clean_dates$utme_rep <- as.numeric(clean_dates$utme_rep)
 clean_dates$utmn_rep[clean_dates$utmn_rep == "#NULL!"] <- NA
 clean_dates$utmn_rep <- as.numeric(clean_dates$utmn_rep)
 
+# Fires with bad zone information if both the native UTM zone and the
+# UTM zone used for image extraction are missing
 bad_zone <- is.na(clean_dates$utm_zone) & is.na(clean_dates$utmz_rep)
 bad_fires <- unique(clean_dates[which(bad_zone), "fire_nam"])
 bad_fires
@@ -202,13 +212,13 @@ bad_fires
 unique(clean_dates$region[which(bad_zone)])
 
 # Clean Foraker Fire
-# usgs[which(bad_zone & clean_dates$fire_nam == bad_fires[1]), ]
+# usgs_cbi[which(bad_zone & clean_dates$fire_nam == bad_fires[1]), ]
 # Based on the general Long/Lat coordinates, this fire should be in Zone 5. But the UTM coordinates make no sense for any zones.
-# usgs[which(bad_zone & clean_dates$fire_nam == bad_fires[1]), "utmz_rep"] <- 5
+# usgs_cbi[which(bad_zone & clean_dates$fire_nam == bad_fires[1]), "utmz_rep"] <- 5
 
 # Clean Otter Creek Fire
 # clean_dates[which(bad_zone & clean_dates$fire_nam == bad_fires[2]), ]
-# Same deal here. These UTM coordinates don't make any sense.
+# Same deal here. These UTM coordinates don't make any sense to me.
 
 # Get rid of all plots with messed up zones (as evidenced by no Zone information and weird coordinates)
 clean_dates <- subset(clean_dates, subset = !bad_zone)
@@ -219,6 +229,11 @@ bad_fires <- unique(clean_dates[which(bad_coords), "fire_nam"])
 bad_fires
 # Nope! All seem to have a pair
 
+# We're going to use the transformed coordinates for consistency (rather than whatever
+# was collected in the field)
+# Here, we assign the transformed coordinate columns to the native field column values (
+# which occured when no transformation was necessary), but only if the transformed
+# coordinate columns had missing values
 clean_dates$utmz_rep[is.na(clean_dates$utmz_rep)] <- clean_dates$utm_zone[is.na(clean_dates$utmz_rep)]
 clean_dates$utme_rep[is.na(clean_dates$utme_rep)] <- clean_dates$utmeast[is.na(clean_dates$utme_rep)]
 clean_dates$utmn_rep[is.na(clean_dates$utmn_rep)] <- clean_dates$utmnorth[is.na(clean_dates$utmn_rep)]
