@@ -204,7 +204,7 @@ $endif$
 $if(title)$
   \title{$title$}
   \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
+  \posttitle{\par\vspace{0.5em}}
 $else$
   \title{}
   \pretitle{\vspace{\droptitle}}
@@ -215,20 +215,29 @@ $if(subtitle)$
 $endif$
 
 $if(author)$
+  \author{$for(author)$$author$$sep$ , $endfor$}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+$else$
+  \author{}
+  \preauthor{}\postauthor{}
+$endif$
+
+$if(Author)$
     \usepackage{authblk}
     $if(affiliations)$
-        $for(author)$
-            \author[$for(author.affiliation)$$author.affiliation$$sep$, $endfor$]{$author.name$}
+        $for(Author)$
+            \author[$for(Author.affiliation)$$Author.affiliation$$sep$, $endfor$]{\small{\textsc{$Author.name$}}}
         $endfor$
         $for(affiliations)$
             \affil[$affiliations.code$]{\small{\emph{$affiliations.name$}}}
         $endfor$
     $else$
-        $for(author)$
-            $if(author.name)$
-                \author{$author.name$}
+        $for(Author)$
+            $if(Author.name)$
+                \author{\small{\textsc{$Author.name$}}}
             $else$
-                \author{$author$}
+                \author{\small{\textsc{$Author$}}}
             $endif$
         $endfor$ 
     $endif$
@@ -253,8 +262,13 @@ $if(title)$
 $endif$
 $if(abstract)$
 \begin{abstract}
-$abstract$
+\emph{Abstract. }$abstract$
 \end{abstract}
+$endif$
+
+%\providecommand{\keywords}[1]{#1}
+$if(keywords)$
+	\centerline{\textit{Key words: }$for(keywords)$\emph{$keywords$}$sep$; $endfor$}
 $endif$
 
 $for(include-before)$

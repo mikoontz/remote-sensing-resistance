@@ -2,9 +2,29 @@
 output: 
   pdf_document:
     template: "../ms/ms_carpentry/mjk_ms_template.tex"
+  # word_document:
+  #   reference_docx: "../ms/ms_carpentry/mjk_ms_template_word.docx"
 geometry: margin=1in
+header-includes: 
+- \usepackage{graphicx}
+- \usepackage{setspace}
+- \usepackage[left]{lineno}
+- \linenumbers
+- \renewcommand\abstractname{\vspace{-1em}}
+
+bibliography: /Users/mikoontz/dev/bibliography/BibTeX_Library/library.bib
+csl: /Users/mikoontz/dev/bibliography/Bibliography_Format/ecology.csl
+
 title: 'Greater variability in local forest structure increases resistance to wildfire'
-author: 
+author:
+- Michael J Koontz
+- Malcolm P North
+- Constance I Millar
+- Stephen E Fick
+- Chhaya M Werner
+- Andrew M Latimer
+
+Author:
 - name: Michael J Koontz
   affiliation: 1
 - name: Malcolm P North
@@ -30,20 +50,18 @@ affiliations:
   code: 4
 - name: Center for Population Biology, University of California, Davis, CA 95616 USA
   code: 5
-bibliography: /Users/mikoontz/dev/bibliography/BibTeX_Library/library.bib
-csl: /Users/mikoontz/dev/bibliography/Bibliography_Format/ecology.csl
-header-includes: 
-- \usepackage{graphicx}
-- \usepackage{setspace}
-- \usepackage[left]{lineno}
-- \linenumbers
+keywords: 
+- resilience
+- wildfire severity
+- RdNBR
+- remote sensing
 
 abstract: "Variation in the size and distribution of trees can enable a forest to withstand ongoing disturbances and retain its essential identity and function. In the few centuries prior to Euro-American settlement, Sierra Nevadan mixed conifer forests in California exhibited such structural variation, and persisted with a disturbance regime of frequent, low- to moderate-severity wildfire and bark beetle activity. Climate change-induced hotter droughts and a century of fire suppression have disrupted this variability in forest structure, with unknown consequences for forest persistence. I use three approaches to assess how variability in forest structure affects resilience of mixed conifer forests: 1) correlate remote-sensed measures of forest structure variability with wildfire severity, 2) simulate an agent-based model of western pine beetle (WPB) outbreak spread through different forest structures, and 3) rear WPB from different forest structures in a common garden to assess variation in its pheromone-mediated dispersal."
 
 ---
 \doublespacing
 
-# Introduction
+\textsc{Introduction}
 
 Biological systems comprising heterogeneous elements can retain their fundamental properties in the face of regular disturbance. This ability of a heterogeneous system to absorb disturbances, reorganize, and to persist within a domain of stability with respect to its identity, structure, function, and feedbacks is termed resilience [@Holling1973; @Gunderson2000; @Folke2004; @Walker2004]. Resilience (*sensu* @Walker2004) is characterized by four critical features: 1) latitude, which describes the degree to which a system can deviate from an attracting state and still recover to that state, 2) resistance, which describes the intensity or duration of a disturbance required to change the system state, 3) precariousness, which describes the proximity of a system to a threshold of a different domain of stability, and 4) panarchy, which describes how resilience features interact across multiple scales of organization. Resilience has been demonstrated in complex biological systems characterized by a variety of different types of “heterogeneity” including genetic diversity ([@Reusch2005; @Baskett2009; @Agashe2009], species diversity ([@Tilman1994; @Chesson2000; @Cadotte2013], functional diversity [@Gazol2016], topoclimatic complexity [@Ackerly2010, @Lenoir2013], and temporal environmental variation [@Questad2008]. An emerging paradigm in forest ecology is that spatial heterogeneity in the structure of vegetation on the landscape can confer resilience to disturbances such as wildfire, drought, and insect outbreaks [@Stephens2008; @North2009; @Virah-Sawmy2009]. Forests are globally important ecosystems threatened in a number of ways, and protection of forests is of high management priority [@Hansen2013; @Crowther2015; @Millar2015]. Thus, it is critical to understand the mechanisms underlying the effect of spatial heterogeneity in forest structure on forest resilience.
 
@@ -55,13 +73,15 @@ Resilience has gained new attention in light of anthropogenic global change beca
 
 What are the mechanisms by which spatial variability in forest structure confers resilience to California mixed conifer forests? 
 
-## Background
+# Background
 Previous work has suggested that forests with heterogeneous structures are more resistant to wildfire, and are less precariously positioned with respect to alternative system states [@Graham2004; @Moritz2005; @Stephens2008]. However, it is unclear whether this is true at broad spatial extents, nor is it resolved at what scale heterogeneity in forest structure is meaningful for resilience [@Kotliar1990]. Low resistance or high precariousness could imply a more likely catastrophic shift to an alternate stable state as anthropogenic change alters the feedback between forest structure and pattern-forming disturbance regimes in the Sierra Nevada.
 A forest that is resistant to wildfire will be less impacted following a disturbance of that type. In forests with relatively intact fire regimes and heterogeneous stand conditions such as in the Jeffrey pine forests of the Sierra San Pedro Martir in Baja, California, there tends to be reduced vegetation mortality after wildfires compared to fire-suppressed forests [@Stephens2008]. A heterogeneous forest can largely avoid overstory tree mortality because a reduced amount of accumulated ladder fuel decreases its ability to get into the crown (where mortality is more likely to result), because widely-spaced tree clumps interrupt fire spread across the landscape, and because tree clumps with fewer trees don’t facilitate self-propagating fire behavior [@Graham2004; @Scholl2010]. Thus, forests with heterogeneous structure are predicted to persist in that state due to resistance to inevitable wildfire disturbance. 
 The distribution of patch sizes of fire may represent a key pattern signaling resilience in a forest [@Kefi2011; @Svejcar2015]. There is some evidence that this distribution is stable under typical wildfire disturbance regimes, but is fundamentally altered when disturbance regimes lie outside the range of their historical variation [@Collins2009; @Miller2009b]. For instance, in fire-suppressed forests, there has been an increase in the average and maximum patches of high severity fire compared to historic conditions [@Miller2009b]. The patch size distribution of fires can be described with a power law distribution [@Malamud2005; @Moritz2005], and departures can be early warning signals of regime shifts [@Kefi2011]. Changes from historic distributions would indicate a shift in the underlying parameters that historically constrained the systems’ movement within the stability landscape. It is unclear whether observed increases in mean and maximum patch sizes through time are also accompanied by fundamental shifts in the distribution of patch sizes, a potential signal of forest precariousness to a threshold of an alternate stable state [@Coppoletta2016].
 Here, I ask two questions: 1) What is the effect of heterogeneity of forest structure on wildfire severity, and 2) Has there been an increase in forest precariousness over the last 30 years, as measured by changes in patch size distribution?
 
-Approach
+# Methods
+
+We used on-the-ground measurements of wildfire severity, the Composite Burn Index 
 
 Wildfire severity is defined by the percentage of fire-killed vegetation in an area, and it can be reliably measured by comparing pre- and post-fire satellite imagery. I used imagery from the Landsat 5 satellite, which provided publically available imagery of the whole earth at 30m spatial resolution every 16 days from 1984 to 2013. The relativized difference in normalized burn ratio (RdNBR) is a measurement of wildfire severity that is calculated using the near infrared (band 4) and short wave infrared band (band 7) of the Landsat 5 satellite according to @Miller2007:
 
