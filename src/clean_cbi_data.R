@@ -323,56 +323,29 @@ plot(landfire_cbi_sf$geometry)
 plot(sn, add = TRUE)
 
 landfire_cbi_sf$FireDate <- mdy(landfire_cbi_sf$FireDate)
+
+#### Combine data sources ####
+head(usgs_cbi_sf)
 head(landfire_cbi_sf)
 
-usgs_points_compact <- as.data.frame(usgs_points_compact)
-landfire_compact <- as.data.frame(landfire_compact)
+usgs_cbi_sf %<>%
+  mutate(id = 1:nrow(.), cbi_over_t = NA, cbi_totl = NA, cbi_tot_t = NA) %>%
+  select(id, firedate, fire_nam, cbi_over, cbi_over_t, cbi_totl, cbi_tot_t, source, geometry) %>%
+  rename(fireDate = firedate, fireName = fire_nam, cbi_tot = cbi_totl)
 
-names(usgs_points_compact) <- c("FireName", "FireDate", "cbi", "lon", "lat")
-names(landfire_compact) <- names(usgs_points_compact)
+landfire_cbi_sf %<>%
+  select(PlotID, FireDate, FireName, cbi_over, cbi_over_t, cbi_tot, cbi_tot_t, source, geometry) %>%
+  rename(id = PlotID, fireDate = FireDate, fireName = FireName)
 
-all_cbi_points <- rbind(landfire_compact, usgs_points_compact)
-all_cbi <- SpatialPointsDataFrame(coords = all_cbi_points[, c("lon", "lat")],
-                                  data = all_cbi_points,
-                                  proj4string = crs(landfire))
+head(usgs_cbi_sf)
+head(landfire_cbi_sf)
 
-states <- map_data("state")
-ca <- map_data("state", region = "California")
-ca <- Polygon(coords = ca[, c("long", "lat")])
-ca <- Polygons(srl = list(ca), ID = "California")
-ca <- SpatialPolygons(Srl = list(ca), proj4string = crs(landfire))
+cbi_sf <- rbind(usgs_cbi_sf, landfire_cbi_sf)
+sn_cbi <- cbi_sf[sn, ]
 
-ca_cbi <- all_cbi[ca, ]
-sn_cbi <- all_cbi[sn, ]
-nrow(ca_cbi)
-nrow(sn_cbi)
+plot(sn_cbi$geometry)
+plot(sn, add = TRUE)  
 
-plot(sn_cbi)
-length(unique(sn_cbi$FireName))
-
-plot(ca, lwd = 2)
-plot(ca_cbi, col = "red", pch = 19, add = TRUE)
-plot(sn, lwd = 2, add = TRUE)
-plot(all_cbi, col = "red", pch = 19, add = TRUE)
-
-# Some dates are way too low in usgs dataset!
-min(all_cbi$FireDate)
-which(year(landfire_compact$FireDate) < 500)
-which(year(usgs_points_compact$FireDate) < 500)
-
-ggplot(data = states) +
-  geom_polygon(aes(x = long, y = lat,  group = group), fill = "white", color = "black") +
-  guides(fill = FALSE) +
-  geom_point(data = all_cbi_points, aes(x = lon, y = lat), color = "red") +
-  coord_fixed(ratio = 1.3)
-
-plot(landfire)
-plot(usgs_points, add = TRUE)
-plot(sn, add = TRUE)
-
-# dir.create("../data/all-cbi/")
-# writeOGR(all_cbi, "../data/all-cbi/all-cbi.shp", layer="all-cbi", driver = "ESRI Shapefile")
-writeOGR(all_cbi, "../data/all-cbi.kml", layer="all-cbi", driver = "KML")
-
-# dir.create("../data/sierra-nevada-cbi/")
-# writeOGR(sn_cbi, "../data/sierra-nevada-cbi/sierra-nevada-cbi.shp", layer="sierra-nevada-cbi", driver = "ESRI Shapefile")
+# Write the objects as both a kml and a shapefile
+st_write(obj = sn_cbi, dsn = "data/features/cbi_data/cbi_sn/cbi_sn.shp")
+writeOGR(obj = as(object = sn_cbi, Class = "Spatial"), dsn = "data/features/cbi_data/cbi_sn/cbi_sn.kml", driver = "KML", layer = "cbi")

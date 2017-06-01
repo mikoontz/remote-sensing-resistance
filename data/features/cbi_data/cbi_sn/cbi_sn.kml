@@ -1,0 +1,3853 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="cbi" id="cbi">
+	<SimpleField name="id" type="int"></SimpleField>
+	<SimpleField name="fireDate" type="string"></SimpleField>
+	<SimpleField name="fireName" type="string"></SimpleField>
+	<SimpleField name="cbi_over" type="float"></SimpleField>
+	<SimpleField name="cbi_over_t" type="float"></SimpleField>
+	<SimpleField name="cbi_tot" type="float"></SimpleField>
+	<SimpleField name="cbi_tot_t" type="float"></SimpleField>
+	<SimpleField name="source" type="string"></SimpleField>
+</Schema>
+<Folder><name>cbi</name>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">1</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Highway</SimpleData>
+		<SimpleData name="cbi_over">2.29</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.76166380012954,36.571834374424682</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">2</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Highway</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.765751813529405,36.572233679924764</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">3</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.562243599079324,37.053778506792426</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">4</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0.88</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.515867412012483,37.053261376441604</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">5</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.516362287836813,37.058906516349964</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">6</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.528970643589545,37.052246271477834</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">7</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.515803393184413,37.055127984074645</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">8</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">1.74</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.548890950590334,37.050816591555176</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">9</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0.34</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.536316377750424,37.05236787087307</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">10</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">1.21</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.518184772811452,37.052736057339892</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">11</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0.64</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.554681025747186,37.052408482678196</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">12</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0.92</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.516646876045968,37.055694086688661</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">13</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0.62</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.521652468141411,37.05518844689005</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">14</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">2.48</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.531465422098023,37.055513082341939</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">15</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0.4</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.555837520042147,37.052871061797035</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">16</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0.86</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.552637786938433,37.049821290643699</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">17</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">2.57</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.523980053951618,37.054049967198928</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">18</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">1.3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.532571194637015,37.054020620000635</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">19</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">1</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.553861967691859,37.053050135581202</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">20</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.541727000071205,37.054109515181985</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">21</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.512251125204159,37.05520027449397</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">22</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">2</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.55296350701542,37.052557125445709</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">23</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">2.4</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.545674722375182,37.049704738580722</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">24</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">2.63</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.536976184305416,37.051629249397017</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">25</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">2.57</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.525005139116004,37.054135967174993</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">26</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0.94</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.557506594465423,37.054201217640028</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">27</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.542874491756365,37.054130678328917</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">28</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.524163484455784,37.057031075173597</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">29</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0.54</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.552631197980773,37.052804830338623</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">30</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">2.94</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.546710711174285,37.049222561187221</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">31</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">2.97</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.522186491310606,37.053775506222088</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">32</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.526097327319874,37.057006259769238</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">33</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">2.26</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.536645532153429,37.055302005623659</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">34</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">2.63</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.532086882040815,37.056217136811512</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">35</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0.9</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.548888172835973,37.052889723020698</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">36</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">1.62</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.541282812482009,37.056053170190786</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">37</SimpleData>
+		<SimpleData name="fireDate">2002-07-01</SimpleData>
+		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.538633715632784,37.047957348007721</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">38</SimpleData>
+		<SimpleData name="fireDate">2002-06-01</SimpleData>
+		<SimpleData name="fireName">Sherman 9</SimpleData>
+		<SimpleData name="cbi_over">1.15</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.772457892991298,36.572765259174126</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">39</SimpleData>
+		<SimpleData name="fireDate">2002-06-01</SimpleData>
+		<SimpleData name="fireName">Sherman 9</SimpleData>
+		<SimpleData name="cbi_over">1.28</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.771321958689072,36.572448605215186</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">40</SimpleData>
+		<SimpleData name="fireDate">2002-06-01</SimpleData>
+		<SimpleData name="fireName">Sherman 9</SimpleData>
+		<SimpleData name="cbi_over">1.18</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.771155556278046,36.57494795212132</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">41</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">2.8</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.668511980306192,36.45032627030514</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">42</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">0.9</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.675303485341516,36.447049301178573</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">43</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">1.8</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.668826928196239,36.437945272814531</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">44</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">0.68</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.681527166066587,36.43765023010733</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">45</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">1.36</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.68089012657633,36.441733634025326</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">46</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">1.38</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.671526622174881,36.452501687584501</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">47</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">2.4</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.668291488800804,36.43638425537246</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">48</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">2.63</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.669071630545687,36.45040860465047</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">49</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">2.39</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.668702394211508,36.448277374432834</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">50</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">1.68</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.669974150920893,36.438379976635176</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">51</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">1.14</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.68348918182933,36.441715110758622</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">52</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">1.4</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.671070920092461,36.438022117164692</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">53</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">1.5</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.670134135510096,36.453647922975499</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">54</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">1.16</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.670140929220594,36.452403859672536</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">55</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">1.65</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.670740647685349,36.43874787327016</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">56</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">0.81</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.678868394273252,36.441103985726592</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">57</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">1.62</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.67016863613749,36.446931811669224</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">58</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">1.06</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.67228391758141,36.441520734938031</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">59</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">0.43</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.677082169084628,36.442084555930599</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">60</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">0.07</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.672115079546955,36.435213097545564</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">61</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.682735601277727,36.444015337739557</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">62</SimpleData>
+		<SimpleData name="fireDate">2002-10-01</SimpleData>
+		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="cbi_over">0.83</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.674089756922243,36.433662064365265</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">63</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.470874804053338,35.976191898505384</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">64</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">0.86</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.508841749553085,36.031686285895823</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">65</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.28</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.479851358671581,36.03045148428054</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">66</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.492300532976373,36.037338086438119</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">67</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.44</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.502467169365232,35.989368672897996</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">68</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.39</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.524659325274087,35.970121139373298</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">69</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.515059403667536,36.008628834368281</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">70</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.518313199271745,36.011093885012144</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">71</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.15</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.51401063851722,36.011806321671862</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">72</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.514496877183589,35.970484124695936</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">73</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.513692415266419,35.971332674190514</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">74</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.499923066100919,35.980953304406363</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">75</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">1.46</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.486961946312746,36.034988314471882</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">76</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.2</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.516832343916832,36.017774664889124</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">77</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.68</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.517788833662351,36.017888783567571</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">78</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.5211182103818,35.977459271587634</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">79</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.5</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.505586616097489,35.982487121621823</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">80</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.43</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.504304815987609,35.984495529226919</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">81</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.93</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.487733471270673,36.043551981097607</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">82</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.7</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.477900532948908,36.031773669300591</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">83</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.26</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.491315514893955,36.046906171653703</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">84</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.44</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.489224256590248,36.056695309880901</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">85</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.51596860186622,36.021923441942477</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">86</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.526125154951558,36.00652339835824</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">87</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.39</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.381403450218215,35.985701288279863</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">88</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.94</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.381608004639091,35.986618487712732</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">89</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.45</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.382798361179439,35.986181077110906</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">90</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.58</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.416924453319282,35.973477670876918</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">91</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.516603858433271,36.015695096010909</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">92</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">1.71</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.420228860810752,35.972825619112719</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">93</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.39</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.421044433927065,35.96944428780121</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">94</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.418104610320597,35.973112153222267</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">95</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.41</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.415866055915274,35.971966578868603</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">96</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.5</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.41657760333139,35.971444324190472</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">97</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.4</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.418044860159554,35.970390265764429</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">98</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.54</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.393218972456594,35.98771947612655</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">99</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.53</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.396021811101065,35.987515648749827</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">100</SimpleData>
+		<SimpleData name="fireDate">2002-08-01</SimpleData>
+		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="cbi_over">2.58</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.51341306938366,36.029879832302235</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">101</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.14</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.617987267499629,37.841164888444695</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">102</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.95</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.605573622953557,37.841814216596816</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">103</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.79</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.612969966568883,37.826050741667999</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">104</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">2.09</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.616709659789379,37.83671761653639</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">105</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.73</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.614608014621126,37.83148395929453</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">106</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.46</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.616100125547973,37.825514479416086</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">107</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.34</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.615093272732082,37.82634151211878</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">108</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.65</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.613274427698499,37.824376979107285</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">109</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.59</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.616891031274349,37.82568162747711</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">110</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.88</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.617666435349605,37.838615653394967</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">111</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.63</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.604881340399601,37.842354867287384</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">112</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.06</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.616019078440615,37.829844184118592</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">113</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.66</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.617923729403714,37.835899478169068</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">114</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.11</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.61245808928139,37.83279319681963</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">115</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.65</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.615368494519217,37.830016325986477</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">116</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.43</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.616795850829661,37.838159234572409</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">117</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.59</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.615231486063692,37.825204878979719</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">118</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.36</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.613471872583929,37.830517990366459</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">119</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.33</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.619379092393942,37.836667270364096</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">120</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.7</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.619469059237289,37.82896732363939</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">121</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.39</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.607216794411187,37.842075197934697</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">122</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.6</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.606555203860069,37.841777170882516</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">123</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.34</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.617137723978558,37.829703987127715</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">124</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.53</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.619068196352671,37.830096286417735</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">125</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.68</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.604892120768014,37.843048463353675</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">126</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.91</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.613703480979481,37.825074807748521</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">127</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">2.25</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.611030549712325,37.828010368871453</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">128</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.99</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.612768455178198,37.829161250235607</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">129</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">2.01</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.612800390760754,37.830420256890015</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">130</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">1.54</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.61871068855416,37.830973782682364</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">131</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.4</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.619312654516136,37.831000941991313</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">132</SimpleData>
+		<SimpleData name="fireDate">1999-07-14</SimpleData>
+		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="cbi_over">0.86</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.620781513320068,37.830740283742259</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">133</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.83</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.585739428093632,37.648737169421821</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">134</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.586494104469736,37.648211509267327</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">135</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.95</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.587605092609436,37.64655798069218</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">136</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.81</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.587767762370163,37.646151627311077</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">137</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.05</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.587673715270029,37.645369747904866</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">138</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.08</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.588353391383166,37.644611439906342</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">139</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.64</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.589969195789877,37.643496471121423</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">140</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.73</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.590424269437619,37.642993584555697</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">141</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.16</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.592200398466005,37.641310085154181</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">142</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.33</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.582812582301287,37.639511118020977</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">143</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">1.78</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.579993972442438,37.640352243983997</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">144</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.54</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.590690303979983,37.642399333797179</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">145</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">1.3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.586432422287061,37.646664800149217</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">146</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.54</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.586789578487625,37.647386845144339</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">147</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.31</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.593649572923297,37.641661187305843</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">148</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.8</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.585289542680428,37.647368373610661</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">149</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">1.94</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.584743190597038,37.647529027200576</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">150</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.26</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.588646627989888,37.645776413047493</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">151</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.41</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.5893309587414,37.645608207064967</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">152</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.61</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.579910413982077,37.641309222391413</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">153</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.81</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.580226830474032,37.639321714820028</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">154</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.65</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.589062936618589,37.643246043045771</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">155</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.91</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.588786177877353,37.64672579533822</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">156</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.89</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.584508479097082,37.649647212427297</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">157</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">1.26</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.5800955624034,37.63811713133515</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">158</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">1.13</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.582178174401079,37.639810652332734</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">159</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.34</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.581166193485601,37.638404581823046</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">160</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.5</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.580931600767798,37.639155814189479</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">161</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.79</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.594948327021797,37.639809729359371</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">162</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.48</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.595631522796538,37.639578436663982</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">163</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.79</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.597241982924061,37.63844636717932</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">164</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">1.21</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.584297688610761,37.647689270709485</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">165</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">1.25</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.583687929984691,37.64791708791266</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">166</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.33</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.583277039077643,37.648160370222676</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">167</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.49</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.597846071907881,37.639293597866619</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">168</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.1</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.579108011027415,37.642909978059627</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">169</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">1.06</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.57992810237441,37.643421880691768</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">170</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.9</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.57968146963195,37.644055331621459</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">171</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">0.75</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.579579611312056,37.644517112842614</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">172</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">1.69</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.579849207522926,37.645592518276523</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">173</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">1.91</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.597515922779394,37.637495999645012</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">174</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">2.98</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.596798970927779,37.636628724547741</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">175</SimpleData>
+		<SimpleData name="fireDate">1999-11-06</SimpleData>
+		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="cbi_over">1.84</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.597304957468552,37.636450883347187</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">176</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.50095182237645,37.652281226119911</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">177</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.73</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.485686737052418,37.680392278101586</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">178</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.4</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.473198327684827,37.6577581807353</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">179</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.93</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.490447611746234,37.641760795114159</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">180</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.6</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.493329527109964,37.64118623083629</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">181</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.98</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.495381516607296,37.642899942005634</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">182</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.494977427573374,37.644368277830928</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">183</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.59</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.49156518427948,37.643323107909232</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">184</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.55</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.500646609567681,37.656250725169521</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">185</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.8</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.497383164399736,37.657293122465923</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">186</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.467221125238709,37.666534067501175</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">187</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.88</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.469309967358285,37.665598216902588</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">188</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.98</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.468665882300911,37.66395368756605</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">189</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.88</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.469099510439349,37.662674048100143</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">190</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.95</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.468202690138114,37.66126909749763</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">191</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.475480743072509,37.66094520308247</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">192</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.55</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.510001802526403,37.650321028647312</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">193</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.08</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.510639575164106,37.652091622844154</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">194</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.8</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.498901735566221,37.65087215119425</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">195</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0.75</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.498248520865658,37.670232532854911</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">196</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.55</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.497570864007017,37.676383354450174</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">197</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0.88</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.489634041934892,37.674343668373645</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">198</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0.91</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.486284984742667,37.678955921518543</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">199</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.93</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.495722678413301,37.680432392216851</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">200</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0.88</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.474926761339844,37.665417287405802</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">201</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.38</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.468727679400047,37.658302484330662</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">202</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0.5</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.49753418715224,37.645584667632193</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">203</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.69</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.496499993957471,37.672179918984661</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">204</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.6</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.495616098120323,37.676920382596933</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">205</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.75</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.49431648843769,37.679750310678777</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">206</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.75</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.492099977567136,37.679247553903849</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">207</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.44</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.489073830617244,37.679960321442287</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">208</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.75</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.489741367775082,37.68364070457514</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">209</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.51</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.487068153836532,37.685418266564348</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">210</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.59</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.484851561251503,37.679490779717284</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">211</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.7</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.467634089678853,37.667363443185437</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">212</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.91</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.470034618500137,37.659428504725661</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">213</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.71</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.471309122722019,37.655824406265467</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">214</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.9</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.489677530156953,37.640082998070447</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">215</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.8</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.493426809822992,37.640030765256988</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">216</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.38</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.502466938163835,37.655103760819308</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">217</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.5</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.502999377820402,37.657453333079765</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">218</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.5</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.503245938028343,37.665116418693451</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">219</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.65</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.503323076814084,37.666060930492968</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">220</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.38</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.499468929830812,37.671125764016587</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">221</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.63</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.499041406630269,37.67290998939567</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">222</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.19</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.494474332701415,37.673979962298596</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">223</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.06</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.486228725975153,37.68100259669513</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">224</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.38</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.486898005971184,37.684061205062449</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">225</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.31</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.470014012223857,37.664610270047532</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">226</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.53</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.49755912343349,37.638897988685997</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">227</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.78</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.496334344965788,37.649007230176792</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">228</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">2.2</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.499017596882709,37.648247501196295</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">229</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.498209907501902,37.665034032812535</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">230</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.496102396664526,37.678706861699759</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">231</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.49298474647334,37.67226066467753</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">232</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.495822941435193,37.660452986459759</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">233</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.476406311109557,37.663890372960431</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">234</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0.16</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.500651000364286,37.67559713829548</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">235</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.31</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.493789863119687,37.67689597914385</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">236</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">1.21</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.46556636094428,37.662784079561938</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">237</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0.74</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.505212245705451,37.653153178550795</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">238</SimpleData>
+		<SimpleData name="fireDate">2001-07-10</SimpleData>
+		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="cbi_over">0.2</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.508320604603128,37.653907110070961</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">239</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.25</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.762844746479189,37.772374904542524</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">240</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.68</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.765804748073208,37.772909176402678</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">241</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">1.02</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.744154210258188,37.793707334027658</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">242</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.747834102184868,37.79832507417084</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">243</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.751300099756747,37.800839209566035</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">244</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.754350670137356,37.801948313234057</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">245</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">2.73</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.762097336250633,37.804127707450789</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">246</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">2.4</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.764146703603288,37.802439716218451</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">247</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">2.78</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.761327376702226,37.800226159911595</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">248</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">2.55</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.761574915072856,37.798030788212991</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">249</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.751052111766583,37.799970973391154</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">250</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">2.57</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.763441543016427,37.803933992442268</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">251</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">1.08</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.74820854269295,37.7829983004806</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">252</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.13</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.733651454140087,37.79157276042185</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">253</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.51</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.734508806504394,37.796346516473854</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">254</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.54</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.745727652958664,37.80154593421603</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">255</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.74</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.750209878243481,37.801756720199315</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">256</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.13</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.755532082632968,37.782097379542179</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">257</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.84</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.768867904568637,37.778640057570428</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">258</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.28</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.76864343160122,37.776275548261992</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">259</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.36</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.774799141222303,37.767850027478126</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">260</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">2.28</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.791536178562282,37.784295434124019</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">261</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">2.15</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.785127929670324,37.788700065064511</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">262</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">1.31</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.785425482502006,37.784530160636194</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">263</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">1.54</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.785807723660568,37.782313540100994</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">264</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">1.79</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.729143630227526,37.793425362507698</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">265</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">1.61</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.739438984953765,37.792708792628822</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">266</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">1.42</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.771104398717384,37.772865761441963</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">267</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">1.49</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.791740843458655,37.783398542165976</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">268</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">1.57</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.785617817191948,37.787535134433149</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">269</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">1.35</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.784463361958515,37.784003258805811</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">270</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.29</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.740450938617315,37.797046392212756</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">271</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.17</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.750047843953965,37.779936816592382</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">272</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.743859948581957,37.787289618152968</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">273</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.752102432807476,37.78329485154827</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">274</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.751543949584956,37.783848531516242</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">275</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.28</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.747201575316851,37.785238402235976</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">276</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.29</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.744848654319725,37.785779829461696</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">277</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.768489501141019,37.77701803307243</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">278</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.18</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.758368259085557,37.774101686015392</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">279</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="cbi_over">0.34</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.758242341585131,37.775600394559923</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">280</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">2.55</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.672617972975672,37.865203392012241</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">2.08</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.672848460865239,37.86308965996944</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">282</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">2.29</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.659016606983656,37.871954093457148</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">283</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.81</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.651783561085637,37.873126480569887</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">284</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.97</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.659713759841708,37.880903975583742</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">285</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.99</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.653134021550628,37.885413669360425</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">286</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">2.74</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.653227544829775,37.887384901651785</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">287</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">2.77</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.659337744305574,37.878668812530677</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">288</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.62</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.64993539569447,37.884990150770207</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">289</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">1.99</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.66113793194603,37.880358171797361</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">290</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">1.01</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.656093919015248,37.88773473192623</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">291</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">1.11</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.650498221627018,37.886734561333817</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">292</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.71</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.642977811086411,37.875784479642483</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">293</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">1.46</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.665247924470549,37.860027167405015</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">294</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.96</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.66240622820051,37.870435755448</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">295</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.8</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.667876117419695,37.869554998457531</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">296</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.68</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.659991599459062,37.869670377980007</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">297</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.29</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.670070927329931,37.872100302159431</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">298</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">1.08</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.663697929676076,37.861485943495204</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">299</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">2.28</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.646921861088899,37.887193506452846</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">300</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">2.34</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.658557400118113,37.872144680954086</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">1.43</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.656255900125558,37.872313784527378</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">302</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">1.78</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.657666495543722,37.863172120365356</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">303</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">2.1</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.658538617592839,37.864035474877163</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">304</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.82</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.671114249462036,37.864480629579091</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">305</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.7</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.671939959176655,37.863425660431808</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">306</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">1.48</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.671874862061784,37.864769729208462</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">307</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">2.65</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.659707831676286,37.871893421686252</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">308</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.64</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.665413575264424,37.879441441665058</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">309</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.2</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.655538168438099,37.86625676551963</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">310</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.7</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.667547908074496,37.865813993532264</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">311</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.66590802979664,37.871717103089587</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">312</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.66501179790842,37.880594895984501</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">313</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0.62</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.672004036499146,37.87180413246535</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">314</SimpleData>
+		<SimpleData name="fireDate">2002-09-01</SimpleData>
+		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.655999945851107,37.783788898634455</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">315</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.6</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.731819267885655,37.839515694816612</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">316</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">0.28</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.712353880069941,37.836983250559271</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">317</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.78</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.732242220623291,37.843894033037728</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">318</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.75</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.733224623619478,37.843727059029177</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">319</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.78</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.732473723248546,37.839392379685584</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">320</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.55</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.73140637435354,37.838795417552767</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">321</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.78</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.717124499641869,37.848397819652035</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">322</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.72</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.726506137459424,37.840251583764314</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">323</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.5</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.711531443126859,37.839344958727132</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">324</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.5</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.724907730842205,37.841586117214412</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">325</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">1.85</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.71861881488357,37.848552541837883</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">326</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.19</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.718614602894164,37.845344864188661</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">327</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.13</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.730207016784945,37.843860155377378</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">328</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.13</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.709283190375984,37.837522506876418</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">329</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">2.22</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.712109603104636,37.833727029568387</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">330</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">0.85</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.71303764500145,37.840139235919452</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">331</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">1.45</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.717799506235508,37.839858201656249</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">332</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.710300966331999,37.832426093459517</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">333</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.721587821091362,37.841221393843881</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">334</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.717950679219172,37.833763534385184</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">335</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.71510264525071,37.842227146700644</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">336</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.607354851711506,37.848185989332435</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">337</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.28</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.604484660029712,37.845095729358682</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">338</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.576454069876817,37.871276342202925</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">339</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.78</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.60049367485783,37.846319317605463</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">340</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.35</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.587819623934536,37.856934044333045</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">341</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.8</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.578777204631933,37.867485961479886</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">342</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.85</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.57809025771985,37.869951963089299</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">343</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.43</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.587656072775928,37.860055394790372</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">344</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.68</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.58595811938963,37.852451498769859</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">345</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">1.43</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.599988196664881,37.841635830596573</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">346</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">1.1</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.596901083107554,37.845299294207642</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">347</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">1.88</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.585672412088087,37.851430535696899</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">348</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">1.13</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.602481584146901,37.849852692952204</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">349</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">1.18</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.590989965714385,37.856269591813252</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">350</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">1.38</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.587506812667144,37.848641917847083</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">351</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">2.42</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.588475045661738,37.85130587039945</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">352</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">2.15</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.590371667100513,37.857112197071316</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">353</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">2.88</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.591328136908245,37.858460794992055</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">354</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">2.18</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.585001614454967,37.861176996960545</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">355</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">1.58</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.586151709451741,37.863188187752009</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">356</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">2.94</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.585874787944576,37.862094947549721</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">357</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">2.94</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.586721894537561,37.861292391551899</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">358</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">2.76</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.589261621277529,37.855271371604651</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">359</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">2.85</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.588557017136452,37.852349327759441</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">360</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">2.94</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.588123249823937,37.853268961571189</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">361</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">2.88</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.588650639019122,37.854050321266158</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">362</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">1.03</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.526861107302366,37.810815374617746</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">363</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.606112275101268,37.850655436953708</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">364</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">2.9</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.590829101195595,37.853623942002983</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">365</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.6</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.603256592291913,37.849916655364083</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">366</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.48</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.598610488764393,37.847703515466414</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">367</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.63</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.523219301943158,37.808938056306943</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">368</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.48</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.524522383184149,37.809847280741437</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">369</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">0.58</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.521371422014695,37.809707523971369</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">370</SimpleData>
+		<SimpleData name="fireDate">2003-07-23</SimpleData>
+		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="cbi_over">1.05</SimpleData>
+		<SimpleData name="source">zhu2006</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.522138938824597,37.808564710365708</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281001</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="cbi_over">2.65054586266707</SimpleData>
+		<SimpleData name="cbi_over_t">2.24128490290107</SimpleData>
+		<SimpleData name="cbi_tot">2.147964493</SimpleData>
+		<SimpleData name="cbi_tot_t">1.830644832</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.97678977645073,35.708461580180774</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281002</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="cbi_over">2.75257626772778</SimpleData>
+		<SimpleData name="cbi_over_t">2.3178077066966</SimpleData>
+		<SimpleData name="cbi_tot">2.303050709</SimpleData>
+		<SimpleData name="cbi_tot_t">2.015324967</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.978196068674521,35.708657525053638</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281003</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="cbi_over">1.02030405060708</SimpleData>
+		<SimpleData name="cbi_over_t">0.765228037955311</SimpleData>
+		<SimpleData name="cbi_tot">1.346163657</SimpleData>
+		<SimpleData name="cbi_tot_t">1.21862565</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.975320337523414,35.713062620955341</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281004</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="cbi_over">1.02030405060708</SimpleData>
+		<SimpleData name="cbi_over_t">1.26522803795531</SimpleData>
+		<SimpleData name="cbi_tot">1.481294426</SimpleData>
+		<SimpleData name="cbi_tot_t">1.575987144</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.940083224386413,35.700405091612645</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281005</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.943293988646403,35.70179548292748</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281006</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="cbi_over">0.697224772982347</SimpleData>
+		<SimpleData name="cbi_over_t">1.02291857973676</SimpleData>
+		<SimpleData name="cbi_tot">0.565541781</SimpleData>
+		<SimpleData name="cbi_tot_t">0.80704775</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.947012755354109,35.694724782878339</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281007</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.948228577148697,35.693795578441453</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281101</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="cbi_over">3.03373805394007</SimpleData>
+		<SimpleData name="cbi_over_t">2.52867904635582</SimpleData>
+		<SimpleData name="cbi_tot">2.620997857</SimpleData>
+		<SimpleData name="cbi_tot_t">2.192459953</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.976988392497077,35.704808502639118</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281102</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.980223525309498,35.704511718475757</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281103</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="cbi_over">1.53729211304969</SimpleData>
+		<SimpleData name="cbi_over_t">1.15296908478727</SimpleData>
+		<SimpleData name="cbi_tot">1.864835221</SimpleData>
+		<SimpleData name="cbi_tot_t">1.672673707</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.975111116475645,35.711315220705913</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281104</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="cbi_over">3.03035404550556</SimpleData>
+		<SimpleData name="cbi_over_t">2.77276553412918</SimpleData>
+		<SimpleData name="cbi_tot">2.771434888</SimpleData>
+		<SimpleData name="cbi_tot_t">2.599709213</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.939138661614777,35.699033016583115</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281105</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.937044128866901,35.698562476683904</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281106</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="cbi_over">3.03035404550556</SimpleData>
+		<SimpleData name="cbi_over_t">2.77276553412918</SimpleData>
+		<SimpleData name="cbi_tot">2.751028807</SimpleData>
+		<SimpleData name="cbi_tot_t">2.579303132</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.950777328168257,35.694361513549168</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">281107</SimpleData>
+		<SimpleData name="fireDate">2010-07-18</SimpleData>
+		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.948438231419061,35.693766878653229</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>
