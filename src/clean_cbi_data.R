@@ -1,18 +1,19 @@
 # rm(list = ls())
 library(raster)
+library(dplyr)
 library(lubridate)
 library(ggmap)
 library(rgdal)
 library(sf)
 
-landfire <- st_read("data/features/cbi_data/firesev_landfire/firesev_cbi_data")
 sn <- st_read("data/features/SierraEcoregion_TNC/")
-landfire <- st_transform(landfire, st_crs(sn))
 
-filepaths <- list.files(path = "data/features/cbi_data/usgs", full.names = TRUE, pattern = ".csv")
+#### First read the USGS data ####
 
 # USGS Data from Zhu et al. 2006 (https://www.firescience.gov/projects/01-1-4-12/project/01-1-4-12_final_report.pdf)
 # Spatial data from https://archive.usgs.gov/archive/sites/www.nrmsc.usgs.gov/science/fire/cbi/plotdata.html
+#### Read files ####
+filepaths <- list.files(path = "data/features/cbi_data/usgs", full.names = TRUE, pattern = ".csv")
 usgs_list <- lapply(filepaths, FUN = function(file) read.csv(file, stringsAsFactors = FALSE))
 usgs_list <- lapply(usgs_list, function(x) subset(x[which(x$qual_ea == 1), ]))
 usgs_cbi <- do.call(rbind, usgs_list)
@@ -20,6 +21,7 @@ usgs_cbi <- do.call(rbind, usgs_list)
 # usgs_compact <- subset(usgs, select = c(fireyr, firedate, fire_nam, plot_id,  utmeast, utmnorth, utm_zone, utme_rep, utmn_rep, utmz_rep, cbi_undr, cbi_over, cbi_totl))
 unique(usgs_cbi$firedate)
 
+#### Correct the fire dates ####
 # Which dates don't parse?
 # Indices of bad dates
 bad_dates_idx <- is.na(mdy(unique(usgs_cbi$firedate)))
@@ -180,7 +182,7 @@ usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Pony", "firedate"]
 
 usgs_cbi$firedate <- mdy(usgs_cbi$firedate)
 
-#######################
+#### Fix the spatial component ####
 # Now we have a dataset with all clean dates
 # We need to fix the spatial component
 # Replace the USFS "missingness" value (#NULL!) with R's missingness value (NA)
@@ -239,35 +241,89 @@ clean_dates$utme_rep[is.na(clean_dates$utme_rep)] <- clean_dates$utmeast[is.na(c
 clean_dates$utmn_rep[is.na(clean_dates$utmn_rep)] <- clean_dates$utmnorth[is.na(clean_dates$utmn_rep)]
 clean_dates$datumrep[is.na(clean_dates$datumrep)] <- clean_dates$gpsdatum[is.na(clean_dates$datumrep)]
 
-# tail(clean_dates)
-clean <- subset(clean_dates, select = c(fire_nam, region, FireDate, utme_rep, utmn_rep, utmz_rep, datumrep, cbi_totl, cbi_undr, cbi_over))
-# head(clean)
+clean <- subset(clean_dates, select = c(fire_nam, region, firedate, utme_rep, utmn_rep, utmz_rep, datumrep, cbi_totl, cbi_undr, cbi_over))
 
-# All plots have a cbi_totl value?
+# Swap out USGS missingness ("#NULL!") with R missingness (NA)
+clean$cbi_totl[clean$cbi_totl == "#NULL!"] <- NA
+clean$cbi_over[clean$cbi_over == "#NULL!"] <- NA
+
+# Convert columns to numeric values instead of character
 clean$cbi_totl <- as.numeric(clean$cbi_totl)
+clean$cbi_over <- as.numeric(clean$cbi_over)
 
 # Clean the datumrep column
 unique(clean$datumrep)
 clean$datumrep[clean$datumrep == "NAD 27"] <- "NAD27"
+
+# Set the coordinate reference system for the points based on their particular zone and datum
 clean$proj4string <- paste0("+proj=utm +zone=", clean$utmz_rep, " +datum=", clean$datumrep)
 
+# Make the points spatial
+# Also, turn sp objects into sf objects and transform all projections to be the same as the one for Landfire database
 rows <- 1:nrow(clean)
 list_points <- lapply(rows, FUN = function(i) {
   current_CRS <- crs(clean$proj4string[i])
   spdf_current <- SpatialPointsDataFrame(coords = clean[i, c("utme_rep", "utmn_rep")],
                                          data = clean[i, ],
                                          proj4string = current_CRS)
+  x <- st_as_sf(spdf_current)
+  x <- st_transform(x, st_crs(sn))
+  x
 })
 
-# Transform all projections to be the same as the one for Landfire database
-list_points <- lapply(list_points, FUN = function(x) {
-  spTransform(x, crs(landfire))
+usgs_cbi_sf <- do.call(rbind, list_points)
+usgs_cbi_sf$source <- "zhu2006"
+
+plot(usgs_cbi_sf$geometry)
+plot(sn, add = TRUE)
+
+#### Now work with the Landfire data ####
+# Try to extract both overstory and overall CBI from Landfire data
+# All data available from: https://www.fs.usda.gov/rds/archive/Product/RDS-2013-0017/
+# Sikkink, Pamela G.; Dillon, Gregory K.; Keane,Robert E.; Morgan, Penelope; Karau, Eva C.; Holden, Zachary A.; Silverstein, Robin P. 2013. Composite Burn Index (CBI) data and field photos collected for the FIRESEV project, western United States. Fort Collins, CO: Forest Service Research Data Archive. https://doi.org/10.2737/RDS-2013-0017
+
+fd <- read.csv("data/features/cbi_data/firesev_landfire/FIRESEV_Dataset_All_variables.csv", skip = 1)
+
+# Look just at the overstory columns (i.e. not the substrate (A) or small tree strata (B))
+# CBI measurements with a _t suffix have a "smallest twig" component included
+overstory_cols_t <- fd[, c("cbi_C_t", "cbi_D_t", "cbi_E", "cbi_F")]
+overstory_cols <- fd[, c("cbi_C", "cbi_D", "cbi_E", "cbi_F")]
+
+# Where are all the overstory strata NA?
+overstory_all_NA <- apply(overstory_cols, 1, function(x) all(is.na(x)))
+overstory_all_NA_t <- apply(overstory_cols_t, 1, function(x) all(is.na(x)))
+
+# If the overstory strata are NA, overstory CBI is an NA, otherwise it's the mean value
+# across the other strata
+fd$cbi_over <- ifelse(overstory_all_NA, yes = NA, no = apply(overstory_cols, MARGIN = 1, FUN = mean, na.rm = TRUE))
+fd$cbi_over_t <- ifelse(overstory_all_NA_t, yes = NA, no = apply(overstory_cols_t, MARGIN = 1, FUN = mean, na.rm = TRUE))
+
+# Subset the fd dataframe to just be the few columns we need
+fd_sub <- select(fd, Northing, Easting, UTM_Zone, Datum, FireDate, FireName, PlotID, cbi_over, cbi_over_t, cbi_tot, cbi_tot_t)
+
+fd_sub$proj4string <- paste0("+proj=utm +zone=", fd_sub$UTM_Zone, " +datum=", fd_sub$Datum)
+
+# Make the points spatial
+# Also, turn sp objects into sf objects and transform all projections to be the same as the one for Landfire database
+rows <- 1:nrow(fd_sub)
+list_points <- lapply(rows, FUN = function(i) {
+  current_CRS <- crs(fd_sub$proj4string[i])
+  spdf_current <- SpatialPointsDataFrame(coords = fd_sub[i, c("Easting", "Northing")],
+                                         data = fd_sub[i, ],
+                                         proj4string = current_CRS)
+  x <- st_as_sf(spdf_current)
+  x <- st_transform(x, st_crs(sn))
+  x
 })
 
-usgs_points <- do.call(rbind, list_points)
-usgs_points_compact <- subset(usgs_points, select = c(fire_nam, FireDate, cbi_totl))
-landfire_compact <- subset(landfire, select = c(FireName, FireDate, CBI))
-landfire_compact$FireDate <- ymd(landfire_compact$FireDate)
+landfire_cbi_sf <- do.call(rbind, list_points)
+landfire_cbi_sf$source <- "sikkink2013"
+
+plot(landfire_cbi_sf$geometry)
+plot(sn, add = TRUE)
+
+landfire_cbi_sf$FireDate <- mdy(landfire_cbi_sf$FireDate)
+head(landfire_cbi_sf)
 
 usgs_points_compact <- as.data.frame(usgs_points_compact)
 landfire_compact <- as.data.frame(landfire_compact)
