@@ -1,0 +1,2472 @@
+﻿<?xml version="1.0"?>
+<?xml-stylesheet href='NBII_classic.xsl' type='text/xsl'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Sikkink, Pamela G.</origin>
+        <origin>Dillon, Gregory K.</origin>
+        <origin>Keane,Robert E.</origin>
+        <origin>Morgan, Penelope</origin>
+        <origin>Karau, Eva C.</origin>
+        <origin>Holden, Zachary A.</origin>
+        <origin>Silverstein, Robin P.</origin>
+        <pubdate>2013</pubdate>
+        <title>Composite Burn Index (CBI) data and field photos collected for the FIRESEV project, western United States</title>
+        <geoform>tabular digital data</geoform>
+        <pubinfo>
+          <pubplace>Fort Collins, CO</pubplace>
+          <publish>Forest Service Research Data Archive</publish>
+        </pubinfo>
+        <onlink>https://doi.org/10.2737/RDS-2013-0017</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This set of Composite Burn Index (CBI) data was collected from 2009 to 2011 and supports several products created during the FIRESEV project, which was funded by the Joint Fire Sciences Program. FIRESEV (FIRE SEVerity mapping tools) is a comprehensive set of tools and protocols to deliver, create, and evaluate fire severity maps for all phases of fire management. This CBI data describes fire effects for the western U.S. for five vegetation strata after burning in 2008 to 2010 (Key and Benson 1999). The strata include substrates (litter, duff, fuel, and soil); herbs, low shrubs, and small trees; tall shrubs and sapling trees; intermediate trees; and big trees. The field assessments were conducted in deciduous and coniferous forests, shrublands, and grasslands. The dataset includes information on the fires that burned each area, plot locations and sample protocols, topographic characteristics, canopy characteristics, substrate and ground covers, pre- and post-burn estimates of vegetation in each stratum, estimates of the percentage of plot altered by stratum, CBI values calculated for each of the five strata, and a composite CBI value for the entire plot. Field photos at each location are included for perspective on the field conditions related to the CBI assessments.</abstract>
+      <purpose>These data were collected to support the following major FIRESEV products: (1) a Severe Fire Potential Map (SFPM), which quantified the potential for fires to burn with high severity, should they occur, for any 30 meter (m) x 30 m piece of ground across the western United States (not including Alaska or Hawaii); (2) a fire severity mapping algorithm in the Wildland Fire Assessment Tool (WFAT), which was used to map predicted fire severity explicitly from fire effects simulation models (e.g., the First Order Fire Effects Model, the CONSUME model, and others) for real-time and planning wildfire applications; and (3) a suite of research studies, synthesis papers, and popular articles, which improved the description, interpretation, and mapping of fire severity for wildland fire managers. Our primary purpose for this sampling effort was to collect field data that could be used to assess the accuracy of the maps produced to quantify the probability of severe fires for the western US. In addition, data were collected to analyze the degree to which various measures of burn severity interpreted from satellite imagery (NBR, dNBR, RdNBR) correlated with field indicators of burn severity collected one year post-fire. We sought to assess measures in the field and remotely that related to three different axes of burn severity used in this project. These included 1) soil heating, 2) surface fuel consumption, and 3) change in vegetation cover and mortality. The CBI values comprising this collection were used in each of these products, either directly or indirectly, to compare on-site changes in vegetation, canopy structure, and soil characteristics with fire severity interpretations and assessments derived from satellite imagery. All of the products were based either directly or indirectly on the CBI dataset in this archive.</purpose>
+	  <supplinf>Original metadata date was 11/19/2013. Minor metadata updates on 12/15/2016.</supplinf>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20091020</begdate>
+          <enddate>20110921</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <descgeog>The CBI plots span 10 states in the western United States. The northernmost plot is in north central Washington, easternmost is in New Mexico, southernmost is in western Texas, and the westernmost is in northern California. Each set of CBI plots is located within a burned area perimeter.</descgeog>
+      <bounding>
+        <westbc>-123.3612917</westbc>
+        <eastbc>-104.5033995</eastbc>
+        <northbc>48.2181857</northbc>
+        <southbc>31.97096634</southbc>
+        <boundalt>
+          <altmin>100</altmin>
+          <altmax>2970</altmax>
+          <altunits>meters</altunits>
+        </boundalt>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>biota</themekey>
+        <themekey>geoscientificInformation</themekey>
+      </theme>
+      <theme>
+        <themekt>National Research &amp; Development Taxonomy</themekt>
+        <themekey>Fire</themekey>
+        <themekey>Fire suppression, pre-suppression</themekey>
+        <themekey>Inventory, Monitoring, &amp; Analysis</themekey>
+        <themekey>Assessments</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>fire severity</themekey>
+        <themekey>burn severity</themekey>
+        <themekey>composite burn index</themekey>
+        <themekey>fuels</themekey>
+        <themekey>fuel consumption</themekey>
+        <themekey>soil alteration</themekey>
+        <themekey>fire effects</themekey>
+        <themekey>Joint Fire Science Program</themekey>
+        <themekey>JFSP</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>North America</placekey>
+        <placekey>western United States</placekey>
+      </place>
+      <stratum>
+        <stratkt>None</stratkt>
+        <stratkey>Substrate</stratkey>
+        <stratkey>Vegetation strata</stratkey>
+      </stratum>
+    </keywords>
+    <taxonomy>
+      <keywtax>
+        <taxonkt>None</taxonkt>
+        <taxonkey>multiple species</taxonkey>
+        <taxonkey>plants</taxonkey>
+        <taxonkey>lichens</taxonkey>
+      </keywtax>
+      <taxonsys>
+        <classsys>
+          <classcit>
+            <citeinfo>
+              <origin>ITIS</origin>
+              <pubdate>2013</pubdate>
+              <title>Integrated Taxonomic Information System</title>
+              <geoform>database</geoform>
+              <othercit>Retrieved [August, 14, 2013]</othercit>
+              <onlink>https://www.itis.gov</onlink>
+            </citeinfo>
+          </classcit>
+          <classmod>There were a few species that were not available in ITIS. See the Classification System for the Plants Database for a list of those species.</classmod>
+        </classsys>
+        <classsys>
+          <classcit>
+            <citeinfo>
+              <origin>USDA</origin>
+              <origin>NRCS</origin>
+              <pubdate>2013</pubdate>
+              <title>The PLANTS Database</title>
+              <geoform>database</geoform>
+              <pubinfo>
+                <pubplace>Greensboro, NC 27401-4901</pubplace>
+                <publish>National Plant Data Team</publish>
+              </pubinfo>
+              <othercit>Retrieved [October, 30, 2013]</othercit>
+              <onlink>https://plants.usda.gov</onlink>
+            </citeinfo>
+          </classcit>
+          <classmod>There were a few species that were not available in ITIS. For these cases, the PLANTS Database was used to obtain the classification. Below is a list of those exceptions:
+
+1. Chionosphaera apobasidialis - this species was not found in ITIS, so we used the PLANTS taxonomy.
+
+2. Arenaria aberrans - this species was in ITIS, but was not accepted, so we used the PLANTS taxonomy.
+
+3. Pascopyrum smithii - this species had 2 sets of taxonomy, but the one the author would like to use is not accepted, so we used the PLANTS taxonomy.</classmod>
+        </classsys>
+        <taxonpro>
+        </taxonpro>
+      </taxonsys>
+      <taxoncl>
+        <taxonrn>Empire</taxonrn>
+        <taxonrv>Biovitae</taxonrv>
+        <common>Carbon-based lifeforms</common>
+        <taxoncl>
+          <taxonrn>Kingdom</taxonrn>
+          <taxonrv>Plantae</taxonrv>
+          <taxoncl>
+            <taxonrn>Subkingdom</taxonrn>
+            <taxonrv>Viridaeplantae</taxonrv>
+            <taxoncl>
+              <taxonrn>Infrakingdom</taxonrn>
+              <taxonrv>Streptophyta</taxonrv>
+              <taxoncl>
+                <taxonrn>Division</taxonrn>
+                <taxonrv>Tracheophyta</taxonrv>
+                <taxoncl>
+                  <taxonrn>Subdivision</taxonrn>
+                  <taxonrv>Spermatophytina</taxonrv>
+                  <taxoncl>
+                    <taxonrn>Infradivision</taxonrn>
+                    <taxonrv>Angiospermae</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Class</taxonrn>
+                      <taxonrv>Magnoliopsida</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Superorder</taxonrn>
+                        <taxonrv>Asteranae</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Asterales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Asteraceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Achillea</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Achillea millefolium</taxonrv>
+                                <common>common yarrow</common>
+                                <common>milenrama</common>
+                                <common>milfoil</common>
+                                <common>western yarrow</common>
+                                <common>bloodwort</common>
+                                <common>carpenter's weed</common>
+                                <common>hierba de las cortaduras</common>
+                                <common>plumajillo</common>
+                                <common>yarrow</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Arnica</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Arnica latifolia</taxonrv>
+                                <common>broadleaf arnica</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Artemisia</taxonrv>
+                              <common>sagebrush</common>
+                              <common>wormwood</common>
+                              <common>sagewort</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Artemisia rigida</taxonrv>
+                                <common>scabland sagebrush</common>
+                              </taxoncl>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Artemisia tridentata</taxonrv>
+                                <common>big sagebrush</common>
+                                <common>big sagebush</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Balsamorhiza</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Balsamorhiza sagittata</taxonrv>
+                                <common>arrowleaf balsamroot</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Brickellia</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Brickellia rusbyi</taxonrv>
+                                <common>stinking brickellbush</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Chrysothamnus</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Chrysothamnus viscidiflorus</taxonrv>
+                                <common>yellow rabbitbrush</common>
+                                <common>Douglas rabbitbrush</common>
+                                <common>green rabbitbrush</common>
+                                <common>Douglas' rabbitbrush</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Ericameria</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Ericameria nauseosa</taxonrv>
+                                <common>rubber rabbitbrush</common>
+                                <common>goldenbush</common>
+                                <taxoncl>
+                                  <taxonrn>Subspecies</taxonrn>
+                                  <taxonrv>Ericameria nauseosa ssp. nauseosa</taxonrv>
+                                  <taxoncl>
+                                    <taxonrn>Variety</taxonrn>
+                                    <taxonrv>Ericameria nauseosa var. nauseosa</taxonrv>
+                                    <common>rubber rabbitbrush</common>
+                                  </taxoncl>
+                                </taxoncl>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Cornales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Cornaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Cornus</taxonrv>
+                              <common>dogwood</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Cornus sericea</taxonrv>
+                                <common>redosier</common>
+                                <common>redosier dogwood</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Dipsacales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Adoxaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Sambucus</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Sambucus nigra</taxonrv>
+                                <taxoncl>
+                                  <taxonrn>Subspecies</taxonrn>
+                                  <taxonrv>Sambucus nigra ssp. cerulea</taxonrv>
+                                  <common>blue elder</common>
+                                  <common>blue elderberry</common>
+                                  <common>elderberry</common>
+                                </taxoncl>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Caprifoliaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Symphoricarpos</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Symphoricarpos albus</taxonrv>
+                                <common>common snowberry</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Ericales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Ericaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Arbutus</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Arbutus menziesii</taxonrv>
+                                <common>Pacific madrone</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Arctostaphylos</taxonrv>
+                              <common>bearberry</common>
+                              <common>manzanitas</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Arctostaphylos manzanita</taxonrv>
+                                <common>whiteleaf manzanita</common>
+                              </taxoncl>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Arctostaphylos patula</taxonrv>
+                                <common>greenleaf manzanita</common>
+                              </taxoncl>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Arctostaphylos uva-ursi</taxonrv>
+                                <common>kinnikinnick</common>
+                                <common>mealberry</common>
+                                <common>bearberry</common>
+                                <common>bearberry manzanita</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Vaccinium</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Vaccinium membranaceum</taxonrv>
+                                <common>thinleaf huckleberry</common>
+                                <common>mountain bilberry</common>
+                              </taxoncl>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Vaccinium scoparium</taxonrv>
+                                <common>grouse whortleberry</common>
+                                <common>grouseberry</common>
+                                <common>red alpine blueberry</common>
+                                <common>littleleaf huckleberry</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Gentianales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Apocynaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Apocynum</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Apocynum androsaemifolium</taxonrv>
+                                <common>bitterroot</common>
+                                <common>flytrap dogbane</common>
+                                <common>spreading dogbane</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Lamiales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Scrophulariaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Verbascum</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Verbascum thapsus</taxonrv>
+                                <common>big taper</common>
+                                <common>flannel plant</common>
+                                <common>velvet dock</common>
+                                <common>velvet plant</common>
+                                <common>woolly mullein</common>
+                                <common>flannel mullein</common>
+                                <common>great mullein</common>
+                                <common>mullein</common>
+                                <common>common mullein</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                      <taxoncl>
+                        <taxonrn>Superorder</taxonrn>
+                        <taxonrv>Caryophyllanae</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Caryophyllales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Amaranthaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Atriplex</taxonrv>
+                              <common>saltbush</common>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Caryophyllaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Arenaria L.</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Arenaria aberrans M.E. Jones</taxonrv>
+                                <common>Mt. Dellenbaugh sandwort</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Nyctaginaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Acleisanthes</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Acleisanthes crassifolia</taxonrv>
+                                <common>Texas trumpets</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Sarcobataceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Sarcobatus</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Sarcobatus vermiculatus</taxonrv>
+                                <common>black greasewood</common>
+                                <common>greasewood</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                      <taxoncl>
+                        <taxonrn>Superorder</taxonrn>
+                        <taxonrv>Lilianae</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Alismatales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Araceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Arisaema</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Arisaema triphyllum</taxonrv>
+                                <common>Jack in the pulpit</common>
+                                <common>Jack-in-the-pulpit</common>
+                                <common>Indian jack in the pulpit</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Asparagales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Amaryllidaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Allium</taxonrv>
+                              <common>oignon</common>
+                              <common>wild onion</common>
+                              <common>onion</common>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Asparagaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Dasylirion</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Dasylirion wheeleri</taxonrv>
+                                <common>Sotol de desierto</common>
+                                <common>sotol</common>
+                                <common>common sotol</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Yucca</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Yucca brevifolia</taxonrv>
+                                <common>Izote de desierto</common>
+                                <common>Joshua tree</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Liliales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Melanthiaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Xerophyllum</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Xerophyllum tenax</taxonrv>
+                                <common>common beargrass</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Poales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Cyperaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Carex</taxonrv>
+                              <common>laîches</common>
+                              <common>rouches</common>
+                              <common>sedge species</common>
+                              <common>carex</common>
+                              <common>sedges</common>
+                              <common>sedge</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Carex geyeri</taxonrv>
+                                <common>elk sedge</common>
+                                <common>Geyer's sedge</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Juncaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Juncus</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Juncus scirpoides</taxonrv>
+                                <common>needlepod rush</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Poaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Agropyron</taxonrv>
+                              <common>wheatgrass</common>
+                              <common>other wheatgrasses</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Agropyron cristatum</taxonrv>
+                                <common>crested wheatgrass</common>
+                                <common>crested wheat grass</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Avena</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Avena fatua</taxonrv>
+                                <common>wild oat</common>
+                                <common>wild oats</common>
+                                <common>flaxgrass</common>
+                                <common>oatgrass</common>
+                                <common>wheat oats</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Bouteloua</taxonrv>
+                              <common>grama</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Bouteloua gracilis</taxonrv>
+                                <common>blue grama</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Bromus</taxonrv>
+                              <common>brome</common>
+                              <common>brome spp.</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Bromus diandrus</taxonrv>
+                                <common>ripgut brome</common>
+                              </taxoncl>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Bromus rubens</taxonrv>
+                                <common>red brome</common>
+                                <common>foxtail brome</common>
+                              </taxoncl>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Bromus tectorum</taxonrv>
+                                <common>cheatgrass</common>
+                                <common>cheat grass</common>
+                                <common>downy brome</common>
+                                <common>early chess</common>
+                                <common>military grass</common>
+                                <common>wild oats</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Calamagrostis</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Calamagrostis rubescens</taxonrv>
+                                <common>pinegrass</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Elymus</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Elymus elymoides</taxonrv>
+                                <common>bottlebrush squirreltail</common>
+                                <common>western bottle-brush grass</common>
+                                <common>squirreltail</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Eragrostis</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Eragrostis cilianensis</taxonrv>
+                                <common>candy grass</common>
+                                <common>lovegrass</common>
+                                <common>strongscented lovegrass</common>
+                                <common>stinkgrass</common>
+                                <common>stink grass</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Festuca</taxonrv>
+                              <common>fescue</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Festuca idahoensis</taxonrv>
+                                <common>Idaho fescue</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Poa</taxonrv>
+                              <common>bluegrass</common>
+                              <common>bluegrass spp.</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Poa bulbosa</taxonrv>
+                                <common>bulbous blue grass</common>
+                                <common>bulbous bluegrass</common>
+                              </taxoncl>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Poa secunda</taxonrv>
+                                <common>big bluegrass</common>
+                                <common>Sandberg bluegrass</common>
+                                <common>Sandberg's bluegrass</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Pseudoroegneria</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Pseudoroegneria spicata</taxonrv>
+                                <common>bluebunch-wheat grass</common>
+                                <common>bluebunch wheatgrass</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                      <taxoncl>
+                        <taxonrn>Superorder</taxonrn>
+                        <taxonrv>Ranunculanae</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Ranunculales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Berberidaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Berberis</taxonrv>
+                              <common>holly grape</common>
+                              <common>Oregon-grape</common>
+                              <common>barberry</common>
+                              <common>algerita</common>
+                              <common>berbéris</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Berberis repens</taxonrv>
+                                <common>creeping barberry</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                      <taxoncl>
+                        <taxonrn>Superorder</taxonrn>
+                        <taxonrv>Rosanae</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Brassicales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Brassicaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Brassica</taxonrv>
+                              <common>mustard</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Rorippa</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Rorippa sarmentosa</taxonrv>
+                                <common>longrunner</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Fabales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Fabaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Acacia</taxonrv>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Lupinus</taxonrv>
+                              <common>lupine</common>
+                              <common>lupins</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Lupinus argenteus</taxonrv>
+                                <common>silvery lupine</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Senegalia</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Senegalia greggii</taxonrv>
+                                <common>catclaw acacia</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Vicia</taxonrv>
+                              <common>vetch</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Fagales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Betulaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Alnus</taxonrv>
+                              <common>alder</common>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Fagaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Lithocarpus</taxonrv>
+                              <common>tanoak</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Lithocarpus densiflorus</taxonrv>
+                                <common>tanoak</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Quercus</taxonrv>
+                              <common>chêne</common>
+                              <common>oak</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Quercus chrysolepis</taxonrv>
+                                <common>canyon live oak</common>
+                              </taxoncl>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Quercus gambelii</taxonrv>
+                                <common>Gambel's oak</common>
+                              </taxoncl>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Quercus garryana</taxonrv>
+                                <common>Oregon white oak</common>
+                              </taxoncl>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Quercus kelloggii</taxonrv>
+                                <common>California black oak</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Juglandaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Juglans</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Juglans major</taxonrv>
+                                <common>Arizona walnut</common>
+                                <common>Arizona black walnut</common>
+                                <common>New Mexico walnut</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Geraniales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Geraniaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Erodium</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Erodium cicutarium</taxonrv>
+                                <common>redstem stork's bill</common>
+                                <common>alfilaree</common>
+                                <common>alfilaria</common>
+                                <common>filaree</common>
+                                <common>stork's bill</common>
+                                <common>California filaree</common>
+                                <common>cutleaf filaree</common>
+                                <common>redstem filaree</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Geranium</taxonrv>
+                              <common>geranium</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Malpighiales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Salicaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Populus</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Populus tremuloides</taxonrv>
+                                <common>quaking aspen</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Salix</taxonrv>
+                              <common>saule</common>
+                              <common>saules</common>
+                              <common>willow</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Myrtales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Onagraceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Chamerion</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Chamerion angustifolium</taxonrv>
+                                <taxoncl>
+                                  <taxonrn>Subspecies</taxonrn>
+                                  <taxonrv>Chamerion angustifolium ssp. angustifolium</taxonrv>
+                                  <common>fireweed</common>
+                                  <common>great willowherb</common>
+                                  <common>French-willow</common>
+                                  <common>rosebay willowherb</common>
+                                </taxoncl>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Rosales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Elaeagnaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Shepherdia</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Shepherdia canadensis</taxonrv>
+                                <common>russet buffaloberry</common>
+                                <common>russet buffalo-berry</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Rosaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Adenostoma</taxonrv>
+                              <common>chamise</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Adenostoma fasciculatum</taxonrv>
+                                <common>chamise</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Amelanchier</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Amelanchier alnifolia</taxonrv>
+                                <common>juneberry</common>
+                                <common>Pacific serviceberry</common>
+                                <common>western serviceberry</common>
+                                <common>western shadbush</common>
+                                <common>Saskatoon serviceberry</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Cercocarpus</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Cercocarpus ledifolius</taxonrv>
+                                <common>curlleaf cercocarpus</common>
+                                <common>curl-leaf mountain-mahogany</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Physocarpus</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Physocarpus malvaceus</taxonrv>
+                                <common>mallow ninebark</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Purshia</taxonrv>
+                              <common>cliffrose</common>
+                              <common>bitterbrush</common>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Purshia tridentata</taxonrv>
+                                <common>antelope bitterbrush</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Rosa</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Rosa woodsii</taxonrv>
+                                <common>Woods' rose</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Rubus</taxonrv>
+                              <common>framboises</common>
+                              <common>ronces</common>
+                              <common>brambles</common>
+                              <common>blackberry</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Spiraea</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Spiraea betulifolia</taxonrv>
+                                <common>white spirea</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Sapindales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Anacardiaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Toxicodendron</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Toxicodendron diversilobum</taxonrv>
+                                <common>Pacific poison oak</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Sapindaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Acer</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Acer glabrum</taxonrv>
+                                <common>California mountain maple</common>
+                                <common>Douglas' maple</common>
+                                <common>dwarf maple</common>
+                                <common>mountain maple</common>
+                                <common>New Mexico maple</common>
+                                <common>Sierra maple</common>
+                                <common>Rocky Mountain maple</common>
+                              </taxoncl>
+                              <taxoncl>
+                                <taxonrn>Species</taxonrn>
+                                <taxonrv>Acer macrophyllum</taxonrv>
+                                <common>bigleaf maple</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                      <taxoncl>
+                        <taxonrn>Superorder</taxonrn>
+                        <taxonrv>Saxifraganae</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Order</taxonrn>
+                          <taxonrv>Saxifragales</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Family</taxonrn>
+                            <taxonrv>Grossulariaceae</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Genus</taxonrn>
+                              <taxonrv>Ribes</taxonrv>
+                              <common>currant</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                  <taxoncl>
+                    <taxonrn>Infradivision</taxonrn>
+                    <taxonrv>Gymnospermae</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Class</taxonrn>
+                      <taxonrv>Gnetopsida</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Ephedrales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Ephedraceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Ephedra</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Ephedra viridis</taxonrv>
+                              <common>green Mormon tea</common>
+                              <common>green ephedra</common>
+                              <common>Mormon tea</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                    <taxoncl>
+                      <taxonrn>Class</taxonrn>
+                      <taxonrv>Pinopsida</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Cupressales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Cupressaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Calocedrus</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Calocedrus decurrens</taxonrv>
+                              <common>incense cedar</common>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Juniperus</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Juniperus deppeana</taxonrv>
+                              <common>alligator juniper</common>
+                              <common>enebro chino</common>
+                              <common>checker bark juniper</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Juniperus monosperma</taxonrv>
+                              <common>oneseed juniper</common>
+                              <common>enebro de sombra</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Juniperus occidentalis</taxonrv>
+                              <common>western juniper</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Juniperus scopulorum</taxonrv>
+                              <common>enebro riparío</common>
+                              <common>Rocky Mountain juniper</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Pinales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Pinaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Abies</taxonrv>
+                            <common>fir</common>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Abies concolor</taxonrv>
+                              <common>balsam fir</common>
+                              <common>silver fir</common>
+                              <common>Colorado fir</common>
+                              <common>concolor fir</common>
+                              <common>white balsam</common>
+                              <common>oyamel de California</common>
+                              <common>white fir</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Abies lasiocarpa</taxonrv>
+                              <common>subalpine fir</common>
+                              <common>balsam fir</common>
+                              <common>white balsam</common>
+                              <common>Rocky Mountain fir</common>
+                              <common>western balsam fir</common>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Picea</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Picea engelmannii</taxonrv>
+                              <common>Engelmann spruce</common>
+                              <common>Columbian spruce</common>
+                              <common>mountain spruce</common>
+                              <common>silver spruce</common>
+                              <common>white spruce</common>
+                              <common>Engelmann's spruce</common>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Pinus</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus albicaulis</taxonrv>
+                              <common>scrub pine</common>
+                              <common>white pine</common>
+                              <common>whitebark pine</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus contorta</taxonrv>
+                              <common>lodgepole pine</common>
+                              <common>scrub pine</common>
+                              <common>shore pine</common>
+                              <common>tamarack pine</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus edulis</taxonrv>
+                              <common>twoneedle pinyon</common>
+                              <common>nut pine</common>
+                              <common>Colorado pinyon</common>
+                              <common>pinyon</common>
+                              <common>two-leaf pinyon</common>
+                              <common>two-needle pinyon</common>
+                              <common>piñón de Colorado</common>
+                              <common>piñon pine</common>
+                              <common>pinyon pine</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus jeffreyi</taxonrv>
+                              <common>Jeffrey's pine</common>
+                              <common>black pine</common>
+                              <common>pino negro</common>
+                              <common>Jeffrey pine</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus lambertiana</taxonrv>
+                              <common>sugar pine</common>
+                              <common>California sugar pine</common>
+                              <common>pino de azúcar</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus ponderosa</taxonrv>
+                              <common>ponderosa pine</common>
+                              <common>bull pine</common>
+                              <common>western yellow pine</common>
+                              <common>blackjack pine</common>
+                              <common>pinabete</common>
+                              <common>rock pine</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus sabiniana</taxonrv>
+                              <common>California foothill pine</common>
+                              <common>gray pine</common>
+                              <common>bull pine</common>
+                              <common>digger pine</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus strobiformis</taxonrv>
+                              <common>southwestern white pine</common>
+                              <common>border limber pine</common>
+                              <common>border white pine</common>
+                              <common>Mexican white pine</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus monophylla</taxonrv>
+                              <common>singleleaf pinyon</common>
+                              <common>nut pine</common>
+                              <common>one-leafe pine</common>
+                              <common>pinon simple</common>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Pseudotsuga</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pseudotsuga menziesii</taxonrv>
+                              <common>red fir</common>
+                              <common>Douglas spruce</common>
+                              <common>Oregon pine</common>
+                              <common>Douglas-fir</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+          <taxoncl>
+            <taxonrn>Subkingdom</taxonrn>
+            <taxonrv>Tracheobionta</taxonrv>
+            <taxoncl>
+              <taxonrn>Subdivision</taxonrn>
+              <taxonrv>Spermatophyta</taxonrv>
+              <taxoncl>
+                <taxonrn>Division</taxonrn>
+                <taxonrv>Magnoliophyta</taxonrv>
+                <taxoncl>
+                  <taxonrn>Class</taxonrn>
+                  <taxonrv>Liliopsida</taxonrv>
+                  <taxoncl>
+                    <taxonrn>Subclass</taxonrn>
+                    <taxonrv>Commelinidae</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Order</taxonrn>
+                      <taxonrv>Cyperales</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Family</taxonrn>
+                        <taxonrv>Poaceae</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Genus</taxonrn>
+                          <taxonrv>Pascopyrum</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Species</taxonrn>
+                            <taxonrv>Pascopyrum smithii</taxonrv>
+                            <common>western wheatgrass</common>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+        <taxoncl>
+          <taxonrn>Kingdom</taxonrn>
+          <taxonrv>Fungi</taxonrv>
+          <taxoncl>
+            <taxonrn>Division</taxonrn>
+            <taxonrv>Basidiomycota</taxonrv>
+            <taxoncl>
+              <taxonrn>Class</taxonrn>
+              <taxonrv>Basidiomycetes</taxonrv>
+              <taxoncl>
+                <taxonrn>Subclass</taxonrn>
+                <taxonrv>Phragmobasidiomycetidae</taxonrv>
+                <taxoncl>
+                  <taxonrn>Order</taxonrn>
+                  <taxonrv>Atractiellales</taxonrv>
+                  <taxoncl>
+                    <taxonrn>Family</taxonrn>
+                    <taxonrv>Chionosphaeraceae</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Genus</taxonrn>
+                      <taxonrv>Chionosphaera Cox</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Species</taxonrn>
+                        <taxonrv>Chionosphaera apobasidialis Cox </taxonrv>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+      </taxoncl>
+    </taxonomy>
+    <accconst>None</accconst>
+    <useconst>These data were collected using funding from the U.S. Government and can be used without additional permissions or fees. If you use these data in a publication, presentation, or other research product please use the following citation:  
+
+Sikkink, Pamela G.; Dillon, Gregory K.; Keane,Robert E.; Morgan, Penelope; Karau, Eva C.; Holden, Zachary A.; Silverstein, Robin P. 2013. Composite Burn Index (CBI) data and field photos collected for the FIRESEV project, western United States. Fort Collins, CO: Forest Service Research Data Archive. https://doi.org/10.2737/RDS-2013-0017</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>RMRS Missoula Fire Sciences Laboratory</cntorg>
+        </cntorgp>
+        <cntpos>Robert E. Keane</cntpos>
+        <cntaddr>
+          <addrtype>physical</addrtype>
+          <address>5775 US Hwy 10 West</address>
+          <city>Missoula</city>
+          <state>MT</state>
+          <postal>59808</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406-329-4846</cntvoice>
+        <cntfax>406-329-4877</cntfax>
+        <cntemail>rkeane@fs.fed.us</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <browse>
+      <browsen>\Supplements\FIRESEV_all_cbi_plots_graphic.jpg</browsen>
+      <browsed>Map of CBI plots coded as those collected for the FIRESEV project.</browsed>
+      <browset>JPEG</browset>
+    </browse>
+    <datacred>Funding for this project provided by Joint Fire Science Program (JFSP # 09-1-07-4): https://www.firescience.gov.
+
+Several personnel from the Missoula Fire Sciences Laboratory and University of Idaho collected CBI data  for this project. Field crew members from the Fire Science Laboratory included: Violet Holley, Signe Leirfallom, Christy Lowney, Brian Izbicki, Greg Dillon, Amy Olson, Aaron Sparks, Sarah Flanary, and Greg Cohn. The field crew from the University of Idaho included Tim Moran, Chris Bernau, and Penny Morgan.</datacred>
+    <tool>
+      <tooldesc>R software</tooldesc>
+      <toolacc>
+        <onlink>https://www.r-project.org/</onlink>
+        <toolinst>R is freeware that anyone can download. We included a script file used with these data. This software is not needed to utilize the data provided.</toolinst>
+      </toolacc>
+    </tool>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Composite Burn Index (CBI) is a visual method of assessing the change in soil and vegetation characteristics due to burning. The scale ranges from zero to three, with a separate number assigned to each of five vegetation strata (Key and Benson 2006).  Indices for all strata are averaged for an overall CBI index at a plot.  
+
+The CBI index represents the change between pre-fire and post-fire conditions.  It most accurately assesses the magnitude of vegetation and soil change, rather than the current conditions on the ground (Robichaud et al. 2007).  The changes are qualitative, not quantitative, and prone to subjectivity because they are visual estimations (Chuvieco 2009).  
+
+Complicating the visual estimations of burn severity for CBI is that fact that pre-fire conditions are often hard to assess in large burned areas.  Patches of unburned areas to compare with the burned areas may not be available. When they are available, the vegetation community may not exactly match for burned and unburned areas.  In addition, most burned areas have a high degree of spatial variation in intensity and fire effects (Lutes 2007).  It can be challenging to find areas that represent conditions in the majority of the fire-affected areas and, in turn, to accurately estimate the burn severity in those areas using only ground measurements (Chen et al. 2011).  
+
+Summaries of the problems with collecting CBI data and making visual assessments of fire damage consistently and accurately have been enumerated by Key and Benson (1999), Kasischke et al. (2008), DeSantis and Chuvieco (2009), Tanase et al. (2011), and many others.</attraccr>
+    </attracc>
+    <logic>Consistency of CBI evaluations can vary depending on the amount of time that has passed between burning and the CBI assessment. The severity of the burn and the time since burning affect vegetation recovery times, which in turn affect post-burn assessments. For the FIRESEV study, all CBI assessments were conducted one-year post burn in the conifer forests, grasslands, and shrublands.
+
+Several field crews evaluated CBI for this study. The composition varied among fire years, especially in Montana. Each crew member brought different experiences with burn severity, knowledge of fire effects, and expertise in visual estimation to the job. Even though all crews were trained in estimating CBI using the Key and Benson (2006) methods and in filling out the CBI form, these differences within and among crews most likely affected consistency of CBI index estimations. However, it was not possible to assign a value to inconsistency among crews or how the inconsistency may have affected the CBI values from one location to another.
+
+After returning from the field, an initial quality check was performed to make sure necessary data fields were properly filled in, and minor corrections were made where necessary. Data entry of the CBI field values were analyzed visually for typographic errors, as well as plotted in Excel graphs to check for outliers.</logic>
+    <complete>Sites were included in the FIRESEV study based on the geographic range required for the Severe Fire Potential Map (SFPM) map to cover the western United States.  Fire locations were selected for CBI assessments based on the time since burn and accessibility to the field crews. CBI locations were also required to be spread throughout the study area and fill data gaps where CBI plots could not be located from other agencies or organizations. The project required that an overall CBI value (total) at each location be estimated (at minimum) so that field assessments of fire severity could be compared with the remotely-sensed values of fire severity (dNBR and RdNBR) provided by the Monitoring and Trends in Burn Severity (MTBS) program.
+
+In this study, we use the term burn severity to denote the (1) classifications created for remote sensing applications and (2) magnitude of fire-caused damage to vegetation and fuels and general descriptions of fire impacts, such as fire effects on soil.  Both uses denote changes to the burned area one-year post fire as defined by Lentil et al. 2006 (Dillon et al. 2011; Lentile et al. 2006; Lentile et al. 2007; Simard 1991). We use the term fuels to mean surface fuels, and fuel consumption to mean the destruction of fuels during the combustion process. Fire effects are restricted to first-order fire effects that occur as a direct result of the combustion process. A CBI plot is a single location where CBI assessments have been conducted on a set of strata (within a single CBI form). Burn perimeters are areas defined and mapped by MTBS as the maximum extent of each fire. Strata include substrate (ground conditions) and distinct vegetation layers based on canopy height.
+
+Complete CBI assessments were composed of estimates from all stata present in a plot.  Several plots with CBI assessments used in this study did not include CBI index values for all strata; this means that all strata were not present at these plots.  Of the 543 plots collected for the FIRESEV project , all had an overall (i.e., total CBI) value for total vegetation and soil change in the plot; 111 of these have data for fewer than five individual strata.</complete>
+    <posacc>
+      <horizpa>
+        <horizpar>All field CBI locations were determined with hand-held GPS units. The units were, on average, accurate to within 5 meters, although a maximum error of 16 meters was recorded for some CBI locations in the FIRESEV field data.</horizpar>
+      </horizpa>
+    </posacc>
+    <lineage>
+      <method>
+        <methtype>Field</methtype>
+        <methdesc>We looked at all large fires that had burned within the study area (conterminous western U.S.) one year prior to when a sample would be taken. Plots were located opportunistically to represent areas of different burn severity levels, cover types, and successional stages. Primary objectives in locating plots were to: a) capture the diversity of sites that exist within a burned area, and b) get a wide geographic distribution of samples. However, we also chose locations that we could get to easily. Locations for sampling were rejected if they were not large enough to allow for a 90 meter x 90 meter area to be sampled, with that area relatively uniform with respect to overstory density and fire severity. 
+
+Within locations subjectively chosen to be representative of a set of conditions, we randomly located plot center by taking a random number of paces (between 2 and 10) in a randomly chosen azimuth. This plot center had to be at least 90 meters from a road or stand boundary. All plots were 1/10 acre (400 square meters) fixed-area circular macroplots with a radius of 37.2 feet (11.3 meters). 
+
+FIREMON (Fire effects monitoring and inventory system) sampling protocols were used as the template for sampling in this study.  See Dillon and Morgan (2009) for more details, as well as Key and Benson (2006).
+
+Strata Definitions: 
+With the CBI, fire effects are assessed somewhat independently within strata because vertical levels in a community have different biophysical components, and multiple levels impart structural complexities that profoundly influence fire behavior. Structure affects how wind shapes fire and the nature of available fuels. Though strata are spatially contiguous, each level may have unique combustible properties and effects may differ strongly between them. At times in the field, one may find vague or discontinuous boundaries between strata where distinctions are not always clear cut. In such cases, try to reach consensus on what is included or excluded from each stratum and be consistent from plot to plot. If distinctions between some strata cannot be resolved, it may help to simplify the overall structure; try combining strata, or drop one out. Even if only one factor in a stratum appears to be applicable, continue to score that stratum. The main objective is to make reasonable interpretations on one to five factors within each stratum, and then to combine those to derive composite ratings that summarize severity over the overstory, understory, and the total plot. The goal is not so much a high degree of precision in rating a specific factor, as it is a consistent summary rating of severity that aggregates a variety of burn effects over multiple levels of the plot.
+
+The strata listed below are commonly identified in a complex forest community, segregated principally by the vertical space they occupy. Their arrangement and component parts determine, to some extent, the character and connectivity of fuel, variation in flammability, and timing of seasonal drying. When evaluating burn severity with the CBI, fuel and fire behavior relationships are emphasized while strata species composition is less important. Because species may exhibit multiple life forms and occupy several strata, consider primarily where individual plants or other materials fit within pre-fire community structure.
+
+Strata hierarchical structure
+A. Total plot (overall)
+
+B. Understory
+ 1) Substrates
+ 2) Herbs, low shrubs and trees less than 3 feet (1 meter) tall
+ 3) Tall shrubs and trees 3 to 16 feet (1 to 5 meters) tall
+
+C. Overstory
+ 4) Intermediate trees (pole-sized trees, subcanopy)
+ 5) Big trees (dominant/codominant trees, upper canopy)</methdesc>
+        <methcite>
+          <citeinfo>
+            <origin>Dillon, Gregory K.</origin>
+            <origin>Morgan, Penelope</origin>
+            <pubdate>2009</pubdate>
+            <title>FIRESEV Field Sampling Methods</title>
+            <geoform>document</geoform>
+            <othercit>20 p. (Included in full product download)</othercit>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Key, Carl H.</origin>
+            <origin>Benson, Nathan C.</origin>
+            <pubdate>2006</pubdate>
+            <title>Landscape Assessment (LA)</title>
+            <geoform>document</geoform>
+            <serinfo>
+              <sername>In: Lutes, D.C.; Keane, Robert E.; Caratti, J.F.; Key, C.H.; Benson, N.C.; Sutherland, S; Gangi, Larry. FIREMON: Fire effects monitoring and inventory system</sername>
+              <issue>GTR-RMRS-164</issue>
+            </serinfo>
+            <pubinfo>
+              <pubplace>Fort Collins, CO</pubplace>
+              <publish>U.S. Department of Agriculture, Forest Service, Rocky Mountain Research Station </publish>
+            </pubinfo>
+            <othercit>55p.</othercit>
+            <onlink>//www.treesearch.fs.fed.us/pubs/24066</onlink>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Chen, Xuexia</origin>
+            <origin>Vogelmann, James E.</origin>
+            <origin>Rollins, Matthew</origin>
+            <origin>Ohlen, Donald</origin>
+            <origin>Key, Carl H.</origin>
+            <origin>Yang, Limin</origin>
+            <origin>Chengquan, Huang</origin>
+            <origin>Shi, Hua</origin>
+            <pubdate>2011</pubdate>
+            <title>Detecting post-fire burn severity and vegetation recovery using multitemporal remote sensing spectral indices and field-collected composite burn index data in a ponderosa pine forest</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>International Journal of Remote Sensing</sername>
+              <issue>32(23): 7905-7927</issue>
+            </serinfo>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Chuvieco, Emilio (ed.)</origin>
+            <pubdate>2009</pubdate>
+            <title>Earth observation of wildland fires in Mediterranean ecosystems</title>
+            <geoform>book chapter</geoform>
+            <pubinfo>
+              <pubplace>Berlin</pubplace>
+              <publish>Springer</publish>
+            </pubinfo>
+            <othercit>261 p.</othercit>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>De Santis, Angela</origin>
+            <origin>Chuvieco, Emilio</origin>
+            <pubdate>2009</pubdate>
+            <title> GeoCBI: A modified version of the Composite Burn Index for the initial assessment of the short-term burn severity from remotely sensed data</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>Remote Sensing of Enviroment </sername>
+              <issue>113: 554-562</issue>
+            </serinfo>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Dillon, Gregory K.</origin>
+            <origin>Holden, Zachery A.</origin>
+            <origin>Morgan, Penelope</origin>
+            <origin>Crimmins, Michael A.</origin>
+            <origin>Heyerdahl, Emily K.</origin>
+            <origin>Luce, Charles H.</origin>
+            <pubdate>2011</pubdate>
+            <title>Both topography and climate affected forest and woodland burn severity in two regions of the western US, 1984 to 2006</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>Ecosphere</sername>
+              <issue>2(12): 130</issue>
+            </serinfo>
+            <othercit>33 p.</othercit>
+            <onlink>//www.treesearch.fs.fed.us/pubs/39784</onlink>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Kasischke, Eric S.</origin>
+            <origin>Turetsky, Merritt R.</origin>
+            <origin>Ottmar, Roger D.</origin>
+            <origin>French, Nancy H.</origin>
+            <origin>Hoy, Elizabeth E.</origin>
+            <origin>Kane, Evan S.</origin>
+            <pubdate>2008</pubdate>
+            <title>Evaluation of the composite burn index for assessing fire severity in Alaskan black spruce forests</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>International Journal of Wildland Fire</sername>
+              <issue>17: 515-526</issue>
+            </serinfo>
+            <othercit>12 p.</othercit>
+            <onlink>//www.treesearch.fs.fed.us/pubs/33162</onlink>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Key, Carl H.</origin>
+            <origin>Benson, Nathan C.</origin>
+            <pubdate>1999</pubdate>
+            <title>Measuring and remote sensing of burn severity: The CBI and NBR</title>
+            <geoform>poster abstract</geoform>
+            <serinfo>
+              <sername>In: Neuenschwander, L.F.; Ryan, K.C. Proceedings Joint Fire Science Conference and Workshop</sername>
+              <issue>Vol. II, 15-17 June 1999</issue>
+            </serinfo>
+            <pubinfo>
+              <pubplace>Boise, ID</pubplace>
+              <publish>University of Idaho and International Association of Wildland Fire</publish>
+            </pubinfo>
+            <othercit>284 p.</othercit>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Lentile, Leigh B.</origin>
+            <origin>Holden, Zachary A.</origin>
+            <origin>Smith, Alistair M. S.</origin>
+            <origin>Falkowski, Michael J.</origin>
+            <origin>Hudak, Andrew T.</origin>
+            <origin>Morgan, Penelope</origin>
+            <origin>Lewis, Sarah A.</origin>
+            <origin>Gessler, Paul E.</origin>
+            <origin>Benson, Nathan C.</origin>
+            <pubdate>2006</pubdate>
+            <title>Remote sensing techniques to assess active fire characteristics and post-fire effects</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>International Journal of Wildland Fire</sername>
+              <issue>15: 319-345</issue>
+            </serinfo>
+            <othercit>27 p.</othercit>
+            <onlink>//www.treesearch.fs.fed.us/pubs/24613</onlink>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Lentile, Leigh B.</origin>
+            <origin>Morgan, Penelope</origin>
+            <origin>Hudak, Andrew T.</origin>
+            <origin>Bobbit, Michael J.</origin>
+            <origin>Lewis, Sarah A.</origin>
+            <origin>Smith, Alistair M. S.</origin>
+            <origin>Robichaud, Peter R.</origin>
+            <pubdate>2007</pubdate>
+            <title>Post-fire burn severity and vegetation response following eight large wildfires across the western United States</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>Fire Ecology</sername>
+              <issue>3(1): 91-108</issue>
+            </serinfo>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Lutes, Duncan C.</origin>
+            <origin>Keane, Robert E.</origin>
+            <origin>Caratti, John F.</origin>
+            <origin>Key, Carl H.</origin>
+            <origin>Benson, Nathan C.</origin>
+            <origin>Sutherland, Steve</origin>
+            <origin>Gangi, Larry J.</origin>
+            <pubdate>2006</pubdate>
+            <title>FIREMON: Fire effects monitoring and inventory system</title>
+            <geoform>document</geoform>
+            <serinfo>
+              <sername>Gen. Tech. Rep.</sername>
+              <issue>RMRS-GTR-164-CD</issue>
+            </serinfo>
+            <pubinfo>
+              <pubplace>Fort Collins, CO</pubplace>
+              <publish>U.S. Department of Agriculture, Forest Service, Rocky Mountain Research Station</publish>
+            </pubinfo>
+            <othercit>1 CD p.</othercit>
+            <onlink>//www.treesearch.fs.fed.us/pubs/24042</onlink>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Robichaud, Peter R.</origin>
+            <origin>Lewis, Sarah A.</origin>
+            <origin>Laes, Denise Y.M.</origin>
+            <origin>Hudak, Andrew T.</origin>
+            <origin>Kokaly, Raymond F.</origin>
+            <origin>Zamudio, Joseph A.</origin>
+            <pubdate>2007</pubdate>
+            <title>Postfire soil burn severity mapping with hyperspectral image unmixing</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>Remote Sensing of Environment</sername>
+              <issue>108: 467-480</issue>
+            </serinfo>
+            <othercit>14 p.</othercit>
+            <onlink>//www.treesearch.fs.fed.us/pubs/29030</onlink>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Simard, A.J.</origin>
+            <pubdate>1991</pubdate>
+            <title>Fire severity, changing scales, and how things hang together</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>International Journal of Wildland Fire</sername>
+              <issue>1(1): 23-34</issue>
+            </serinfo>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Tanase, Mihai</origin>
+            <origin>de la Riva, Juan</origin>
+            <origin>Perez-Cabello, Fernando</origin>
+            <origin>Lewis, Sarah A.</origin>
+            <pubdate>2011</pubdate>
+            <title>Estimating burn severity at the regional level using optically based indices</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>Canadian Journal Forest Research</sername>
+              <issue>41: 863-872</issue>
+            </serinfo>
+          </citeinfo>
+        </methcite>
+      </method>
+      <srcinfo>
+        <srccite>
+          <citeinfo>
+            <origin>USDA</origin>
+            <origin>NRCS</origin>
+            <pubdate>2013</pubdate>
+            <title>The PLANTS Database</title>
+            <geoform>database</geoform>
+            <pubinfo>
+              <pubplace>Greensboro, NC 27401-4901 USA</pubplace>
+              <publish>National Plant Data Team</publish>
+            </pubinfo>
+            <othercit>Accessed October 24, 2013</othercit>
+            <onlink>https://plants.usda.gov</onlink>
+          </citeinfo>
+        </srccite>
+        <typesrc>online</typesrc>
+        <srctime>
+          <timeinfo>
+            <rngdates>
+              <begdate>Unknown</begdate>
+              <enddate>Unknown</enddate>
+            </rngdates>
+          </timeinfo>
+          <srccurr>
+          </srccurr>
+        </srctime>
+        <srccitea>PLANTS</srccitea>
+        <srccontr>We used the PLANTS Database to obtain species acronyms and their corresponding scientific names.</srccontr>
+      </srcinfo>
+      <procstep>
+        <procdesc>Field data were collected on paper field forms. After returning from the field, an initial quality check was performed to make sure necessary data fields were properly filled in, and minor corrections were made where necessary. Data were subsequently entered into tables in the Access database, FIRESEV_FieldData_Codes.accdb, using entry forms. The paper FIRESEV PD Form was entered into 
+_PD table via the FIRESEV PD Form in Access; the paper FIRESEV Burn Severity Form was entered into the FIRESEV_Burn_Severity table via the FIRESEV Burn Severity Form in Access.
+
+Next, estimates recorded in the field for burn severity needed to be converted to the 0 to 3 Composite Burn Index (CBI) scale. The FIRESEV_Burn_Severity table includes many field variables, organized into six strata from the soil surface (stratum A) up through tall trees (stratum F). We estimated many burn severity variables as percentages in the field. Recording cover class midpoints, our actual values for these variables ranged from 0 to 98. To convert these to a 0 to 3 scale required dividing the recorded values by 32.67. One variable, Spp Comp-Rel Abundance in strata B and C, was recorded as categorical in the field: unchanged, low, moderate, or high. We converted these to the CBI scale by assigning them to 0, 1, 2, or 3, respectively. Similarly, diameter of smallest branch in strata B and C was recorded using categorical values of 0, 1, 2, 3, and these were taken directly to represent the CBI scale.</procdesc>
+        <procdate>2012</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>We used an R script called cbi_recode.r to perform all the conversion of variables to the CBI scale, and subsequently calculate CBI values for each sample stratum and for the plot as a whole. This script first reads in a CSV file export of the FIRESEV_Burn_Severity table. It then calculates a version of each variable on the 0 to 3 CBI scale. To calculate CBI for any given stratum, the script calculates the mean of all variables recorded for that stratum; if a variable is blank, it is simply not included in the calculation. The script calculates the overall plot CBI value as the average of CBI across all strata. On non-forested plots (all null values in the tree strata: C, D, E, or F), values for B1 and B2 strata are used in calculation of the overall plot CBI. On forested plots (any non-null values in tree strata), the value for the combined B strata is used. Since we were unsure of the usefulness of the smallest branch diameter variable, we also calculated CBI values both with and without this variable. Lastly, we also used the script to calculate GeoCBI, a modified version of the overall plot CBI where each stratum-level CBI value is weighted by the fractional cover of that stratum in the final calculation. We calculated GeoCBI using both the pre-fire and post-fire FCov (fractional cover) values recorded in the field.
+
+The output of the R script was a CSV file called cbi_calc.csv with the calculated values of each variable on the 0 to 3 scale, and all the stratum and plot-level CBI and GeoCBI values. This CSV file was then imported back into the Access database as the FIRESEV_cbi_calc table.</procdesc>
+        <procdate>Unknown</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Data from the Access database file were exported to an XLSX and CSV file so that data are available in multiple formats. 
+
+In the process or preparing data for archiving we discovered a couple of species codes that we believe were incorrect, so we made the following adjustments.
+
+1. For PLOTID = 3312, C_TwgSpp was = PUTR. We believe this was misentered, so the species was changed to PUTR2.
+
+2. For PLOTID = 211001, B_TwgSpp was = ROWI. We believe this was misentered, so the species was changed to ROWO.</procdesc>
+        <procdate>2013</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <direct>Point</direct>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <planar>
+        <mapproj>
+          <mapprojn>Albers Conical Equal Area</mapprojn>
+          <albers>
+            <stdparll>29.50000</stdparll>
+            <stdparll>45.50000</stdparll>
+            <longcm>-96.00000</longcm>
+            <latprjo>23.00000</latprjo>
+            <feast>0</feast>
+            <fnorth>0</fnorth>
+          </albers>
+        </mapproj>
+        <planci>
+          <plance>coordinate pair</plance>
+          <coordrep>
+            <absres>1</absres>
+            <ordres>1</ordres>
+          </coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn>North American Datum of 1983</horizdn>
+        <ellips>Geodetic Reference System 80</ellips>
+        <semiaxis>6378206.4</semiaxis>
+        <denflat>294.9786982</denflat>
+      </geodetic>
+    </horizsys>
+    <vertdef>
+      <altsys>
+        <altdatum>North American Vertical Datum of 1988</altdatum>
+        <altres>1.0</altres>
+        <altunits>meters</altunits>
+        <altenc>Explicit elevation coordinate included with horizontal coordinates</altenc>
+      </altsys>
+      <depthsys>
+        <depthdn>na</depthdn>
+        <depthdu>
+        </depthdu>
+        <depthem>
+        </depthem>
+      </depthsys>
+    </vertdef>
+  </spref>
+  <eainfo>
+    <overview>
+      <eaover>Below you will find a list of the files in this data publication and a description of their content.
+
+\Data\_codes_LocalSpecies_present.csv:
+Comma-delimited ASCII text file containing a list of the species codes found in these data along with the corresponding scientific name. If the species were missing or unknown, an acronym was used to define as best as possible what they thought the species might be. The definition of the species codes was obtained from (with the exception of the codes that do NOT have a scientific name - which applies to unknown species): 
+
+USDA, NRCS. 2013. The PLANTS Database (https://plants.usda.gov, 24 October 2013).  National Plant Data Team, Greensboro, NC 27401-4901 USA.
+
+
+\Data\_Landfire_ESP-PVG_codes.csv:
+Comma-delimited ASCII text file containing a list of potential vegetation group (PVG) codes along with the corresponding description. The codes and descriptions were obtained from //www.landfire.gov. The following variables are included:
+
+Value = ID (or code) used to describe potential vegetation group (see variable: PotentialVegTypeID).
+ESP_Name = full name of potential vegetation classes.
+
+
+\Data\_Landfire_EVT_codes.csv:
+Comma-delimited ASCII text file containing a list of existing vegetation type (EVT) codes along with the corresponding description. The codes and descriptions were obtained from //www.landfire.gov. The following variables are included:
+
+Value = ID (or code) used to describe potential vegetation group (see variable: PotentialVegTypeID).
+EVT_Name = full name of potential vegetation classes.
+
+
+\Data\FIRESEV_cbi_plots.shp:
+ESRI ArcGIS shapefile and associated files containing locations of the CBI plots for the FIRESEV project along with fire dates. These data were used to create the map in: \Supplements\FIRESEV_all_cbi_plots_graphic.jpg.
+
+FID = feature id, which is just a sequential number for each observation.
+Shape = type of shape, which is a point.
+New_ID = newly assigned id - a unique identifier for each observation.
+Point_X = x coordinate (meters, Albers projection).
+Point_Y = y coordinate (meters, Albers projection).
+CBI = composite burn index.
+FireName = name of fire.
+FireDate = date of the fire (mm/dd/yyyy where mm=month, dd=day, and yyyy=year).
+Fireyear = year of the fire.
+Firemonth = month of the fire (1-12).
+Fireday = day of the fire (1-31).
+Source = name of the source that provided the information on the fire.
+Source_ID = the id associated with the source for each fire. 
+Postburn_y = post burn year (0=same year as burn, 1=1 year post-burn, 2=2 years post-burn, 3=3 years post-burn.
+
+
+\Data\Photos\[firename]\PhotoName.jpg:
+The photos show ground cover view of the stand (labeled Ground) or the overall stand structure (labeled Stand). Most of the photos are taken looking north (labeled N). Photos are identified by filename, which is formatted as plot id number_[N or Extra]_[Ground or Stand].jpg. There may be additional photos (such as photos of wildlife) that may have a slightly different filename structure. These photos were left in the data publication because they were not harmful.
+
+
+\Data\FIRESEV_Dataset_All_variables.xlsx and FIRESEV_Dataset_All_variables.csv:
+Microsoft Excel Spreadsheet and comma-delimited ASCII text file containing location information, fire information, plot information, vegetation descriptions, biophysical characteristics of each site, name of photos related by plot number, ground cover estimations, percentage estimates of change due to fire, calculated CBI from the percentage estimates, and GeoCBI calculations. (The FIREMON Table A-1 that is referred to below is in: \Supplements\FIRESEV_field_methods_description.pdf). The following variables are included in these data files:
+
+RegID = four-character registration code that was set by examiner and designates the organization responsible for sampling each plot.
+
+Project = character code for official name of project. All in this dataset are FIRESEV, which was funded by Joint Fire Science Program, 2009-2012.
+
+FireDate = official start date of the fire within which CBI plots were established (DD/MM/YYYY where D=day, M=month, Y=year) and based on the Incident Command System (ICS).
+
+FireName = official name of fire within which CBI plots were established based on the ICS.
+
+State = 2 letter acronym for state within western USA where fire burned.
+
+PlotID = number assigned by examiner to CBI plot during field measurement.
+
+Field Date = date CBI plot data was collected for FIRESEV project.
+
+Examiners = person or people responsible for completing data collection on CBI plot.
+
+Measurement_Units = metric (M) or English (E) units used in data collection.
+
+Plot_Radius = numerical radius entered if sampling area is circular.
+
+Plot_Type = one character code - monitoring (M) or control (C).
+
+SampleEvent = code used to track plot in time and space. Values of SampleEvent:
+P1=Pretreatment1.
+P2=Pretreatment2.
+P3=Pretreatment3.
+R10=Remeasurement 10.
+R2=Remeasurement 2.
+R3=Remeasurement 3.
+R4=Remeasurement 4.
+R5=Remeasurement 5.
+R6=Remeasurement 6.
+R7=Remeasurement 7.
+R8=Remeasurement 8.
+R9=Remeasurement 9.
+R1=Remeasurement 1.
+IV=inventory plot that is not permanently marked. 
+
+LocType = type of location measurement (U=UTM based GIS reading, L=latitude/longitude).
+
+Northing = Universal Transverse Mercator (UTM) Northing entered using to nearest whole number.
+
+Easting = Universal Transverse Mercator (UTM) Easting entered to nearest whole number.
+
+UTM_Zone = UTM zone assigned to area where CBI plot is sampled.
+
+Datum = datum used in conjunction with the UTM coordinates.
+
+GPS_Error = position error value provided by a GPS unit.
+
+GPS_Err_Units = units associated with the error provided by the GPS unit.  Values of GPS_Err_Units:
+m=meter.
+f=feet.
+
+Elev= elevation above mean sea level of the CBI plot (in feet or meters) measured with a GPS unit.
+
+Aspect = aspect of the CBI plot to the nearest 5 degrees.
+
+Slope = CBI plot slope in percent to nearest 5%.
+
+Landform = 4-character code that best describes landform that CBI plot is located within. Values of Landform:
+GMF=Glaciated Mountains-Foothills.
+UMF=Unglaciated Mountains-Foothills.
+BRK=Breaklands-River Breaks-Badlands.
+VAL=Valleys-Swales-Draws.
+HIL=Hill-Low Ridges-Benches.
+X=Not Assessed.
+PLA=Plains-Rolling Plains w/ Breaks.
+
+Vertical_Slope_Shape = 2-character code. Values of Vertical_Slope_Shape:
+LI=Linear or planar.
+CC=Depression or concave.
+PA=Patterned.
+FL=Flat.
+BR=Broken.
+UN=Undulating.
+OO=Other shape.
+UA=Unable to assess.
+CV=Rounded or convex.
+X=Not Assessed.
+
+Horizontal_Slope_Shape = 2-character code. Values of Horizontal_Slope_Shape:
+LI=Linear or planar.
+CC=Depression or concave.
+PA=Patterned or undulating or broken.
+FL=Flat.
+OO=Other shape.
+X=Not Assessed.
+CV=Convex or rounded.
+
+TotalTreeCover = percentage code of canopy cover of all trees. Canopy cover codes are:
+0=Zero percent canopy cover.
+0.5=Trace or &gt;0-1 percent of canopy cover.
+3=Present or &gt;1-5 percent canopy cover.
+10=&gt;5-15 percent canopy cover.
+20=&gt;15-25 percent canopy cover.
+30=&gt;25-35 percent canopy cover.
+40=&gt;35-45 percent canopy cover.
+50=&gt;45-55 percent canopy cover.
+60=&gt;55-65 percent canopy cover.
+70=&gt;65-75 percent canopy cover.
+80=&gt;75-85 percent canopy cover.
+90=&gt;85-95 percent canopy cover.
+98=&gt;95-100 percent canopy cover.
+
+SeedlingTreeCover = percentage code of canopy cover of all trees less than 4.5 feet (ft), which is 1.4 meters (m) tall. For canopy cover codes, see TotalTreeCover above.
+
+SaplingTreeCover = percentage code of canopy cover of all trees greater than 4.5 feet (1.4 m) and less than 5.0 inches (in), which is 13 centimeters (cm), Diameter Breast Height (DBH). For canopy cover codes, see TotalTreeCover above.
+
+PoleTreeCover = percentage code of canopy cover of all trees greater than 5 in (13 cm) and less than 9 in (23 cm) DBH. For canopy cover codes, see TotalTreeCover above.
+
+MediumTreeCover = percentage code of canopy cover of all trees greater than 9 in (23 cm) and up to 21 in (53 cm) DBH. For canopy cover codes, see TotalTreeCover above.
+
+LargeTreeCover = percentage code of canopy cover of all trees that are greater than 21 in (53 cm) DBH. For canopy cover codes, see TotalTreeCover above.
+
+VeryLargeTreeCover = percentage code of canopy cover of all trees greater than 33 in (83 cm) DBH. For canopy cover codes, see TotalTreeCover above.
+
+TotalShrubCover = percentage code of canopy cover for all shrubs on the CBI plot. For canopy cover codes, see TotalTreeCover above.
+
+LowShrubCover = percentage code of canopy cover for all shrubs less than 3 ft (1 m) tall on the CBI plot. For canopy cover codes, see TotalTreeCover above.
+
+MediumShrubCover = percentage code of canopy cover of all shrubs greater than 3 ft (1 m) tall and less than 6.5 ft (2 m) tall. For canopy cover codes, see TotalTreeCover above.
+
+TallShrubCover = percentage code of canopy cover of all shrubs greater than 6.5 ft (2 m) tall on CBI plot. For canopy cover codes, see TotalTreeCover above.
+
+GraminoidCover = percentage code of canopy cover of all graminoid species on the CBI plot. For canopy cover codes, see TotalTreeCover above.
+
+ForbCover = percentage code of canopy cover of all forbs on the CBI plot. For canopy cover codes, see TotalTreeCover above.
+
+FernCover = percentage code of canopy cover of all ferns on the CBI plot. For canopy cover codes, see TotalTreeCover above.
+
+MossCover = percentage code of canopy cover of all mosses and lichens on the CBI plot. For canopy cover codes, see TotalTreeCover above.
+
+UpperDominantSpecies1 = FIREMON designated species code of the most dominant species in the upper level stratum (i.e., greater than 10 ft (3 m) above ground) of the CBI plot. See _codes_LocalSpecies_present.csv for a list of the species acronyms and the corresponding scientific name. Note that for FireDates &lt;= 2009:  N=No species &gt; 10% cover for the stratum, and for FireDates &gt; 2009: a blank cell denotes = No species &gt; 10% cover for the stratum).
+
+UpperDominantSpecies2 = FIREMON designated species code of the second most dominant species in the upper level stratum (i.e., greater than 10 ft (3 m) above ground level) of the CBI plot. See _codes_LocalSpecies_present.csv for a list of the species acronyms and the corresponding scientific name. Note that for FireDates &lt;= 2009:  N=No species &gt; 10% cover for the stratum, and for FireDates &gt; 2009: a blank cell denotes = No species &gt; 10% cover for the stratum).
+
+MidDominantSpecies1 = FIREMON designated species code of the most dominant species in the mid-level stratum (i.e., greater than 3 ft (1 m) and less than 10 ft (3 m)) above the ground of the CBI plot. See _codes_LocalSpecies_present.csv for a list of the species acronyms and the corresponding scientific name. Note that for FireDates &lt;= 2009:  N=No species &gt; 10% cover for the stratum, and for FireDates &gt; 2009: a blank cell denotes = No species &gt; 10% cover for the stratum).
+
+MidDominantSpecies2 = FIREMON designated species code of the second most dominant species in the mid-level stratum (i.e., greater than 3 ft (1 m) and less than 10 ft (3 m)) above the ground of the CBI plot. See _codes_LocalSpecies_present.csv for a list of the species acronyms and the corresponding scientific name. Note that for FireDates &lt;= 2009:  N=No species &gt; 10% cover for the stratum, and for FireDates &gt; 2009: a blank cell denotes = No species &gt; 10% cover for the stratum).
+
+LowerDominantSpecies1 = FIREMON designated species code of the most dominant species in the lowest level stratum (i.e., less than 3 ft (1m)) above ground level of the CBI plot. See _codes_LocalSpecies_present.csv for a list of the species acronyms and the corresponding scientific name. Note that for FireDates &lt;= 2009:  N=No species &gt; 10% cover for the stratum, and for FireDates &gt; 2009: a blank cell denotes = No species &gt; 10% cover for the stratum).
+
+LowerDominantSpecies2 = FIREMON designated species code of the second most dominant species in the lowest level stratum (i.e., less than 3 ft (1m)) above ground level of the CBI plot. See _codes_LocalSpecies_present.csv for a list of the species acronyms and the corresponding scientific name. Note that for FireDates &lt;= 2009:  N=No species &gt; 10% cover for the stratum, and for FireDates &gt; 2009: a blank cell denotes = No species &gt; 10% cover for the stratum).
+
+PotentialVegTypeID = ID for the potential vegetation type. See \Data\_Landfire_PVG_codes.csv for list of potential vegetation groups. (Code suggestions provided in FIREMON).
+
+PotentialLifeform = lifeform code that best describes life forms that would eventually inhabit the CBI plot in the absence of disturbance. Values of PotentialLifeform:
+NV=Non-vegetated-Bare soil, rock, dunes, scree, talus.
+CF=Coniferous upland forest-Pine, spruce, hemlock.
+CW=Coniferous wetland or riparian forest-Spruce, larch
+BW=Broadleaf wetland or riparian forest-Tupelo, cypress.
+BF=Broadleaf upland forest-Oak, beech, birch.
+SA=Shrub dominated alpine-Willow.
+SU=Shrub dominated upland-Sagebrush, bitterbrush.
+SW=Shrub dominated wetland or riparian-Willow
+HA=Herbaceous dominated alpine--Dryas
+HU=Herbaceous dominated upland-grasslands, bunchgrass
+HW=Herbaceous dominated wetland or riparian-ferns.
+ML=Moss or lichen dominated upland or wetland.
+OT=Other potential vegetation lifeform.
+X=Not Assessed.
+AQ=Aquatic -- Lake, pond, bog, river.
+
+BareSoilGC = estimate of all bare soil on the CBI plot as a cover class number (percentage).
+
+GravelGC = estimate of all gravel material (soil particles greater than 1/16 in (2 millimeters [mm]) in diameter) on the CBI plot as a cover class number (percentage).
+
+RockGC = estimate of all rock (particles greater than 3 in (8 cm)) on the CBI plot as a cover class number (percentage).
+
+DuffGC = estimate of all duff material on the CBI plot as a cover class number (percentage).
+
+WoodGC = estimate of all uncharred woody material on the CBI plot as a cover class number (percentage).
+
+MossAndLichenGC = estimate of all moss and lichen material on the CBI plot as a cover class number (percentage).
+
+CharredGC = estimate of all charred organic material on the CBI plot as a cover class number (percentage).
+
+AshGC = estimate of all ash material on the CBI plot as a cover class number (percentage).
+
+BasalVegetationGC = estimate of all basal vegetation (i.e., area of the cross section of stem where it enters the ground) on the CBI plot as a cover class number (percentage).
+
+WaterGC = estimate of all standing water on the CBI plot as a cover class number (percentage).
+
+Photo1 North-facing = name (and hyperlink in XLSX file) of photo of ground at CBI plot facing north.
+
+Photo2 North-facing = name (and hyperlink in XLSX file) of photo of stand containing CBI plot facing north.
+
+Local1 = notes and comments on CBI plot or photo, and sometimes it is the filename for an extra photo that was taken at the given location.
+
+Local2 = notes and comments on CBI plot or photo, and sometimes it is the filename for an extra photo that was taken at the given location.
+
+Photo_Comments = notes on the photo scene, content, type or name of camera used (sometimes the field crew nicknamed cameras, such as ‘taco’, but it meant nothing about the type of camera in used in these cases), and sometimes it is the filename for an extra photo that was taken at the given location.
+
+FIRESEV_Comments = general comments of note for CBI plot or location.
+
+Plot_AreaBurned = Percent surface area showing any impact from fire for entire 1/10 acre plot.
+
+A_FCovPre = estimated fractional cover (percentage) pre-fire for Stratum A using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+A_FCovPost = estimated fractional cover (percentage) post-fire for Stratum A using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+A_Litter = estimate of percent change in the litter layer of the substrate (Stratum A) due to consumption. Consumption includes conversion of woody material to inorganic carbon (charcoal), as well as the complete loss of woody fuel.
+
+A_Duff = estimate of percent change in duff layer of the substrate (Stratum A) due to consumption. See note for A_Litter.
+
+A_FineFuel = estimate of percent change in fine fuel (less than 3 in (7.6 cm) diameter) of the substrate (Stratum A) due to consumption. See note for A_Litter.
+
+A_LargeFuel = estimate of percent change in woody fuel (greater than or equal to 3 in diameter) of the substrate (Stratum A) due to consumption. See note for A_Litter.
+
+A_SoilRockCovCol = estimate of change in percent cover of newly exposed mineral soil and rock in Stratum A, over and above estimated pre-fire levels plotwide. Exposed soil is considered soil or rock surface that is visible from eye level and not covered by litter, duff, or low herbaceous cover less than about 12 in (30cm) high.
+
+A_GreenBrown = fractional cover (percentage) of Green/Brown soil cover in percent based on FIREMON classes (FIREMON Table A-1). Green/Brown is unburned vegetation, litter, etc.
+
+A_GrayBlack = Fractional cover (percentage) of Gray/Black soil cover in percent based on FIREMON classes (FIREMON Table A-1). Gray/Black is charred organic material and partially charred organic matter that is mixed with ash.
+
+A_Red = Fractional cover (percentage) of red soil cover in percent based on FIREMON classes (Table A-1). Red soil is oxidized.
+
+B_FCovPre = estimated fractional cover (percentage) pre-fire for Stratum B using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+B_FCov_Post = estimated fractional cover (percentage) post-fire for Stratum B using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+B_Altered = estimate of percent of pre-fire foliage that was turned black or brown by the fire.
+
+B_PctLive = estimate of percent of individual pre-fire plants that are still alive 1 year after fire. This is a measure of survivorship based on numbers of individuals and is not necessarily a change in percent cover.
+
+B_Comp = one-letter code depicting a relative rating for change in species composition in B Stratum. Values of B_Comp:
+H=high.
+L=low.
+M=moderate.
+U=uchanged.
+
+B_Twig = diameter of smallest branch or twig that remains on a shrub in the B Stratum after fire (measured in inches or centimeters).
+
+B_TwgSpp = four-letter code for the species on which the smallest diameter branch was assessed. See _codes_LocalSpecies_present.csv for a list of the species acronyms and the corresponding scientific name. Note that N=No species &gt; 10% cover for the stratum.
+
+B1_FCov_Pre = estimated fractional cover pre-fire for Stratum B-1 using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+B1_FCov_Post = estimated fractional cover post-fire for Stratum B-1 using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+B1_Altered = estimate of percent of pre-fire foliage that was turned black or brown by the fire.
+
+B1_PctLive = estimate of percent of individual pre-fire plants that are still alive 1 year after fire. This is a measure of survivorship based on numbers of individuals and is not necessarily a change in percent cover.
+
+B1_Comp = one-letter code depicting a relative rating for change in species composition in B-1 Stratum. See values under B_Comp.
+
+B2_FCov_Pre = estimated fractional cover pre-fire for Stratum B-2 using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+B2_FCov_Post = estimated fractional cover post-fire for Stratum B-2 using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+B2_Altered = estimate of percent of pre-fire foliage that was turned black or brown by the fire.
+
+B2_PctLive = estimate of percent of individual pre-fire plants that are still alive 1 year after fire. This is a measure of survivorship based on numbers of individuals and is not necessarily a change in percent cover.
+
+B2_Comp = one-letter code depicting a relative rating for change in species composition in B-2 Stratum. See values under B_Comp.
+
+B2_Twig = diameter of smallest branch or twig that remains on a shrub in the B-2 Stratum after fire (measured in inches or centimeters).
+
+B2_TwgSpp = four-letter code for the species on which the smallest diameter branch was assessed in B-2 Stratum. See _codes_LocalSpecies_present.csv for a list of the species acronyms and the corresponding scientific name. Note that N=No species &gt; 10% cover for the stratum.
+
+C_FCov_Pre = estimated fractional cover pre-fire for Stratum C using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+C_FCov_Post = estimated fractional cover post-fire for Stratum C using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+C_Altered = estimate of percent of pre-fire foliage that was turned black or brown by the fire.
+
+C_PctLive = estimate of percent of individual pre-fire plants that are still alive 1 year after fire. This is a measure of survivorship based on numbers of individuals and is not necessarily a change in percent cover.
+
+C_CovChange = estimate of the percent increase (+) or decrease (-) in canopy cover, relative to pre-fire cover.
+
+C_Comp = one-letter code depicting a relative rating for change in species composition in C Stratum. See values under B_Comp.
+
+C_Twig = diameter of smallest branch or twig that remains on a shrub in the C Stratum after fire (measured in inches or centimeters).
+
+C_TwgSpp = four-letter code for the species on which the smallest diameter branch was assessed in C Stratum. See _codes_LocalSpecies_present.csv for a list of the species acronyms and the corresponding scientific name. Note that N=No species &gt; 10% cover for the stratum.
+
+D_FCov_Pre = estimated fractional cover pre-fire for Stratum D using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+D_FCov_Post = estimated fractional cover post-fire for Stratum D using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+D_Green = percent of pre-fire foliage volume (living or dead) unaltered by fire, relative to estimated pre-fire crown volume for Stratum D of the CBI plot.
+
+D_BlackBrown = percent black of pre-fire crown foliage (living or dead) that is now black or brown as a result of fire. Includes foliage consumed (black) or damaged by heating or desiccation or because stem was girdled (brown, scorched. Also includes delayed mortality from fire or insects and disease that occurred post-fire.
+
+D_PctLive = estimate of percent of individual pre-fire plants that are still alive 1 year after fire. This is a measure of survivorship based on numbers of individuals and is not necessarily a change in percent cover.
+
+D_Twig = diameter of smallest branch or twig that remains on a shrub in the D Stratum after fire (measured in inches or centimeters).
+
+D_TwgSpp = four-letter code for the species on which the smallest diameter branch was assessed in D Stratum. See _codes_LocalSpecies_present.csv for a list of the species acronyms and the corresponding scientific name. Note that N=No species &gt; 10% cover for the stratum.
+
+E_FCov_Pre = estimated fractional cover pre-fire for Stratum E using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+E_FCov_Post = estimated fractional cover post-fire for Stratum E using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+E_Green = percent of pre-fire foliage volume (living or dead) unaltered by fire, relative to estimated pre-fire crown volume for Stratum E of the CBI plot.
+
+E_BlackBrown = percent black of pre-fire crown foliage (living or dead) that is now black or brown as a result of fire. Includes foliage consumed (black) or damaged by heating or desiccation or because stem was girdled (brown, scorched. Also includes delayed mortality from fire or insects and disease that occurred post-fire.
+
+E_PctLive = estimate of percent of individual pre-fire plants that are still alive 1 year after fire. This is a measure of survivorship based on numbers of individuals and is not necessarily a change in percent cover.
+
+F_FCov_Pre = estimated fractional cover pre-fire for Stratum F using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+F_FCov_Post = estimated fractional cover post-fire for Stratum F using the FIREMON percent cover classes (FIREMON Table A-1). See field methods description for details on estimating in the different strata.
+
+F_Green = percent of pre-fire foliage volume (living or dead) unaltered by fire, relative to estimated pre-fire crown volume for Stratum F of the CBI plot.
+
+F_BlackBrown = percent black of pre-fire crown foliage (living or dead)  that is now black or brown as a result of fire. Includes foliage consumed (black) or damaged by heating or desiccation or because stem was girdled (brown, scorched. Also includes delayed mortality from fire or insects and disease that occurred post-fire.
+
+F_PctLive = estimate of percent of individual pre-fire plants that are still alive 1 year after fire. This is a measure of survivorship based on numbers of individuals and is not necessarily a change in percent cover.
+
+FIRESEV_Burn_Severity_Comments = text area to provide observations about the plot or surrounding area that are not captured by other fields. Spatial context, management observations, and information on photos may be included.
+
+LS_BurnSev = text character code for LANDSUM severity level. Guidelines for the codes are given in the accompanying FIRESEV_field_methods_description.pdf. Values of LS_BurnSev:
+0=unburned.
+1=low.
+2=moderate.
+3=high.
+
+FIRESEV_Burn_Severity_FH_Overall = numeric code (0 to 3) assigned as overall rating of burn severity obtained from three elements of burn severity using the FIREHARM method. The three elements are overstory change/mortality, fuel consumption, and soil heating. The individual ratings for each element are given in the columns below. Guidelines for the codes are given in the accompanying FIRESEV_field_methods_description.pdf. See values under LS_BurnSev.
+
+FH_Overstory = numeric code for the degree of overstory change or mortality corresponding to the FIREHARM burn severity classification. Guidelines for the codes are given in the accompanying FIRESEV_field_methods_description.pdf. See values under LS_BurnSev.
+
+FH_Fuel = numeric code for the degree of fuel consumption corresponding to the FIREHARM burn severity classification. Guidelines for the codes are given in the accompanying FIRESEV_field_methods_description.pdf. See values under LS_BurnSev.
+
+FH_Soil = numeric code for the degree of soil heating corresponding to the FIREHARM burn severity classification. Guidelines for the codes are given in the accompanying FIRESEV_field_methods_description.pdf. See values under LS_BurnSev.
+
+EVT_pre = text code indicating best estimate of genus/species for pre-fire existing vegetation type (EVT). See \Data\_Landfire_EVT_codes.csv for list of the EVT codes and descriptions.
+
+EVT_post = text code indicating best estimate of genus/species for post-fire EVT. See \Data\_Landfire_EVT_codes.csv for list of the EVT codes and descriptions.
+
+SS_pre = text code indicating best estimate of pre-fire structural stage (SS). Values of SS_pre:
+HE=herb. 
+MA=mature.
+OG=old growth.
+PO=pole.
+SA=sapling.
+SE=seedling.
+SH=shrub.
+VM=very mature.
+
+SS_post = text code indicating best estimate of post-fire SS. See definitions for codes in SS_pre above.
+
+ESP = test code indicating best estimate of potential vegetation group (PVG) or environmental site potential (ESP). See \Data\_Landfire_PVG_codes.csv for list of PVG codes and descriptions.
+
+A_Litter_cbi = calculated numeric value (0-3) based on visual estimation of burn severity within the litter substrate layer.
+
+A_Duff_cbi = calculated numeric value (0-3) based on visual estimation of burn severity within the duff substrate layer.
+
+A_FineFuel_cbi = calculated numeric value (0-3) based on visual estimation of burn severity within the Medium Fuels of the substrate.
+
+A_LargeFuel_cbi = calculated numeric value (0-3) based on visual estimation of burn severity within the Heavy fuels (&gt;8 in or 20.3 cm) of the substrate.
+
+A_SoilColFracCov_cbi = calculated numeric value (0-3) based on visual estimation of change in the soil color or cover.
+
+cbi_A = calculated numeric value (0-3) based on the average of indices from all elements of Stratum A.
+
+B_Altered_cbi = calculated numeric value (0-3) based on visual estimation of how foliage is altered in the B stratum.
+
+B_PctLive_cbi = calculated numeric value (0-3) based on visual estimation of how much foliage survived the fire in the B stratum.
+
+B_Comp_cbi = calculated numeric value (0-3) based on visual estimation of how fire has changed the species composition or relative abundance in the B stratum.
+
+cbi_B_t = calculated average numeric value (0-3) for burn severity within the B stratum, including measurement of the smallest branch diameter (twig).
+
+cbi_B = Calculated average numeric value (0-3) for all elements of Stratum B except for the minimum branch diameter.
+
+B1_Altered_cbi = calculated numeric value (0-3) based on visual estimation of how foliage is altered in the B-1 stratum.
+
+B1_PctLive_cbi = calculated numeric value (0-3) based on visual estimation of how much foliage survived the fire in the B-1 stratum.
+
+B1_Comp_cbi = calculated numeric value (0-3) based on visual estimation of how fire has changed species composition or relative abundance in the B-1 stratum.
+
+cbi_B1 = calculated average numeric value (0-3) for all elements of Stratum B-1 except for the minimum branch diameter.
+
+B2_Altered_cbi = calculated numeric value (0-3) based on visual estimation of how foliage is altered in the B-2 stratum.
+
+B2_PctLive_cbi = calculated numeric value (0-3) based on visual estimation of how much foliage survived the fire in the B-2 stratum.
+
+B2_Comp_cbi = calculated numeric value (0-3) based on visual estimation of how fire has changed species composition or relative abundance in the B-2 stratum.
+
+cbi_B2_t = calculated average numeric value (0-3) for burn severity within the B-2 stratum, including measurement of the smallest branch diameter (twig).
+
+cbi_B2 = calculated average numeric value (0-3) for all elements of Stratum B-2 except for the minimum branch diameter.
+
+C_Altered_cbi = calculated numeric value (0-3) based on visual estimation of how foliage is altered in the C stratum.
+
+C_PctLive_cbi = calculated numeric value (0-3) based on visual estimation of how much foliage survived the fire in the C stratum.
+
+C_Comp_cbi = calculated numeric value (0-3) based on visual estimation of how fire has changed species composition or relative abundance in the C stratum.
+
+cbi_C_t = calculated average numeric value (0-3) for burn severity within the C stratum, including measurement of the smallest branch diameter (twig).
+
+cbi_C = calculated average numeric value (0-3) for all elements of Stratum C except for the minimum branch diameter.
+
+D_Green_cbi = calculated numeric value (0-3) based on visual estimation of the percent of unaltered (green) vegetation after fire in the D stratum.
+
+D_BlackBrown_cbi = calculated numeric value (0-3) based on visual estimation of the percent black (torched) needles and branches in the D stratum.
+
+D_PctLive_cbi = calculated numeric value (0-3) based on visual estimation of how much foliage survived the fire in the D stratum.
+
+cbi_D_t = calculated average numeric value (0-3) for burn severity within the D stratum, including measurement of the smallest branch diameter (twig).
+
+cbi_D = calculated average numeric value (0-3) for all elements of Stratum D except for the minimum branch diameter.
+
+E_Green_cbi = calculated numeric value (0-3) based on visual estimation of the percent of unaltered (green) vegetation after fire in the E stratum.
+
+E_BlackBrown_cbi = calculated numeric value (0-3) based on visual estimation of the percent black (torched) needles and branches in the E stratum.
+
+E_PctLive_cbi = calculated numeric value (0-3) based on visual estimation of how much foliage survived the fire in the E stratum.
+
+cbi_E = calculated average numeric value (0-3) for all elements of Stratum E except for the minimum branch diameter.
+
+F_Green_cbi = calculated numeric value (0-3) based on visual estimation of the percent of unaltered (green) vegetation after fire in the F stratum.
+
+F_BlackBrown_cbi = calculated numeric value (0-3) based on visual estimation of the percent black (torched) needles and branches in the F stratum.
+
+F_PctLive_cbi = calculated numeric value (0-3) based on visual estimation of how much foliage survived the fire in the F stratum.
+
+cbi_F = calculated average numeric value (0-3) for all elements of Stratum F except for the minimum branch diameter.
+
+cbi_tot_t = calculated average numeric value (0-3) for burn severity within all strata, including measurement of the smallest branch diameter (twig).
+
+cbi_tot = calculated numeric value (0-3) based on overall average of all strata on the CBI form.
+
+FIRESEV_Cbi_calc_FH_Overall = calculated numeric value (0-3) based on visual estimation of burn severity for the FIREHARM burn severity assessment. FIREHARM severity table of values and criteria are in in the FIRESEV Burn Severity Form (FIRESEV_BurnSeverityForm.pdf).
+
+FH_WAvg = calculated weighted average (0-3) of individual visual estimates for FIREHARM; weightings are overstory change/mortality x 2; fuel consumption x 2, and soil heating x 1.
+
+FH_Average = calculated numeric value (0-3) based on the average of visual estimates of all burn severity values for the FIREHARM criteria.
+
+GeoCBI_post = CBI adjusted for vegetation fractional cover and changes in leaf area index (LAI) for intermediate and tall tree strata (D+E). Calculated numeric value (0-3) determined for post-fire vegetation.
+
+GeoCBI_pre = CBI adjusted for vegetation fractional cover and changes in LAI for intermediate and tall tree strata (D+E). Calculated numeric value (0-3) determined for pre-fire vegetation.
+
+
+\Data\FIRESEV_FieldData_Codes.accdb:
+Microsoft Access database containing all of the information in the CSV and XLSX files, along with data codes and value ranges for most field variables. IMPORTANT NOTE: the variables in this ACCDB file are not necessarily in the same order as those listed above for the CSV and XLSX, and some of the variable names are slightly different. This file also contains a table showing acronyms and corresponding scientific names for species in the PLANTS Database. To find a list of just the species found in the study, see:  \Data\_codes_LocalSpecies_present.csv. 
+
+  Here is the citation for the list of species from the PLANTS Database:
+   USDA, NRCS. 2013. The PLANTS Database (https://plants.usda.gov, 24 October 2013).  National Plant Data Team, Greensboro, NC 27401-4901 USA.
+
+
+\Supplements\cbi_recode_110211.r:
+"R" software script file containing the script used to convert FIRESEV estimates of percent fuel consumed for each criteria and stratum to standard Key and Benson (2006) CBI format.
+
+
+\Supplements\FIRESEV_field_forms.pdf:
+Adobe Acrobat PDF/a file containing the FIRESEV Burn Severity and Plot Description field forms used to collect the data available in this data publication.
+
+
+\Supplements\FIRESEV_field_methods_description.pdf:
+Adobe Acrobat PDF file containing a complete description of the methods and protocols used to collect FIRESEV data for CBI evaluations. (This document also includes the blank field forms for Burn Severity and Plot Description.)</eaover>
+      <eadetcit>Dillon and Morgan (2009)</eadetcit>
+    </overview>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>USDA Forest Service, Research and Development</cntorg>
+        </cntorgp>
+        <cntpos>Research Data Archivist</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>240 West Prospect Road</address>
+          <city>Fort Collins</city>
+          <state>CO</state>
+          <postal>80526</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>see Contact Instructions</cntvoice>
+        <cntinst>This contact information was current as of December 2016. For current information see Contact Us page on: https://doi.org/10.2737/RDS.</cntinst>
+      </cntinfo>
+    </distrib>
+    <resdesc>RDS-2013-0017</resdesc>
+    <distliab>Metadata documents have been reviewed for accuracy and completeness. Unless otherwise stated, all data and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. However, neither the author, the Archive, nor any part of the federal government can assure the reliability or suitability of these data for a particular purpose. The act of distribution shall not constitute any such warranty, and no responsibility is assumed for a user's application of these data or related materials.
+
+The metadata, data, or related materials may be updated without notification. If a user believes errors are present in the metadata, data or related materials, please use the information in (1) Identification Information: Point of Contact, (2) Metadata Reference: Metadata Contact, or (3) Distribution Information: Distributor to notify the author or the Archive of the issues.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>ASCII</formname>
+          <formvern>see Format Specification</formvern>
+          <formspec>Comma-delimited ASCII text file</formspec>
+          <filedec>Files zipped with WinZip 14.0</filedec>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.2737/RDS-2013-0017</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <digform>
+        <digtinfo>
+          <formname>XLSX</formname>
+          <formvern>See Format Specification</formvern>
+          <formspec>Microsoft Excel 2010 spreadsheet</formspec>
+          <filedec>Files zipped with WinZip 14.0</filedec>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.2737/RDS-2013-0017</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <digform>
+        <digtinfo>
+          <formname>ACCDB</formname>
+          <formvern>See Format Specification</formvern>
+          <formspec>Microsoft Access 2010 database</formspec>
+          <filedec>Files zipped with Winzip 14.0</filedec>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.2737/RDS-2013-0017</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20161215</metd>
+    <metc>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>USDA Forest Service, Rocky Mountain Research Station, Missoula Fire Sciences Laboratory</cntorg>
+        </cntorgp>
+        <cntpos>Fire, Fuels and Smoke Program</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>5775 US Hwy 10 West</address>
+          <city>Missoula</city>
+          <state>MT</state>
+          <postal>59808</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406-329-4800</cntvoice>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+    <metsi>
+      <metscs>This data was collected as part of U.S. Forest Service research on fire severity.  It is public access.</metscs>
+      <metsc>Unclassified</metsc>
+      <metshd>
+      </metshd>
+    </metsi>
+  </metainfo>
+</metadata>
