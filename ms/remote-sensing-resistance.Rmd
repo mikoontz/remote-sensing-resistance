@@ -100,10 +100,10 @@ What is the effect of spatial heterogeneity on wildfire resistance?
 Publically available digital elevation maps (DEM) were used to assess slope and aspect of the forested area within fire perimeters at a 30m spatial resolution. I added 135 degrees to all aspect values and cosine transformed them so that values of -1 represented northeast aspects, and values of 1 represented southwest aspects to best capture heat loading in the northern hemisphere [@McCune2002]. The normalized difference in vegetation index (NDVI) can be used to assess canopy density, and it was calculated for all pixels using bands 3 and 4 from the Landsat 5 imagery:
 
 $$
-NDVI = \frac{NIR(Band 4) - RED (Band 3)}{NIR(Band 4) + RED(Band 3) }
+NDVI = \frac{NIR(Band_4) - RED (Band_3)}{NIR(Band_4) + RED(Band_3) }
 $$
 
-A measure of heterogeneity was derived which used focal operations to calculate the standard deviation of NDWI within a certain sized neighborhood around each pixel [@Tuanmu2015]. Five neighborhood sizes were used (radii of 30m, 45m, 56m, 79m, 113m) corresponding to a moving neighborhood window of 0.28 ha, 0.64 ha, 0.99 ha, 2.0 ha, and 4.0 ha. Imagery was downsampled by a factor of 100 to reduce spatial autocorrelation. I scaled all predictor variables, and treated each individual fire as having a random intercept effect using the following mixed effects model:
+A measure of heterogeneity was derived which used focal operations to calculate the standard deviation of NDVI within a certain sized neighborhood around each pixel [@Tuanmu2015]. Five neighborhood sizes were used (radii of 30m, 45m, 56m, 79m, 113m) corresponding to a moving neighborhood window of 0.28 ha, 0.64 ha, 0.99 ha, 2.0 ha, and 4.0 ha. Imagery was downsampled by a factor of 100 to reduce spatial autocorrelation. I scaled all predictor variables, and treated each individual fire as having a random intercept effect using the following mixed effects model:
 
 Each neighborhood size was substituted in turn for the heterogeneity of NDWI covariate, to generate a candidate set of 5 models which were compared using AIC. The model with the best out-of-sample prediction was further analyzed by comparing the B coefficients to assess the relative effect of each predictor on wildfire severity.
 Has there been an increase in forest precariousness over the past 30 years?
@@ -111,7 +111,11 @@ We correlated the RdNBR values calculated above to field-measured severity (comp
 
 ## Results
 
- 
+1. On-the-ground CBI measurements correlate well with our derived severity measurements.
+1. (?) Heterogeneity of local NDVI is a meaningful measure of heterogeneity
+1. The best model used heterogeneity at the smallest spatial scale.
+1. Greater heterogeneity reduces wildfire severity.
+1. The relative importance of heterogeneity is stronger than all other variables.
 
 ## Discussion
 
@@ -119,3 +123,7 @@ The heterogeneity measure (standard deviation of NDVI in a 2ha moving window) ca
 The spatial autocorrelation inherent in analyses of spatial processes is an important consideration for model inference, because it challenges the assumptions of standard statistical techniques. Future directions for this work will include more explicit tests of spatial autocorrelation in the residuals of the model, and modeling techniques that account for some of the autocorrelated residual error with neighborhood effects. Rather than a simple linear model, the model would be:
 
 ## Possible holes
+1. We bump into the lower limit of neighborhood window when using Landsat
+1. Best way to demonstrate heterogeneity of NDVI is meaningful
+1. To include or not include the value of NDVI of the focal pixel
+1. 

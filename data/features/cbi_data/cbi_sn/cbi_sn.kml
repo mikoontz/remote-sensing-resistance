@@ -3728,50 +3728,6 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
-		<SimpleData name="id">281004</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
-		<SimpleData name="cbi_over">1.02030405060708</SimpleData>
-		<SimpleData name="cbi_over_t">1.26522803795531</SimpleData>
-		<SimpleData name="cbi_tot">1.481294426</SimpleData>
-		<SimpleData name="cbi_tot_t">1.575987144</SimpleData>
-		<SimpleData name="source">sikkink2013</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-117.940083224386413,35.700405091612645</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#cbi">
-		<SimpleData name="id">281005</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
-		<SimpleData name="source">sikkink2013</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-117.943293988646403,35.70179548292748</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#cbi">
-		<SimpleData name="id">281006</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
-		<SimpleData name="cbi_over">0.697224772982347</SimpleData>
-		<SimpleData name="cbi_over_t">1.02291857973676</SimpleData>
-		<SimpleData name="cbi_tot">0.565541781</SimpleData>
-		<SimpleData name="cbi_tot_t">0.80704775</SimpleData>
-		<SimpleData name="source">sikkink2013</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-117.947012755354109,35.694724782878339</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#cbi">
-		<SimpleData name="id">281007</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
-		<SimpleData name="source">sikkink2013</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-117.948228577148697,35.693795578441453</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">281101</SimpleData>
 		<SimpleData name="fireDate">2010-07-18</SimpleData>
 		<SimpleData name="fireName">Indian</SimpleData>
@@ -3807,47 +3763,278 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
-		<SimpleData name="id">281104</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="id">301001</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="cbi_over">3.03373805394007</SimpleData>
+		<SimpleData name="cbi_over_t">2.61201237968915</SimpleData>
+		<SimpleData name="cbi_tot">2.711600857</SimpleData>
+		<SimpleData name="cbi_tot_t">2.467758392</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.423516242247445,35.787913194501975</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301002</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.422252438382529,35.78901901252511</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301003</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
 		<SimpleData name="cbi_over">3.03035404550556</SimpleData>
-		<SimpleData name="cbi_over_t">2.77276553412918</SimpleData>
-		<SimpleData name="cbi_tot">2.771434888</SimpleData>
-		<SimpleData name="cbi_tot_t">2.599709213</SimpleData>
+		<SimpleData name="cbi_over_t">2.27276553412918</SimpleData>
+		<SimpleData name="cbi_tot">2.675271231</SimpleData>
+		<SimpleData name="cbi_tot_t">2.170212223</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
-      <Point><coordinates>-117.939138661614777,35.699033016583115</coordinates></Point>
+      <Point><coordinates>-118.419389477589021,35.78917906296072</coordinates></Point>
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
-		<SimpleData name="id">281105</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="id">301004</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="cbi_tot">0.728242016</SimpleData>
+		<SimpleData name="cbi_tot_t">0.728242016</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
-      <Point><coordinates>-117.937044128866901,35.698562476683904</coordinates></Point>
+      <Point><coordinates>-118.435369688838847,35.796084417060868</coordinates></Point>
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
-		<SimpleData name="id">281106</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
-		<SimpleData name="cbi_over">3.03035404550556</SimpleData>
-		<SimpleData name="cbi_over_t">2.77276553412918</SimpleData>
-		<SimpleData name="cbi_tot">2.751028807</SimpleData>
-		<SimpleData name="cbi_tot_t">2.579303132</SimpleData>
+		<SimpleData name="id">301005</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
-      <Point><coordinates>-117.950777328168257,35.694361513549168</coordinates></Point>
+      <Point><coordinates>-118.436044301186172,35.794832241857662</coordinates></Point>
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
-		<SimpleData name="id">281107</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="id">301006</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="cbi_over">2.5490766248342</SimpleData>
+		<SimpleData name="cbi_over_t">2.29187072747679</SimpleData>
+		<SimpleData name="cbi_tot">2.336972418</SimpleData>
+		<SimpleData name="cbi_tot_t">2.204056559</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
-      <Point><coordinates>-117.948438231419061,35.693766878653229</coordinates></Point>
+      <Point><coordinates>-118.447514045052486,35.778674407720914</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301007</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.448362896825884,35.776067761897245</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301008</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="cbi_over">1.6393225181104</SimpleData>
+		<SimpleData name="cbi_over_t">1.9794918885828</SimpleData>
+		<SimpleData name="cbi_tot">1.870574431</SimpleData>
+		<SimpleData name="cbi_tot_t">2.040659116</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.452596000190496,35.77584540525995</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301101</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="cbi_over">1.74813794510764</SimpleData>
+		<SimpleData name="cbi_over_t">1.55342567084991</SimpleData>
+		<SimpleData name="cbi_tot">1.794051627</SimpleData>
+		<SimpleData name="cbi_tot_t">1.69669549</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.419711574128044,35.787381199081246</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301102</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.418632590694472,35.787682427951076</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301103</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="cbi_over">2.98959289868381</SimpleData>
+		<SimpleData name="cbi_over_t">2.24219467401286</SimpleData>
+		<SimpleData name="cbi_tot">2.782292623</SimpleData>
+		<SimpleData name="cbi_tot_t">2.408593511</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.41392450301673,35.789865521653844</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301105</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.431196236808205,35.795376886858897</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301106</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="cbi_over">2.71064177124783</SimpleData>
+		<SimpleData name="cbi_over_t">2.41304458728701</SimpleData>
+		<SimpleData name="cbi_tot">2.519334762</SimpleData>
+		<SimpleData name="cbi_tot_t">2.234491378</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.452265742590342,35.784450039201261</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301107</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.455251719810292,35.786802998638379</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">301108</SimpleData>
+		<SimpleData name="fireDate">2010-07-26</SimpleData>
+		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.452374862371244,35.788622824242523</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">311001</SimpleData>
+		<SimpleData name="fireDate">2010-09-12</SimpleData>
+		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="cbi_over">2.58142026323844</SimpleData>
+		<SimpleData name="cbi_over_t">2.20389501071319</SimpleData>
+		<SimpleData name="cbi_tot">2.19640853</SimpleData>
+		<SimpleData name="cbi_tot_t">1.944725028</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.581082691126085,35.558604692484955</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">311002</SimpleData>
+		<SimpleData name="fireDate">2010-09-12</SimpleData>
+		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.581573119217609,35.557173811791095</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">311003</SimpleData>
+		<SimpleData name="fireDate">2010-09-12</SimpleData>
+		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="cbi_over">1.93857769615345</SimpleData>
+		<SimpleData name="cbi_over_t">1.93857769615345</SimpleData>
+		<SimpleData name="cbi_tot">1.416182022</SimpleData>
+		<SimpleData name="cbi_tot_t">1.416182022</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.585358645657507,35.557241285843034</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">311004</SimpleData>
+		<SimpleData name="fireDate">2010-09-12</SimpleData>
+		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="cbi_over">2.70040472060674</SimpleData>
+		<SimpleData name="cbi_over_t">2.27867904635582</SimpleData>
+		<SimpleData name="cbi_tot">2.394143455</SimpleData>
+		<SimpleData name="cbi_tot_t">2.077849199</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.584967326004232,35.559779782052679</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">311101</SimpleData>
+		<SimpleData name="fireDate">2010-09-12</SimpleData>
+		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="cbi_over">0.836649321497806</SimpleData>
+		<SimpleData name="cbi_over_t">0.836649321497806</SimpleData>
+		<SimpleData name="cbi_tot">1.540965208</SimpleData>
+		<SimpleData name="cbi_tot_t">1.391881781</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.579271369013568,35.562441988085304</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">311102</SimpleData>
+		<SimpleData name="fireDate">2010-09-12</SimpleData>
+		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="cbi_tot">1.730146584</SimpleData>
+		<SimpleData name="cbi_tot_t">1.593536374</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.576759381560663,35.560374265414332</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">311103</SimpleData>
+		<SimpleData name="fireDate">2010-09-12</SimpleData>
+		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.575156839526343,35.557979065102387</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">311104</SimpleData>
+		<SimpleData name="fireDate">2010-09-12</SimpleData>
+		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.589697957886102,35.555741661258899</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">311105</SimpleData>
+		<SimpleData name="fireDate">2010-09-12</SimpleData>
+		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="cbi_tot">1.512600755</SimpleData>
+		<SimpleData name="cbi_tot_t">1.512600755</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.591902778691932,35.555099512327843</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#cbi">
+		<SimpleData name="id">311106</SimpleData>
+		<SimpleData name="fireDate">2010-09-12</SimpleData>
+		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="source">sikkink2013</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-118.594368914305122,35.554841532852045</coordinates></Point>
   </Placemark>
 </Folder>
 </Document></kml>

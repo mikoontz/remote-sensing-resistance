@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+data/features/landcover_LANDFIRE/*
+data/features/fire_return_interval_departure/*
+data/features/landcover_PFR/*
