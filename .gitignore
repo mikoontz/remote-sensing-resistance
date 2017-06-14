@@ -5,3 +5,7 @@
 data/features/landcover_LANDFIRE/*
 data/features/fire_return_interval_departure/*
 data/features/landcover_PFR/*
+data/features/fire_perim/fire_perim_16_1.gdb/*
+data/features/fire_perim/fire_perim_sn_16_1_shp/*
+data/features/fire_perim/fire_perim_shp/*
+
