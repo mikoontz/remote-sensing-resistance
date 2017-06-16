@@ -3,8 +3,8 @@
 <Document id="root_doc">
 <Schema name="cbi" id="cbi">
 	<SimpleField name="id" type="int"></SimpleField>
-	<SimpleField name="fireDate" type="string"></SimpleField>
-	<SimpleField name="fireName" type="string"></SimpleField>
+	<SimpleField name="alarm_date" type="string"></SimpleField>
+	<SimpleField name="fire_name" type="string"></SimpleField>
 	<SimpleField name="cbi_over" type="float"></SimpleField>
 	<SimpleField name="cbi_over_t" type="float"></SimpleField>
 	<SimpleField name="cbi_tot" type="float"></SimpleField>
@@ -15,8 +15,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">1</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Highway</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Highway</SimpleData>
 		<SimpleData name="cbi_over">2.29</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -25,8 +25,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">2</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Highway</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Highway</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -35,8 +35,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">3</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.562243599079324,37.053778506792426</coordinates></Point>
@@ -44,8 +44,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">4</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0.88</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -54,8 +54,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">5</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -64,8 +64,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">6</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.528970643589545,37.052246271477834</coordinates></Point>
@@ -73,8 +73,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">7</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -83,8 +83,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">8</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">1.74</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -93,8 +93,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">9</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0.34</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -103,8 +103,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">10</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">1.21</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -113,8 +113,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">11</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0.64</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -123,8 +123,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">12</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0.92</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -133,8 +133,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">13</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0.62</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -143,8 +143,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">14</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">2.48</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -153,8 +153,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">15</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0.4</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -163,8 +163,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">16</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0.86</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -173,8 +173,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">17</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">2.57</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -183,8 +183,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">18</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">1.3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -193,8 +193,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">19</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">1</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -203,8 +203,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">20</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.541727000071205,37.054109515181985</coordinates></Point>
@@ -212,8 +212,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">21</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.512251125204159,37.05520027449397</coordinates></Point>
@@ -221,8 +221,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">22</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">2</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -231,8 +231,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">23</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">2.4</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -241,8 +241,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">24</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">2.63</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -251,8 +251,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">25</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">2.57</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -261,8 +261,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">26</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0.94</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -271,8 +271,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">27</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.542874491756365,37.054130678328917</coordinates></Point>
@@ -280,8 +280,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">28</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.524163484455784,37.057031075173597</coordinates></Point>
@@ -289,8 +289,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">29</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0.54</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -299,8 +299,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">30</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">2.94</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -309,8 +309,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">31</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">2.97</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -319,8 +319,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">32</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.526097327319874,37.057006259769238</coordinates></Point>
@@ -328,8 +328,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">33</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">2.26</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -338,8 +338,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">34</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">2.63</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -348,8 +348,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">35</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0.9</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -358,8 +358,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">36</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">1.62</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -368,8 +368,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">37</SimpleData>
-		<SimpleData name="fireDate">2002-07-01</SimpleData>
-		<SimpleData name="fireName">Palisade</SimpleData>
+		<SimpleData name="alarm_date">2002-07-01</SimpleData>
+		<SimpleData name="fire_name">Palisade</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -378,8 +378,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">38</SimpleData>
-		<SimpleData name="fireDate">2002-06-01</SimpleData>
-		<SimpleData name="fireName">Sherman 9</SimpleData>
+		<SimpleData name="alarm_date">2002-06-01</SimpleData>
+		<SimpleData name="fire_name">Sherman 9</SimpleData>
 		<SimpleData name="cbi_over">1.15</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -388,8 +388,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">39</SimpleData>
-		<SimpleData name="fireDate">2002-06-01</SimpleData>
-		<SimpleData name="fireName">Sherman 9</SimpleData>
+		<SimpleData name="alarm_date">2002-06-01</SimpleData>
+		<SimpleData name="fire_name">Sherman 9</SimpleData>
 		<SimpleData name="cbi_over">1.28</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -398,8 +398,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">40</SimpleData>
-		<SimpleData name="fireDate">2002-06-01</SimpleData>
-		<SimpleData name="fireName">Sherman 9</SimpleData>
+		<SimpleData name="alarm_date">2002-06-01</SimpleData>
+		<SimpleData name="fire_name">Sherman 9</SimpleData>
 		<SimpleData name="cbi_over">1.18</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -408,8 +408,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">41</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">2.8</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -418,8 +418,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">42</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">0.9</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -428,8 +428,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">43</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">1.8</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -438,8 +438,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">44</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">0.68</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -448,8 +448,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">45</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">1.36</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -458,8 +458,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">46</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">1.38</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -468,8 +468,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">47</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">2.4</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -478,8 +478,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">48</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">2.63</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -488,8 +488,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">49</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">2.39</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -498,8 +498,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">50</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">1.68</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -508,8 +508,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">51</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">1.14</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -518,8 +518,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">52</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">1.4</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -528,8 +528,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">53</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">1.5</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -538,8 +538,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">54</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">1.16</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -548,8 +548,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">55</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">1.65</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -558,8 +558,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">56</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">0.81</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -568,8 +568,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">57</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">1.62</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -578,8 +578,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">58</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">1.06</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -588,8 +588,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">59</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">0.43</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -598,8 +598,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">60</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">0.07</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -608,8 +608,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">61</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -618,8 +618,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">62</SimpleData>
-		<SimpleData name="fireDate">2002-10-01</SimpleData>
-		<SimpleData name="fireName">Tar Gap</SimpleData>
+		<SimpleData name="alarm_date">2002-10-01</SimpleData>
+		<SimpleData name="fire_name">Tar Gap</SimpleData>
 		<SimpleData name="cbi_over">0.83</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -628,8 +628,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">63</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.470874804053338,35.976191898505384</coordinates></Point>
@@ -637,8 +637,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">64</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">0.86</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -647,8 +647,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">65</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.28</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -657,8 +657,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">66</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.492300532976373,36.037338086438119</coordinates></Point>
@@ -666,8 +666,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">67</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.44</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -676,8 +676,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">68</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.39</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -686,8 +686,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">69</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.515059403667536,36.008628834368281</coordinates></Point>
@@ -695,8 +695,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">70</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.518313199271745,36.011093885012144</coordinates></Point>
@@ -704,8 +704,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">71</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.15</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -714,8 +714,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">72</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.514496877183589,35.970484124695936</coordinates></Point>
@@ -723,8 +723,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">73</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.513692415266419,35.971332674190514</coordinates></Point>
@@ -732,8 +732,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">74</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.499923066100919,35.980953304406363</coordinates></Point>
@@ -741,8 +741,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">75</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">1.46</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -751,8 +751,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">76</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.2</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -761,8 +761,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">77</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.68</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -771,8 +771,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">78</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.5211182103818,35.977459271587634</coordinates></Point>
@@ -780,8 +780,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">79</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.5</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -790,8 +790,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">80</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.43</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -800,8 +800,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">81</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.93</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -810,8 +810,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">82</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.7</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -820,8 +820,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">83</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.26</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -830,8 +830,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">84</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.44</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -840,8 +840,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">85</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -850,8 +850,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">86</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -860,8 +860,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">87</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.39</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -870,8 +870,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">88</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.94</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -880,8 +880,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">89</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.45</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -890,8 +890,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">90</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.58</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -900,8 +900,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">91</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.516603858433271,36.015695096010909</coordinates></Point>
@@ -909,8 +909,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">92</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">1.71</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -919,8 +919,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">93</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.39</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -929,8 +929,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">94</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.418104610320597,35.973112153222267</coordinates></Point>
@@ -938,8 +938,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">95</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.41</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -948,8 +948,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">96</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.5</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -958,8 +958,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">97</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.4</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -968,8 +968,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">98</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.54</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -978,8 +978,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">99</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.53</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -988,8 +988,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">100</SimpleData>
-		<SimpleData name="fireDate">2002-08-01</SimpleData>
-		<SimpleData name="fireName">McNally</SimpleData>
+		<SimpleData name="alarm_date">2002-08-01</SimpleData>
+		<SimpleData name="fire_name">McNally</SimpleData>
 		<SimpleData name="cbi_over">2.58</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -998,8 +998,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">101</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.14</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1008,8 +1008,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">102</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.95</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1018,8 +1018,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">103</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.79</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1028,8 +1028,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">104</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">2.09</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1038,8 +1038,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">105</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.73</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1048,8 +1048,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">106</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.46</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1058,8 +1058,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">107</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.34</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1068,8 +1068,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">108</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.65</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1078,8 +1078,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">109</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.59</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1088,8 +1088,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">110</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.88</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1098,8 +1098,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">111</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.63</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1108,8 +1108,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">112</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.06</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1118,8 +1118,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">113</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.66</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1128,8 +1128,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">114</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.11</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1138,8 +1138,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">115</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.65</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1148,8 +1148,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">116</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.43</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1158,8 +1158,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">117</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.59</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1168,8 +1168,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">118</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.36</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1178,8 +1178,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">119</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.33</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1188,8 +1188,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">120</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.7</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1198,8 +1198,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">121</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.39</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1208,8 +1208,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">122</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.6</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1218,8 +1218,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">123</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.34</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1228,8 +1228,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">124</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.53</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1238,8 +1238,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">125</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.68</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1248,8 +1248,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">126</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.91</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1258,8 +1258,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">127</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">2.25</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1268,8 +1268,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">128</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.99</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1278,8 +1278,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">129</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">2.01</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1288,8 +1288,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">130</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">1.54</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1298,8 +1298,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">131</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.4</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1308,8 +1308,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">132</SimpleData>
-		<SimpleData name="fireDate">1999-07-14</SimpleData>
-		<SimpleData name="fireName">Dark</SimpleData>
+		<SimpleData name="alarm_date">1999-07-14</SimpleData>
+		<SimpleData name="fire_name">Dark</SimpleData>
 		<SimpleData name="cbi_over">0.86</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1318,8 +1318,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">133</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.83</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1328,8 +1328,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">134</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1338,8 +1338,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">135</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.95</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1348,8 +1348,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">136</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.81</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1358,8 +1358,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">137</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.05</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1368,8 +1368,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">138</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.08</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1378,8 +1378,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">139</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.64</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1388,8 +1388,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">140</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.73</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1398,8 +1398,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">141</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.16</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1408,8 +1408,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">142</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.33</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1418,8 +1418,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">143</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">1.78</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1428,8 +1428,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">144</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.54</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1438,8 +1438,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">145</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">1.3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1448,8 +1448,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">146</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.54</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1458,8 +1458,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">147</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.31</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1468,8 +1468,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">148</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.8</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1478,8 +1478,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">149</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">1.94</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1488,8 +1488,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">150</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.26</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1498,8 +1498,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">151</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.41</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1508,8 +1508,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">152</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.61</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1518,8 +1518,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">153</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.81</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1528,8 +1528,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">154</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.65</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1538,8 +1538,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">155</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.91</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1548,8 +1548,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">156</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.89</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1558,8 +1558,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">157</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">1.26</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1568,8 +1568,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">158</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">1.13</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1578,8 +1578,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">159</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.34</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1588,8 +1588,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">160</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.5</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1598,8 +1598,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">161</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.79</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1608,8 +1608,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">162</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.48</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1618,8 +1618,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">163</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.79</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1628,8 +1628,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">164</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">1.21</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1638,8 +1638,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">165</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">1.25</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1648,8 +1648,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">166</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.33</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1658,8 +1658,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">167</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.49</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1668,8 +1668,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">168</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.1</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1678,8 +1678,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">169</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">1.06</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1688,8 +1688,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">170</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.9</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1698,8 +1698,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">171</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">0.75</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1708,8 +1708,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">172</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">1.69</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1718,8 +1718,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">173</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">1.91</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1728,8 +1728,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">174</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">2.98</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1738,8 +1738,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">175</SimpleData>
-		<SimpleData name="fireDate">1999-11-06</SimpleData>
-		<SimpleData name="fireName">Lost</SimpleData>
+		<SimpleData name="alarm_date">1999-11-06</SimpleData>
+		<SimpleData name="fire_name">Lost</SimpleData>
 		<SimpleData name="cbi_over">1.84</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1748,8 +1748,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">176</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-119.50095182237645,37.652281226119911</coordinates></Point>
@@ -1757,8 +1757,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">177</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.73</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1767,8 +1767,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">178</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.4</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1777,8 +1777,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">179</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.93</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1787,8 +1787,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">180</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.6</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1797,8 +1797,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">181</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.98</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1807,8 +1807,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">182</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1817,8 +1817,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">183</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.59</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1827,8 +1827,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">184</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.55</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1837,8 +1837,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">185</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.8</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1847,8 +1847,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">186</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1857,8 +1857,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">187</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.88</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1867,8 +1867,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">188</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.98</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1877,8 +1877,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">189</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.88</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1887,8 +1887,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">190</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.95</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1897,8 +1897,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">191</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1907,8 +1907,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">192</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.55</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1917,8 +1917,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">193</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.08</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1927,8 +1927,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">194</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.8</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1937,8 +1937,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">195</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0.75</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1947,8 +1947,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">196</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.55</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1957,8 +1957,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">197</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0.88</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1967,8 +1967,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">198</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0.91</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1977,8 +1977,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">199</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.93</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1987,8 +1987,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">200</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0.88</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -1997,8 +1997,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">201</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.38</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2007,8 +2007,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">202</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0.5</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2017,8 +2017,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">203</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.69</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2027,8 +2027,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">204</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.6</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2037,8 +2037,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">205</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.75</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2047,8 +2047,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">206</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.75</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2057,8 +2057,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">207</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.44</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2067,8 +2067,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">208</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.75</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2077,8 +2077,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">209</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.51</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2087,8 +2087,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">210</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.59</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2097,8 +2097,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">211</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.7</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2107,8 +2107,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">212</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.91</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2117,8 +2117,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">213</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.71</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2127,8 +2127,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">214</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.9</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2137,8 +2137,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">215</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.8</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2147,8 +2147,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">216</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.38</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2157,8 +2157,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">217</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.5</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2167,8 +2167,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">218</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.5</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2177,8 +2177,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">219</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.65</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2187,8 +2187,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">220</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.38</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2197,8 +2197,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">221</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.63</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2207,8 +2207,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">222</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.19</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2217,8 +2217,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">223</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.06</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2227,8 +2227,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">224</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.38</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2237,8 +2237,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">225</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.31</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2247,8 +2247,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">226</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.53</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2257,8 +2257,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">227</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.78</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2267,8 +2267,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">228</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">2.2</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2277,8 +2277,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">229</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2287,8 +2287,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">230</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2297,8 +2297,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">231</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2307,8 +2307,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">232</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2317,8 +2317,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">233</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2327,8 +2327,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">234</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0.16</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2337,8 +2337,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">235</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.31</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2347,8 +2347,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">236</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">1.21</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2357,8 +2357,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">237</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0.74</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2367,8 +2367,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">238</SimpleData>
-		<SimpleData name="fireDate">2001-07-10</SimpleData>
-		<SimpleData name="fireName">Hoover</SimpleData>
+		<SimpleData name="alarm_date">2001-07-10</SimpleData>
+		<SimpleData name="fire_name">Hoover</SimpleData>
 		<SimpleData name="cbi_over">0.2</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2377,8 +2377,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">239</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.25</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2387,8 +2387,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">240</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.68</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2397,8 +2397,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">241</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">1.02</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2407,8 +2407,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">242</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-119.747834102184868,37.79832507417084</coordinates></Point>
@@ -2416,8 +2416,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">243</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-119.751300099756747,37.800839209566035</coordinates></Point>
@@ -2425,8 +2425,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">244</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-119.754350670137356,37.801948313234057</coordinates></Point>
@@ -2434,8 +2434,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">245</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">2.73</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2444,8 +2444,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">246</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">2.4</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2454,8 +2454,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">247</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">2.78</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2464,8 +2464,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">248</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">2.55</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2474,8 +2474,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">249</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-119.751052111766583,37.799970973391154</coordinates></Point>
@@ -2483,8 +2483,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">250</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">2.57</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2493,8 +2493,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">251</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">1.08</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2503,8 +2503,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">252</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.13</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2513,8 +2513,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">253</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.51</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2523,8 +2523,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">254</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.54</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2533,8 +2533,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">255</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.74</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2543,8 +2543,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">256</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.13</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2553,8 +2553,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">257</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.84</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2563,8 +2563,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">258</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.28</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2573,8 +2573,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">259</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.36</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2583,8 +2583,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">260</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">2.28</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2593,8 +2593,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">261</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">2.15</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2603,8 +2603,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">262</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">1.31</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2613,8 +2613,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">263</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">1.54</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2623,8 +2623,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">264</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">1.79</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2633,8 +2633,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">265</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">1.61</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2643,8 +2643,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">266</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">1.42</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2653,8 +2653,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">267</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">1.49</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2663,8 +2663,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">268</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">1.57</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2673,8 +2673,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">269</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">1.35</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2683,8 +2683,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">270</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.29</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2693,8 +2693,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">271</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.17</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2703,8 +2703,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">272</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-119.743859948581957,37.787289618152968</coordinates></Point>
@@ -2712,8 +2712,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">273</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-119.752102432807476,37.78329485154827</coordinates></Point>
@@ -2721,8 +2721,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">274</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2731,8 +2731,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">275</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.28</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2741,8 +2741,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">276</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.29</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2751,8 +2751,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">277</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-119.768489501141019,37.77701803307243</coordinates></Point>
@@ -2760,8 +2760,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">278</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.18</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2770,8 +2770,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">279</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">PW-3</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">PW-3</SimpleData>
 		<SimpleData name="cbi_over">0.34</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2780,8 +2780,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">280</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">2.55</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2790,8 +2790,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">281</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">2.08</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2800,8 +2800,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">282</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">2.29</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2810,8 +2810,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">283</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.81</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2820,8 +2820,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">284</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.97</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2830,8 +2830,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">285</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.99</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2840,8 +2840,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">286</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">2.74</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2850,8 +2850,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">287</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">2.77</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2860,8 +2860,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">288</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.62</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2870,8 +2870,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">289</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">1.99</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2880,8 +2880,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">290</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">1.01</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2890,8 +2890,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">291</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">1.11</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2900,8 +2900,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">292</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.71</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2910,8 +2910,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">293</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">1.46</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2920,8 +2920,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">294</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.96</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2930,8 +2930,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">295</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.8</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2940,8 +2940,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">296</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.68</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2950,8 +2950,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">297</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.29</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2960,8 +2960,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">298</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">1.08</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2970,8 +2970,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">299</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">2.28</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2980,8 +2980,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">300</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">2.34</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -2990,8 +2990,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">1.43</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3000,8 +3000,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">302</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">1.78</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3010,8 +3010,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">303</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">2.1</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3020,8 +3020,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">304</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.82</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3030,8 +3030,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">305</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.7</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3040,8 +3040,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">306</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">1.48</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3050,8 +3050,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">307</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">2.65</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3060,8 +3060,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">308</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.64</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3070,8 +3070,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">309</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.2</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3080,8 +3080,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">310</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.7</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3090,8 +3090,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">311</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3100,8 +3100,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">312</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3110,8 +3110,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">313</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0.62</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3120,8 +3120,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">314</SimpleData>
-		<SimpleData name="fireDate">2002-09-01</SimpleData>
-		<SimpleData name="fireName">WOLF</SimpleData>
+		<SimpleData name="alarm_date">2002-09-01</SimpleData>
+		<SimpleData name="fire_name">WOLF</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3130,8 +3130,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">315</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.6</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3140,8 +3140,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">316</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">0.28</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3150,8 +3150,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">317</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.78</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3160,8 +3160,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">318</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.75</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3170,8 +3170,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">319</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.78</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3180,8 +3180,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">320</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.55</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3190,8 +3190,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">321</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.78</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3200,8 +3200,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">322</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.72</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3210,8 +3210,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">323</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.5</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3220,8 +3220,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">324</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.5</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3230,8 +3230,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">325</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">1.85</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3240,8 +3240,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">326</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.19</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3250,8 +3250,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">327</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.13</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3260,8 +3260,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">328</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.13</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3270,8 +3270,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">329</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">2.22</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3280,8 +3280,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">330</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">0.85</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3290,8 +3290,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">331</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">1.45</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3300,8 +3300,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">332</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3310,8 +3310,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">333</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3320,8 +3320,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">334</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3330,8 +3330,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">335</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">TUOLOMNE</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">TUOLOMNE</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3340,8 +3340,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">336</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3350,8 +3350,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">337</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.28</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3360,8 +3360,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">338</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3370,8 +3370,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">339</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.78</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3380,8 +3380,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">340</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.35</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3390,8 +3390,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">341</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.8</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3400,8 +3400,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">342</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.85</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3410,8 +3410,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">343</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.43</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3420,8 +3420,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">344</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.68</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3430,8 +3430,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">345</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">1.43</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3440,8 +3440,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">346</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">1.1</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3450,8 +3450,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">347</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">1.88</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3460,8 +3460,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">348</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">1.13</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3470,8 +3470,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">349</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">1.18</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3480,8 +3480,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">350</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">1.38</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3490,8 +3490,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">351</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">2.42</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3500,8 +3500,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">352</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">2.15</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3510,8 +3510,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">353</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">2.88</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3520,8 +3520,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">354</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">2.18</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3530,8 +3530,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">355</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">1.58</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3540,8 +3540,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">356</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">2.94</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3550,8 +3550,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">357</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">2.94</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3560,8 +3560,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">358</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">2.76</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3570,8 +3570,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">359</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">2.85</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3580,8 +3580,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">360</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">2.94</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3590,8 +3590,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">361</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">2.88</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3600,8 +3600,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">362</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">1.03</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3610,8 +3610,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">363</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3620,8 +3620,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">364</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">2.9</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3630,8 +3630,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">365</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.6</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3640,8 +3640,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">366</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.48</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3650,8 +3650,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">367</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.63</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3660,8 +3660,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">368</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.48</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3670,8 +3670,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">369</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">0.58</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3680,8 +3680,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">370</SimpleData>
-		<SimpleData name="fireDate">2003-07-23</SimpleData>
-		<SimpleData name="fireName">WHISKEY</SimpleData>
+		<SimpleData name="alarm_date">2003-07-23</SimpleData>
+		<SimpleData name="fire_name">WHISKEY</SimpleData>
 		<SimpleData name="cbi_over">1.05</SimpleData>
 		<SimpleData name="source">zhu2006</SimpleData>
 	</SchemaData></ExtendedData>
@@ -3690,8 +3690,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">281001</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="alarm_date">2010-07-18</SimpleData>
+		<SimpleData name="fire_name">Indian</SimpleData>
 		<SimpleData name="cbi_over">2.65054586266707</SimpleData>
 		<SimpleData name="cbi_over_t">2.24128490290107</SimpleData>
 		<SimpleData name="cbi_tot">2.147964493</SimpleData>
@@ -3703,8 +3703,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">281002</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="alarm_date">2010-07-18</SimpleData>
+		<SimpleData name="fire_name">Indian</SimpleData>
 		<SimpleData name="cbi_over">2.75257626772778</SimpleData>
 		<SimpleData name="cbi_over_t">2.3178077066966</SimpleData>
 		<SimpleData name="cbi_tot">2.303050709</SimpleData>
@@ -3716,8 +3716,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">281003</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="alarm_date">2010-07-18</SimpleData>
+		<SimpleData name="fire_name">Indian</SimpleData>
 		<SimpleData name="cbi_over">1.02030405060708</SimpleData>
 		<SimpleData name="cbi_over_t">0.765228037955311</SimpleData>
 		<SimpleData name="cbi_tot">1.346163657</SimpleData>
@@ -3729,8 +3729,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">281101</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="alarm_date">2010-07-18</SimpleData>
+		<SimpleData name="fire_name">Indian</SimpleData>
 		<SimpleData name="cbi_over">3.03373805394007</SimpleData>
 		<SimpleData name="cbi_over_t">2.52867904635582</SimpleData>
 		<SimpleData name="cbi_tot">2.620997857</SimpleData>
@@ -3742,8 +3742,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">281102</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="alarm_date">2010-07-18</SimpleData>
+		<SimpleData name="fire_name">Indian</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-117.980223525309498,35.704511718475757</coordinates></Point>
@@ -3751,8 +3751,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">281103</SimpleData>
-		<SimpleData name="fireDate">2010-07-18</SimpleData>
-		<SimpleData name="fireName">Indian</SimpleData>
+		<SimpleData name="alarm_date">2010-07-18</SimpleData>
+		<SimpleData name="fire_name">Indian</SimpleData>
 		<SimpleData name="cbi_over">1.53729211304969</SimpleData>
 		<SimpleData name="cbi_over_t">1.15296908478727</SimpleData>
 		<SimpleData name="cbi_tot">1.864835221</SimpleData>
@@ -3764,8 +3764,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301001</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="cbi_over">3.03373805394007</SimpleData>
 		<SimpleData name="cbi_over_t">2.61201237968915</SimpleData>
 		<SimpleData name="cbi_tot">2.711600857</SimpleData>
@@ -3777,8 +3777,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301002</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.422252438382529,35.78901901252511</coordinates></Point>
@@ -3786,8 +3786,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301003</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="cbi_over">3.03035404550556</SimpleData>
 		<SimpleData name="cbi_over_t">2.27276553412918</SimpleData>
 		<SimpleData name="cbi_tot">2.675271231</SimpleData>
@@ -3799,8 +3799,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301004</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="cbi_tot">0.728242016</SimpleData>
 		<SimpleData name="cbi_tot_t">0.728242016</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
@@ -3810,8 +3810,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301005</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.436044301186172,35.794832241857662</coordinates></Point>
@@ -3819,8 +3819,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301006</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="cbi_over">2.5490766248342</SimpleData>
 		<SimpleData name="cbi_over_t">2.29187072747679</SimpleData>
 		<SimpleData name="cbi_tot">2.336972418</SimpleData>
@@ -3832,8 +3832,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301007</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.448362896825884,35.776067761897245</coordinates></Point>
@@ -3841,8 +3841,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301008</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="cbi_over">1.6393225181104</SimpleData>
 		<SimpleData name="cbi_over_t">1.9794918885828</SimpleData>
 		<SimpleData name="cbi_tot">1.870574431</SimpleData>
@@ -3854,8 +3854,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301101</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="cbi_over">1.74813794510764</SimpleData>
 		<SimpleData name="cbi_over_t">1.55342567084991</SimpleData>
 		<SimpleData name="cbi_tot">1.794051627</SimpleData>
@@ -3867,8 +3867,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301102</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.418632590694472,35.787682427951076</coordinates></Point>
@@ -3876,8 +3876,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301103</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="cbi_over">2.98959289868381</SimpleData>
 		<SimpleData name="cbi_over_t">2.24219467401286</SimpleData>
 		<SimpleData name="cbi_tot">2.782292623</SimpleData>
@@ -3889,8 +3889,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301105</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.431196236808205,35.795376886858897</coordinates></Point>
@@ -3898,8 +3898,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301106</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="cbi_over">2.71064177124783</SimpleData>
 		<SimpleData name="cbi_over_t">2.41304458728701</SimpleData>
 		<SimpleData name="cbi_tot">2.519334762</SimpleData>
@@ -3911,8 +3911,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301107</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.455251719810292,35.786802998638379</coordinates></Point>
@@ -3920,8 +3920,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">301108</SimpleData>
-		<SimpleData name="fireDate">2010-07-26</SimpleData>
-		<SimpleData name="fireName">Bull</SimpleData>
+		<SimpleData name="alarm_date">2010-07-26</SimpleData>
+		<SimpleData name="fire_name">Bull</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.452374862371244,35.788622824242523</coordinates></Point>
@@ -3929,8 +3929,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">311001</SimpleData>
-		<SimpleData name="fireDate">2010-09-12</SimpleData>
-		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="alarm_date">2010-09-12</SimpleData>
+		<SimpleData name="fire_name">Canyon</SimpleData>
 		<SimpleData name="cbi_over">2.58142026323844</SimpleData>
 		<SimpleData name="cbi_over_t">2.20389501071319</SimpleData>
 		<SimpleData name="cbi_tot">2.19640853</SimpleData>
@@ -3942,8 +3942,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">311002</SimpleData>
-		<SimpleData name="fireDate">2010-09-12</SimpleData>
-		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="alarm_date">2010-09-12</SimpleData>
+		<SimpleData name="fire_name">Canyon</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.581573119217609,35.557173811791095</coordinates></Point>
@@ -3951,8 +3951,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">311003</SimpleData>
-		<SimpleData name="fireDate">2010-09-12</SimpleData>
-		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="alarm_date">2010-09-12</SimpleData>
+		<SimpleData name="fire_name">Canyon</SimpleData>
 		<SimpleData name="cbi_over">1.93857769615345</SimpleData>
 		<SimpleData name="cbi_over_t">1.93857769615345</SimpleData>
 		<SimpleData name="cbi_tot">1.416182022</SimpleData>
@@ -3964,8 +3964,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">311004</SimpleData>
-		<SimpleData name="fireDate">2010-09-12</SimpleData>
-		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="alarm_date">2010-09-12</SimpleData>
+		<SimpleData name="fire_name">Canyon</SimpleData>
 		<SimpleData name="cbi_over">2.70040472060674</SimpleData>
 		<SimpleData name="cbi_over_t">2.27867904635582</SimpleData>
 		<SimpleData name="cbi_tot">2.394143455</SimpleData>
@@ -3977,8 +3977,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">311101</SimpleData>
-		<SimpleData name="fireDate">2010-09-12</SimpleData>
-		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="alarm_date">2010-09-12</SimpleData>
+		<SimpleData name="fire_name">Canyon</SimpleData>
 		<SimpleData name="cbi_over">0.836649321497806</SimpleData>
 		<SimpleData name="cbi_over_t">0.836649321497806</SimpleData>
 		<SimpleData name="cbi_tot">1.540965208</SimpleData>
@@ -3990,8 +3990,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">311102</SimpleData>
-		<SimpleData name="fireDate">2010-09-12</SimpleData>
-		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="alarm_date">2010-09-12</SimpleData>
+		<SimpleData name="fire_name">Canyon</SimpleData>
 		<SimpleData name="cbi_tot">1.730146584</SimpleData>
 		<SimpleData name="cbi_tot_t">1.593536374</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
@@ -4001,8 +4001,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">311103</SimpleData>
-		<SimpleData name="fireDate">2010-09-12</SimpleData>
-		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="alarm_date">2010-09-12</SimpleData>
+		<SimpleData name="fire_name">Canyon</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.575156839526343,35.557979065102387</coordinates></Point>
@@ -4010,8 +4010,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">311104</SimpleData>
-		<SimpleData name="fireDate">2010-09-12</SimpleData>
-		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="alarm_date">2010-09-12</SimpleData>
+		<SimpleData name="fire_name">Canyon</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.589697957886102,35.555741661258899</coordinates></Point>
@@ -4019,8 +4019,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">311105</SimpleData>
-		<SimpleData name="fireDate">2010-09-12</SimpleData>
-		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="alarm_date">2010-09-12</SimpleData>
+		<SimpleData name="fire_name">Canyon</SimpleData>
 		<SimpleData name="cbi_tot">1.512600755</SimpleData>
 		<SimpleData name="cbi_tot_t">1.512600755</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
@@ -4030,8 +4030,8 @@
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#cbi">
 		<SimpleData name="id">311106</SimpleData>
-		<SimpleData name="fireDate">2010-09-12</SimpleData>
-		<SimpleData name="fireName">Canyon</SimpleData>
+		<SimpleData name="alarm_date">2010-09-12</SimpleData>
+		<SimpleData name="fire_name">Canyon</SimpleData>
 		<SimpleData name="source">sikkink2013</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-118.594368914305122,35.554841532852045</coordinates></Point>

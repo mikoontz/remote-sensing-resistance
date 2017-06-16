@@ -334,11 +334,11 @@ head(landfire_cbi_sf)
 usgs_cbi_sf %<>%
   mutate(id = 1:nrow(.), cbi_over_t = NA, cbi_totl = NA, cbi_tot_t = NA) %>%
   select(id, firedate, fire_nam, cbi_over, cbi_over_t, cbi_totl, cbi_tot_t, source, geometry) %>%
-  rename(fireDate = firedate, fireName = fire_nam, cbi_tot = cbi_totl)
+  rename(alarm_date = firedate, fire_name = fire_nam, cbi_tot = cbi_totl)
 
 landfire_cbi_sf %<>%
   select(PlotID, FireDate, FireName, cbi_over, cbi_over_t, cbi_tot, cbi_tot_t, source, geometry) %>%
-  rename(id = PlotID, fireDate = FireDate, fireName = FireName)
+  rename(id = PlotID, alarm_date = FireDate, fire_name = FireName)
 
 head(usgs_cbi_sf)
 head(landfire_cbi_sf)
@@ -346,8 +346,8 @@ head(landfire_cbi_sf)
 cbi_sf <- rbind(usgs_cbi_sf, landfire_cbi_sf)
 sn_cbi <- cbi_sf[sn, ]
 
-plot(sn_cbi$geometry)
-plot(sn, add = TRUE)  
+plot(st_geometry(sn_cbi))
+plot(st_geometry(sn), add = TRUE)  
 
 # Write the objects as both a kml and a shapefile
 st_write(obj = sn_cbi, dsn = "data/features/cbi_data/cbi_sn/cbi_sn.shp")

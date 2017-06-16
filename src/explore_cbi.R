@@ -1,8 +1,9 @@
 library(sf)
 
-cbi <- st_read("data/sierra_nevada_cbi/")
-sn <- st_read("data/SierraEcoregion_TNC/")
+cbi <- st_read("data/features/cbi_data/cbi_sn/")
+sn <- st_read("data/features/SierraEcoregion_Jepson/") %>%
+  st_transform(4326)
 
-plot(cbi$geometry)
-plot(sn$geometry, add = TRUE)
+plot(st_geometry(cbi))
+plot(st_geometry(sn), add = TRUE)
 str(cbi)
