@@ -15,11 +15,10 @@ header-includes:
 bibliography: /Users/mikoontz/dev/bibliography/BibTeX_Library/library.bib
 csl: /Users/mikoontz/dev/bibliography/Bibliography_Format/ecology.csl
 
-title: 'Greater variability in local forest structure increases resistance to wildfire'
+title: 'Greater variability in local vegetation structure increases forest resistance to wildfire'
 author:
 - Michael J Koontz
 - Malcolm P North
-- Constance I Millar
 - Stephen E Fick
 - Chhaya M Werner
 - Andrew M Latimer
@@ -31,12 +30,10 @@ Author:
   affiliation:
     - 1
     - 2
-- name: Constance I Millar
-  affiliation: 3
 - name: Stephen E Fick
-  affiliation: 4
+  affiliation: 3
 - name: Chhaya M Werner
-  affiliation: 5
+  affiliation: 4
 - name: Andrew M Latimer
   affiliation: 1
 affiliations:
@@ -44,8 +41,6 @@ affiliations:
   code: 1
 - name: USDA Forest Service, Pacific Southwest Research Station, Davis, CA 95618 USA
   code: 2
-- name: USDA Forest Service, Sierra Nevada Research Center, Pacific Southwest Research Station, Albany, CA 94710 USA
-  code: 3
 - name: Stockholm Environment Institute, Stockholm 115 23, Sweden
   code: 4
 - name: Center for Population Biology, University of California, Davis, CA 95616 USA
