@@ -105,7 +105,7 @@ $$
 
 A measure of heterogeneity was derived which used focal operations to calculate the standard deviation of NDVI within a certain sized neighborhood around each pixel [@Tuanmu2015]. Five neighborhood sizes were used (radii of 30m, 45m, 56m, 79m, 113m) corresponding to a moving neighborhood window of 0.28 ha, 0.64 ha, 0.99 ha, 2.0 ha, and 4.0 ha. Imagery was downsampled by a factor of 100 to reduce spatial autocorrelation. I scaled all predictor variables, and treated each individual fire as having a random intercept effect using the following mixed effects model:
 
-Each neighborhood size was substituted in turn for the heterogeneity of NDWI covariate, to generate a candidate set of 5 models which were compared using AIC. The model with the best out-of-sample prediction was further analyzed by comparing the B coefficients to assess the relative effect of each predictor on wildfire severity.
+Each neighborhood size was substituted in turn for the heterogeneity of NDVI covariate, to generate a candidate set of 5 models which were compared using AIC. The model with the best out-of-sample prediction was further analyzed by comparing the B coefficients to assess the relative effect of each predictor on wildfire severity.
 Has there been an increase in forest precariousness over the past 30 years?
 We correlated the RdNBR values calculated above to field-measured severity (composite burn index, or CBI) collated from two separate Joint Fire Sciences Program projects [@Zhu2006; @Sikkink2013]. We determined the threshold RdNBR value that corresponded to “high severity” classification in the CBI data (CBI > 2.25). For the entire dataset, all pixels greater than this threshold were considered “high severity burns.” 
 
