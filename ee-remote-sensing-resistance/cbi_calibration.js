@@ -953,40 +953,16 @@ var getVariables = function(feature) {
           'elev']),
       null);
     
-    // Copy all properties from the feature to the image generated with
-    // our modeling variables
     export_img = ee.Algorithms.If(export_img,
-        ee.Image(
-          ee.Feature(export_img)
-            .copyProperties(feature)
-          ),
-        null);
-    
-    // We want the function to be flexible to export the images
-    // representing the values of our model variables within 
-    // each fire perimeter OR to export the values of our model
-    // variables that come from a single point (where Composite
-    // Burn Index was measured on the ground)
-    var export_object = 
-    ee.Algorithms.If((!get_cbi), // Global variable needs to be set for whether we want values from a point or a perimeter
-      ee.Algorithms.If(export_img, // Continue if all pre and post fire imagery was available
-        maskNonForest(ee.Image(export_img).clip(geo)), // When we get values from within fire perimeters, clip the image to the polygon/multipolygon geometry
-        null), // return a null if export_img doesn't exist (because pre and/or postfire imagery didn't exist)
-      ee.Algorithms.If(export_img, 
-          ee.Feature(geo, // If we are getting model variables from a point, use a reducer on the image at the point, then convert back to a feature.
-            ee.Image(export_img)
-              .reduceRegion({
-                reducer: ee.Reducer.first(),
-                geometry: geo,
-                scale: 30
-              })
-            ),
-          null)
-        
-    );
+      ee.Feature(export_img).copyProperties({
+        source: feature,
+        properties: ['fire_name', 'fire_num', 'agency', 'cause', 'cont_date']
+      }),
+      null);
   
     
-    return ee.Feature(export_object);
+    
+    return ee.Image(export_img);
 };
 
 
@@ -1016,20 +992,14 @@ var timeWindow = 2;
 // var start = ee.Date('1984-04-01').millis();
 // var end = ee.Date('2011-05-04').millis();
 
-var start = ee.Date('2010-10-01').millis();
+var start = ee.Date('2010-04-01').millis();
 var end = ee.Date('2011-05-04').millis();
 
 // Sampling factor determines how much to sample from each image
 var s_factor = 0.001;
 
-// Are these a list of points where Composite Burn Index has been measured
-// on the ground and we want to calibrate our remote sensed metrics?
-// var get_cbi = true;
-var get_cbi = false;
-
-// Filter entire collection of mapped fire perimenters to just the
-// fires that started during the Landsat 5 period and those with an
-// area greater than 900 m^2 (one Landsat pixel)
+// Filter entire collection of collated CBI data based on fire 
+// date and ensure points are all within Sierra Nevada border. 
 // We know we'll need some imagery a few months before each fire
 // and a year after each fire, so we limit our fire selection to 
 // those that burned starting a few months after Landsat 5 imagery
@@ -1037,37 +1007,32 @@ var get_cbi = false;
 
 var target_features =
   perim
+  // cbi_sn
     .filterMetadata("alarm_date", "greater_than", start)
     .filterMetadata("alarm_date", "less_than", end)
-    .filterMetadata("shape_area", "greater_than", 900)
+    .filterMetadata("fire_name", "equals", "Tar Gap")
     .filterBounds(sn);
-
-// var target_features = cbi_sn;
+    
+// target_features = ee.Feature(target_features.first());
+print(target_features.getInfo());
 
 // // Map the variable retrieval function over all of the features
 var imgCol = ee.FeatureCollection(target_features.map(getVariables, true));
+Map.addLayer(imgCol);
+print(imgCol.getInfo());
+
+
 
 // Mask nonForested pixels based on the Presettlement Fire Regimes from FRID database
-// imgCol = imgCol.map(maskNonForest);
+imgCol = imgCol.map(maskNonForest);
 
-// Code to run when getting model variables from points (when CBI was measured on the ground)
-// Export.table.toDrive({
-//   'collection': imgCol,
-//   'description': "cbi_calibration",
-//   'folder': 'ee',
-//   'fileNamePrefix': "cbi_calibration",
-//   'fileFormat': 'CSV'
-// });
-
-// Export.table.toDrive({
-//   'collection': target_features,
-//   'description': 'remote_resistance_cbi_metadata',
-//   'folder': 'ee',
-//   'fileNamePrefix': 'remote_resistance_cbi_metadata',
-//   'fileFormat': 'CSV'
-// });
-
-// Run this code if you are collecting data from fire perimeters.
+Export.table.toDrive({
+  'collection': target_features,
+  'description': 'metadata',
+  'folder': 'ee',
+  'fileNamePrefix': 'L5_19840401_20110504_remote_resistance_frap_metadata',
+  'fileFormat': 'CSV'
+});
 
 // Extract samples
 // Sample from the images containing all response and predictor values
@@ -1077,14 +1042,6 @@ var samps = imgCol.map(getSamps).flatten();
 // var fileName = 'L5_1987HAMMCMPLX_remote_resistance_frap_100_point_sample';
 var fileName = 'L5_19840401_20110504_remote_resistance_frap_100_point_sample';
 // var fileName = 'L5_19840401_20110504_remote_resistance_frap_0_001_percent';
-
-Export.table.toDrive({
-  'collection': target_features,
-  'description': 'metadata',
-  'folder': 'ee',
-  'fileNamePrefix': 'L5_20100401_20110504_remote_resistance_frap_metadata',
-  'fileFormat': 'CSV'
-});
 
 // Export the tidy .csv to Google Drive
 Export.table.toDrive({
