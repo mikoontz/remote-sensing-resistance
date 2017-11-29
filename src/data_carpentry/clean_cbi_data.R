@@ -28,6 +28,7 @@ unique(usgs_cbi$firedate)
 # Which dates don't parse?
 # Indices of bad dates
 bad_dates_idx <- is.na(mdy(unique(usgs_cbi$firedate)))
+bad_dates_idx <- is.na(mdy(unique(usgs_cbi$firedate)))
 # Bad dates themselves (c("7/2000", "7/2001", "01-AUG-200", "15-JUL-200", "8/2001", "Nov-01", "30-OCT-200", "01-NOV-200", "03-NOV-200", "29-JUL-200", "15-AUG-200", "10-SEP-200", "25-AUG-200", "16-AUG-200", "01-JUL-200", "May-00", "20-JUL-200"))
 bad_dates <- unique(usgs_cbi$firedate)[bad_dates_idx]
 
@@ -43,9 +44,9 @@ check_date <- function(data, bad_date) {
 
 # 7/2000
 (current <- bad_dates[1])
-check_date(usgs_cbi, current)[[1]]
-check_date(usgs_cbi, current)[[2]]
-check_date(usgs_cbi, current)[[3]]
+check_date(usgs_cbi, current)[[1]] # The bad date (confirm this is the same as "current")
+check_date(usgs_cbi, current)[[2]] # All fires with the bad date in their $firedate column
+check_date(usgs_cbi, current)[[3]] # The whole record of all plots with the bad date
 
 usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Foraker", "firedate"] <- "06-23-2000"
 usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Otter Creek", "firedate"] <- "06-24-2000"
@@ -185,6 +186,21 @@ usgs_cbi[usgs_cbi$firedate == current & usgs_cbi$fire_nam == "Pony", "firedate"]
 
 usgs_cbi$firedate <- mdy(usgs_cbi$firedate)
 
+# 11/06/1999
+# This error was insidious. Apparently, the "Lost Fire" did not start on 11/06/1999, despite the USGS
+# data suggesting it did. This fire is also known as the "Lost Bear Fire" and is referenced in a
+# few papers (Meng et al. 2015. Remote Sensing of the Environment; Van Wagtendonk et al. 2012. Fire Ecology; 
+# Miller et al. 2009. Remote Sensing of the Environment). Pre-fire imagery from the Lost Bear
+# Fire was taken 07/09/1999 and post-fire imagery was taken 07/11/2000. The FRAP database has a "Lost Bear
+# Fire" that began on 07/11/1999. Based on the spatial locations of the CBI plots, the only possible 
+# fire this could be in the MTBS database is the "South Park Complex" which burned a 
+# similar area as the "Lost Fire" aka "Lost Bear" fire. MTBS has the South Park Complex fire starting
+# on 07/11/1999, thus we believe the start date of 11/06/1999 for the "Lost Fire" is incorrect and
+# we have changed it to 07/11/1999
+
+usgs_cbi[usgs_cbi$fire_nam == "Lost", "firedate"] <- mdy("07/11/1999")
+
+# 
 #### Fix the spatial component ####
 # Now we have a dataset with all clean dates
 # We need to fix the spatial component
@@ -270,7 +286,7 @@ list_points <- lapply(rows, FUN = function(i) {
                                          data = clean[i, ],
                                          proj4string = current_CRS)
   x <- st_as_sf(spdf_current)
-  x <- st_transform(x, st_crs(sn))
+  x <- st_transform(x, 4326)
   x
 })
 
@@ -302,7 +318,7 @@ fd$cbi_over <- ifelse(overstory_all_NA, yes = NA, no = apply(overstory_cols, MAR
 fd$cbi_over_t <- ifelse(overstory_all_NA_t, yes = NA, no = apply(overstory_cols_t, MARGIN = 1, FUN = mean, na.rm = TRUE))
 
 # Subset the fd dataframe to just be the few columns we need
-fd_sub <- select(fd, Northing, Easting, UTM_Zone, Datum, FireDate, FireName, PlotID, cbi_over, cbi_over_t, cbi_tot, cbi_tot_t)
+fd_sub <- dplyr::select(fd, Northing, Easting, UTM_Zone, Datum, FireDate, FireName, PlotID, cbi_over, cbi_over_t, cbi_tot, cbi_tot_t)
 
 fd_sub$proj4string <- paste0("+proj=utm +zone=", fd_sub$UTM_Zone, " +datum=", fd_sub$Datum)
 
@@ -315,7 +331,7 @@ list_points <- lapply(rows, FUN = function(i) {
                                          data = fd_sub[i, ],
                                          proj4string = current_CRS)
   x <- st_as_sf(spdf_current)
-  x <- st_transform(x, st_crs(sn))
+  x <- st_transform(x, 4326)
   x
 })
 
@@ -332,13 +348,13 @@ head(usgs_cbi_sf)
 head(landfire_cbi_sf)
 
 usgs_cbi_sf %<>%
-  mutate(id = 1:nrow(.), cbi_over_t = NA, cbi_totl = NA, cbi_tot_t = NA) %>%
-  select(id, firedate, fire_nam, cbi_over, cbi_over_t, cbi_totl, cbi_tot_t, source, geometry) %>%
-  rename(alarm_date = firedate, fire_name = fire_nam, cbi_tot = cbi_totl)
+  dplyr::mutate(id = 1:nrow(.), cbi_over_t = NA, cbi_totl = NA, cbi_tot_t = NA) %>%
+  dplyr::select(id, firedate, fire_nam, cbi_over, cbi_over_t, cbi_totl, cbi_tot_t, source, geometry) %>%
+  dplyr::rename(alarm_date = firedate, fire_name = fire_nam, cbi_tot = cbi_totl)
 
 landfire_cbi_sf %<>%
-  select(PlotID, FireDate, FireName, cbi_over, cbi_over_t, cbi_tot, cbi_tot_t, source, geometry) %>%
-  rename(id = PlotID, alarm_date = FireDate, fire_name = FireName)
+  dplyr::select(PlotID, FireDate, FireName, cbi_over, cbi_over_t, cbi_tot, cbi_tot_t, source, geometry) %>%
+  dplyr::rename(id = PlotID, alarm_date = FireDate, fire_name = FireName)
 
 head(usgs_cbi_sf)
 head(landfire_cbi_sf)
@@ -351,4 +367,4 @@ plot(st_geometry(sn), add = TRUE)
 
 # Write the objects as both a kml and a shapefile
 st_write(obj = sn_cbi, dsn = "data/features/cbi_data/cbi_sn/cbi_sn.shp")
-writeOGR(obj = as(object = sn_cbi, Class = "Spatial"), dsn = "data/features/cbi_data/cbi_sn/cbi_sn.kml", driver = "KML", layer = "cbi")
+st_write(obj = sn_cbi, dsn = "data/features/cbi_data/cbi_sn/cbi_sn.kml")
