@@ -1,3 +1,14 @@
+### This script will help us deterimine what moving window to use for our algorithm (how long before the fire (1, 2, or 3 months)) should
+### we gather Landsat imagery in order to take the median spectral values across those available images.
+### This is a tradeoff: the further back we look, the more likely that we'll capture non-cloudy pixels and perhaps reduce the
+### influence of sensor anomolies from any particular image, but we also blur the phenology by looking too far back.
+### We also want to determine whether bilinear or bicubic interpolation works better. Bicubic interpolation is more computationally challengin,
+### so has seldom been used for this purpose, but it also incorporates data from a larger neighborhood window which may be inappropriate.
+
+### We use cross-fold validation and R^2 to make this determination. Note that R^2 doesn't represent the same thing in non-linear regression
+### as it does for linear regression, so it shouldn't be interpreted in the way it is in linear regression (i.e. "the percent of total variation
+### explained by the model" <-- it's not that.)
+
 library(ggplot2)
 library(plotly)
 library(sf)
@@ -82,8 +93,8 @@ r2 <- function(m) {
 }
 
 # Non-linear models (of the form used by Miller and Thode (2007) and Parks et al. (2014))
-m1a <- nls(dNBR ~ a + b * exp(cbi_over * c), 
-            data = cbi_2_bicubic,
+m1a <- nls(RdNBR ~ a + b * exp(cbi_over * c), 
+            data = cbi_1_bilinear,
             start = list(a = 0, b = 1, c = 1),
             model = TRUE)
 
@@ -97,7 +108,7 @@ r2(m1a)
 ### START 1-month window, bicubic interpolation
 ###
 
-RdNBR_10fold_1_bicubic <- 
+RdNBR_5fold_1_bicubic <- 
   cbi_1_bicubic %>%
   as.data.frame() %>%
   select(-geometry) %>%
@@ -116,8 +127,8 @@ RdNBR_10fold_1_bicubic <-
     r.squared = 1 - sse / sst
   )
 
-mean(RdNBR_10fold_1_bicubic$mse)
-mean(RdNBR_10fold_1_bicubic$r.squared)
+mean(RdNBR_5fold_1_bicubic$mse)
+mean(RdNBR_5fold_1_bicubic$r.squared)
 
 ###
 ### END 1-month window, bicubic interpolation
@@ -127,7 +138,7 @@ mean(RdNBR_10fold_1_bicubic$r.squared)
 ### START 2-month window, bicubic interpolation
 ###
 
-RdNBR_10fold_2_bicubic <- 
+RdNBR_5fold_2_bicubic <- 
   cbi_2_bicubic %>%
   as.data.frame() %>%
   select(-geometry) %>%
@@ -146,8 +157,8 @@ RdNBR_10fold_2_bicubic <-
     r.squared = 1 - sse / sst
   )
 
-mean(RdNBR_10fold_2_bicubic$mse)
-mean(RdNBR_10fold_2_bicubic$r.squared)
+mean(RdNBR_5fold_2_bicubic$mse)
+mean(RdNBR_5fold_2_bicubic$r.squared)
 
 ###
 ### END 2-month window, bicubic interpolation
@@ -157,7 +168,7 @@ mean(RdNBR_10fold_2_bicubic$r.squared)
 ### START 3-month window, bicubic interpolation
 ###
 
-RdNBR_10fold_3_bicubic <- 
+RdNBR_5fold_3_bicubic <- 
   cbi_3_bicubic %>%
   as.data.frame() %>%
   select(-geometry) %>%
@@ -176,8 +187,8 @@ RdNBR_10fold_3_bicubic <-
     r.squared = 1 - sse / sst
   )
 
-mean(RdNBR_10fold_3_bicubic$mse)
-mean(RdNBR_10fold_3_bicubic$r.squared)
+mean(RdNBR_5fold_3_bicubic$mse)
+mean(RdNBR_5fold_3_bicubic$r.squared)
 
 ###
 ### END 3-month window, bicubic interpolation
@@ -187,7 +198,7 @@ mean(RdNBR_10fold_3_bicubic$r.squared)
 ### START 1-month window, bilinear interpolation
 ###
 
-RdNBR_10fold_1_bilinear <- 
+RdNBR_5fold_1_bilinear <- 
   cbi_1_bilinear %>%
   as.data.frame() %>%
   select(-geometry) %>%
@@ -206,8 +217,8 @@ RdNBR_10fold_1_bilinear <-
     r.squared = 1 - sse / sst
   )
 
-mean(RdNBR_10fold_1_bilinear$mse)
-mean(RdNBR_10fold_1_bilinear$r.squared)
+mean(RdNBR_5fold_1_bilinear$mse)
+mean(RdNBR_5fold_1_bilinear$r.squared)
 
 ###
 ### END 1-month window, bilinear interpolation
@@ -217,7 +228,7 @@ mean(RdNBR_10fold_1_bilinear$r.squared)
 ### START 2-month window, bilinear interpolation
 ###
 
-RdNBR_10fold_2_bilinear <- 
+RdNBR_5fold_2_bilinear <- 
   cbi_2_bilinear %>%
   as.data.frame() %>%
   select(-geometry) %>%
@@ -236,8 +247,8 @@ RdNBR_10fold_2_bilinear <-
     r.squared = 1 - sse / sst
   )
 
-mean(RdNBR_10fold_2_bilinear$mse)
-mean(RdNBR_10fold_2_bilinear$r.squared)
+mean(RdNBR_5fold_2_bilinear$mse)
+mean(RdNBR_5fold_2_bilinear$r.squared)
 
 ###
 ### END 2-month window, bilinear interpolation
@@ -247,7 +258,7 @@ mean(RdNBR_10fold_2_bilinear$r.squared)
 ### START 3-month window, bilinear interpolation
 ###
 
-RdNBR_10fold_3_bilinear <- 
+RdNBR_5fold_3_bilinear <- 
   cbi_3_bilinear %>%
   as.data.frame() %>%
   select(-geometry) %>%
@@ -266,8 +277,8 @@ RdNBR_10fold_3_bilinear <-
     r.squared = 1 - sse / sst
   )
 
-mean(RdNBR_10fold_3_bilinear$mse)
-mean(RdNBR_10fold_3_bilinear$r.squared)
+mean(RdNBR_5fold_3_bilinear$mse)
+mean(RdNBR_5fold_3_bilinear$r.squared)
 
 ###
 ### END 3-month window, bilinear interpolation
@@ -289,19 +300,19 @@ lines(seq(0, 3, by = 0.01), predict(m1b, newdata = data.frame(cbi_over = seq(0, 
 severity_thresholds <- predict(m1b, newdata = data.frame(cbi_over = c(0.1, 1.25, 2.25)))
 
 
-mean(RdNBR_10fold_1_bilinear$mse)
-mean(RdNBR_10fold_2_bilinear$mse)
-mean(RdNBR_10fold_3_bilinear$mse)
-mean(RdNBR_10fold_1_bicubic$mse)
-mean(RdNBR_10fold_2_bicubic$mse)
-mean(RdNBR_10fold_3_bicubic$mse)
+mean(RdNBR_5fold_1_bilinear$mse)
+mean(RdNBR_5fold_2_bilinear$mse)
+mean(RdNBR_5fold_3_bilinear$mse)
+mean(RdNBR_5fold_1_bicubic$mse)
+mean(RdNBR_5fold_2_bicubic$mse)
+mean(RdNBR_5fold_3_bicubic$mse)
 
-mean(RdNBR_10fold_1_bilinear$r.squared)
-mean(RdNBR_10fold_2_bilinear$r.squared)
-mean(RdNBR_10fold_3_bilinear$r.squared)
-mean(RdNBR_10fold_1_bicubic$r.squared)
-mean(RdNBR_10fold_2_bicubic$r.squared)
-mean(RdNBR_10fold_3_bicubic$r.squared)
+mean(RdNBR_5fold_1_bilinear$r.squared)
+mean(RdNBR_5fold_2_bilinear$r.squared)
+mean(RdNBR_5fold_3_bilinear$r.squared)
+mean(RdNBR_5fold_1_bicubic$r.squared)
+mean(RdNBR_5fold_2_bicubic$r.squared)
+mean(RdNBR_5fold_3_bicubic$r.squared)
 
 head(cbi_2_bilinear)
 summary(cbi_2_bilinear)
