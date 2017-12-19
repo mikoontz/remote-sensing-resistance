@@ -23,7 +23,7 @@ var elev = ee.Image("USGS/SRTMGL1_003"),
 var maskClouds = function(img)
 {
   var mask = img.select(['cfmask']).eq(0);
-  return(img.updateMask(mask));
+  return(img.resample('bicubic').updateMask(mask)); // Use bicubic interpolation to smooth the surface and use closest 16 pixels to calculate value of each pixel (see Cansler MSc thesis, 2011)
 };
 
 //
@@ -974,7 +974,7 @@ var getVariables = function(feature) {
         null), // return a null if export_img doesn't exist (because pre and/or postfire imagery didn't exist)
       ee.Algorithms.If(export_img, 
           ee.Feature(geo, // If we are getting model variables from a point, use a reducer on the image at the point, then convert back to a feature.
-            ee.Image(export_img)
+            maskNonForest(ee.Image(export_img)) // Mask all pixels that aren't forest as defined by PFR
               .reduceRegion({
                 reducer: ee.Reducer.first(),
                 geometry: geo,
@@ -1024,8 +1024,8 @@ var s_factor = 0.001;
 
 // Are these a list of points where Composite Burn Index has been measured
 // on the ground and we want to calibrate our remote sensed metrics?
-// var get_cbi = true;
-var get_cbi = false;
+var get_cbi = true;
+// var get_cbi = false;
 
 // Filter entire collection of mapped fire perimenters to just the
 // fires that started during the Landsat 5 period and those with an
@@ -1035,65 +1035,76 @@ var get_cbi = false;
 // those that burned starting a few months after Landsat 5 imagery
 // begins and a year before Landsat 5 imagery ends
 
-var target_features =
-  perim
-    .filterMetadata("alarm_date", "greater_than", start)
-    .filterMetadata("alarm_date", "less_than", end)
-    .filterMetadata("shape_area", "greater_than", 900)
-    .filterBounds(sn);
+// var target_features =
+//   perim
+//     .filterMetadata("alarm_date", "greater_than", start)
+//     .filterMetadata("alarm_date", "less_than", end)
+//     .filterMetadata("shape_area", "greater_than", 900)
+//     .filterBounds(sn);
 
-// var target_features = cbi_sn;
+var target_features = cbi_sn;
+// Add CBI plots to the map
+// Map.addLayer(target_features);
+// Map.centerObject(target_features);
+
+// How many features in the entire set?
+// print(target_features.size()); // 401 CBI plot features
 
 // // Map the variable retrieval function over all of the features
 var imgCol = ee.FeatureCollection(target_features.map(getVariables, true));
 
+// How many features remain after dropping null values?
+// print(imgCol.size()); // 401 features returned from CBI plots
+
+// Get rid of the masking at this point entirely? It should be taken care of in the get_variables function.
 // Mask nonForested pixels based on the Presettlement Fire Regimes from FRID database
 // imgCol = imgCol.map(maskNonForest);
+// print(imgCol.size());
 
 // Code to run when getting model variables from points (when CBI was measured on the ground)
-// Export.table.toDrive({
-//   'collection': imgCol,
-//   'description': "cbi_calibration",
-//   'folder': 'ee',
-//   'fileNamePrefix': "cbi_calibration",
-//   'fileFormat': 'CSV'
-// });
+Export.table.toDrive({
+  'collection': imgCol,
+  'description': "cbi-calibration_bicubic-interp",
+  'folder': 'ee',
+  'fileNamePrefix': "cbi-calibration_bicubic-interp",
+  'fileFormat': 'CSV'
+});
 
-// Export.table.toDrive({
-//   'collection': target_features,
-//   'description': 'remote_resistance_cbi_metadata',
-//   'folder': 'ee',
-//   'fileNamePrefix': 'remote_resistance_cbi_metadata',
-//   'fileFormat': 'CSV'
-// });
+Export.table.toDrive({
+  'collection': target_features,
+  'description': 'remote-resistance-cbi_bicubic-interp_metadata',
+  'folder': 'ee',
+  'fileNamePrefix': 'remote-resistance-cbi_bicubic-interp_metadata',
+  'fileFormat': 'CSV'
+});
 
 // Run this code if you are collecting data from fire perimeters.
 
 // Extract samples
 // Sample from the images containing all response and predictor values
-var samps = imgCol.map(getSamps).flatten();
+// var samps = imgCol.map(getSamps).flatten();
 
 // File name for .csv in a string
 // var fileName = 'L5_1987HAMMCMPLX_remote_resistance_frap_100_point_sample';
-var fileName = 'L5_19840401_20110504_remote_resistance_frap_100_point_sample';
+// var fileName = 'L5_19840401_20110504_remote_resistance_frap_100_point_sample';
 // var fileName = 'L5_19840401_20110504_remote_resistance_frap_0_001_percent';
 
-Export.table.toDrive({
-  'collection': target_features,
-  'description': 'metadata',
-  'folder': 'ee',
-  'fileNamePrefix': 'L5_20100401_20110504_remote_resistance_frap_metadata',
-  'fileFormat': 'CSV'
-});
+// Export.table.toDrive({
+//   'collection': target_features,
+//   'description': 'metadata',
+//   'folder': 'ee',
+//   'fileNamePrefix': 'L5_20100401_20110504_remote_resistance_frap_metadata',
+//   'fileFormat': 'CSV'
+// });
 
 // Export the tidy .csv to Google Drive
-Export.table.toDrive({
-  'collection': samps,
-  'description': fileName,
-  'folder': 'ee',
-  'fileNamePrefix': fileName,
-  'fileFormat': 'CSV'
-});
+// Export.table.toDrive({
+//   'collection': samps,
+//   'description': fileName,
+//   'folder': 'ee',
+//   'fileNamePrefix': fileName,
+//   'fileFormat': 'CSV'
+// });
 
 
 

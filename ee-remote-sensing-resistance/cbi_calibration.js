@@ -4,7 +4,13 @@ var elev = ee.Image("USGS/SRTMGL1_003"),
     mixed_conifer = ee.Image("users/mkoontz/mixed_conifer"),
     perim = ee.FeatureCollection("users/mkoontz/fire_perim_16_1"),
     sn = ee.FeatureCollection("ft:1vdDUTu09Rkw5qKR_DSfmFX-b_7kqy4E-pjxg9Sq6"),
-    cbi_sn = ee.FeatureCollection("users/mkoontz/cbi_sn");
+    cbi_sn = ee.FeatureCollection("users/mkoontz/cbi_sn"),
+    imageCollection = ee.ImageCollection("LANDSAT/LT05/C01/T1_SR"),
+    test_geo = /* color: #d63000 */ee.Geometry.Polygon(
+        [[[-119.03823852539062, 36.80928470205937],
+          [-118.81439208984375, 36.8037869853087],
+          [-118.80615234375, 36.90378362619561],
+          [-119.036865234375, 36.901587303978474]]]);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 //
 // HELPER FUNCTIONS
@@ -23,7 +29,8 @@ var elev = ee.Image("USGS/SRTMGL1_003"),
 var maskClouds = function(img)
 {
   var mask = img.select(['cfmask']).eq(0);
-  return(img.updateMask(mask));
+  return(img.resample('bicubic').updateMask(mask)); // Use interpolation because CBI on-the-ground plots are unlikely to
+  // lie exactly at the center of a pixel. See Cansler MSc thesis (2011) and Parks et al. (2014)
 };
 
 //
@@ -156,16 +163,8 @@ var create_kernel = function(pixel_radius) {
   return kernel;
 };
 
-//
-// END create_kernel
-//
-
-//
-// START getSamps
-//
-
-// This function samples points from within an image at a specified scale and density
-var getSamps = function(img) {
+// get_sampes() samples points from within an image at a specified scale and density
+var get_samps = function(img) {
   
   img = ee.Image(img);
   var s = img.sample({
@@ -180,38 +179,84 @@ var getSamps = function(img) {
 };
 
 //
-// END getSamps
+// END get_samps
 //
 
-//
-// START get_NDVI
-//
+///////////////////
+/* NDVI */
+///////////////////
 
+// get_NDVI() returns the normalized difference vegetation index (NDVI) for each pixel of an image
 var get_NDVI = function(img) {
   var ndvi = img.normalizedDifference(['B4', 'B3']);
-  return ndvi;
+  
+  return ee.Image(ndvi);
 };
 
-//
-// END get_NDVI
-//
+// get_preFndvi() maps over the collection of pre-fire images, calculates NDVI on each, and takes the median for each pixel
+var get_preFndvi = function(feature) {
+  
+  var preFndvi = get_preFireRaw(feature).map(get_NDVI).median();
+  
+  preFndvi = ee.Algorithms.If( preFndvi.bandNames(),
+                                    ee.Image(preFndvi), 
+                                    null);
 
-//
-// START get_NDWI
-//
+  return ee.Image(preFndvi);
+};
 
+// get_postFndvi() maps over the collection of post-fire images, calculates NDVI on each, and takes the median for each pixel
+var get_postFndvi = function(feature) {
+  
+  var postFndvi = get_postFireRaw(feature).map(get_NDVI).median();
+  
+  postFndvi = ee.Algorithms.If( postFndvi.bandNames(),
+                                    ee.Image(postFndvi), 
+                                    null);
+
+  return ee.Image(postFndvi);
+};
+
+/////////////////////
+/* NDWI */
+/////////////////////
+
+// get_NDWI() returns the normalized difference water index (NDWI) for each pixel of an image
 var get_NDWI = function(img) {
   var ndwi = img.normalizedDifference(['B4', 'B5']);
-  return ndwi;
+  
+  return ee.Image(ndwi);
 };
 
-//
-// END get_NDWI
-//
+// get_preFndwi() maps over the collection of pre-fire images, calculates NDWI on each, and takes the median for each pixel
+var get_preFndwi = function(feature) {
+  
+  var preFndwi = get_preFireRaw(feature).map(get_NDWI).median();
+  
+  preFndwi = ee.Algorithms.If( preFndwi.bandNames(),
+                                    ee.Image(preFndwi), 
+                                    null);
 
-//
-// START get_EVI
-//
+  return ee.Image(preFndwi);
+};
+
+// get_postFndwi() maps over the collection of post-fire images, calculates NDWI on each, and takes the median for each pixel
+var get_postFndwi = function(feature) {
+  
+  var postFndwi = get_postFireRaw(feature).map(get_NDWI).median();
+  
+  postFndwi = ee.Algorithms.If( postFndwi.bandNames(),
+                                    ee.Image(postFndwi), 
+                                    null);
+
+  return ee.Image(postFndwi);
+};
+
+/////////////////////
+/* EVI */
+/////////////////////
+
+// get_EVI() returns the enhanced vegetation index (EVI) at each pixel of an image
 var get_EVI = function (img) {
    
   var evi_numerator = 
@@ -229,215 +274,244 @@ var get_EVI = function (img) {
       .divide(evi_denominator)
       .multiply(2.5);
 
-  return evi;
+  return ee.Image(evi);
 };
 
-//
-// END get_EVI
-//
+// get_preFevi() maps over the collection of pre-fire images, calculates EVI on each, and takes the median for each pixel
+var get_preFevi = function(feature) {
+  
+  var preFevi = get_preFireRaw(feature).map(get_EVI).median();
+  
+  preFevi = ee.Algorithms.If( preFevi.bandNames(),
+                                    ee.Image(preFevi), 
+                                    null);
 
-// 
-// START get_NBR
-//
+  return ee.Image(preFevi);
+};
 
+// get_postFevi() maps over the collection of post-fire images, calculates EVI on each, and takes the median for each pixel
+var get_postFevi = function(feature) {
+  
+  var postFevi = get_postFireRaw(feature).map(get_EVI).median();
+  
+  postFevi = ee.Algorithms.If( postFevi.bandNames(),
+                                    ee.Image(postFevi), 
+                                    null);
+
+  return ee.Image(postFevi);
+};
+
+///////////////////
+/* NBR */
+///////////////////
+
+// get_NBR() returns the normalized burn ratio (NBR) for each pixel of an image
 var get_NBR = function(img) {
   var nbr = img.normalizedDifference(['B4', 'B7']);
-  return nbr;
+  
+  return ee.Image(nbr);
 };
 
-//
-// END get_NBR
-//
+// get_preFnbr() maps over the collection of pre-fire images, calculates NBR on each, and takes the median for each pixel
+var get_preFnbr = function(feature) {
+  
+  var preFnbr = get_preFireRaw(feature).map(get_NBR).median();
+  
+  preFnbr = ee.Algorithms.If( preFnbr.bandNames(),
+                                    ee.Image(preFnbr), 
+                                    null);
 
-//
-// START get_NBR2
-//
+  return ee.Image(preFnbr);
+};
 
+// get_postFnbr() maps over the collection of post-fire images, calculates NBR on each, and takes the median for each pixel
+var get_postFnbr = function(feature) {
+  
+  var postFnbr = get_postFireRaw(feature).map(get_NBR).median();
+  
+  postFnbr = ee.Algorithms.If( postFnbr.bandNames(),
+                                    ee.Image(postFnbr), 
+                                    null);
+
+  return ee.Image(postFnbr);
+};
+
+////////////////////
+/* NBR2 */
+////////////////////
+
+//  get_NBR2() returns the normalized burn ratio 2 (NBR2) value at each pixel for an image
 var get_NBR2 = function(img) {
   var nbr2 = img.normalizedDifference(['B5', 'B7']);
-  return nbr2;
+  
+  return ee.Image(nbr2);
 };
 
-//
-// END get_NBR2
-//
+// get_preFnbr2() maps over the collection of pre-fire images, calculates NBR2 on each, and takes the median for each pixel
+var get_preFnbr2 = function(feature) {
+  
+  var preFnbr2 = get_preFireRaw(feature).map(get_NBR2).median();
+  
+  preFnbr2 = ee.Algorithms.If( preFnbr2.bandNames(),
+                                  ee.Image(preFnbr2), 
+                                  null);
+
+  return ee.Image(preFnbr2);
+};
+
+// get_postFnbr2() maps over the collection of post-fire images, calculates NBR2 on each, and takes the median for each pixel
+var get_postFnbr2 = function(feature) {
+  
+  var postFnbr2 = get_postFireRaw(feature).map(get_NBR2).median();
+  
+  postFnbr2 = ee.Algorithms.If( postFnbr2.bandNames(),
+                                    ee.Image(postFnbr2), 
+                                    null);
+
+  return ee.Image(postFnbr2);
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  END HELPER FUNCTIONS    /////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //
 // DEPENDENT/RESPONSE VARIABLES
 // Calculation of dependent variables for the remote-sensing-resistance
-// study. Calculation of each response variable is broken into two
-// separate functions so that we can check to make sure the pre-fire
-// and post-fire image collections exist prior to trying to do 
-// calculations on them. The "_internal" function does the calculations,
-// and the "get_" function checks the imagery. Without the checks, errors
-// are returned when trying to use the .normalizedDifference() method on
-// non-existant imagery.
+// study. 
 //
-// Variables of interest: RdNBR, RdNBR2, RdNDVI, RdEVI
+// Variables of interest: dNBR, RdNBR, dNBR2, RdNBR2, dNDVI, RdNDVI, dEVI, RdEVI
 //
 
-// 
-// START RdNBR
-//
-
-// For calcuations, see Miller and Thode (2007)
-var rdnbr_internal = function(preFire, postFire) {
-  var preFire_nbr = get_NBR(preFire);
-  var postFire_nbr = get_NBR(postFire);
-
-  var denom_temporary = preFire_nbr.abs().divide(1000);
-  var denom = denom_temporary.sqrt();
-   
-  var delta_nbr = preFire_nbr.subtract(postFire_nbr);
+// get_dNBR() returns the difference in NBR between just before the fire and 1 year later
+var get_dNBR = function(feature) {
   
-  var RdNBR = delta_nbr.divide(denom);
-  
-  return ee.Image(RdNBR);
+  var preFire_nbr = get_preFnbr(feature);
+  var postFire_nbr = get_postFnbr(feature);
+
+  var dNBR = ee.Algorithms.If( preFire_nbr,
+                                ee.Algorithms.If( postFire_nbr, 
+                                                  preFire_nbr.subtract(postFire_nbr), 
+                                                  null),
+                                null);
+
+  return ee.Image(dNBR);
 };
 
-// Check prefire and postfire imagery. This lets us drop those fire
-// perimeters from the later stage data collection by letting the mapped
-// function on my collection of perimeters dropNulls.
+// get_RdNBR() returns the relative differenced normalized burn ratio for each pixel within the fire perimeter
+// For calcuations, see Miller and Thode (2007)
+
 var get_RdNBR = function(feature) {
   
-  var preFire = get_preFireRaw(feature).median();
-  var postFire = get_postFireRaw(feature).median();
-
-  var RdNBR = ee.Algorithms.If( preFire.bandNames(),
-                                ee.Algorithms.If( postFire.bandNames(), 
-                                                  rdnbr_internal(preFire, postFire), 
-                                                  null),
-                                null);
+  var preFire_nbr = get_preFnbr(feature);
+  var delta_nbr = get_dNBR(feature);
+  
+  var RdNBR = ee.Algorithms.If( delta_nbr,
+                                  delta_nbr.divide((preFire_nbr.abs().divide(1000)).sqrt()), 
+                                  null);
 
   return ee.Image(RdNBR);
 };
 
-//
-// END RdNBR
-//
-
-//
-// START RdNBR2
-//
-
-// Same math as in Miller and Thode (2007), but using NBR2 instead of NBR
-var rdnbr2_internal = function(preFire, postFire) {
+// get_dNBR2() returns the raw difference in NBR2 values between pre- and post-fire images
+var get_dNBR2 = function(feature) {
   
-  var preFire_nbr2 = get_NBR2(preFire);
-  var postFire_nbr2 = get_NBR2(postFire);
+  var preFire_nbr2 = get_preFnbr2(feature);
+  var postFire_nbr2 = get_postFnbr2(feature);
 
-  var denom_temporary = preFire_nbr2.abs().divide(1000);
-  var denom = denom_temporary.sqrt();
-   
-  var delta_nbr2 = preFire_nbr2.subtract(postFire_nbr2);
-  
-  var RdNBR2 = delta_nbr2.divide(denom);
-  
-  return ee.Image(RdNBR2);
+  var dNBR2 = ee.Algorithms.If( preFire_nbr2,
+                                ee.Algorithms.If( postFire_nbr2, 
+                                                  preFire_nbr2.subtract(postFire_nbr2), 
+                                                  null),
+                                null);
+
+  return ee.Image(dNBR2);
 };
 
-// Check prefire and postfire imagery. This lets us drop those fire
-// perimeters from the later stage data collection by letting the mapped
-// function on my collection of perimeters dropNulls.
+// get_RdNBR2() returns the relative differenced normalized burn ratio 2 for each pixel within a fire perimeter
+// Same calculations as in Miller and Thode (2007), but using NBR2 instead of NBR
 var get_RdNBR2 = function(feature) {
   
-  var preFire = get_preFireRaw(feature).median();
-  var postFire = get_postFireRaw(feature).median();
-
-  var RdNBR2 = ee.Algorithms.If( preFire.bandNames(),
-                                ee.Algorithms.If( postFire.bandNames(), 
-                                                  rdnbr2_internal(preFire, postFire), 
-                                                  null),
-                                null);
+  var preFire_nbr2 = get_preFnbr2(feature);
+  var delta_nbr2 = get_dNBR2(feature);
+  
+  var RdNBR2 = ee.Algorithms.If( delta_nbr2,
+                                  delta_nbr2.divide((preFire_nbr2.abs().divide(1000)).sqrt()), 
+                                  null);
 
   return ee.Image(RdNBR2);
 };
 
-//
-// END RdNBR2
-//
-
-//
-// START RdNDVI
-//
-
-// Same math as in Miller and Thode (2007), but using NDVI instead of NBR
-var rdndvi_internal = function(preFire, postFire) {
+// get_dNDVI() returns the raw difference in NDVI between pre- and post-fire images
+var get_dNDVI = function(feature) {
   
-  var preFire_ndvi = get_NDVI(preFire);
-  var postFire_ndvi = get_NDVI(postFire);
+  var preFire_ndvi = get_preFndvi(feature);
+  var postFire_ndvi = get_postFndvi(feature);
+  
+  var dNDVI = ee.Algorithms.If( preFire_ndvi.bandNames(),
+                                ee.Algorithms.If( postFire_ndvi.bandNames(), 
+                                                  preFire_ndvi.subtract(postFire_ndvi), 
+                                                  null),
+                                null);
 
-  var denom_temporary = preFire_ndvi.abs().divide(1000);
-  var denom = denom_temporary.sqrt();
-   
-  var delta_ndvi = preFire_ndvi.subtract(postFire_ndvi);
-  
-  var RdNDVI = delta_ndvi.divide(denom);
-  
-  return ee.Image(RdNDVI);
+  return ee.Image(dNDVI);
 };
 
-// Check prefire and postfire imagery. This lets us drop those fire
-// perimeters from the later stage data collection by letting the mapped
-// function on my collection of perimeters dropNulls.
+// get_RdNDVI() returns the relative differenced normalized difference vegetation index for each pixel within a fire perimeter
+// Same math as in Miller and Thode (2007), but using NDVI instead of NBR
 var get_RdNDVI = function(feature) {
   
-  var preFire = get_preFireRaw(feature).median();
-  var postFire = get_postFireRaw(feature).median();
-
-  var RdNDVI = ee.Algorithms.If( preFire.bandNames(),
-                                ee.Algorithms.If( postFire.bandNames(), 
-                                                  rdndvi_internal(preFire, postFire), 
-                                                  null),
-                                null);
+  var preFire_ndvi = get_preFndvi(feature);
+  var delta_ndvi = get_dNDVI(feature);
+  
+  var RdNDVI = ee.Algorithms.If( delta_ndvi,
+                                  delta_ndvi.divide((preFire_ndvi.abs().divide(1000)).sqrt()), 
+                                  null);
 
   return ee.Image(RdNDVI);
 };
 
-//
-// END RdNDVI
-//
-
-//
-// START RdEVI
-//
-
-// Same math as in Miller and Thode (2007), but using EVI instead of NBR
-var rdevi_internal = function(preFire, postFire) {
+// get_dEVI() returns the raw difference in EVI values between pre- and post-fire images
+var get_dEVI = function(feature) {
   
-  var preFire_evi = get_EVI(preFire);
-  var postFire_evi = get_EVI(postFire);
-
-  var denom_temporary = preFire_evi.abs().divide(1000);
-  var denom = denom_temporary.sqrt();
-   
-  var delta_evi = preFire_evi.subtract(postFire_evi);
+  var preFire_evi = get_preFevi(feature);
+  var postFire_evi = get_postFevi(feature);
   
-  var RdEVI = delta_evi.divide(denom);
-  
-  return ee.Image(RdEVI);
-};
-
-// Check prefire and postfire imagery. This lets us drop those fire
-// perimeters from the later stage data collection by letting the mapped
-// function on my collection of perimeters dropNulls.
-var get_RdEVI = function(feature) {
-  
-  var preFire = get_preFireRaw(feature).median();
-  var postFire = get_postFireRaw(feature).median();
-
-  var RdEVI = ee.Algorithms.If( preFire.bandNames(),
-                                ee.Algorithms.If( postFire.bandNames(), 
-                                                  rdevi_internal(preFire, postFire), 
+  var dEVI = ee.Algorithms.If( preFire_evi.bandNames(),
+                                ee.Algorithms.If( postFire_evi.bandNames(), 
+                                                  preFire_evi.subtract(postFire_evi), 
                                                   null),
                                 null);
 
+  return ee.Image(dEVI);
+};
+
+// get_RdEVI() returns the relative differenced enhanced vegetation index
+// Same math as in Miller and Thode (2007), but using EVI instead of NBR
+var get_RdEVI = function(feature) {
+  
+  var preFire_evi = get_preFevi(feature);
+  var delta_evi = get_dEVI(feature);
+  
+  var RdEVI = ee.Algorithms.If( delta_evi,
+                                  delta_evi.divide((preFire_evi.abs().divide(1000)).sqrt()), 
+                                  null);
+                                  
   return ee.Image(RdEVI);
 };
 
-//
-// END RdEVI
-//
+// get_RBR() returns the relative burn ratio from Parks et al. 2015. Remote Sensing of the Environment))
+var get_RBR = function(feature) {
+  
+  var preFire_nbr = get_preFnbr(feature);
+  var delta_nbr = get_dNBR(feature);
+  
+  var RBR = ee.Algorithms.If( delta_nbr,
+                                delta_nbr.divide(preFire_nbr.add(1.001)), 
+                                null);
+
+  return ee.Image(RBR);
+};
 
 //
 // INDEPENDENT/PREDICTOR VARIABLES
@@ -460,355 +534,164 @@ var get_RdEVI = function(feature) {
 // HETEROGENEITY COVARIATES
 //
 
-//
-// START Heterogeneity of NDVI
-//
+/* Heterogeneity of NDVI */
 
-var heterogeneityNDVI_internal = function(preFire, pixel_radius) {
-  
-  var kernel = create_kernel(pixel_radius);
-
-  // Make each image from preFire collection into its NDWI image,
-  // then calculate heterogeneity for each pixel
-  var het = preFire.map(function (img) {
-          var ndvi = get_NDVI(img);
-          
-          return ndvi.reduceNeighborhood(ee.Reducer.stdDev(), kernel);
-        });
-  
-  // Overall heterogeneity is the median of the heterogeneity metrics
-  // calculated using the collection of prefire images
-  var het_img = het.median();
-
-  return ee.Image(het_img);
-};
-
-// Heterogeneity of NDVI function that checks pre and postfire imagery
+// get_hetNDVI() returns the heterogeneity of NDVI within a given pixel radius for each pixel in an image
 var get_hetNDVI = function(feature, pixel_radius) {
-  var preFireCol = get_preFireRaw(feature);
-
-  var het = ee.Algorithms.If( preFireCol.median().bandNames(),
-                              heterogeneityNDVI_internal(preFireCol, pixel_radius),
+  var kernel = create_kernel(pixel_radius);
+  var preFireCol_ndvi = get_preFireRaw(feature).map(get_NDVI);
+  
+  var het = preFireCol_ndvi.map(function (img) {
+          return img.reduceNeighborhood(ee.Reducer.stdDev(), kernel);
+        });
+        
+ het = ee.Algorithms.If( het.median().bandNames(),
+                              het.median(),
                               null);
 
   return ee.Image(het);
 };
 
-//
-// END Heterogeneity of NDVI
-//
-
-//
-// START Heterogeneity of NDWI
-//
-
-var heterogeneityNDWI_internal = function(preFire, pixel_radius) {
-  
+// get_hetNDWI() returns the heterogeneity of NDWI within a given pixel radius for each pixel in an image
+var get_hetNDWI = function(feature, pixel_radius) {
   var kernel = create_kernel(pixel_radius);
+  var preFireCol_ndwi = get_preFireRaw(feature).map(get_NDWI);
 
-  // Make each image from preFire collection into its NDWI image,
-  // then calculate heterogeneity for each pixel
-  var het = preFire.map(function (img) {
-          var ndwi = get_NDWI(img);
-          
-          return ndwi.reduceNeighborhood(ee.Reducer.stdDev(), kernel);
+  var het = preFireCol_ndwi.map(function (img) {
+          return img.reduceNeighborhood(ee.Reducer.stdDev(), kernel);
         });
   
-  // Overall heterogeneity is the median of the heterogeneity metrics
-  // calculated using the collection of prefire images
-  var het_img = het.median();
-
-  return ee.Image(het_img);
-};
-
-// Heterogeneity of NDWI function that checks pre and postfire imagery
-var get_hetNDWI = function(feature, pixel_radius) {
-  var preFireCol = get_preFireRaw(feature);
-
-  var het = ee.Algorithms.If( preFireCol.median().bandNames(),
-                              heterogeneityNDWI_internal(preFireCol, pixel_radius),
+  het = ee.Algorithms.If( het.median().bandNames(),
+                              het.median(),
                               null);
 
   return ee.Image(het);
 };
 
-//
-// END Heterogeneity of NDWI
-//
-
-//
-// START Heterogeneity of EVI
-//
-
-var heterogeneityEVI_internal = function(preFire, pixel_radius) {
-  
-  var kernel = create_kernel(pixel_radius);
-
-  // Make each image from preFire collection into its NDWI image,
-  // then calculate heterogeneity for each pixel
-  var het = preFire.map(function (img) {
-    
-      var evi = get_EVI(img);
-
-      return evi.reduceNeighborhood(ee.Reducer.stdDev(), kernel);
-    });
-  
-  // Overall heterogeneity is the median of the heterogeneity metrics
-  // calculated using the collection of prefire images
-  var het_img = het.median();
-
-  return ee.Image(het_img);
-};
-
-// Heterogeneity of EVI function that checks pre and post fire imagery
+// get_hetEVI() returns the heterogeneity of EVI within a given pixel radius for each pixel in an image
 var get_hetEVI = function(feature, pixel_radius) 
 {
-  var preFireCol = get_preFireRaw(feature);
+  var kernel = create_kernel(pixel_radius);
+  var preFireCol_evi = get_preFireRaw(feature).map(get_EVI);
 
-  var het = ee.Algorithms.If( preFireCol.median().bandNames(),
-                              heterogeneityEVI_internal(preFireCol, pixel_radius),
+    var het = preFireCol_evi.map(function (img) {
+      return img.reduceNeighborhood(ee.Reducer.stdDev(), kernel);
+    });
+
+  het = ee.Algorithms.If( het.median().bandNames(),
+                              het.median(),
                               null);
 
   return ee.Image(het);
 };
-
-//
-// END Heterogeneity of EVI
-//
-
 
 //
 // FOCAL MEAN COVARIATES
 //
 
-//
-// START Focal mean of NDVI
-//
-
-var focal_mean_NDVI_internal = function(preFire, pixel_radius) {
-  
+// get_focal_mean_NDVI() returns the neighborhood mean of the NDVI for a given pixel radius
+// Could be valuable to account for this if using the neighborhood standard deviation at the same pixel radius
+var get_focal_mean_NDVI = function(feature, pixel_radius) {
   var kernel = create_kernel(pixel_radius);
+  var preFireCol_ndvi = get_preFireRaw(feature).map(get_NDVI);
 
-  // Make each image from preFire collection into its NDWI image,
-  // then calculate heterogeneity for each pixel
-  var focal_mean = preFire.map(function (img) {
-          var ndvi = get_NDVI(img);
-          
-          return ndvi.reduceNeighborhood(ee.Reducer.mean(), kernel);
+  var focal_mean = preFireCol_ndvi.map(function (img) {
+          return img.reduceNeighborhood(ee.Reducer.mean(), kernel);
         });
   
-  // Overall heterogeneity is the median of the heterogeneity metrics
-  // calculated using the collection of prefire images
-  var focal_mean_img = focal_mean.median();
-
-  return ee.Image(focal_mean_img);
-};
-
-// Heterogeneity of NDVI function that checks pre and postfire imagery
-var get_focal_mean_NDVI = function(feature, pixel_radius) {
-  var preFireCol = get_preFireRaw(feature);
-
-  var focal_mean = ee.Algorithms.If( preFireCol.median().bandNames(),
-                              focal_mean_NDVI_internal(preFireCol, pixel_radius),
-                              null);
+  focal_mean = ee.Algorithms.If( focal_mean.median().bandNames(),
+                                  focal_mean.median(),
+                                  null);
 
   return ee.Image(focal_mean);
 };
 
-//
-// END Heterogeneity of NDVI
-//
-
-//
-// START Heterogeneity of NDWI
-//
-
-var focal_mean_NDWI_internal = function(preFire, pixel_radius) {
-  
-  var kernel = create_kernel(pixel_radius);
-
-  // Make each image from preFire collection into its NDWI image,
-  // then calculate heterogeneity for each pixel
-  var focal_mean = preFire.map(function (img) {
-          var ndwi = get_NDWI(img);
-          
-          return ndwi.reduceNeighborhood(ee.Reducer.mean(), kernel);
-        });
-  
-  // Overall heterogeneity is the median of the heterogeneity metrics
-  // calculated using the collection of prefire images
-  var focal_mean_img = focal_mean.median();
-
-  return ee.Image(focal_mean_img);
-};
-
-// Heterogeneity of NDWI function that checks pre and postfire imagery
+// get_focal_mean_NDWI() returns the neighborhood mean of the NDWI for a given pixel radius
+// Could be valuable to account for this if using the neighborhood standard deviation at the same pixel radius
 var get_focal_mean_NDWI = function(feature, pixel_radius) 
 {
-  var preFireCol = get_preFireRaw(feature);
+  var kernel = create_kernel(pixel_radius);
+  var preFireCol_ndwi = get_preFireRaw(feature).map(get_NDWI);
 
-  var focal_mean = ee.Algorithms.If( preFireCol.median().bandNames(),
-                              focal_mean_NDWI_internal(preFireCol, pixel_radius),
-                              null);
+  var focal_mean = preFireCol_ndwi.map(function (img) {
+          return img.reduceNeighborhood(ee.Reducer.mean(), kernel);
+        });
+
+  focal_mean = ee.Algorithms.If(focal_mean.median().bandNames(),
+                                focal_mean.median(),
+                                null);
 
   return ee.Image(focal_mean);
 };
 
-//
-// END Heterogeneity of NDWI
-//
-
-//
-// START Focal mean of EVI
-//
-
-var focal_mean_EVI_internal = function(preFire, pixel_radius) {
-  
+// get_focal_mean_EVI() returns the neighborhood mean of the EVI for a given pixel radius
+// Could be valuable to account for this if using the neighborhood standard deviation at the same pixel radius
+var get_focal_mean_EVI = function(feature, pixel_radius) {
   var kernel = create_kernel(pixel_radius);
+  var preFireCol_evi = get_preFireRaw(feature).map(get_EVI);
 
-  // Make each image from preFire collection into its NDWI image,
-  // then calculate heterogeneity for each pixel
-  var focal_mean = preFire.map(function (img) {
-      var evi = get_EVI(img);
-
-      return evi.reduceNeighborhood(ee.Reducer.mean(), kernel);
+  var focal_mean = preFireCol_evi.map(function (img) {
+      return img.reduceNeighborhood(ee.Reducer.mean(), kernel);
     });
   
-  // Overall heterogeneity is the median of the heterogeneity metrics
-  // calculated using the collection of prefire images
-  var focal_mean_img = focal_mean.median();
-
-  return ee.Image(focal_mean_img);
-};
-
-// Heterogeneity of EVI function that checks pre and post fire imagery
-var get_focal_mean_EVI = function(feature, pixel_radius) {
-  var preFireCol = get_preFireRaw(feature);
-
-  var focal_mean = ee.Algorithms.If( preFireCol.median().bandNames(),
-                              focal_mean_EVI_internal(preFireCol, pixel_radius),
+  focal_mean = ee.Algorithms.If(focal_mean.median().bandNames(),
+                              focal_mean.median(),
                               null);
 
   return ee.Image(focal_mean);
 };
 
-//
-// END Heterogeneity of EVI
-//
 
-//
-// MEDIAN VALUE OF EACH PIXEL COVARIATES
-//
+// Topographic characteristics
 
-//
-// START median_NDVI
-//
-
-var median_ndvi_internal = function(preFire) {
-  // Make each image from preFire collection into its NDVI image
-  var ndvi = preFire.map(get_NDVI);
-  var ndvi_img = ndvi.median();
-
-  return ee.Image(ndvi_img);
-};
-
-// Checks prefire imagery
-var get_median_NDVI = function(feature) {
-  var preFireCol = get_preFireRaw(feature);
-
-  var ndvi = ee.Algorithms.If( preFireCol.median().bandNames(),
-                              median_ndvi_internal(preFireCol),
-                              null);
-
-
-  return ee.Image(ndvi);
-};
-
-//
-// END get_median_ndvi function
-//
-//
-
-//
-// START median NDWI
-// 
-var median_ndwi_internal = function(preFire) {
-  // Make each image from preFire collection into its NDVI image
-  var ndwi = preFire.map(get_NDWI);
-  var ndwi_img = ndwi.median();
-
-  return ee.Image(ndwi_img);
-};
-
-//  NDWI function. 
-// Returns the NDWI of each pixel
-var get_median_NDWI = function(feature) {
-  var preFireCol = get_preFireRaw(feature);
-
-  var ndwi = ee.Algorithms.If( preFireCol.median().bandNames(),
-                              median_ndwi_internal(preFireCol),
-                              null);
-
-
-  return ee.Image(ndwi);
-};
-
-//
-// END get_median_ndwi function
-//
-
-//
-// START median EVI
-// 
-var median_evi_internal = function(preFire) {
-  // Make each image from preFire collection into its NDVI image
-  var evi = preFire.map(get_EVI);
-  var evi_img = evi.median();
-
-  return ee.Image(evi_img);
-};
-
-//  EVI function. 
-// Returns the EVI of each pixel
-var get_median_EVI = function(feature) {
-  var preFireCol = get_preFireRaw(feature);
-
-  var evi = ee.Algorithms.If( preFireCol.median().bandNames(),
-                              median_evi_internal(preFireCol),
-                              null);
-
-
-  return ee.Image(evi);
-};
-
-//
-// END get_median_evi function
-//
-
-var getSlope = function(feature) {
+var get_slope = function(feature) {
   var terrain = ee.Algorithms.Terrain(elev);
   var slope = terrain.select('slope');
   return(slope);
 };
 
-var getAspect = function(feature) {
+var get_aspect = function(feature) {
   var terrain = ee.Algorithms.Terrain(elev);
   var aspect = terrain.select('aspect');
   return(aspect);
 };
 
-// Start getVariables function
-var getVariables = function(feature) {   
+// Topographic roughness values
+// get_hetEVI() returns the heterogeneity of EVI within a given pixel radius for each pixel in an image
+var get_roughness = function(feature, pixel_radius) 
+{
+  var kernel = create_kernel(pixel_radius);
+  
+  var roughness = elev.reduceNeighborhood(ee.Reducer.stdDev(), kernel);
+  
+  roughness = ee.Algorithms.If( roughness.bandNames(),
+                                roughness,
+                                null);
+
+  return ee.Image(roughness);
+};
+
+
+//
+// Start get_variables function
+//
+
+var get_variables = function(feature) {   
     var geo = feature.geometry();
     // Static features of this particular dataset
     var satellite = ee.Image(sat);
     
     // Static features of the point itself
     var lonLat = ee.Image.pixelLonLat();
-    var slope = getSlope(geo);
-    var aspect = getAspect(geo);
+    var slope = get_slope(geo);
+    var aspect = get_aspect(geo);
     var local_elev = elev;
-
+    var conifer = mixed_conifer.select('b1');
+    var rough1 = get_roughness(feature, 1);
+    var rough2 = get_roughness(feature, 2);
+    var rough3 = get_roughness(feature, 3);
+    var rough4 = get_roughness(feature, 4);
+    
     // Not dependent on neighborhood size, but derived from the fire information
     var date = ee.Image(
       ee.Number(
@@ -821,15 +704,31 @@ var getVariables = function(feature) {
           .get('alarm_date'))
         .getRelative('day', 'year')));
     
+    var preFnbr = get_preFnbr(feature);
+    var postFnbr = get_postFnbr(feature);
+    var dnbr = get_dNBR(feature);
     var rdnbr = get_RdNBR(feature);
+    
+    var preFnbr2 = get_preFnbr2(feature);
+    var postFnbr2 = get_postFnbr2(feature);
+    var dnbr2 = get_dNBR2(feature);
     var rdnbr2 = get_RdNBR2(feature);
+    
+    var preFndvi = get_preFndvi(feature);
+    var postFndvi = get_postFndvi(feature);
+    var dndvi = get_dNDVI(feature);
     var rdndvi = get_RdNDVI(feature);
+    
+    var preFevi = get_preFevi(feature);
+    var postFevi = get_postFevi(feature);
+    var devi = get_dEVI(feature);
     var rdevi = get_RdEVI(feature);
     
-    var median_ndvi = get_median_NDVI(feature);
-    var median_ndwi = get_median_NDWI(feature);
-    var median_evi = get_median_EVI(feature);
+    var rbr = get_RBR(feature);
     
+    var preFndwi = get_preFndwi(feature);
+    var postFndwi = get_postFndwi(feature);
+
     // Variables that depend on neighborhood window size AND on fire information
     // Radius of 1 pixel = 3x3 window = 90m x 90m = 8100 m^2 = 0.81 ha
     var het_ndvi_1 = get_hetNDVI(feature, 1);
@@ -873,14 +772,26 @@ var getVariables = function(feature) {
     // and returns a null if either aren't present
   
     var export_img =   
-      ee.Algorithms.If(rdnbr, 
-        rdnbr
+      ee.Algorithms.If(dnbr, 
+        dnbr
+        .addBands(preFnbr)
+        .addBands(postFnbr)
+        .addBands(rdnbr)
+        .addBands(dnbr2)
+        .addBands(preFnbr2)
+        .addBands(postFnbr2)
         .addBands(rdnbr2)
+        .addBands(dndvi)
         .addBands(rdndvi)
+        .addBands(devi)
         .addBands(rdevi)
-        .addBands(median_ndvi)
-        .addBands(median_ndwi)
-        .addBands(median_evi)
+        .addBands(rbr)
+        .addBands(preFndvi)
+        .addBands(postFndvi)
+        .addBands(preFndwi)
+        .addBands(postFndwi)
+        .addBands(preFevi)
+        .addBands(postFevi)
         .addBands(het_ndvi_1)
         .addBands(het_ndwi_1)
         .addBands(het_evi_1)
@@ -909,16 +820,33 @@ var getVariables = function(feature) {
         .addBands(date)
         .addBands(ordinal_day)
         .addBands(lonLat)
+        .addBands(conifer)
         .addBands(slope)
         .addBands(aspect)
+        .addBands(rough1)
+        .addBands(rough2)
+        .addBands(rough3)
+        .addBands(rough4)
         .addBands(local_elev)
-        .rename(['RdNBR', 
+        .rename(['dNBR',
+          'preFire_nbr',
+          'postFire_nbr',
+          'RdNBR', 
+          'dNBR2',
+          'preFire_nbr2',
+          'postFire_nbr2',
           'RdNBR2',
+          'dNDVI',
           'RdNDVI',
+          'dEVI',
           'RdEVI',
-          'median_ndvi',
-          'median_ndwi',
-          'median_evi',
+          'RBR',
+          'preFire_ndvi',
+          'postFire_ndvi',
+          'preFire_ndwi',
+          'postFire_ndwi',
+          'preFire_evi',
+          'postFire_evi',
           'het_ndvi_1',
           'het_ndwi_1',
           'het_evi_1',
@@ -948,21 +876,41 @@ var getVariables = function(feature) {
           'ordinal_day', 
           'lon', 
           'lat', 
+          'conifer_forest',
           'slope', 
           'aspect',
+          'topo_roughness_1',
+          'topo_roughness_2',
+          'topo_roughness_3',
+          'topo_roughness_4',
           'elev']),
       null);
     
-    export_img = ee.Algorithms.If(export_img,
-      ee.Feature(export_img).copyProperties({
-        source: feature,
-        properties: ['fire_name', 'fire_num', 'agency', 'cause', 'cont_date']
-      }),
-      null);
+    // We want the function to be flexible to export the images
+    // representing the values of our model variables within 
+    // each fire perimeter OR to export the values of our model
+    // variables that come from a single point (where Composite
+    // Burn Index was measured on the ground)
+    var export_object = 
+    ee.Algorithms.If((!get_cbi), // Global variable needs to be set for whether we want values from a point or a perimeter
+      ee.Algorithms.If(export_img, // Continue if all pre and post fire imagery was available
+        ee.Image(export_img).clip(geo), // maskNonForest() would go here; When we get values from within fire perimeters, clip the image to the polygon/multipolygon geometry
+        null), // return a null if export_img doesn't exist (because pre and/or postfire imagery didn't exist)
+      ee.Algorithms.If(export_img, 
+          ee.Feature(geo, // If we are getting model variables from a point, use a reducer on the image at the point, then convert back to a feature.
+            ee.Image(export_img) // This is where the maskNonForest() function would go. (Mask all pixels that aren't forest as defined by PFR)
+              .reduceRegion({
+                reducer: ee.Reducer.first(),
+                geometry: geo,
+                scale: 30
+              })
+            ),
+          null)
+        
+    );
   
     
-    
-    return ee.Image(export_img);
+    return ee.Feature(export_object);
 };
 
 
@@ -985,78 +933,46 @@ var sat = 5;
 
 var timeWindow = 2;
 
-// Define the date range of the analysis. Sticking to only fires that would
-// use the Landsat 5 imagery until I can determine a good relationship between
-// Landsat 5 and Landsat 8
+// Use this code for testing by subsetting some of the CBI data to a more manageable set
+// var target_features =
+//   cbi_sn
+// //     .filterMetadata("alarm_date", "greater_than", start)
+// //     .filterMetadata("alarm_date", "less_than", end)
+//     .filterMetadata("fire_name", "equals", "Lost")
+//     // .filterBounds(sn);
 
-// var start = ee.Date('1984-04-01').millis();
-// var end = ee.Date('2011-05-04').millis();
+// Map.addLayer(target_features);
+// Map.centerObject(target_features);
 
-var start = ee.Date('2010-04-01').millis();
-var end = ee.Date('2011-05-04').millis();
+var target_features = cbi_sn;
 
-// Sampling factor determines how much to sample from each image
-var s_factor = 0.001;
+// Are the target features a list of points where Composite Burn Index has been measured
+// on the ground and we want to calibrate our remote sensed metrics?
+var get_cbi = true;
 
-// Filter entire collection of collated CBI data based on fire 
-// date and ensure points are all within Sierra Nevada border. 
-// We know we'll need some imagery a few months before each fire
-// and a year after each fire, so we limit our fire selection to 
-// those that burned starting a few months after Landsat 5 imagery
-// begins and a year before Landsat 5 imagery ends
+// Map the variable retrieval function over all of the features; drop NULLs
+var imgCol = ee.FeatureCollection(target_features.map(get_variables, true));
 
-var target_features =
-  perim
-  // cbi_sn
-    .filterMetadata("alarm_date", "greater_than", start)
-    .filterMetadata("alarm_date", "less_than", end)
-    .filterMetadata("fire_name", "equals", "Tar Gap")
-    .filterBounds(sn);
-    
-// target_features = ee.Feature(target_features.first());
-print(target_features.getInfo());
+Map.addLayer(mixed_conifer);
+Map.addLayer(target_features, {color: "red"});
 
-// // Map the variable retrieval function over all of the features
-var imgCol = ee.FeatureCollection(target_features.map(getVariables, true));
-Map.addLayer(imgCol);
-print(imgCol.getInfo());
-
-
-
-// Mask nonForested pixels based on the Presettlement Fire Regimes from FRID database
-imgCol = imgCol.map(maskNonForest);
+Export.table.toDrive({
+  'collection': imgCol,
+  'description': "cbi-calibration_1-month-window_L5_bicubic-interp",
+  'folder': 'ee',
+  'fileNamePrefix': "cbi-calibration_1-month-window_L5_bicubic-interp",
+  'fileFormat': 'GeoJSON'
+});
 
 Export.table.toDrive({
   'collection': target_features,
-  'description': 'metadata',
+  'description': "cbi-calibration_1-month-window_L5_bicubic-interp_metadata",
   'folder': 'ee',
-  'fileNamePrefix': 'L5_19840401_20110504_remote_resistance_frap_metadata',
+  'fileNamePrefix': "cbi-calibration_1-month-window_L5_bicubic-interp_metadata",
   'fileFormat': 'CSV'
 });
 
-// Extract samples
-// Sample from the images containing all response and predictor values
-var samps = imgCol.map(getSamps).flatten();
-
-// File name for .csv in a string
-// var fileName = 'L5_1987HAMMCMPLX_remote_resistance_frap_100_point_sample';
-var fileName = 'L5_19840401_20110504_remote_resistance_frap_100_point_sample';
-// var fileName = 'L5_19840401_20110504_remote_resistance_frap_0_001_percent';
-
-// Export the tidy .csv to Google Drive
-Export.table.toDrive({
-  'collection': samps,
-  'description': fileName,
-  'folder': 'ee',
-  'fileNamePrefix': fileName,
-  'fileFormat': 'CSV'
-});
-
-
-
-// // Visualize a test image
-// var RdNBR_viz = {min:0, max:32, palette:['008000', 'ffff00',  'ffA500', 'ff0000']};
-// var test_img = ee.Image(imgCol.first());
-
-// Map.addLayer(test_img.select(['RdEVI']), RdNBR_viz, 'rdnbr');
-// Map.centerObject(test_img);
+// Test use
+// var test_feature = ee.Feature(test_geo, {alarm_date: '2009-05-01'});
+// var test_rdnbr = get_RdNBR(test_feature);
+// Map.addLayer(test_rdnbr.clip(test_feature), RdNBR_viz, 'RdNBR for fire starting 2009-05-01');
