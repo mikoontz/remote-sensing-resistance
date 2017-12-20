@@ -29,7 +29,7 @@ var elev = ee.Image("USGS/SRTMGL1_003"),
 var maskClouds = function(img)
 {
   var mask = img.select(['cfmask']).eq(0);
-  return(img.resample('bicubic').updateMask(mask)); // Use interpolation because CBI on-the-ground plots are unlikely to
+  return(img.updateMask(mask)); // Use interpolation because CBI on-the-ground plots are unlikely to
   // lie exactly at the center of a pixel. See Cansler MSc thesis (2011) and Parks et al. (2014)
 };
 
@@ -894,11 +894,11 @@ var get_variables = function(feature) {
     var export_object = 
     ee.Algorithms.If((!get_cbi), // Global variable needs to be set for whether we want values from a point or a perimeter
       ee.Algorithms.If(export_img, // Continue if all pre and post fire imagery was available
-        ee.Image(export_img).clip(geo), // maskNonForest() would go here; When we get values from within fire perimeters, clip the image to the polygon/multipolygon geometry
+        ee.Image(export_img).clip(geo).resample('bicubic'), // maskNonForest() would go here; When we get values from within fire perimeters, clip the image to the polygon/multipolygon geometry
         null), // return a null if export_img doesn't exist (because pre and/or postfire imagery didn't exist)
       ee.Algorithms.If(export_img, 
           ee.Feature(geo, // If we are getting model variables from a point, use a reducer on the image at the point, then convert back to a feature.
-            ee.Image(export_img) // This is where the maskNonForest() function would go. (Mask all pixels that aren't forest as defined by PFR)
+            ee.Image(export_img).resample('bicubic') // This is where the maskNonForest() function would go. (Mask all pixels that aren't forest as defined by PFR)
               .reduceRegion({
                 reducer: ee.Reducer.first(),
                 geometry: geo,
