@@ -10,7 +10,7 @@
 ### explained by the model" <-- it's not that.)
 
 library(ggplot2)
-library(plotly)
+library(rlang)
 library(sf)
 library(dplyr)
 library(mgcv)
@@ -26,7 +26,7 @@ library(tidyr)
 # Get 1-month window, bilinear interpolation data
 cbi_metadata_1_bilinear <- read.csv("data/cbi_calibration/cbi-calibration_1-month-window_L5_bilinear-interp_metadata.csv", stringsAsFactors = FALSE) %>%
   select(-.geo)
-cbi_data_1_bilinear <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bilinear-interp.geojson.json", stringsAsFactors = FALSE) %>%
+cbi_data_1_bilinear <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE) %>%
   rename(system.index = id)
 
 cbi_1_bilinear <- merge(cbi_data_1_bilinear, cbi_metadata_1_bilinear)
@@ -34,7 +34,7 @@ cbi_1_bilinear <- merge(cbi_data_1_bilinear, cbi_metadata_1_bilinear)
 # Get 2-month window, bilinear interpolation data
 cbi_metadata_2_bilinear <- read.csv("data/cbi_calibration/cbi-calibration_2-month-window_L5_bilinear-interp_metadata.csv", stringsAsFactors = FALSE) %>%
   select(-.geo)
-cbi_data_2_bilinear <- st_read("data/cbi_calibration/cbi-calibration_2-month-window_L5_bilinear-interp.geojson.json", stringsAsFactors = FALSE) %>%
+cbi_data_2_bilinear <- st_read("data/cbi_calibration/cbi-calibration_2-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE) %>%
   rename(system.index = id)
 
 cbi_2_bilinear <- merge(cbi_data_2_bilinear, cbi_metadata_2_bilinear)
@@ -42,7 +42,7 @@ cbi_2_bilinear <- merge(cbi_data_2_bilinear, cbi_metadata_2_bilinear)
 # Get 3-month window, bilinear interpolation data
 cbi_metadata_3_bilinear <- read.csv("data/cbi_calibration/cbi-calibration_3-month-window_L5_bilinear-interp_metadata.csv", stringsAsFactors = FALSE) %>%
   select(-.geo)
-cbi_data_3_bilinear <- st_read("data/cbi_calibration/cbi-calibration_3-month-window_L5_bilinear-interp.geojson.json", stringsAsFactors = FALSE) %>%
+cbi_data_3_bilinear <- st_read("data/cbi_calibration/cbi-calibration_3-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE) %>%
   rename(system.index = id)
 
 cbi_3_bilinear <- merge(cbi_data_3_bilinear, cbi_metadata_3_bilinear)
@@ -54,15 +54,20 @@ cbi_3_bilinear <- merge(cbi_data_3_bilinear, cbi_metadata_3_bilinear)
 # Get 1-month window, bicubic interpolation data
 cbi_metadata_1_bicubic <- read.csv("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp_metadata.csv", stringsAsFactors = FALSE) %>%
   select(-.geo)
-cbi_data_1_bicubic <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp.geojson.json", stringsAsFactors = FALSE) %>%
+cbi_data_1_bicubic <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE) %>%
   rename(system.index = id)
+
+
+cbi_data_1_bicubic_test <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE) %>%
+  rename(system.index = id)
+
 
 cbi_1_bicubic <- merge(cbi_data_1_bicubic, cbi_metadata_1_bicubic)
 
 # Get 2-month window, bicubic interpolation data
 cbi_metadata_2_bicubic <- read.csv("data/cbi_calibration/cbi-calibration_2-month-window_L5_bicubic-interp_metadata.csv", stringsAsFactors = FALSE) %>%
   select(-.geo)
-cbi_data_2_bicubic <- st_read("data/cbi_calibration/cbi-calibration_2-month-window_L5_bicubic-interp.geojson.json", stringsAsFactors = FALSE) %>%
+cbi_data_2_bicubic <- st_read("data/cbi_calibration/cbi-calibration_2-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE) %>%
   rename(system.index = id)
 
 cbi_2_bicubic <- merge(cbi_data_2_bicubic, cbi_metadata_2_bicubic)
@@ -70,17 +75,17 @@ cbi_2_bicubic <- merge(cbi_data_2_bicubic, cbi_metadata_2_bicubic)
 # Get 3-month window, bicubic interpolation data
 cbi_metadata_3_bicubic <- read.csv("data/cbi_calibration/cbi-calibration_3-month-window_L5_bicubic-interp_metadata.csv", stringsAsFactors = FALSE) %>%
   select(-.geo)
-cbi_data_3_bicubic <- st_read("data/cbi_calibration/cbi-calibration_3-month-window_L5_bicubic-interp.geojson.json", stringsAsFactors = FALSE) %>%
+cbi_data_3_bicubic <- st_read("data/cbi_calibration/cbi-calibration_3-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE) %>%
   rename(system.index = id)
 
 cbi_3_bicubic <- merge(cbi_data_3_bicubic, cbi_metadata_3_bicubic)
 
-###
-### Read in Sierra Nevada shapefile
-###
-
-sn <- st_read("data/features/SierraEcoregion_Jepson/") %>%
-  st_transform(4326)
+cbi_list <- list(bilinear_1 = cbi_1_bilinear,
+                 bilinear_2 = cbi_2_bilinear,
+                 bilinear_3 = cbi_3_bilinear,
+                 bicubic_1 = cbi_1_bicubic,
+                 bicubic_2 = cbi_2_bicubic,
+                 bicubic_3 = cbi_3_bicubic)
 
 # Conveient function to get coefficient of determination from a non-linear model. Note this value (R^2)
 # does NOT have the same meaning in a non-linear context as it does in a a linear context. Thus
@@ -93,286 +98,127 @@ r2 <- function(m) {
 }
 
 # Non-linear models (of the form used by Miller and Thode (2007) and Parks et al. (2014))
+### Example of overall R^2
 m1a <- nls(RdNBR ~ a + b * exp(cbi_over * c), 
-            data = cbi_1_bilinear,
+            data = cbi_2_bilinear,
             start = list(a = 0, b = 1, c = 1),
             model = TRUE)
 
 r2(m1a)
 
+plot(cbi_2_bilinear$cbi_over, cbi_2_bilinear$RdNBR, pch = 19)
+lines(seq(0, 3, by = 0.01), predict(m1a, newdata = data.frame(cbi_over = seq(0, 3, by = 0.01))))
+
+# Where would the cutoff for "high severity" be? CBI of 2.25 or greater translates to an RdNBR of...
+severity_thresholds <- predict(m1a, newdata = data.frame(cbi_over = c(0.1, 1.25, 2.25)))
+severity_thresholds
+
 ###
 ### K-fold cross validation
 ###
 
-###
-### START 1-month window, bicubic interpolation
-###
+severity_kfold <- function(data, response, k) {
+  # Let the response variable be flexible and turn the string into a full formula for the nls() function
+  formula <- as.formula(paste0(response, " ~ a + b * exp(cbi_over * c)"))
 
-RdNBR_5fold_1_bicubic <- 
-  cbi_1_bicubic %>%
-  as.data.frame() %>%
-  select(-geometry) %>%
-  crossv_kfold(k = 5) %>%
-  mutate(model = map(train, ~ nls(RdNBR ~ a + b * exp(cbi_over * c), 
-                                  data = as.data.frame(.),
-                                  start = list(a = 0, b = 1, c = 1)))) %>%
-  mutate(predicted = map2(model, test, ~ augment(.x, newdata = .y))) %>%
-  unnest(predicted) %>%
-  mutate(residual = .fitted - RdNBR) %>%
-  group_by(.id) %>%
-  summarize(
-    sst = sum((RdNBR - mean(RdNBR, na.rm = TRUE)) ^ 2, na.rm = TRUE),
-    sse = sum(residual ^ 2, na.rm = TRUE),
-    mse = mean(residual ^ 2, na.rm = TRUE),
-    r.squared = 1 - sse / sst
-  )
+  data %>%
+    as.data.frame() %>%
+    select(-geometry) %>% # Remove the geometry column
+    crossv_kfold(k = k) %>% # Divide the data into k folds with a test and training set associated with each of the k sets
+    mutate(model = map(train, ~ nls(formula = formula, 
+                                    data = as.data.frame(.),
+                                    start = list(a = 0, b = 1, c = 1)))) %>%
+    mutate(predicted = map2(model, test, ~ augment(.x, newdata = .y))) %>% # parallel mapping of the model and test data.frames to add, as a new column, the predicted severity values for the test data ffrom a model fit to the training data
+    unnest(predicted) %>%
+    mutate_(residual = interp(~.fitted - response, response = as.name(response))) %>% # calculate residuals (we use the interp() function to allow the response variable to be a flexible argument passed by the user)
+    group_by(.id) %>%
+    summarize_(
+      sst = interp(~ sum( (response - mean(response, na.rm = TRUE)) ^ 2, na.rm = TRUE), response = as.name(response)), # Total sum of squares
+      sse = interp(~sum(residual ^ 2, na.rm = TRUE)), # sum of squares error
+      mse = interp(~mean(residual ^ 2, na.rm = TRUE))) %>% # mean square error
+    mutate(r.squared = 1 - sse / sst) # calculate r.squared value (note this is *not* the same interpretation as the R^2 in a linear model)
+}
 
-mean(RdNBR_5fold_1_bicubic$mse)
-mean(RdNBR_5fold_1_bicubic$r.squared)
+### Leave out dEVI and RdEVI because they have some weirdness.
+d <- cbi_list[[1]]
+plot(d$cbi_over, d$dEVI)
+plot(d$cbi_over, d$RdEVI)
 
-###
-### END 1-month window, bicubic interpolation
-###
+g <- ggplot(d, aes(x = cbi_over, y = dEVI)) +
+  geom_point(aes(text = system.index))
 
-###
-### START 2-month window, bicubic interpolation
-###
-
-RdNBR_5fold_2_bicubic <- 
-  cbi_2_bicubic %>%
-  as.data.frame() %>%
-  select(-geometry) %>%
-  crossv_kfold(k = 5) %>%
-  mutate(model = map(train, ~ nls(RdNBR ~ a + b * exp(cbi_over * c), 
-                                  data = as.data.frame(.),
-                                  start = list(a = 0, b = 1, c = 1)))) %>%
-  mutate(predicted = map2(model, test, ~ augment(.x, newdata = .y))) %>%
-  unnest(predicted) %>%
-  mutate(residual = .fitted - RdNBR) %>%
-  group_by(.id) %>%
-  summarize(
-    sst = sum((RdNBR - mean(RdNBR, na.rm = TRUE)) ^ 2, na.rm = TRUE),
-    sse = sum(residual ^ 2, na.rm = TRUE),
-    mse = mean(residual ^ 2, na.rm = TRUE),
-    r.squared = 1 - sse / sst
-  )
-
-mean(RdNBR_5fold_2_bicubic$mse)
-mean(RdNBR_5fold_2_bicubic$r.squared)
-
-###
-### END 2-month window, bicubic interpolation
-###
-
-###
-### START 3-month window, bicubic interpolation
-###
-
-RdNBR_5fold_3_bicubic <- 
-  cbi_3_bicubic %>%
-  as.data.frame() %>%
-  select(-geometry) %>%
-  crossv_kfold(k = 5) %>%
-  mutate(model = map(train, ~ nls(RdNBR ~ a + b * exp(cbi_over * c), 
-                                  data = as.data.frame(.),
-                                  start = list(a = 0, b = 1, c = 1)))) %>%
-  mutate(predicted = map2(model, test, ~ augment(.x, newdata = .y))) %>%
-  unnest(predicted) %>%
-  mutate(residual = .fitted - RdNBR) %>%
-  group_by(.id) %>%
-  summarize(
-    sst = sum((RdNBR - mean(RdNBR, na.rm = TRUE)) ^ 2, na.rm = TRUE),
-    sse = sum(residual ^ 2, na.rm = TRUE),
-    mse = mean(residual ^ 2, na.rm = TRUE),
-    r.squared = 1 - sse / sst
-  )
-
-mean(RdNBR_5fold_3_bicubic$mse)
-mean(RdNBR_5fold_3_bicubic$r.squared)
-
-###
-### END 3-month window, bicubic interpolation
-###
-
-###
-### START 1-month window, bilinear interpolation
-###
-
-RdNBR_5fold_1_bilinear <- 
-  cbi_1_bilinear %>%
-  as.data.frame() %>%
-  select(-geometry) %>%
-  crossv_kfold(k = 5) %>%
-  mutate(model = map(train, ~ nls(RdNBR ~ a + b * exp(cbi_over * c), 
-                                  data = as.data.frame(.),
-                                  start = list(a = 0, b = 1, c = 1)))) %>%
-  mutate(predicted = map2(model, test, ~ augment(.x, newdata = .y))) %>%
-  unnest(predicted) %>%
-  mutate(residual = .fitted - RdNBR) %>%
-  group_by(.id) %>%
-  summarize(
-    sst = sum((RdNBR - mean(RdNBR, na.rm = TRUE)) ^ 2, na.rm = TRUE),
-    sse = sum(residual ^ 2, na.rm = TRUE),
-    mse = mean(residual ^ 2, na.rm = TRUE),
-    r.squared = 1 - sse / sst
-  )
-
-mean(RdNBR_5fold_1_bilinear$mse)
-mean(RdNBR_5fold_1_bilinear$r.squared)
-
-###
-### END 1-month window, bilinear interpolation
-###
-
-###
-### START 2-month window, bilinear interpolation
-###
-
-RdNBR_5fold_2_bilinear <- 
-  cbi_2_bilinear %>%
-  as.data.frame() %>%
-  select(-geometry) %>%
-  crossv_kfold(k = 5) %>%
-  mutate(model = map(train, ~ nls(RdNBR ~ a + b * exp(cbi_over * c), 
-                                  data = as.data.frame(.),
-                                  start = list(a = 0, b = 1, c = 1)))) %>%
-  mutate(predicted = map2(model, test, ~ augment(.x, newdata = .y))) %>%
-  unnest(predicted) %>%
-  mutate(residual = .fitted - RdNBR) %>%
-  group_by(.id) %>%
-  summarize(
-    sst = sum((RdNBR - mean(RdNBR, na.rm = TRUE)) ^ 2, na.rm = TRUE),
-    sse = sum(residual ^ 2, na.rm = TRUE),
-    mse = mean(residual ^ 2, na.rm = TRUE),
-    r.squared = 1 - sse / sst
-  )
-
-mean(RdNBR_5fold_2_bilinear$mse)
-mean(RdNBR_5fold_2_bilinear$r.squared)
-
-###
-### END 2-month window, bilinear interpolation
-###
-
-###
-### START 3-month window, bilinear interpolation
-###
-
-RdNBR_5fold_3_bilinear <- 
-  cbi_3_bilinear %>%
-  as.data.frame() %>%
-  select(-geometry) %>%
-  crossv_kfold(k = 5) %>%
-  mutate(model = map(train, ~ nls(RdNBR ~ a + b * exp(cbi_over * c), 
-                                  data = as.data.frame(.),
-                                  start = list(a = 0, b = 1, c = 1)))) %>%
-  mutate(predicted = map2(model, test, ~ augment(.x, newdata = .y))) %>%
-  unnest(predicted) %>%
-  mutate(residual = .fitted - RdNBR) %>%
-  group_by(.id) %>%
-  summarize(
-    sst = sum((RdNBR - mean(RdNBR, na.rm = TRUE)) ^ 2, na.rm = TRUE),
-    sse = sum(residual ^ 2, na.rm = TRUE),
-    mse = mean(residual ^ 2, na.rm = TRUE),
-    r.squared = 1 - sse / sst
-  )
-
-mean(RdNBR_5fold_3_bilinear$mse)
-mean(RdNBR_5fold_3_bilinear$r.squared)
-
-###
-### END 3-month window, bilinear interpolation
-###
-
-
-m1b <- nls(RdNBR ~ a + b * exp(cbi_over * c), 
-           data = cbi_2_bicubic,
-           start = list(a = 0, b = 1, c = 1),
-           model = TRUE)
-
-r2(m1a)
-r2(m1b)
-
-plot(cbi_2_bicubic$cbi_over, cbi_2_bicubic$RdNBR, pch = 19)
-lines(seq(0, 3, by = 0.01), predict(m1b, newdata = data.frame(cbi_over = seq(0, 3, by = 0.01))))
-
-# Where would the cutoff for "high severity" be? CBI of 2.25 or greater translates to an RdNBR of...
-severity_thresholds <- predict(m1b, newdata = data.frame(cbi_over = c(0.1, 1.25, 2.25)))
-
-
-mean(RdNBR_5fold_1_bilinear$mse)
-mean(RdNBR_5fold_2_bilinear$mse)
-mean(RdNBR_5fold_3_bilinear$mse)
-mean(RdNBR_5fold_1_bicubic$mse)
-mean(RdNBR_5fold_2_bicubic$mse)
-mean(RdNBR_5fold_3_bicubic$mse)
-
-mean(RdNBR_5fold_1_bilinear$r.squared)
-mean(RdNBR_5fold_2_bilinear$r.squared)
-mean(RdNBR_5fold_3_bilinear$r.squared)
-mean(RdNBR_5fold_1_bicubic$r.squared)
-mean(RdNBR_5fold_2_bicubic$r.squared)
-mean(RdNBR_5fold_3_bicubic$r.squared)
-
-head(cbi_2_bilinear)
-summary(cbi_2_bilinear)
-
-### Linear models
-m1a <- lm(dNBR ~ cbi_over, data = cbi_2_bicubic)
-summary(m1a)
-plot(cbi_2_bicubic$cbi_over, cbi_2_bicubic$dNBR)
-lines(abline(m1a))
-
-m1b <- lm(RdNBR ~ cbi_over, data = cbi_2_bicubic)
-summary(m1b)
-plot(cbi_2_bicubic$cbi_over, cbi_2_bicubic$RdNBR)
-lines(abline(m1b))
-
-
-m2a <- lm(dNDVI ~ cbi_over, data = cbi)
-plot(cbi$cbi_over, cbi$dNDVI)
-summary(m2a)
-
-m2b <- lm(RdNDVI ~ cbi_over, data = cbi)
-plot(cbi$cbi_over, cbi$RdNDVI)
-summary(m2b)
-
-m <- lm(RBR ~ cbi_over, data = cbi)
-plot(cbi$cbi_over, cbi$RBR)
-summary(m)
-lines(abline(m))
-
-m1b <- lm(RdNBR ~ cbi_tot, data = cbi)
-m1c <- gam(RdNBR ~ s(cbi_over), data = cbi)
-m2 <- lm(RdNBR2 ~ cbi_over, data = cbi)
-m3 <- lm(RdNDVI ~ cbi_over, data = cbi)
-m4 <- lm(RdEVI ~ cbi_over, data = cbi)
-
-m5 <- lm(cbi_over ~ het_ndvi_1, data = cbi)
-plot(cbi$het_ndvi_4, cbi$cbi_over)
-abline(m5)
-summary(m5)
-summary(m1b)
-summary(m2)
-summary(m3)
-summary(m4)
-
-cbi[which.min(cbi$RdEVI), ]
-
-plot(m1b, residuals = TRUE)
-??plotly
-
-g <- ggplot(subset(cbi, subset = cbi$fire_name != "Lost"), aes(x = cbi_over, y = RdNBR, text = fire_name)) +
-  geom_point()
 ggplotly(g)
 
-f <- ggplot(cbi, aes(x = cbi_over, y = RdNBR, text = fire_name)) +
-  geom_point()
-ggplotly(f)
-curve(expr = coef(m1)[1] + coef(m2)[2]*(x + x^2), add = TRUE)
-plot(cbi$cbi_tot, cbi$RdNBR)
-plot(cbi$cbi_over, cbi$RdNBR2)
-plot(cbi$cbi_over, cbi$RdNDVI)
-plot(cbi$cbi_over, cbi$RdEVI)
+###
+### Include just conifer forest data, as determined by pre-EuroAmerican-settlement fire regime types from the Fire Return Interval Departure database
+###
 
-str(cbi)
+# Response values (9): RdNBR, dNBR, RdNBR2, dNBR2, RdNDVI, dNDVI, RBR (we leave out dEVI and RdEVI because they are just bad model fits)
+# Interpolation (2): bilinear, bicubic
+# Window period (3): 1 month, 2 month, 3 month
+# Model fit variables: a, b, c, R^2
+
+# Data frame should be 8 columns (including an id column) and 54 (9*2*3) rows
+response_vars <- c("RdNBR", "dNBR", "RdNBR2", "dNBR2", "RdNDVI","dNDVI", "RBR") # not including dEVI and RdEVI
+interpolation <- c("bilinear", "bicubic")
+time_window <- 1:3
+conifer_filter <- TRUE # Just use CBI plots found in yellow pine/mixed conifer forest
+
+num_rows <- length(response_vars) * length(interpolation) * length(time_window)
+
+set.seed(1826) # Set seed at current time for reproducibility
+
+# Create data structure to hold results
+model_summary <- data.frame(id = 1:num_rows, 
+                            expand.grid(response = response_vars, 
+                                        time_window = time_window, 
+                                        interpolation = interpolation), 
+                            a = numeric(num_rows), 
+                            b = numeric(num_rows), 
+                            c = numeric(num_rows), 
+                            r2_kfold = numeric(num_rows),
+                            r2_all = numeric(num_rows))
+
+# Iterate through all data.frames (each represents a time_window/interpolation type combination)
+for (i in seq_along(cbi_list)) {
+  # Iterate through the different remotely-sensed wildfire severity metrics
+  for (j in seq_along(response_vars)) {
+    
+    parse_list_name <- unlist(strsplit(names(cbi_list[i]), "_")) # Get what time_window/interpolation type from the list element name
+    interp <- parse_list_name[1]
+    time_window <- as.numeric(parse_list_name[2])
+    
+    if( conifer_filter) { # check whether only PFR defined yellow pine/mixed conifer should be used
+      data <- subset(cbi_list[[i]], subset = conifer_forest == 1)
+    } else {
+      data <- cbi_list[[i]]
+    } 
+    
+    model <- as.formula(paste0(response_vars[j], " ~ a + b * exp(cbi_over * c)"))
+    fitted_model <- try(nls(formula = model, 
+                            data = data,
+                            start = list(a = 0, b = 1, c = 1),
+                            model = TRUE))
+    
+    r2_kfold <- try(severity_kfold(data = data, response = response_vars[j], k = 5) %>% summarize(mean(r.squared)) %>% as.numeric())
+    r2_all <- try(r2(fitted_model))
+    idx <- model_summary$response == response_vars[j] & model_summary$interpolation == interp & model_summary$time_window == time_window
+    
+    if(class(fitted_model) != "try-error") {
+      model_summary[idx, c("a", "b", "c")] <- coef(fitted_model)
+    }
+    if(class(r2_kfold) != "try-error") {
+      model_summary[idx, "r2_kfold"] <- r2_kfold
+    }
+    if(class(r2_all) != "try-error") {
+      model_summary[idx, "r2_all"] <- r2_all
+    }
+  }     
+}
+
+model_summary
+model_summary[order(model_summary$r2_all, decreasing = TRUE), ]
+
+# For conifer forest, it appears that the bicubic interpolation of RdNBR and using a 1-month window prior to the fire results in the best fit to on-the-ground severity. The bicubic interpolation of RBR using a 1-month window prior to the fire results in the best fit when all data are used.
+# But we get pretty darn good fits for RBR and RdNDVI in both 1, 2, and 3 month windows and using both bilinear and bicubic interpolation.
+
