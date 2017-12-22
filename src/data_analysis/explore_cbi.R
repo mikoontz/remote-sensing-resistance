@@ -57,11 +57,6 @@ cbi_metadata_1_bicubic <- read.csv("data/cbi_calibration/cbi-calibration_1-month
 cbi_data_1_bicubic <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE) %>%
   rename(system.index = id)
 
-
-cbi_data_1_bicubic_test <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE) %>%
-  rename(system.index = id)
-
-
 cbi_1_bicubic <- merge(cbi_data_1_bicubic, cbi_metadata_1_bicubic)
 
 # Get 2-month window, bicubic interpolation data
@@ -221,4 +216,42 @@ model_summary[order(model_summary$r2_all, decreasing = TRUE), ]
 
 # For conifer forest, it appears that the bicubic interpolation of RdNBR and using a 1-month window prior to the fire results in the best fit to on-the-ground severity. The bicubic interpolation of RBR using a 1-month window prior to the fire results in the best fit when all data are used.
 # But we get pretty darn good fits for RBR and RdNDVI in both 1, 2, and 3 month windows and using both bilinear and bicubic interpolation.
+
+
+degToRad <- function(deg) {
+  deg * pi / 180
+}
+
+d <- cbi_1_bicubic
+d$aspect <- cos(degToRad(d$aspect - 135))
+
+plot(d$cbi_over[d$conifer_forest == 1], d$RBR[d$conifer_forest == 1], pch = 19)
+plot(d$fm100[d$conifer_forest == 1], d$RBR[d$conifer_forest == 1], pch = 19)
+m1 <- nls(RBR ~ a + b * exp(cbi_over * c), 
+                 data = subset(d, conifer_forest == 1),
+                 start = list(a = 0, b = 1, c = 1),
+                 model = TRUE) 
+lines(seq(0, 3, by = 0.01), predict(m1, newdata = data.frame(cbi_over = seq(0, 3, by = 0.01))))  
+summary(m1)  
+r2(m1)
+
+fm1 <- lm(RdNBR ~ preFire_ndvi + het_ndvi_1 + topo_roughness_1, data = d[d$conifer_forest == 1, ])
+summary(fm1)
+
+
+# Get 1-month window, bicubic interpolation data
+d_meta <- read.csv("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp_metadata_test.csv", stringsAsFactors = FALSE) %>%
+  select(-.geo)
+d_data <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp_test.geojson", stringsAsFactors = FALSE) %>%
+  rename(system.index = id)
+
+d <- merge(d_data, d_meta)
+head(d_meta)
+head(d_data)
+head(d)
+
+d_data$conifer_forest
+cbi_data_1_bicubic$conifer_forest
+head(cbi_data_2_bicubic)
+head(cbi_1_bicubic)
 

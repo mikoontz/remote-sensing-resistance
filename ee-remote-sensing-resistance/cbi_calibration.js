@@ -5,12 +5,7 @@ var elev = ee.Image("USGS/SRTMGL1_003"),
     perim = ee.FeatureCollection("users/mkoontz/fire_perim_16_1"),
     sn = ee.FeatureCollection("ft:1vdDUTu09Rkw5qKR_DSfmFX-b_7kqy4E-pjxg9Sq6"),
     cbi_sn = ee.FeatureCollection("users/mkoontz/cbi_sn"),
-    imageCollection = ee.ImageCollection("LANDSAT/LT05/C01/T1_SR"),
-    test_geo = /* color: #d63000 */ee.Geometry.Polygon(
-        [[[-119.03823852539062, 36.80928470205937],
-          [-118.81439208984375, 36.8037869853087],
-          [-118.80615234375, 36.90378362619561],
-          [-119.036865234375, 36.901587303978474]]]);
+    imageCollection = ee.ImageCollection("LANDSAT/LT05/C01/T1_SR");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 //
 // HELPER FUNCTIONS
@@ -29,7 +24,7 @@ var elev = ee.Image("USGS/SRTMGL1_003"),
 var maskClouds = function(img)
 {
   var mask = img.select(['cfmask']).eq(0);
-  return(img.updateMask(mask)); // Use interpolation because CBI on-the-ground plots are unlikely to
+  return(img.resample(resample_method).updateMask(mask)); // Use interpolation because CBI on-the-ground plots are unlikely to
   // lie exactly at the center of a pixel. See Cansler MSc thesis (2011) and Parks et al. (2014)
 };
 
@@ -134,8 +129,34 @@ var get_postFireRaw = function(feature) {
   return ee.ImageCollection(postFire);
 };
 
-//
-// START create_kernel
+// get_preFireGridmet() returns a collection of raw daily GRIDMET images for gridmet_timeWindow number
+// of days before the fire. This collection can then be used to calculate ERC just before the fire
+// and temperature/precipitation accumulation for a bit longer before the fire
+var get_preFireGridmet = function(feature, gridmet_timeWindow) {
+  
+  var fireDate = ee.Date(feature.get('alarm_date'));
+  var firePerim = feature.geometry();
+
+  // Prefire image collection derivecd by gathering all images "timeWindow"
+  // (a global variable) months before the fire. 
+  // These variables define the time period to grab those images. 
+  var prestart = fireDate.advance(gridmet_timeWindow * -1, 'day');
+  var preend = fireDate.advance(-1, 'day');
+
+  // Here is where we subset the Landsat imagery. We filter the whole collection
+  // to just the images that were taken between "timeWindow" months before the 
+  // fire started and 1 day before the fire started.
+  var preFireGridmetCol = 
+    gridmet
+      .filterDate(prestart, preend)
+      .filterBounds(firePerim);
+  
+  // Return the preFire image collection
+  return ee.ImageCollection(preFireGridmetCol);
+};
+
+
+// create_kernel() returns an equally-weighted square ee.kernel with the specified number of pixel radius
 //
 // Create a kernel of a given pixel radius (number of concentric rings around focal pixel)
 // Importantly, we also give 0 weight to the focal pixel.
@@ -163,7 +184,7 @@ var create_kernel = function(pixel_radius) {
   return kernel;
 };
 
-// get_sampes() samples points from within an image at a specified scale and density
+// get_samps() samples points from within an image at a specified scale and density
 var get_samps = function(img) {
   
   img = ee.Image(img);
@@ -662,7 +683,9 @@ var get_roughness = function(feature, pixel_radius)
 {
   var kernel = create_kernel(pixel_radius);
   
-  var roughness = elev.reduceNeighborhood(ee.Reducer.stdDev(), kernel);
+  var roughness = elev
+    .resample(resample_method)
+    .reduceNeighborhood(ee.Reducer.stdDev(), kernel);
   
   roughness = ee.Algorithms.If( roughness.bandNames(),
                                 roughness,
@@ -670,6 +693,70 @@ var get_roughness = function(feature, pixel_radius)
 
   return ee.Image(roughness);
 };
+
+// // Weather/fuel condition variables
+var get_erc = function(img) {
+  var erc = img.select(['erc']).resample(resample_method);
+  
+  return ee.Image(erc);
+};
+
+var get_preFireerc = function(feature, gridmet_timeWindow) {
+  var erc = get_preFireGridmet(feature, gridmet_timeWindow).map(get_erc).median();
+  
+  erc = ee.Algorithms.If( erc.bandNames(),
+                                    ee.Image(erc), 
+                                    null);
+
+  return ee.Image(erc);
+};
+
+var get_fm100 = function(img) {
+  var fm100 = img.select(['fm100']).resample(resample_method);
+  
+  return ee.Image(fm100);
+};
+
+var get_preFirefm100 = function(feature, gridmet_timeWindow) {
+  var fm100 = get_preFireGridmet(feature, gridmet_timeWindow).map(get_fm100).median();
+  
+  fm100 = ee.Algorithms.If( fm100.bandNames(),
+                                    ee.Image(fm100), 
+                                    null);
+
+  return ee.Image(fm100);
+};
+
+var get_tempMax = function(img) {
+  var tempMax = img.select(['tmmx']).subtract(273.15).resample(resample_method);
+  
+  return ee.Image(tempMax);
+};
+
+var get_preFireCumulativeTempMax = function(feature, gridmet_timeWindow) {
+  var cumulativeTempMax = get_preFireGridmet(feature, gridmet_timeWindow).map(get_cumulativeTempMax).sum();
+  
+  cumulativeTempMax = ee.Algorithms.If( cumulativeTempMax.bandNames(),
+                                            ee.Image(cumulativeTempMax),
+                                            null);
+  return ee.Image(cumulativeTempMax);
+};
+
+var get_precip = function(img) {
+  var precip = img.select(['pr']).resample(resample_method);
+  
+  return ee.Image(precip);
+};
+
+var get_preFireCumulativePrecip = function(feature, gridmet_timeWindow) {
+  var cumulativePrecip = get_preFireGridmet(feature, gridmet_timeWindow).map(get_cumulativePrecip).sum();
+  
+  cumulativePrecip = ee.Algorithms.If( cumulativePrecip.bandNames(),
+                                            ee.Image(cumulativePrecip),
+                                            null);
+  return ee.Image(cumulativePrecip);
+};
+
 
 
 //
@@ -683,9 +770,9 @@ var get_variables = function(feature) {
     
     // Static features of the point itself
     var lonLat = ee.Image.pixelLonLat();
-    var slope = get_slope(geo);
-    var aspect = get_aspect(geo);
-    var local_elev = elev;
+    var slope = get_slope(geo).resample(resample_method);
+    var aspect = get_aspect(geo).resample(resample_method);
+    var local_elev = elev.resample(resample_method);
     var conifer = mixed_conifer.select('b1');
     var rough1 = get_roughness(feature, 1);
     var rough2 = get_roughness(feature, 2);
@@ -765,6 +852,21 @@ var get_variables = function(feature) {
     var focal_mean_ndvi_4 = get_focal_mean_NDVI(feature, 4);
     var focal_mean_ndwi_4 = get_focal_mean_NDWI(feature, 4);
     var focal_mean_evi_4 = get_focal_mean_EVI(feature, 4);
+
+    // weather/fuel condition variables
+      
+    var erc = get_erc(feature, 4); // Take the median ERC for the 3 days prior to the fire
+    var fm100 = get_fm100(feature, 4); // Take the median 100 hour fuel moisture for 3 days prior to the fire
+    var cumulativeTempMax = get_cumulativeTempMax(feature, 31); // Get sum of max temperature for 30 days before the fire (degrees C)
+    var cumulativePrecip = get_cumulativePrecip(feature, 31); // Get sum of precip for 30 days before the fire (mm)
+    
+    var export_weatherFuel =
+      ee.Algorithms.If(erc,
+          erc
+            .addBands(fm100)
+            .addBands(cumulativeTempMax)
+            .addBands(cumulativePrecip),
+          null);
 
     // Create export image
     // If the rdnbr variable isn't null, then all other images should have been
@@ -886,6 +988,12 @@ var get_variables = function(feature) {
           'elev']),
       null);
     
+    export_img = ee.Algorithms.If(export_img,
+                    ee.Algorithms.If(export_weatherFuel,
+                          ee.Image(export_img).addBands(export_weatherFuel),
+                          null),
+                        null);
+    
     // We want the function to be flexible to export the images
     // representing the values of our model variables within 
     // each fire perimeter OR to export the values of our model
@@ -894,11 +1002,11 @@ var get_variables = function(feature) {
     var export_object = 
     ee.Algorithms.If((!get_cbi), // Global variable needs to be set for whether we want values from a point or a perimeter
       ee.Algorithms.If(export_img, // Continue if all pre and post fire imagery was available
-        ee.Image(export_img).clip(geo).resample('bicubic'), // maskNonForest() would go here; When we get values from within fire perimeters, clip the image to the polygon/multipolygon geometry
+        ee.Image(export_img).clip(geo), // maskNonForest() would go here; When we get values from within fire perimeters, clip the image to the polygon/multipolygon geometry
         null), // return a null if export_img doesn't exist (because pre and/or postfire imagery didn't exist)
       ee.Algorithms.If(export_img, 
           ee.Feature(geo, // If we are getting model variables from a point, use a reducer on the image at the point, then convert back to a feature.
-            ee.Image(export_img).resample('bicubic') // This is where the maskNonForest() function would go. (Mask all pixels that aren't forest as defined by PFR)
+            ee.Image(export_img) // This is where the maskNonForest() function would go. (Mask all pixels that aren't forest as defined by PFR)
               .reduceRegion({
                 reducer: ee.Reducer.first(),
                 geometry: geo,
@@ -931,8 +1039,8 @@ var sat = 5;
 // calculate pre-fire metrics and all Landsat images between March 1,
 // 2011 and June 1, 2011 to calculate post-fire metrics
 
-var timeWindow = 2;
-
+var timeWindow = 1;
+var resample_method = 'bicubic';
 // Use this code for testing by subsetting some of the CBI data to a more manageable set
 // var target_features =
 //   cbi_sn
@@ -953,8 +1061,10 @@ var get_cbi = true;
 // Map the variable retrieval function over all of the features; drop NULLs
 var imgCol = ee.FeatureCollection(target_features.map(get_variables, true));
 
+
 Map.addLayer(mixed_conifer);
 Map.addLayer(target_features, {color: "red"});
+
 
 Export.table.toDrive({
   'collection': imgCol,
@@ -972,7 +1082,3 @@ Export.table.toDrive({
   'fileFormat': 'CSV'
 });
 
-// Test use
-// var test_feature = ee.Feature(test_geo, {alarm_date: '2009-05-01'});
-// var test_rdnbr = get_RdNBR(test_feature);
-// Map.addLayer(test_rdnbr.clip(test_feature), RdNBR_viz, 'RdNBR for fire starting 2009-05-01');
