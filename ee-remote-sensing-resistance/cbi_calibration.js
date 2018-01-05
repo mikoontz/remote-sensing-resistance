@@ -5,7 +5,10 @@ var elev = ee.Image("USGS/SRTMGL1_003"),
     perim = ee.FeatureCollection("users/mkoontz/fire_perim_16_1"),
     sn = ee.FeatureCollection("ft:1vdDUTu09Rkw5qKR_DSfmFX-b_7kqy4E-pjxg9Sq6"),
     cbi_sn = ee.FeatureCollection("users/mkoontz/cbi_sn"),
-    imageCollection = ee.ImageCollection("LANDSAT/LT05/C01/T1_SR");
+    l5sr = ee.ImageCollection("LANDSAT/LT05/C01/T1_SR"),
+    gridmet = ee.ImageCollection("IDAHO_EPSCOR/GRIDMET"),
+    l7sr = ee.ImageCollection("LANDSAT/LE07/C01/T1_SR"),
+    l8sr = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 //
 // HELPER FUNCTIONS
@@ -23,9 +26,20 @@ var elev = ee.Image("USGS/SRTMGL1_003"),
 
 var maskClouds = function(img)
 {
-  var mask = img.select(['cfmask']).eq(0);
-  return(img.resample(resample_method).updateMask(mask)); // Use interpolation because CBI on-the-ground plots are unlikely to
-  // lie exactly at the center of a pixel. See Cansler MSc thesis (2011) and Parks et al. (2014)
+  // Each pixel gets a 1 if it is NOT a cloud, and a 0 if it IS a cloud
+  var cloudMask = img.select('pixel_qa').bitwiseAnd(32).eq(0);
+  // Each pixel gets a 1 if it is NOT a cloud shadow, and a 0 if it IS a cloud shadow
+  var cloudShadowMask = img.select('pixel_qa').bitwiseAnd(8).eq(0);
+  // For the combined mask (1 is a pixel we want to keep, and a 0 is one we want to mask),
+  // the pixel must both NOT be a cloud AND NOT be a cloud shadow (a 1 for both of the
+  // above masks) in order to be a valid pixel.
+  var mask = cloudMask.and(cloudShadowMask);
+  
+  // Return an interpolated image with all cloud and cloud shadow pixels masked.
+  // Use interpolation because CBI on-the-ground plots are unlikely to
+  // lie exactly at the center of a pixel. See Cansler MSc thesis (2011)
+  // and Parks et al. (2014)
+  return(img.resample(resample_method).updateMask(mask)); 
 };
 
 //
@@ -696,12 +710,12 @@ var get_roughness = function(feature, pixel_radius)
 
 // // Weather/fuel condition variables
 var get_erc = function(img) {
-  var erc = img.select(['erc']).resample(resample_method);
+  var erc = ee.Image(img.select(['erc'])).resample(resample_method);
   
   return ee.Image(erc);
 };
 
-var get_preFireerc = function(feature, gridmet_timeWindow) {
+var get_preFerc = function(feature, gridmet_timeWindow) {
   var erc = get_preFireGridmet(feature, gridmet_timeWindow).map(get_erc).median();
   
   erc = ee.Algorithms.If( erc.bandNames(),
@@ -712,12 +726,12 @@ var get_preFireerc = function(feature, gridmet_timeWindow) {
 };
 
 var get_fm100 = function(img) {
-  var fm100 = img.select(['fm100']).resample(resample_method);
+  var fm100 = ee.Image(img.select(['fm100'])).resample(resample_method);
   
   return ee.Image(fm100);
 };
 
-var get_preFirefm100 = function(feature, gridmet_timeWindow) {
+var get_preFfm100 = function(feature, gridmet_timeWindow) {
   var fm100 = get_preFireGridmet(feature, gridmet_timeWindow).map(get_fm100).median();
   
   fm100 = ee.Algorithms.If( fm100.bandNames(),
@@ -728,13 +742,13 @@ var get_preFirefm100 = function(feature, gridmet_timeWindow) {
 };
 
 var get_tempMax = function(img) {
-  var tempMax = img.select(['tmmx']).subtract(273.15).resample(resample_method);
+  var tempMax = ee.Image(img.select(['tmmx'])).subtract(273.15).resample(resample_method);
   
   return ee.Image(tempMax);
 };
 
-var get_preFireCumulativeTempMax = function(feature, gridmet_timeWindow) {
-  var cumulativeTempMax = get_preFireGridmet(feature, gridmet_timeWindow).map(get_cumulativeTempMax).sum();
+var get_preFcumulativeTempMax = function(feature, gridmet_timeWindow) {
+  var cumulativeTempMax = get_preFireGridmet(feature, gridmet_timeWindow).map(get_tempMax).sum();
   
   cumulativeTempMax = ee.Algorithms.If( cumulativeTempMax.bandNames(),
                                             ee.Image(cumulativeTempMax),
@@ -743,13 +757,13 @@ var get_preFireCumulativeTempMax = function(feature, gridmet_timeWindow) {
 };
 
 var get_precip = function(img) {
-  var precip = img.select(['pr']).resample(resample_method);
+  var precip = ee.Image(img.select(['pr'])).resample(resample_method);
   
   return ee.Image(precip);
 };
 
-var get_preFireCumulativePrecip = function(feature, gridmet_timeWindow) {
-  var cumulativePrecip = get_preFireGridmet(feature, gridmet_timeWindow).map(get_cumulativePrecip).sum();
+var get_preFcumulativePrecip = function(feature, gridmet_timeWindow) {
+  var cumulativePrecip = get_preFireGridmet(feature, gridmet_timeWindow).map(get_precip).sum();
   
   cumulativePrecip = ee.Algorithms.If( cumulativePrecip.bandNames(),
                                             ee.Image(cumulativePrecip),
@@ -855,10 +869,10 @@ var get_variables = function(feature) {
 
     // weather/fuel condition variables
       
-    var erc = get_erc(feature, 4); // Take the median ERC for the 3 days prior to the fire
-    var fm100 = get_fm100(feature, 4); // Take the median 100 hour fuel moisture for 3 days prior to the fire
-    var cumulativeTempMax = get_cumulativeTempMax(feature, 31); // Get sum of max temperature for 30 days before the fire (degrees C)
-    var cumulativePrecip = get_cumulativePrecip(feature, 31); // Get sum of precip for 30 days before the fire (mm)
+    var erc = get_preFerc(feature, 4); // Take the median ERC for the 3 days prior to the fire
+    var fm100 = get_preFfm100(feature, 4); // Take the median 100 hour fuel moisture for 3 days prior to the fire
+    var cumulativeTempMax = get_preFcumulativeTempMax(feature, 31); // Get sum of max temperature for 30 days before the fire (degrees C)
+    var cumulativePrecip = get_preFcumulativePrecip(feature, 31); // Get sum of precip for 30 days before the fire (mm)
     
     var export_weatherFuel =
       ee.Algorithms.If(erc,
@@ -1027,7 +1041,7 @@ var get_variables = function(feature) {
 
 // DEFINE ALL GLOBAL VARIABLES HERE
 // Define which Landsat dataset to use for all calcuations
-var raw = l5SR;
+var raw = l5sr;
 
 // The satellite being used
 var sat = 5;
@@ -1041,6 +1055,7 @@ var sat = 5;
 
 var timeWindow = 1;
 var resample_method = 'bicubic';
+
 // Use this code for testing by subsetting some of the CBI data to a more manageable set
 // var target_features =
 //   cbi_sn
@@ -1061,24 +1076,24 @@ var get_cbi = true;
 // Map the variable retrieval function over all of the features; drop NULLs
 var imgCol = ee.FeatureCollection(target_features.map(get_variables, true));
 
-
 Map.addLayer(mixed_conifer);
 Map.addLayer(target_features, {color: "red"});
 
+var description = "cbi-calibration_" + timeWindow + "-month-window_L5_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': imgCol,
-  'description': "cbi-calibration_1-month-window_L5_bicubic-interp",
+  'description': description,
   'folder': 'ee',
-  'fileNamePrefix': "cbi-calibration_1-month-window_L5_bicubic-interp",
+  'fileNamePrefix': description,
   'fileFormat': 'GeoJSON'
 });
 
 Export.table.toDrive({
   'collection': target_features,
-  'description': "cbi-calibration_1-month-window_L5_bicubic-interp_metadata",
+  'description': description + "_metadata",
   'folder': 'ee',
-  'fileNamePrefix': "cbi-calibration_1-month-window_L5_bicubic-interp_metadata",
+  'fileNamePrefix': description + "_metadata",
   'fileFormat': 'CSV'
 });
 
