@@ -1,12 +1,11 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var elev = ee.Image("USGS/SRTMGL1_003"),
-    l5SR = ee.ImageCollection("LANDSAT/LT5_SR"),
-    mixed_conifer = ee.Image("users/mkoontz/mixed_conifer"),
+var cbi_sn = ee.FeatureCollection("users/mkoontz/cbi_sn"),
     perim = ee.FeatureCollection("users/mkoontz/fire_perim_16_1"),
     sn = ee.FeatureCollection("ft:1vdDUTu09Rkw5qKR_DSfmFX-b_7kqy4E-pjxg9Sq6"),
-    cbi_sn = ee.FeatureCollection("users/mkoontz/cbi_sn"),
-    l5sr = ee.ImageCollection("LANDSAT/LT05/C01/T1_SR"),
+    mixed_conifer = ee.Image("users/mkoontz/mixed_conifer"),
+    elev = ee.Image("USGS/SRTMGL1_003"),
     gridmet = ee.ImageCollection("IDAHO_EPSCOR/GRIDMET"),
+    l5sr = ee.ImageCollection("LANDSAT/LT05/C01/T1_SR"),
     l7sr = ee.ImageCollection("LANDSAT/LE07/C01/T1_SR"),
     l8sr = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
@@ -1004,38 +1003,53 @@ var get_variables = function(feature) {
     
     export_img = ee.Algorithms.If(export_img,
                     ee.Algorithms.If(export_weatherFuel,
-                          ee.Image(export_img).addBands(export_weatherFuel),
+                          ee.Image(export_img)
+                            .addBands(export_weatherFuel)
+                            .copyProperties(feature),
                           null),
                         null);
-    
-    // We want the function to be flexible to export the images
-    // representing the values of our model variables within 
-    // each fire perimeter OR to export the values of our model
-    // variables that come from a single point (where Composite
-    // Burn Index was measured on the ground)
-    var export_object = 
-    ee.Algorithms.If((!get_cbi), // Global variable needs to be set for whether we want values from a point or a perimeter
-      ee.Algorithms.If(export_img, // Continue if all pre and post fire imagery was available
-        ee.Image(export_img).clip(geo), // maskNonForest() would go here; When we get values from within fire perimeters, clip the image to the polygon/multipolygon geometry
-        null), // return a null if export_img doesn't exist (because pre and/or postfire imagery didn't exist)
-      ee.Algorithms.If(export_img, 
-          ee.Feature(geo, // If we are getting model variables from a point, use a reducer on the image at the point, then convert back to a feature.
-            ee.Image(export_img) // This is where the maskNonForest() function would go. (Mask all pixels that aren't forest as defined by PFR)
-              .reduceRegion({
-                reducer: ee.Reducer.first(),
-                geometry: geo,
-                scale: 30
-              })
-            ),
-          null)
-        
-    );
+
+    return export_img;
+};
+
+var calibrate_cbi = function(feature) {
   
-    
-    return ee.Feature(export_object);
+  var geo = feature.geometry();
+  var var_img = get_variables(feature);
+
+  var reduce_to_point_dict = ee.Algorithms.If(var_img,
+                                      ee.Image(var_img)
+                                          .reduceRegion({
+                                             reducer: ee.Reducer.mean(),
+                                             geometry: geo,
+                                             scale: 30}),
+                                      null);
+                                      
+  var reduce_to_point_ftr = ee.Algorithms.If(reduce_to_point_dict, 
+                                      ee.Feature(geo, reduce_to_point_dict),
+                                      null);
+
+  var export_ftr = ee.Algorithms.If(reduce_to_point_ftr,
+                                      feature.copyProperties(reduce_to_point_ftr),
+                                      null);                                      
+
+  return export_ftr;
+  
 };
 
 
+var assess_whole_fire = function(feature) {
+  
+  var geo = feature.geometry();
+  var var_img = get_variables(feature);
+  
+  var export_ftr = ee.Algorithms.If(var_img, 
+                                      ee.Image(var_img).clip(geo).copyProperties(feature), 
+                                      null);
+
+  return export_ftr;
+  
+};
 
 // Start of main program
 
@@ -1056,6 +1070,54 @@ var sat = 5;
 var timeWindow = 1;
 var resample_method = 'bicubic';
 
+var target_cbi_plots = cbi_sn;
+
+// Map the point reducer function (which also runs the variable retriever function)
+// over all of the CBI point features; drop NULLs
+var calibrated_cbi = target_cbi_plots.map(calibrate_cbi, true);
+
+Map.addLayer(mixed_conifer);
+Map.addLayer(target_cbi_plots, {color: "red"});
+
+var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-month-window_L5_" + resample_method + "-interp";
+
+Export.table.toDrive({
+  'collection': calibrated_cbi,
+  'description': cbi_calibration_description,
+  'folder': 'ee',
+  'fileNamePrefix': cbi_calibration_description,
+  'fileFormat': 'GeoJSON'
+});
+
+// var target_fires = perim;
+// var assessed_fires = target_fires.map(assess_whole_fire, true);
+
+
+
+// // Test mapping on a FeatureCollection that just contains one fire perimeter
+var hamm = perim
+            .filterMetadata('fire_name', 'equals', 'HAMM');
+var hamm_assessed = hamm.map(assess_whole_fire, true);
+
+var hamm_img = ee.Image(hamm.map(assess_whole_fire, true).first()).select(['RBR']);
+var RBR_viz = {min: 0.036, max: 0.29, palette:['008000', 'ffff00',  'ffA500', 'ff0000']};
+Map.addLayer(hamm_img, RBR_viz);
+Map.centerObject(hamm_img);
+
+var hamm_samps = hamm_assessed.map(get_samps, true);
+print(hamm_samps.getInfo());
+
+
+// // Test mapping on a FeatureCollection with many images.
+// var start = ee.Date('1987-08-01').millis();
+// var end = ee.Date('1987-09-01').millis();
+// var test_ftr_col = perim
+//                 .filterMetadata('alarm_date', 'greater_than', start)
+//                 .filterMetadata('alarm_date', 'less_than', end);
+// var test_fire_assessments = test_ftr_col.map(assess_whole_fire, true);
+
+
+
 // Use this code for testing by subsetting some of the CBI data to a more manageable set
 // var target_features =
 //   cbi_sn
@@ -1066,34 +1128,3 @@ var resample_method = 'bicubic';
 
 // Map.addLayer(target_features);
 // Map.centerObject(target_features);
-
-var target_features = cbi_sn;
-
-// Are the target features a list of points where Composite Burn Index has been measured
-// on the ground and we want to calibrate our remote sensed metrics?
-var get_cbi = true;
-
-// Map the variable retrieval function over all of the features; drop NULLs
-var imgCol = ee.FeatureCollection(target_features.map(get_variables, true));
-
-Map.addLayer(mixed_conifer);
-Map.addLayer(target_features, {color: "red"});
-
-var description = "cbi-calibration_" + timeWindow + "-month-window_L5_" + resample_method + "-interp";
-
-Export.table.toDrive({
-  'collection': imgCol,
-  'description': description,
-  'folder': 'ee',
-  'fileNamePrefix': description,
-  'fileFormat': 'GeoJSON'
-});
-
-Export.table.toDrive({
-  'collection': target_features,
-  'description': description + "_metadata",
-  'folder': 'ee',
-  'fileNamePrefix': description + "_metadata",
-  'fileFormat': 'CSV'
-});
-
