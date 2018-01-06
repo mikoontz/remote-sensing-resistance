@@ -18,6 +18,7 @@ library(purrr)
 library(broom)
 library(modelr)
 library(tidyr)
+library(lazyeval)
 
 ###
 ### Bilinear interpolation
@@ -155,8 +156,8 @@ ggplotly(g)
 
 # Data frame should be 8 columns (including an id column) and 54 (9*2*3) rows
 response_vars <- c("RdNBR", "dNBR", "RdNBR2", "dNBR2", "RdNDVI","dNDVI", "RBR") # not including dEVI and RdEVI
-interpolation <- c("bilinear", "bicubic")
-time_window <- 1:3
+interpolation_vars <- c("bilinear", "bicubic")
+time_window_vars <- 1:3
 conifer_filter <- TRUE # Just use CBI plots found in yellow pine/mixed conifer forest
 
 num_rows <- length(response_vars) * length(interpolation) * length(time_window)
@@ -166,13 +167,18 @@ set.seed(1826) # Set seed at current time for reproducibility
 # Create data structure to hold results
 model_summary <- data.frame(id = 1:num_rows, 
                             expand.grid(response = response_vars, 
-                                        time_window = time_window, 
-                                        interpolation = interpolation), 
+                                        time_window = time_window_vars, 
+                                        interpolation = interpolation_vars,
+                                        stringsAsFactors = FALSE), 
                             a = numeric(num_rows), 
                             b = numeric(num_rows), 
                             c = numeric(num_rows), 
                             r2_kfold = numeric(num_rows),
-                            r2_all = numeric(num_rows))
+                            r2_all = numeric(num_rows),
+                            unchanged = rep(0, num_rows),
+                            low_sev = rep(1, num_rows),
+                            mod_sev = rep(2, num_rows),
+                            hi_sev = rep(3, num_rows))
 
 # Iterate through all data.frames (each represents a time_window/interpolation type combination)
 for (i in seq_along(cbi_list)) {
@@ -197,11 +203,14 @@ for (i in seq_along(cbi_list)) {
     
     r2_kfold <- try(severity_kfold(data = data, response = response_vars[j], k = 5) %>% summarize(mean(r.squared)) %>% as.numeric())
     r2_all <- try(r2(fitted_model))
-    idx <- model_summary$response == response_vars[j] & model_summary$interpolation == interp & model_summary$time_window == time_window
+    idx <- which(model_summary$response == response_vars[j] & model_summary$interpolation == interp & model_summary$time_window == time_window)
     
     if(class(fitted_model) != "try-error") {
       model_summary[idx, c("a", "b", "c")] <- coef(fitted_model)
-    }
+ 
+      thresholds <- predict(fitted_model, newdata = data.frame(cbi_over = c(0, 0.1, 1.25, 2.25)))
+      model_summary[idx, c("unchanged", "low_sev", "mod_sev", "hi_sev")] <- thresholds
+     }
     if(class(r2_kfold) != "try-error") {
       model_summary[idx, "r2_kfold"] <- r2_kfold
     }
@@ -255,3 +264,11 @@ cbi_data_1_bicubic$conifer_forest
 head(cbi_data_2_bicubic)
 head(cbi_1_bicubic)
 
+d_data %>%
+  filter(as.logical(conifer_forest)) %>%
+  ggplot(aes(x = cbi_over, y = RBR)) +
+  geom_point()
+
+plot(d$geometry)
+dim(d)
+dim(d_data)
