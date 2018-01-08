@@ -111,13 +111,14 @@ var merge_collections = function(start, end, bounds) {
             .filterBounds(bounds);
   
   // Data available between April 11, 2013 and March 18, 2017
-  var l8 = l8sr
-            .filterDate(start, end)
-            .filterBounds(bounds)
-            .map(function(image){
-                      return image.rename(['B0', 'B1', 'B2', 'B3', 'B4', 'B5', 'B7', 'B6', 'B11', 'sr_aerosol', 'pixel_qa', 'radsat_qa'])});
+  // var l8 = l8sr
+  //           .filterDate(start, end)
+  //           .filterBounds(bounds)
+  //           .map(function(image){
+  //                     return image.rename(['B0', 'B1', 'B2', 'B3', 'B4', 'B5', 'B7', 'B6', 'B11', 'sr_aerosol', 'pixel_qa', 'radsat_qa'])});
   
-  var raw = ee.ImageCollection(l4.merge(l5.merge(l7.merge(l8))));
+  // var raw = ee.ImageCollection(l4.merge(l5.merge(l7.merge(l8))));
+  var raw = ee.ImageCollection(l4.merge(l5.merge(l7)));
   return raw;
 };
 
@@ -143,12 +144,12 @@ var get_preFireRaw = function(feature) {
   // Here is where we subset the Landsat imagery. We filter the whole collection
   // to just the images that were taken between "timeWindow" months before the 
   // fire started and 1 day before the fire started.
-  var preFireCollection = 
-      raw
-        .filterDate(prestart, preend)
-        .filterBounds(firePerim);
+  // var preFireCollection = 
+  //     raw
+  //       .filterDate(prestart, preend)
+  //       .filterBounds(firePerim);
   
-  // var preFireCollection = merge_collections(prestart, preend, firePerim);
+  var preFireCollection = merge_collections(prestart, preend, firePerim);
   
   // We apply the cloud mask over each of those images
   var preFire = preFireCollection.map(maskClouds);
@@ -184,12 +185,12 @@ var get_postFireRaw = function(feature) {
   // to just the images that were taken *one year after* between 
   // "timeWindow" months before the fire started and *one year
   // after* 1 day before the fire started.
-   var postFireCollection = 
-       raw
-        .filterDate(poststart, postend)
-        .filterBounds(firePerim);
+  // var postFireCollection = 
+  //     raw
+  //       .filterDate(poststart, postend)
+  //       .filterBounds(firePerim);
 
-  // var postFireCollection = merge_collections(poststart, postend, firePerim);
+  var postFireCollection = merge_collections(poststart, postend, firePerim);
 
    // We apply the cloud mask over each of those images
   var postFire = 
@@ -1230,7 +1231,7 @@ var fire_assessments = target_fires.map(assess_whole_fire, true);
 // print(fire_assessments.size());
 
 var fires_strat_samps = fire_assessments.map(get_stratified_samps, true);
-var fire_samps_description = "fires-strat-samples_" + timeWindow + "-month-window_L5_" + resample_method + "-interp";
+var fire_samps_description = "fires-strat-samples_" + timeWindow + "-month-window_L457_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': fires_strat_samps.flatten(),
