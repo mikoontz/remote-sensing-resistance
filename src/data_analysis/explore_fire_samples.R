@@ -5,6 +5,7 @@ library(lme4)
 sn <- st_read("data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp") %>% 
   st_transform(4326)
 samps <- st_read("data/fire_samples/fires-strat-samples_1-month-window_L5_bicubic-interp.geojson")
+samps <- st_read("data/fire_samples/fires-strat-samples_1-month-window_L5_none-interp.geojson")
 
 glimpse(samps)
 samps$fire_id <- substr(as.character(samps$id), start = 1, stop = 20)
