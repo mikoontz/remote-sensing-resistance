@@ -5,6 +5,7 @@ var cbi_sn = ee.FeatureCollection("users/mkoontz/cbi_sn"),
     mixed_conifer = ee.Image("users/mkoontz/mixed_conifer"),
     elev = ee.Image("USGS/SRTMGL1_003"),
     gridmet = ee.ImageCollection("IDAHO_EPSCOR/GRIDMET"),
+    l4sr = ee.ImageCollection("LANDSAT/LT04/C01/T1_SR"),
     l5sr = ee.ImageCollection("LANDSAT/LT05/C01/T1_SR"),
     l7sr = ee.ImageCollection("LANDSAT/LE07/C01/T1_SR"),
     l8sr = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR");
@@ -38,7 +39,15 @@ var maskClouds = function(img)
   // Use interpolation because CBI on-the-ground plots are unlikely to
   // lie exactly at the center of a pixel. See Cansler MSc thesis (2011)
   // and Parks et al. (2014)
-  return(img.resample(resample_method).updateMask(mask)); 
+  
+  // Interpolate (resample) for on-the-ground data (cbi plot) validation
+  // Don't interpolate for analyses with only remote-sensed variables
+
+  var export_img = ee.Algorithms.If(resample_method === 'none',
+                                      img.updateMask(mask),
+                                      img.resample(resample_method).updateMask(mask));     
+  
+  return(export_img); 
 };
 
 //
@@ -68,6 +77,50 @@ var maskNonForest = function(img) {
 // END maskNonForest
 //
 
+// merge_collections() returns an ImageCollection of merged Surface Reflectance Landsat products
+// including Landsat 4, 5, 7, and 8 for continuous coverage from August 22, 1982 to present
+// Spatial and temporal filtering happens per fire perimeter to reduce computation load
+// That is, for each fire perimeter (with its associated alarm date), the 4 individual collections
+// are heavily subsetted prior to merging. Often, this should result in some of those individual
+// collections having no images (for instance, Landsat 8 imagery doesn't begin until April 11, 2013 so
+// fires prior to this date will work with a mega Image Collection that doesn't have any images from
+// Landsat 8.
+// Additionally, Landsat 8 images will have their bands renamed so they match up with the wavelengths
+// from the L4, 5, and 7 sensors
+
+// From the Google Earth Engine metadata:
+// This dataset is the atmospherically corrected surface reflectance from the Landsat 5 ETM sensor.
+// These data have been atmospherically corrected using LEDAPS, and includes a cloud, shadow, water 
+// and snow mask produced using CFMASK, as well as a per-pixel saturation mask.
+
+var merge_collections = function(start, end, bounds) {
+  
+  // Data available between August 22, 1982 and December 14, 1993
+  var l4 = l4sr
+            .filterDate(start, end)
+            .filterBounds(bounds);
+  
+  // Data available between January 1, 1984 to May 5, 2012
+  var l5 = l5sr
+            .filterDate(start, end)
+            .filterBounds(bounds);
+  
+  // Data available between January 1, 1999 and April 30, 2017
+  var l7 = l7sr
+            .filterDate(start, end)
+            .filterBounds(bounds);
+  
+  // Data available between April 11, 2013 and March 18, 2017
+  var l8 = l8sr
+            .filterDate(start, end)
+            .filterBounds(bounds)
+            .map(function(image){
+                      return image.rename(['B0', 'B1', 'B2', 'B3', 'B4', 'B5', 'B7', 'B6', 'B11', 'sr_aerosol', 'pixel_qa', 'radsat_qa'])});
+  
+  var raw = ee.ImageCollection(l4.merge(l5.merge(l7.merge(l8))));
+  return raw;
+};
+
 //
 // START get_preFireRaw
 //
@@ -91,9 +144,11 @@ var get_preFireRaw = function(feature) {
   // to just the images that were taken between "timeWindow" months before the 
   // fire started and 1 day before the fire started.
   var preFireCollection = 
-    raw
-      .filterDate(prestart, preend)
-      .filterBounds(firePerim);
+      raw
+        .filterDate(prestart, preend)
+        .filterBounds(firePerim);
+  
+  // var preFireCollection = merge_collections(prestart, preend, firePerim);
   
   // We apply the cloud mask over each of those images
   var preFire = preFireCollection.map(maskClouds);
@@ -129,11 +184,13 @@ var get_postFireRaw = function(feature) {
   // to just the images that were taken *one year after* between 
   // "timeWindow" months before the fire started and *one year
   // after* 1 day before the fire started.
-  var postFireCollection = 
-    raw
-      .filterDate(poststart, postend)
-      .filterBounds(firePerim);
- 
+   var postFireCollection = 
+       raw
+        .filterDate(poststart, postend)
+        .filterBounds(firePerim);
+
+  // var postFireCollection = merge_collections(poststart, postend, firePerim);
+
    // We apply the cloud mask over each of those images
   var postFire = 
     postFireCollection
@@ -733,9 +790,11 @@ var get_roughness = function(feature, pixel_radius)
 {
   var kernel = create_kernel(pixel_radius);
   
-  var roughness = elev
-    .resample(resample_method)
-    .reduceNeighborhood(ee.Reducer.stdDev(), kernel);
+  var local_elev =  ee.Algorithms.If(resample_method === 'none',
+                                      elev,
+                                      elev.resample(resample_method));
+                                      
+  var roughness = ee.Image(local_elev).reduceNeighborhood(ee.Reducer.stdDev(), kernel);
   
   roughness = ee.Algorithms.If( roughness.bandNames(),
                                 roughness,
@@ -746,7 +805,10 @@ var get_roughness = function(feature, pixel_radius)
 
 // // Weather/fuel condition variables
 var get_erc = function(img) {
-  var erc = ee.Image(img.select(['erc'])).resample(resample_method);
+  
+  var erc =  ee.Algorithms.If(resample_method === 'none',
+                                      ee.Image(img.select(['erc'])),
+                                      ee.Image(img.select(['erc'])).resample(resample_method));
   
   return ee.Image(erc);
 };
@@ -762,8 +824,11 @@ var get_preFerc = function(feature, gridmet_timeWindow) {
 };
 
 var get_fm100 = function(img) {
-  var fm100 = ee.Image(img.select(['fm100'])).resample(resample_method);
-  
+
+  var fm100 =  ee.Algorithms.If(resample_method === 'none',
+                                    ee.Image(img.select(['fm100'])),
+                                    ee.Image(img.select(['fm100'])).resample(resample_method));
+
   return ee.Image(fm100);
 };
 
@@ -778,7 +843,10 @@ var get_preFfm100 = function(feature, gridmet_timeWindow) {
 };
 
 var get_tempMax = function(img) {
-  var tempMax = ee.Image(img.select(['tmmx'])).subtract(273.15).resample(resample_method);
+
+  var tempMax =  ee.Algorithms.If(resample_method === 'none',
+                                      ee.Image(img.select(['tmmx'])).subtract(273.15),
+                                      ee.Image(img.select(['tmmx'])).subtract(273.15).resample(resample_method));
   
   return ee.Image(tempMax);
 };
@@ -793,7 +861,10 @@ var get_preFcumulativeTempMax = function(feature, gridmet_timeWindow) {
 };
 
 var get_precip = function(img) {
-  var precip = ee.Image(img.select(['pr'])).resample(resample_method);
+
+  var precip =  ee.Algorithms.If(resample_method === 'none',
+                                      ee.Image(img.select(['pr'])),
+                                      ee.Image(img.select(['pr'])).resample(resample_method));
   
   return ee.Image(precip);
 };
@@ -820,9 +891,19 @@ var get_variables = function(feature) {
     
     // Static features of the point itself
     var lonLat = ee.Image.pixelLonLat();
-    var slope = get_slope(geo).resample(resample_method);
-    var aspect = get_aspect(geo).resample(resample_method);
-    var local_elev = elev.resample(resample_method);
+    
+    var slope =  ee.Image(ee.Algorithms.If(resample_method === 'none',
+                                      get_slope(geo),
+                                      get_slope(geo).resample(resample_method)));
+
+    var aspect =  ee.Image(ee.Algorithms.If(resample_method === 'none',
+                                      get_aspect(geo),
+                                      get_aspect(geo).resample(resample_method)));
+
+    var local_elev =  ee.Image(ee.Algorithms.If(resample_method === 'none',
+                                        elev,
+                                        elev.resample(resample_method)));
+
     var conifer = mixed_conifer.select('b1').int();
     var rough1 = get_roughness(feature, 1);
     var rough2 = get_roughness(feature, 2);
@@ -1092,20 +1173,7 @@ var assess_whole_fire = function(feature) {
 
 // DEFINE ALL GLOBAL VARIABLES HERE
 // Define which Landsat dataset to use for all calcuations
-// Change the names of the Landsat 8 bands so they correspond with the same wavelengths of the L5 and L7 collections
-l5sr = l5sr
-          .filterBounds(sn);
-l7sr = l7sr
-          .filterBounds(sn);
-// l8sr = l8sr
-//           .filterBounds(sn)
-//           .map(function(image){
-//                       return image.rename(['B0', 'B1', 'B2', 'B3', 'B4', 'B5', 'B7', 'B6', 'B11', 'sr_aerosol', 'pixel_qa', 'radsat_qa'])});
-                      
-// Merge all collections together                      
-// var all_sr = ee.ImageCollection(l5sr.merge(l7sr.merge(l8sr)));
-var l57_sr = ee.ImageCollection(l5sr.merge(l7sr));
-var raw = l57_sr;
+var raw = l5sr;
 
 // The satellite being used
 var sat = 5;
@@ -1118,7 +1186,7 @@ var sat = 5;
 // 2011 and June 1, 2011 to calculate post-fire metrics
 
 var timeWindow = 1;
-var resample_method = 'bicubic';
+var resample_method = 'none';
 
 // For sampling within perimeters, how many samples in each fire for each cover class?
 var non_conifer_samps = 10;
@@ -1144,13 +1212,15 @@ Export.table.toDrive({
 });
 
 // Now get all the data for the FRAP perimeter database
+// Filter out features with null alarm dates
+// Filter out features that are outside of the Landsat 4, 5, 7, 8 data availability
 var target_fires = perim
                     .filterBounds(sn)
                     .filter(ee.Filter.neq('alarm_date', null))
                     .filter(ee.Filter.gt('alarm_date', ee.Date('1984-01-01').millis()))
                     .filter(ee.Filter.lt('alarm_date', ee.Date('2018-01-06').millis()));
 
-// How many fires in the Sierra Nevada that have alarm_dates? 3226
+// How many fires in the Sierra Nevada that have non-null alarm_dates and alarm_dates during the Landsat era? 2117
 // print(target_fires.size());
 
 var fire_assessments = target_fires.map(assess_whole_fire, true);
@@ -1160,7 +1230,7 @@ var fire_assessments = target_fires.map(assess_whole_fire, true);
 // print(fire_assessments.size());
 
 var fires_strat_samps = fire_assessments.map(get_stratified_samps, true);
-var fire_samps_description = "fires-strat-samples_" + timeWindow + "-month-window_L57_" + resample_method + "-interp";
+var fire_samps_description = "fires-strat-samples_" + timeWindow + "-month-window_L5_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': fires_strat_samps.flatten(),
@@ -1170,23 +1240,6 @@ Export.table.toDrive({
   'fileFormat': 'GeoJSON'
 });
 
-
-// This fire produced an error. Looks like the alarm_date property is null; Let's filter 
-// the whole perimeter FRAP FeatureCollection to remove null alarm_dates
-// var badFire1 = perim.filterMetadata('system:index', 'equals', '000083e0d195a964a0bf');
-// print(badFire1.getInfo());
-
-// var bad_alarms = perim
-//                   .filterBounds(sn)
-//                   .filter(ee.Filter.eq('alarm_date', null));
-
-// 4973 fires in the Sierra Nevada in this dataset -- checks out with R
-// print(target_fires.size());
-// 1747 of these fires don't have alarm_dates; recall that the database goes back a century (though incomplete
-// in the earlier days, so lots of fires not having specific start dates makes some sense)
-// In any case, our alarm_date filter appears to work, so we'll add it to our filtering pipeline
-// in order to create the 'target_fires' FeatureCollection
-// print(bad_alarms.size());
 
 
 // TESTING

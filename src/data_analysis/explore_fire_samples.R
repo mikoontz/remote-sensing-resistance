@@ -1,4 +1,4 @@
-library(rethinking)
+library(lubridate)
 library(sf)
 library(lme4)
 
@@ -67,7 +67,7 @@ circular_doy <- function(doy) {
 samps$c_doy <- circular_doy(samps$ordinal_day)
 
 # Make year an integer
-samps$year_ <- as.numeric(samps$year_)
+samps$year_ <- as.numeric(as.character(samps$year_))
 
 timing_vars <- c("year_", "alarm_date", "cont_date", "c_doy")
 
@@ -126,13 +126,13 @@ pairs(samps[, c("RdNBR", "RdNBR2", "RdNDVI", "RdEVI", "RBR"), drop = TRUE])
 
 # Consider switching to a "high severity" / "not high severity" boolean response
 # From the CBI calibration, we know that the 1-month window, bicubic interpolation of RBR
-# is a "high severity" pixel when RBR > 0.2904600; Note that "high severity" is
+# is a "high severity" pixel when RBR > 0.2836425; Note that "high severity" is
 # equivalent to "stand replacing"
 
 # Many (all?) researchers use the categorical response because remotely-sensed severity
 # metrics tend to have a non-linear relationship with on-the-ground severity
 
-ss$stand_replacing <- ifelse(ss$RBR > 0.2904600, yes = 1, no = 0)
+ss$stand_replacing <- ifelse(ss$RBR > 0.2836425, yes = 1, no = 0)
 
 # Our modeling effort then becomes a generalized linear model with a logit link, estimating
 # how different covariate affect the *probability* of a high severity fire
@@ -145,6 +145,37 @@ glm1 <- glmer(stand_replacing ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_r
 summary(glm1)
 
 plot(ss$het_ndvi_1, ss$RBR)
+plot(ss$preFire_ndvi, ss$het_ndvi_1, pch = 19)
 
 # The theory that we'd **really** like to test is that heterogeneity matters under some fuel/weather conditions,
 # but is overwhelmed by extreme conditions
+
+# 1) If there's a ton of fuel (i.e., high greenness), how does that affect heterogeneity?
+# Here are some important interacters with heterogeneity.
+# Just a check here: neighborhood windows with very low and very high mean values of greenness should
+# have low heterogeneity. Heterogeneity requires variation, and there can't be variation at the extreme
+# values of mean neighborhood greeness.
+# This plot is beautifully concave down.
+ggplot(ss, aes(x = focal_mean_ndvi_1, y = het_ndvi_1)) +
+  geom_point() + 
+  geom_smooth(method = "loess")
+
+# We expect that low and high mean neighborhood values of greeness (e.g., NDVI) should result in low
+# heterogeneity. Heterogeneity requires variation, so if all nearby pixels are low or high in NDVI,
+# then no variation is possible.
+# BUT, we also find that high greeness pixels tend to be around more high greenness pixels. So we just
+# don't get heterogeneity in places where the focal pixel is very green.
+# You don't get a scenario where there is a dense patch of trees, and heterogeneous forest nearby.
+# This plot is fairly flat until a point, then it declines quickly.
+
+ggplot(ss, aes(x = preFire_ndvi, y = het_ndvi_1)) +
+  geom_point() +
+  geom_smooth(method = "loess")
+
+# 2) If there is high ERC or low fm100, how does that affect the impact of heterogeneity?
+
+# 3) What is the relationship between different scales of heterogeneity?
+# Pretty highly correlated, and declining as scales diverge
+
+cor(ss[, c("het_ndvi_1", "het_ndvi_2", "het_ndvi_3", "het_ndvi_4"), drop = TRUE])
+pairs(ss[, c("het_ndvi_1", "het_ndvi_2", "het_ndvi_3", "het_ndvi_4"), drop = TRUE])
