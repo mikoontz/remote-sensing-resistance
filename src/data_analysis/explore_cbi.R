@@ -19,62 +19,33 @@ library(broom)
 library(modelr)
 library(tidyr)
 library(lazyeval)
+library(lme4)
 
 ###
 ### Bilinear interpolation
 ###
 
 # Get 1-month window, bilinear interpolation data
-cbi_metadata_1_bilinear <- read.csv("data/cbi_calibration/cbi-calibration_1-month-window_L5_bilinear-interp_metadata.csv", stringsAsFactors = FALSE) %>%
-  select(-.geo)
-cbi_data_1_bilinear <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE) %>%
-  rename(system.index = id)
-
-cbi_1_bilinear <- merge(cbi_data_1_bilinear, cbi_metadata_1_bilinear)
+cbi_1_bilinear <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE)
 
 # Get 2-month window, bilinear interpolation data
-cbi_metadata_2_bilinear <- read.csv("data/cbi_calibration/cbi-calibration_2-month-window_L5_bilinear-interp_metadata.csv", stringsAsFactors = FALSE) %>%
-  select(-.geo)
-cbi_data_2_bilinear <- st_read("data/cbi_calibration/cbi-calibration_2-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE) %>%
-  rename(system.index = id)
-
-cbi_2_bilinear <- merge(cbi_data_2_bilinear, cbi_metadata_2_bilinear)
+cbi_2_bilinear <- st_read("data/cbi_calibration/cbi-calibration_2-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE)
 
 # Get 3-month window, bilinear interpolation data
-cbi_metadata_3_bilinear <- read.csv("data/cbi_calibration/cbi-calibration_3-month-window_L5_bilinear-interp_metadata.csv", stringsAsFactors = FALSE) %>%
-  select(-.geo)
-cbi_data_3_bilinear <- st_read("data/cbi_calibration/cbi-calibration_3-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE) %>%
-  rename(system.index = id)
-
-cbi_3_bilinear <- merge(cbi_data_3_bilinear, cbi_metadata_3_bilinear)
+cbi_3_bilinear <- st_read("data/cbi_calibration/cbi-calibration_3-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE)
 
 ### 
 ### Bicubic interpolation
 ###
 
 # Get 1-month window, bicubic interpolation data
-cbi_metadata_1_bicubic <- read.csv("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp_metadata.csv", stringsAsFactors = FALSE) %>%
-  select(-.geo)
-cbi_data_1_bicubic <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE) %>%
-  rename(system.index = id)
-
-cbi_1_bicubic <- merge(cbi_data_1_bicubic, cbi_metadata_1_bicubic)
+cbi_1_bicubic <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE)
 
 # Get 2-month window, bicubic interpolation data
-cbi_metadata_2_bicubic <- read.csv("data/cbi_calibration/cbi-calibration_2-month-window_L5_bicubic-interp_metadata.csv", stringsAsFactors = FALSE) %>%
-  select(-.geo)
-cbi_data_2_bicubic <- st_read("data/cbi_calibration/cbi-calibration_2-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE) %>%
-  rename(system.index = id)
-
-cbi_2_bicubic <- merge(cbi_data_2_bicubic, cbi_metadata_2_bicubic)
+cbi_2_bicubic <- st_read("data/cbi_calibration/cbi-calibration_2-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE)
 
 # Get 3-month window, bicubic interpolation data
-cbi_metadata_3_bicubic <- read.csv("data/cbi_calibration/cbi-calibration_3-month-window_L5_bicubic-interp_metadata.csv", stringsAsFactors = FALSE) %>%
-  select(-.geo)
-cbi_data_3_bicubic <- st_read("data/cbi_calibration/cbi-calibration_3-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE) %>%
-  rename(system.index = id)
-
-cbi_3_bicubic <- merge(cbi_data_3_bicubic, cbi_metadata_3_bicubic)
+cbi_3_bicubic <- st_read("data/cbi_calibration/cbi-calibration_3-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE)
 
 cbi_list <- list(bilinear_1 = cbi_1_bilinear,
                  bilinear_2 = cbi_2_bilinear,
@@ -96,17 +67,17 @@ r2 <- function(m) {
 # Non-linear models (of the form used by Miller and Thode (2007) and Parks et al. (2014))
 ### Example of overall R^2
 m1a <- nls(RdNBR ~ a + b * exp(cbi_over * c), 
-            data = cbi_2_bilinear,
+            data = cbi_2_bilinear[cbi_2_bilinear$conifer_forest == 1, ],
             start = list(a = 0, b = 1, c = 1),
             model = TRUE)
 
 r2(m1a)
 
-plot(cbi_2_bilinear$cbi_over, cbi_2_bilinear$RdNBR, pch = 19)
+plot(cbi_2_bilinear$cbi_over[cbi_2_bilinear$conifer_forest == 1], cbi_2_bilinear$RdNBR[cbi_2_bilinear$conifer_forest == 1], pch = 19)
 lines(seq(0, 3, by = 0.01), predict(m1a, newdata = data.frame(cbi_over = seq(0, 3, by = 0.01))))
 
 # Where would the cutoff for "high severity" be? CBI of 2.25 or greater translates to an RdNBR of...
-severity_thresholds <- predict(m1a, newdata = data.frame(cbi_over = c(0.1, 1.25, 2.25)))
+severity_thresholds <- predict(m1a, newdata = data.frame(cbi_over = c(0, 0.1, 1.25, 2.25)))
 severity_thresholds
 
 ###
@@ -140,11 +111,6 @@ d <- cbi_list[[1]]
 plot(d$cbi_over, d$dEVI)
 plot(d$cbi_over, d$RdEVI)
 
-g <- ggplot(d, aes(x = cbi_over, y = dEVI)) +
-  geom_point(aes(text = system.index))
-
-ggplotly(g)
-
 ###
 ### Include just conifer forest data, as determined by pre-EuroAmerican-settlement fire regime types from the Fire Return Interval Departure database
 ###
@@ -160,7 +126,7 @@ interpolation_vars <- c("bilinear", "bicubic")
 time_window_vars <- 1:3
 conifer_filter <- TRUE # Just use CBI plots found in yellow pine/mixed conifer forest
 
-num_rows <- length(response_vars) * length(interpolation) * length(time_window)
+num_rows <- length(response_vars) * length(interpolation_vars) * length(time_window_vars)
 
 set.seed(1826) # Set seed at current time for reproducibility
 
@@ -197,11 +163,11 @@ for (i in seq_along(cbi_list)) {
     
     model <- as.formula(paste0(response_vars[j], " ~ a + b * exp(cbi_over * c)"))
     fitted_model <- try(nls(formula = model, 
-                            data = data,
+                            data = data[drop = TRUE],
                             start = list(a = 0, b = 1, c = 1),
                             model = TRUE))
     
-    r2_kfold <- try(severity_kfold(data = data, response = response_vars[j], k = 5) %>% summarize(mean(r.squared)) %>% as.numeric())
+    r2_kfold <- try(severity_kfold(data = data[drop = TRUE], response = response_vars[j], k = 5) %>% summarize(mean(r.squared)) %>% as.numeric())
     r2_all <- try(r2(fitted_model))
     idx <- which(model_summary$response == response_vars[j] & model_summary$interpolation == interp & model_summary$time_window == time_window)
     
@@ -221,11 +187,10 @@ for (i in seq_along(cbi_list)) {
 }
 
 model_summary
-model_summary[order(model_summary$r2_all, decreasing = TRUE), ]
+model_summary[order(model_summary$r2_kfold, decreasing = TRUE), ]
 
 # For conifer forest, it appears that the bicubic interpolation of RdNBR and using a 1-month window prior to the fire results in the best fit to on-the-ground severity. The bicubic interpolation of RBR using a 1-month window prior to the fire results in the best fit when all data are used.
 # But we get pretty darn good fits for RBR and RdNDVI in both 1, 2, and 3 month windows and using both bilinear and bicubic interpolation.
-
 
 degToRad <- function(deg) {
   deg * pi / 180
@@ -235,7 +200,6 @@ d <- cbi_1_bicubic
 d$aspect <- cos(degToRad(d$aspect - 135))
 
 plot(d$cbi_over[d$conifer_forest == 1], d$RBR[d$conifer_forest == 1], pch = 19)
-plot(d$fm100[d$conifer_forest == 1], d$RBR[d$conifer_forest == 1], pch = 19)
 m1 <- nls(RBR ~ a + b * exp(cbi_over * c), 
                  data = subset(d, conifer_forest == 1),
                  start = list(a = 0, b = 1, c = 1),
@@ -243,32 +207,3 @@ m1 <- nls(RBR ~ a + b * exp(cbi_over * c),
 lines(seq(0, 3, by = 0.01), predict(m1, newdata = data.frame(cbi_over = seq(0, 3, by = 0.01))))  
 summary(m1)  
 r2(m1)
-
-fm1 <- lm(RdNBR ~ preFire_ndvi + het_ndvi_1 + topo_roughness_1, data = d[d$conifer_forest == 1, ])
-summary(fm1)
-
-
-# Get 1-month window, bicubic interpolation data
-d_meta <- read.csv("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp_metadata_test.csv", stringsAsFactors = FALSE) %>%
-  select(-.geo)
-d_data <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp_test.geojson", stringsAsFactors = FALSE) %>%
-  rename(system.index = id)
-
-d <- merge(d_data, d_meta)
-head(d_meta)
-head(d_data)
-head(d)
-
-d_data$conifer_forest
-cbi_data_1_bicubic$conifer_forest
-head(cbi_data_2_bicubic)
-head(cbi_1_bicubic)
-
-d_data %>%
-  filter(as.logical(conifer_forest)) %>%
-  ggplot(aes(x = cbi_over, y = RBR)) +
-  geom_point()
-
-plot(d$geometry)
-dim(d)
-dim(d_data)
