@@ -1,0 +1,78 @@
+---
+title: "Compare data extraction methods"
+author: "Michael Koontz"
+date: "1/17/2018"
+output: html_document
+---
+
+```{r setup}
+library(raster)
+library(sf)
+img <- brick("../data/reducer_v_inspector_v_export_img.tif")
+```
+
+# Compare data extraction methods
+
+First, I'd like to test whether the extraction of values at a particular point is working differently than using the "Inspector" tool in the online interface.
+
+"Inspector" returns a different value than the "reduce(ee.Reducer.first())" methods using a point geometry. Let's compare to the "extract()" function in the `raster` package.
+
+This is our test point.
+
+```{r test_point}
+pt <- st_point(x = c(-121.711639, 40.080928))
+
+plot(img)
+plot(pt, add = TRUE, pch = 19)
+```
+
+Extract data from a point.
+
+```{r extract}
+d <- extract(img, as.matrix(pt))
+d
+
+```
+
+Okay, the extracted data points are the same using the `extract()` function in `R`
+as well as the `.reduceRegion` method in Earth Engine.
+
+# Distribution of heterogeneity
+
+What is the distribution of heterogeneity values? This will help put the chosen 
+points in their appropriate context. That is, I'll pick particular points that
+appear from aerial imagery (high resolution imagery) to be particularly groupy-
+gappy and some points that appear to be highly homogenous. What are their
+heterogeneity values (at different scales), and how do those values compare to
+the values in the samples?
+
+```{r get_samples, cache = TRUE}
+s <- st_read("../data/fire_samples/fires-strat-samples_1-month-window_L57_none-interp.geojson")
+sn <- st_read("../data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp")
+```
+```{r plot_samps, cache = TRUE}
+plot(sn$geometry)
+plot(s$geometry, pch = 20, cex = 0.5, add = TRUE)
+```
+
+Distribution of heterogeneity.
+
+```{r describe_heterogeneity}
+stats::quantile(s$het_ndvi_1, probs = c(0, .1, 0.2, .25, .5, .75, .8, .9, 1))
+stats::quantile(s$het_ndvi_2, probs = c(0, .1, 0.2, .25, .5, .75, .8, .9, 1))
+stats::quantile(s$het_ndvi_3, probs = c(0, .1, 0.2, .25, .5, .75, .8, .9, 1))
+stats::quantile(s$het_ndvi_4, probs = c(0, .1, 0.2, .25, .5, .75, .8, .9, 1))
+```
+
+
+```{r histogram_heterogeneity}
+par(mfrow = c(2,2))
+hist(s$het_ndvi_1)
+hist(s$het_ndvi_2)
+hist(s$het_ndvi_3)
+hist(s$het_ndvi_4)
+
+
+```
+
+
