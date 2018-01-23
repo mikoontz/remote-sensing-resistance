@@ -1,0 +1,12 @@
+base
+sf
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+bindrcpp
+Matrix
+lme4
