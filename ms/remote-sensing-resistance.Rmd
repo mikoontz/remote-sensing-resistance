@@ -12,8 +12,8 @@ header-includes:
 - \linenumbers
 - \renewcommand\abstractname{\vspace{-1em}}
 
-bibliography: /Users/mikoontz/dev/bibliography/BibTeX_Library/library.bib
-csl: /Users/mikoontz/dev/bibliography/Bibliography_Format/ecology.csl
+bibliography: "ms_carpentry/remote-sensing-resistance.bib"
+csl: "ms_carpentry/ecology-letters.csl"
 
 title: 'Greater variability in local vegetation structure increases forest resistance to wildfire'
 author:
