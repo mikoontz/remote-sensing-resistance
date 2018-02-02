@@ -3,12 +3,14 @@ title: "Explore Fire Samples"
 author: "Michael Koontz"
 date: "1/23/2018"
 output: html_document
+bibliography: "../ms/ms_carpentry/remote-sensing-resistance.bib"
+csl: "../ms/ms_carpentry/ecology-letters.csl"
 ---
 
 This document represents the initial exploratory data analysis of the fire samples
 derived using the Earth Engine code.
 
-```{r setup}
+```{r setup, message = FALSE}
 library(lubridate)
 library(sf)
 library(lme4)
@@ -16,38 +18,42 @@ library(dplyr)
 library(ggplot2)
 ```
 
-```{r read_files, cache = TRUE}
+```{r read_files, cache = TRUE, message = FALSE}
 fires <- st_read(dsn = "../data/features/fire_perim/fire_perim_sn_16_1_shp/",
                  stringsAsFactors = FALSE)
 sn <- st_read("../data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp") %>% 
   st_transform(4326)
-samps <- st_read("../data/fire_samples/fires-strat-samples_1-month-window_L5_none-interp.geojson")
+samps1 <- st_read("../data/fire_samples/fires-strat-samples_48-day-window_L45_none-interp.geojson")
+samps2 <- st_read("../data/fire_samples/fires-strat-samples_48-day-window_L578_none-interp.geojson")
+samps3 <- st_read("../data/fire_samples/fires-strat-samples_48-day-window_L78_none-interp.geojson")
+samps <- rbind(samps1, samps2, samps3)
 ```
 
 What fires are available for data collection in Earth Engine?
 
-```{r explore_fires_raw}
+```{r explore_fires_raw, cache = TRUE}
 glimpse(fires)
 fires %>% 
-  filter(YEAR_ >= 1984) %>% 
+  filter(YEAR_ >= 1982) %>% 
   group_by(YEAR_) %>% 
   tally()
 
 fires %>% 
   filter(YEAR_ == 2014) %>% 
-  filter(FIRE_NAME == "KING")
+  filter(FIRE_NAME == "KING") %>% 
+  select(geometry) %>% 
+  plot()
 
-plot(sn$geometry)
 fires %>% 
   filter(YEAR_ == 2001) %>% 
   filter(FIRE_NAME == "HIGHWAY") %>% 
   filter(ALARM_DATE == "2001-07-03") %>% 
   select(geometry) %>% 
-  plot(add = TRUE)
+  plot()
 
 ```
 
-```{r look_at_samples}
+```{r look_at_samples, cache = TRUE}
 glimpse(samps)
 # Extract unique Fire ID from the sample point IDs
 samps$fire_id <- substr(as.character(samps$id), start = 1, stop = 20)
@@ -59,7 +65,7 @@ plot(sn$geometry, add = TRUE)
 How many fires were processed from the FRAP database (i.e. in the Sierra Nevada
 and within the Landsat era)?
 
-It looks like there are `r length(unique(samps$fire_id))` fires represented from the FRAP database with Landsat 5 imagery that can be processed.
+It looks like there are `r length(unique(samps$fire_id))` fires represented from the FRAP database with Landsat 4, 5, 7, and 8 imagery that can be processed.
 
 # Variable adjustment
 
@@ -70,7 +76,7 @@ scale, but shouldn't be.
 
 ## Topography variables
 
-Adjust aspect to reflect "heat load index" (McCune and Keon, 2002) with southwest having a value of 1, and northeast having a value of -1
+Adjust aspect to reflect "heat load index" [@McCune2002] with southwest having a value of 1, and northeast having a value of -1
 
 ```{r adjust_aspect}
 circular_aspect <- function(aspect) {
@@ -84,7 +90,7 @@ samps$c_aspect <- circular_aspect(samps$aspect)
 ```
 
 
-Calculate predicted potential annual direct incident radiation (also from McCune and Keon, 2002) which combines slope, aspect, and latitude
+Calculate predicted potential annual direct incident radiation (also from @McCune2002) which combines slope, aspect, and latitude
 
 ```{r calc_heat_load}
 fold_aspect <- function(asp) {
@@ -199,9 +205,9 @@ glimpse(ss)
 
 # Build some models
 
-We will use the Relative Burn Ratio (RBR) from Parks et al (2014) as our response variable. Look at models at different scales
+We will use the Relative Burn Ratio (RBR) from [@Parks2014] as our response variable. Look at models at different scales
 
-```{r build_models_continuous}
+```{r build_models_continuous, cache = TRUE}
 m1 <- lmer(RBR ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss)
 m2 <- lmer(RBR ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss)
 m3 <- lmer(RBR ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss)
@@ -217,7 +223,7 @@ AIC(m1, m2, m3, m4)
 
 Correlations amongst response variables?
 
-```{r response_correlations}
+```{r response_correlations, cache = TRUE}
 pairs(samps[, c("RdNBR", "RdNBR2", "RdNDVI", "RdEVI", "RBR"), drop = TRUE])
 ```
 
@@ -228,28 +234,39 @@ From the CBI calibration, we know that the 1-month window, bicubic interpolation
 Many (all?) researchers use the categorical response because remotely-sensed severity
 metrics tend to have a non-linear relationship with on-the-ground severity
 
-<!-- Consider replacing the below with output from explore_cbi.R script -->
+
+```{r get_cbi_calibration_model_summary}
+model_summary <- read.csv("../data/cbi_calibration_model_comparison.csv", stringsAsFactors = FALSE)
+target_model <- model_summary[model_summary$response == "RBR" &
+                                model_summary$time_window == 48 &
+                                model_summary$interpolation == "bicubic", ]
+```
+
 Here are the other thresholds for the model using bicubic interpolation and a 1 month window:
-0.037996297 equates to a CBI of 0
-0.041191844 equates to a CBI of 0.1 -- threshold between "unchanged" and "low"
-0.11191955 equates to a CBI of 1.25 -- threshold between "low" and "medium"
-0.2836425 equates to a CBI of 2.25 -- threshold between "medium" and "high"
+
+- `r target_model$unchanged` equates to a CBI of 0
+- `r target_model$low_sev` equates to a CBI of 0.1 -- threshold between "unchanged" and "low"
+- `r target_model$mod_sev` equates to a CBI of 1.25 -- threshold between "low" and "medium"
+- `r target_model$hi_sev` equates to a CBI of 2.25 -- threshold between "medium" and "high"
 
 ```{r high_v_not-high}
-ss$stand_replacing <- ifelse(ss$RBR > 0.2836425, yes = 1, no = 0)
+ss$stand_replacing <- ifelse(ss$RBR > target_model$hi_sev, yes = 1, no = 0)
 ```
 
 
 Our modeling effort then becomes a generalized linear model with a logit link, estimating how different covariate affect the *probability* of a high severity fire
 
-```{r build_model_binomial}
-glm1 <- glmer(stand_replacing ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), 
+```{r build_model_binomial, cache = TRUE}
+glm1 <- glmer(stand_replacing ~ het_ndvi_1_s * fm100_s + 
+                preFire_ndvi_s + 
+                topo_roughness_1_s + 
+                pdir_s + 
+                (1 | fire_id), 
               data = ss, 
               family = "binomial",
               control = glmerControl(optimizer = "bobyqa"))
 
 summary(glm1)
-
 ```
 
 
@@ -283,8 +300,12 @@ So that non-linearity poses a problem for answering the question that we really 
 Any signal of heterogeneity is lost at high levels of greenness
 As an example, subset the data to only include preFire_ndvi values where heterogeneity is even (i.e., prior to the declining relationship between focal pixel greenness and heterogeneity)
 
-```{r split_model}
-glm2 <- glmer(stand_replacing ~  het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), 
+```{r split_model, cache = TRUE}
+glm2 <- glmer(stand_replacing ~  het_ndvi_1_s * fm100_s + 
+                preFire_ndvi_s + 
+                topo_roughness_1_s + 
+                pdir_s + 
+                (1 | fire_id), 
               data = ss[ss$preFire_ndvi < 0.5, ], 
               family = "binomial",
               control = glmerControl(optimizer = "bobyqa"))
@@ -294,9 +315,7 @@ summary(glm2)
 
 All of a sudden, a huge impact of heterogeneity, as we expected. How best to account for this?
 
-2) If there is high ERC or low fm100, how does that affect the impact of heterogeneity?
-
-3) What is the relationship between different scales of heterogeneity?
+2) What is the relationship between different scales of heterogeneity?
 
 Pretty highly correlated, and declining as scales diverge:
 
@@ -305,7 +324,7 @@ cor(ss[, c("het_ndvi_1", "het_ndvi_2", "het_ndvi_3", "het_ndvi_4"), drop = TRUE]
 pairs(ss[, c("het_ndvi_1", "het_ndvi_2", "het_ndvi_3", "het_ndvi_4"), drop = TRUE])
 ```
 
-4) What is the relationship between roughness and heterogeneity?
+3) What is the relationship between roughness and heterogeneity?
 
 A negative correlation:
 
@@ -334,7 +353,7 @@ ss %>%
 
 What is the relationship between neighborhood mean NDVI and focal pixel NDVI?
 
-```{r center_v_focal_ndvi, cache - TRUE}
+```{r center_v_focal_ndvi, cache = TRUE}
 ggplot(ss, aes(y = focal_mean_ndvi_1, x = preFire_ndvi)) +
   geom_point() +
   geom_smooth()
@@ -351,4 +370,64 @@ ggplot(ss, aes(y = focal_mean_ndvi_4, x = preFire_ndvi)) +
   geom_point() +
   geom_smooth()
 ```
+
+4) If there is high ERC or low fm100, how does that affect the impact of heterogeneity?
+
+For 100-hour fuel moisture, we refer to @Stephens2012 who find 7.7% to be the 80th
+percentile condition, 6.6% to be the 90th percentile condition, and 4.2% to be 
+the 97.5th percentile condition. See also the note in @Stephens2013a about the significance
+of 80th percentile conditions.
+
+Create a variable for "extreme conditions" versus "non-extreme" conditions (with
+respect to fuel moisture) and interact it with the heterogeneity variable.
+
+```{r extreme_fm100}
+# Extreme percentiles correspeond to 80th, 90th, and 97.5th percentiles of 100 hour
+# fuel moisture
+extreme_fm100_percentiles <- c(7.7, 6.6, 4.2)
+ss$extreme80_fm100 <- ifelse(ss$fm100 < 7.7, yes = 1, no = 0)
+ss$extreme90_fm100 <- ifelse(ss$fm100 < 6.6, yes = 1, no = 0)
+ss$extreme97.5_fm100 <- ifelse(ss$fm100 < 4.2, yes = 1, no = 0)
+```
+
+What variables should go into this model? Additive effect of scaled pdir and scaled
+topographic roughness for sure, but what makes sense for the rest?
+
+```{r extreme80_lm_1}
+extreme80_lm_1 <- lmer(RBR ~ year_ + het_ndvi_1_s +
+                                 fm100_s +
+                                 extreme80_fm100 +
+                                 het_ndvi_1_s:extreme80_fm100 + 
+                                 het_ndvi_1_s:fm100_s +
+                                 preFire_ndvi_s + 
+                                 topo_roughness_1_s + 
+                                 pdir_s + 
+                                 (1 | fire_id), 
+                               data = ss)
+summary(extreme80_lm_1)
+```
+
+And with the bionomial
+
+```{r}
+
+```
+
+extreme_glm_1 <- glmer(stand_replacing ~ het_ndvi_1_s +
+                                 fm100_s +
+                                 extreme80_fm100 +
+                                 het_ndvi_1_s:extreme80_fm100 + 
+                                 het_ndvi_1_s:fm100_s +
+                                 preFire_ndvi_s + 
+                                 topo_roughness_1_s + 
+                                 pdir_s + 
+                               (1 | fire_id), 
+                             data = ss, 
+                             family = "binomial",
+                             control = glmerControl(optimizer = "bobyqa"))
+
+summary(extreme_lm_1)
+summary(extreme_glm_1)
+```
+
 
