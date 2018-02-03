@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="fire_samps" id="fire_samps">
+	<SimpleField name="het_ndvi_1" type="float"></SimpleField>
+	<SimpleField name="het_ndvi_2" type="float"></SimpleField>
+	<SimpleField name="het_ndvi_3" type="float"></SimpleField>
+	<SimpleField name="het_ndvi_4" type="float"></SimpleField>
+	<SimpleField name="elev" type="int"></SimpleField>
+	<SimpleField name="slope" type="int"></SimpleField>
+	<SimpleField name="aspect" type="int"></SimpleField>
+	<SimpleField name="alarm_date" type="float"></SimpleField>
+	<SimpleField name="year_" type="string"></SimpleField>
+	<SimpleField name="focal_mean_ndvi_1" type="float"></SimpleField>
+	<SimpleField name="focal_mean_ndvi_2" type="float"></SimpleField>
+	<SimpleField name="focal_mean_ndvi_3" type="float"></SimpleField>
+	<SimpleField name="focal_mean_ndvi_4" type="float"></SimpleField>
+	<SimpleField name="preFire_ndvi" type="float"></SimpleField>
+	<SimpleField name="fire_name" type="string"></SimpleField>
+	<SimpleField name="id" type="string"></SimpleField>
+</Schema>
+<Folder><name>fire_samps</name>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#fire_samps">
+		<SimpleData name="het_ndvi_1">0.242744810122388</SimpleData>
+		<SimpleData name="het_ndvi_2">0.225064877552753</SimpleData>
+		<SimpleData name="het_ndvi_3">0.213303380239694</SimpleData>
+		<SimpleData name="het_ndvi_4">0.209393188089219</SimpleData>
+		<SimpleData name="elev">1027</SimpleData>
+		<SimpleData name="slope">41</SimpleData>
+		<SimpleData name="aspect">1</SimpleData>
+		<SimpleData name="alarm_date">1374476400000</SimpleData>
+		<SimpleData name="year_">2013</SimpleData>
+		<SimpleData name="focal_mean_ndvi_1">0.5008441</SimpleData>
+		<SimpleData name="focal_mean_ndvi_2">0.5467315</SimpleData>
+		<SimpleData name="focal_mean_ndvi_3">0.57468414</SimpleData>
+		<SimpleData name="focal_mean_ndvi_4">0.60189116</SimpleData>
+		<SimpleData name="preFire_ndvi">0.5458891</SimpleData>
+		<SimpleData name="fire_name">ASPEN</SimpleData>
+		<SimpleData name="id">0000a509845ea4409382_49</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-119.299189255746,37.3520842609823</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#fire_samps">
+		<SimpleData name="het_ndvi_1">0.235796790314392</SimpleData>
+		<SimpleData name="het_ndvi_2">0.258274739270315</SimpleData>
+		<SimpleData name="het_ndvi_3">0.252919872403689</SimpleData>
+		<SimpleData name="het_ndvi_4">0.240806854172641</SimpleData>
+		<SimpleData name="elev">493</SimpleData>
+		<SimpleData name="slope">36</SimpleData>
+		<SimpleData name="aspect">128</SimpleData>
+		<SimpleData name="alarm_date">1155279600000</SimpleData>
+		<SimpleData name="year_">2006</SimpleData>
+		<SimpleData name="focal_mean_ndvi_1">0.45659313</SimpleData>
+		<SimpleData name="focal_mean_ndvi_2">0.4225716</SimpleData>
+		<SimpleData name="focal_mean_ndvi_3">0.4701143</SimpleData>
+		<SimpleData name="focal_mean_ndvi_4">0.50352395</SimpleData>
+		<SimpleData name="preFire_ndvi">0.59160054</SimpleData>
+		<SimpleData name="fire_name">LUMSDEN</SimpleData>
+		<SimpleData name="id">0000e6fd1e005baf5da7_55</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-120.030058570905,37.848762781572</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#fire_samps">
+		<SimpleData name="het_ndvi_1">0.225282459491577</SimpleData>
+		<SimpleData name="het_ndvi_2">0.221653705351288</SimpleData>
+		<SimpleData name="het_ndvi_3">0.21268006560887</SimpleData>
+		<SimpleData name="het_ndvi_4">0.199862653822594</SimpleData>
+		<SimpleData name="elev">306</SimpleData>
+		<SimpleData name="slope">22</SimpleData>
+		<SimpleData name="aspect">101</SimpleData>
+		<SimpleData name="alarm_date">1003906800000</SimpleData>
+		<SimpleData name="year_">2001</SimpleData>
+		<SimpleData name="focal_mean_ndvi_1">0.5626129</SimpleData>
+		<SimpleData name="focal_mean_ndvi_2">0.5499199</SimpleData>
+		<SimpleData name="focal_mean_ndvi_3">0.5477421</SimpleData>
+		<SimpleData name="focal_mean_ndvi_4">0.5750141</SimpleData>
+		<SimpleData name="preFire_ndvi">0.65156436</SimpleData>
+		<SimpleData name="fire_name">HIGHWAY 70</SimpleData>
+		<SimpleData name="id">0000253d6adec1283afd_44</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-121.474010558599,39.7427707266096</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#fire_samps">
+		<SimpleData name="het_ndvi_1">0.222591550787427</SimpleData>
+		<SimpleData name="het_ndvi_2">0.25118160310165</SimpleData>
+		<SimpleData name="het_ndvi_3">0.239902873309213</SimpleData>
+		<SimpleData name="het_ndvi_4">0.22881098175557</SimpleData>
+		<SimpleData name="elev">1426</SimpleData>
+		<SimpleData name="slope">12</SimpleData>
+		<SimpleData name="aspect">42</SimpleData>
+		<SimpleData name="alarm_date">1322726400000</SimpleData>
+		<SimpleData name="year_">2011</SimpleData>
+		<SimpleData name="focal_mean_ndvi_1">0.5380931</SimpleData>
+		<SimpleData name="focal_mean_ndvi_2">0.5364833</SimpleData>
+		<SimpleData name="focal_mean_ndvi_3">0.5563042</SimpleData>
+		<SimpleData name="focal_mean_ndvi_4">0.57838976</SimpleData>
+		<SimpleData name="preFire_ndvi">0.5135246</SimpleData>
+		<SimpleData name="fire_name">GROOVY</SimpleData>
+		<SimpleData name="id">0000efe629233a9292cf_5</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-120.46421434772,38.7545340825497</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#fire_samps">
+		<SimpleData name="het_ndvi_1">0.220702083156192</SimpleData>
+		<SimpleData name="het_ndvi_2">0.215615083397527</SimpleData>
+		<SimpleData name="het_ndvi_3">0.200391144090054</SimpleData>
+		<SimpleData name="het_ndvi_4">0.192457454120852</SimpleData>
+		<SimpleData name="elev">1422</SimpleData>
+		<SimpleData name="slope">5</SimpleData>
+		<SimpleData name="aspect">79</SimpleData>
+		<SimpleData name="alarm_date">1345014000000</SimpleData>
+		<SimpleData name="year_">2012</SimpleData>
+		<SimpleData name="focal_mean_ndvi_1">0.4679125</SimpleData>
+		<SimpleData name="focal_mean_ndvi_2">0.43600735</SimpleData>
+		<SimpleData name="focal_mean_ndvi_3">0.40854692</SimpleData>
+		<SimpleData name="focal_mean_ndvi_4">0.3914907</SimpleData>
+		<SimpleData name="preFire_ndvi">0.53565425</SimpleData>
+		<SimpleData name="fire_name">CONSTANIA</SimpleData>
+		<SimpleData name="id">0000781d4145f80d9e10_41</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-120.094198282192,39.9761530374239</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>
