@@ -1,4 +1,4 @@
-### This script will help us deterimine what moving window to use for our algorithm (how long before the fire (1, 2, or 3 months)) should
+### This script will help us deterimine what moving window to use for our algorithm (how long before the fire (16, 32, 48, or 64 days)) should
 ### we gather Landsat imagery in order to take the median spectral values across those available images.
 ### This is a tradeoff: the further back we look, the more likely that we'll capture non-cloudy pixels and perhaps reduce the
 ### influence of sensor anomolies from any particular image, but we also blur the phenology by looking too far back.
@@ -8,7 +8,7 @@
 ### We use cross-fold validation and R^2 to make this determination. Note that R^2 doesn't represent the same thing in non-linear regression
 ### as it does for linear regression, so it shouldn't be interpreted in the way it is in linear regression (i.e. "the percent of total variation
 ### explained by the model" <-- it's not that.)
-
+  
 library(ggplot2)
 library(rlang)
 library(sf)
@@ -25,34 +25,42 @@ library(lme4)
 ### Bilinear interpolation
 ###
 
-# Get 1-month window, bilinear interpolation data
-cbi_1_bilinear <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE)
+# Get 16-day window, bilinear interpolation data
+cbi_16_bilinear <- st_read("data/cbi_calibration/cbi-calibration_16-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
 
-# Get 2-month window, bilinear interpolation data
-cbi_2_bilinear <- st_read("data/cbi_calibration/cbi-calibration_2-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE)
+# Get 32-day window, bilinear interpolation data
+cbi_32_bilinear <- st_read("data/cbi_calibration/cbi-calibration_32-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
 
-# Get 3-month window, bilinear interpolation data
-cbi_3_bilinear <- st_read("data/cbi_calibration/cbi-calibration_3-month-window_L5_bilinear-interp.geojson", stringsAsFactors = FALSE)
+# Get 48-day window, bilinear interpolation data
+cbi_48_bilinear <- st_read("data/cbi_calibration/cbi-calibration_48-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
+
+# Get 64-day window, bilinear interpolation data
+cbi_64_bilinear <- st_read("data/cbi_calibration/cbi-calibration_64-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
 
 ### 
 ### Bicubic interpolation
 ###
 
-# Get 1-month window, bicubic interpolation data
-cbi_1_bicubic <- st_read("data/cbi_calibration/cbi-calibration_1-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE)
+# Get 16-day window, bicubic interpolation data
+cbi_16_bicubic <- st_read("data/cbi_calibration/cbi-calibration_16-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
 
-# Get 2-month window, bicubic interpolation data
-cbi_2_bicubic <- st_read("data/cbi_calibration/cbi-calibration_2-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE)
+# Get 32-day window, bicubic interpolation data
+cbi_32_bicubic <- st_read("data/cbi_calibration/cbi-calibration_32-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
 
-# Get 3-month window, bicubic interpolation data
-cbi_3_bicubic <- st_read("data/cbi_calibration/cbi-calibration_3-month-window_L5_bicubic-interp.geojson", stringsAsFactors = FALSE)
+# Get 48-day window, bicubic interpolation data
+cbi_48_bicubic <- st_read("data/cbi_calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
 
-cbi_list <- list(bilinear_1 = cbi_1_bilinear,
-                 bilinear_2 = cbi_2_bilinear,
-                 bilinear_3 = cbi_3_bilinear,
-                 bicubic_1 = cbi_1_bicubic,
-                 bicubic_2 = cbi_2_bicubic,
-                 bicubic_3 = cbi_3_bicubic)
+# Get 64-day window, bicubic interpolation data
+cbi_64_bicubic <- st_read("data/cbi_calibration/cbi-calibration_64-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
+
+cbi_list <- list(bilinear_16 = cbi_16_bilinear,
+                 bilinear_32 = cbi_32_bilinear,
+                 bilinear_48 = cbi_48_bilinear,
+                 bilinear_64 = cbi_64_bilinear,
+                 bicubic_16 = cbi_16_bicubic,
+                 bicubic_32 = cbi_32_bicubic,
+                 bicubic_48 = cbi_48_bicubic,
+                 bicubic_64 = cbi_64_bicubic)
 
 # Conveient function to get coefficient of determination from a non-linear model. Note this value (R^2)
 # does NOT have the same meaning in a non-linear context as it does in a a linear context. Thus
@@ -66,14 +74,16 @@ r2 <- function(m) {
 
 # Non-linear models (of the form used by Miller and Thode (2007) and Parks et al. (2014))
 ### Example of overall R^2
-m1a <- nls(RdNBR ~ a + b * exp(cbi_over * c), 
-            data = cbi_2_bilinear[cbi_2_bilinear$conifer_forest == 1, ],
+m1a <- nls(RBR ~ a + b * exp(cbi_over * c), 
+            data = cbi_16_bicubic[cbi_16_bicubic$conifer_forest == 1, ],
             start = list(a = 0, b = 1, c = 1),
             model = TRUE)
 
 r2(m1a)
 
-plot(cbi_2_bilinear$cbi_over[cbi_2_bilinear$conifer_forest == 1], cbi_2_bilinear$RdNBR[cbi_2_bilinear$conifer_forest == 1], pch = 19)
+plot(cbi_16_bicubic$cbi_over[cbi_16_bicubic$conifer_forest == 1], 
+     cbi_16_bicubic$RBR[cbi_16_bicubic$conifer_forest == 1], 
+     pch = 19)
 lines(seq(0, 3, by = 0.01), predict(m1a, newdata = data.frame(cbi_over = seq(0, 3, by = 0.01))))
 
 # Where would the cutoff for "high severity" be? CBI of 2.25 or greater translates to an RdNBR of...
@@ -117,18 +127,18 @@ plot(d$cbi_over, d$RdEVI)
 
 # Response values (9): RdNBR, dNBR, RdNBR2, dNBR2, RdNDVI, dNDVI, RBR (we leave out dEVI and RdEVI because they are just bad model fits)
 # Interpolation (2): bilinear, bicubic
-# Window period (3): 1 month, 2 month, 3 month
+# Window period (4): 16 day, 32 day, 48 day, 64 day
 # Model fit variables: a, b, c, R^2
 
 # Data frame should be 8 columns (including an id column) and 54 (9*2*3) rows
 response_vars <- c("RdNBR", "dNBR", "RdNBR2", "dNBR2", "RdNDVI","dNDVI", "RBR") # not including dEVI and RdEVI
 interpolation_vars <- c("bilinear", "bicubic")
-time_window_vars <- 1:3
+time_window_vars <- c(16, 32, 48, 64)
 conifer_filter <- TRUE # Just use CBI plots found in yellow pine/mixed conifer forest
 
 num_rows <- length(response_vars) * length(interpolation_vars) * length(time_window_vars)
 
-set.seed(1826) # Set seed at current time for reproducibility
+set.seed(1117) # Set seed at current time for reproducibility
 
 # Create data structure to hold results
 model_summary <- data.frame(id = 1:num_rows, 
@@ -167,8 +177,13 @@ for (i in seq_along(cbi_list)) {
                             start = list(a = 0, b = 1, c = 1),
                             model = TRUE))
     
-    r2_kfold <- try(severity_kfold(data = data[drop = TRUE], response = response_vars[j], k = 5) %>% summarize(mean(r.squared)) %>% as.numeric())
+    r2_kfold <- try(severity_kfold(data = data[drop = TRUE], 
+                                   response = response_vars[j], 
+                                   k = 5) %>% 
+                      summarize(mean(r.squared)) 
+                    %>% as.numeric())
     r2_all <- try(r2(fitted_model))
+    
     idx <- which(model_summary$response == response_vars[j] & model_summary$interpolation == interp & model_summary$time_window == time_window)
     
     if(class(fitted_model) != "try-error") {
@@ -188,16 +203,30 @@ for (i in seq_along(cbi_list)) {
 
 model_summary
 model_summary[order(model_summary$r2_kfold, decreasing = TRUE), ]
+model_summary[order(model_summary$r2_all, decreasing = TRUE), ]
 
-# For conifer forest, it appears that the bicubic interpolation of RdNBR and using a 1-month window prior to the fire results in the best fit to on-the-ground severity. The bicubic interpolation of RBR using a 1-month window prior to the fire results in the best fit when all data are used.
-# But we get pretty darn good fits for RBR and RdNDVI in both 1, 2, and 3 month windows and using both bilinear and bicubic interpolation.
+write.csv(model_summary, "data/cbi_calibration_model_comparison.csv", row.names = FALSE)
+# For conifer forest, it appears that the bicubic interpolation of RBR and using 
+# a 48-day window prior to the fire results in the best fit to on-the-ground severity. 
+# Best model using all the data is RBR, bicubic, 32-day window
+# The ranking of models is fairly variable, with many taking the top spot
+# depending on how the random assignment of training and test data go.
+# For instance, RdNDVI ends up on top pretty often.
 
-degToRad <- function(deg) {
-  deg * pi / 180
-}
+# How many missing values for each set of data?
+nrow(cbi_16_bicubic) # 401 total points
+nrow(cbi_16_bicubic[is.na(cbi_16_bicubic$RBR), ]) # 44 missing points
+nrow(cbi_16_bicubic[is.na(cbi_16_bicubic$RBR), ]) / nrow(cbi_16_bicubic)
 
-d <- cbi_1_bicubic
-d$aspect <- cos(degToRad(d$aspect - 135))
+# Just a check, should be the same regardless of interpolation method
+nrow(cbi_16_bilinear[is.na(cbi_16_bilinear$RBR), ])
+
+nrow(cbi_32_bicubic[is.na(cbi_32_bicubic$RBR), ]) / nrow(cbi_32_bicubic)
+nrow(cbi_48_bicubic[is.na(cbi_48_bicubic$RBR), ]) / nrow(cbi_48_bicubic)
+nrow(cbi_64_bicubic[is.na(cbi_64_bicubic$RBR), ]) / nrow(cbi_64_bicubic)
+
+
+d <- cbi_32_bicubic
 
 plot(d$cbi_over[d$conifer_forest == 1], d$RBR[d$conifer_forest == 1], pch = 19)
 m1 <- nls(RBR ~ a + b * exp(cbi_over * c), 
