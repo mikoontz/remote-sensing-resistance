@@ -35,4 +35,4 @@ s <-
   nest()
 
 head(s)  
-
+dim(s)
