@@ -1,7 +1,7 @@
 ---
 output: 
   pdf_document:
-    template: "../ms/ms_carpentry/mjk_ms_template.tex"
+    template: "ms_carpentry/mjk_ms_template.tex"
   # word_document:
   #   reference_docx: "../ms/ms_carpentry/mjk_ms_template_word.docx"
 geometry: margin=1in
@@ -12,7 +12,7 @@ header-includes:
 - \linenumbers
 - \renewcommand\abstractname{\vspace{-1em}}
 
-bibliography: "/Users/mikoontz/Dropbox/ms_carpentry/bib_library/remote-sensing-resistance.bib"
+bibliography: "ms_carpentry/remote-sensing-resistance.bib"
 csl: https://dl.dropboxusercontent.com/s/3xzxni46ldjzqd1/ecology-letters.csl
 
 title: 'Greater variability in local vegetation structure increases forest resistance to wildfire'
@@ -58,12 +58,25 @@ abstract: "Variation in the size and distribution of trees can enable a forest t
 
 \textsc{Introduction}
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, results = "hide")
+```
+
+```{r get_references}
+download.file("https://dl.dropboxusercontent.com/s/2ha48iabtlr5jbo/remote-sensing-resistance.bib", "ms_carpentry/remote-sensing-resistance.bib")
+```
+
+```{r source_analyses}
+source("analyses/cbi_summary-stats.R")
+```
 
 Biological systems comprising heterogeneous elements can retain their fundamental properties in the face of regular disturbance. This ability of a heterogeneous system to absorb disturbances, reorganize, and to persist within a domain of stability with respect to its identity, structure, function, and feedbacks is termed resilience [@Holling1973; @Gunderson2000; @Folke2004; @Walker2004]. Resilience (*sensu* @Walker2004) is characterized by four critical features: 1) latitude, which describes the degree to which a system can deviate from an attracting state and still recover to that state, 2) resistance, which describes the intensity or duration of a disturbance required to change the system state, 3) precariousness, which describes the proximity of a system to a threshold of a different domain of stability, and 4) panarchy, which describes how resilience features interact across multiple scales of organization. Resilience has been demonstrated in complex biological systems characterized by a variety of different types of “heterogeneity” including genetic diversity ([@Reusch2005; @Baskett2009; @Agashe2009], species diversity ([@Tilman1994; @Chesson2000; @Cadotte2013], functional diversity [@Gazol2016], topoclimatic complexity [@Ackerly2010, @Lenoir2013], and temporal environmental variation [@Questad2008]. An emerging paradigm in forest ecology is that spatial heterogeneity in the structure of vegetation on the landscape can confer resilience to disturbances such as wildfire, drought, and insect outbreaks [@Stephens2008; @North2009; @Virah-Sawmy2009]. Forests are globally important ecosystems threatened in a number of ways, and protection of forests is of high management priority [@Hansen2013; @Crowther2015; @Millar2015; @Trumbore2015]. Thus, it is critical to understand the mechanisms underlying the effect of spatial heterogeneity in forest structure on forest resilience.
 
 Forest structure is defined by the size and distribution of trees on the landscape. Differences in tree crown heights characterize vertical structure, while differences in the rooting locations of trees characterizes horizontal structure [@North2009]. Structural patterns can be further parsed by the constituent species present. In the Sierra Nevada range of California, forests are dominated by a mixture of conifer species including ponderosa pine (*Pinus ponderosa*), sugar pine (*Pinus lambertiana*), incense-cedar (*Calocedrus decurrens*), Douglas-fir (*Pseudotsuga menziesii*), white fir (*Abies concolor*), and red fir (*Abies magnifica*) [@Stephens2004; @Collins2015]. Tree density in the early 20th century was relatively low, with about 25-79 trees/ha and about 8-30 m2/ha of live basal area [@Collins2015]. Previous work described the historical distribution of trees in the Sierra Nevada as an “ICO pattern,” which refers to its three distinct features: individual trees (I), clumps of trees with interlocking crowns (C), and openings with no tree cover at all (O) [@Larson2012]. The ICO pattern manifests at small spatial extents between 0.2 and 1.2 ha and is maintained by feedbacks with spatially explicit ecological processes [@Larson2012; @Lydersen2013; @Fry2014]. Competition for light, water, and other resources can yield aggregations of trees within favorable microsites or more widely spaced trees to ameliorate detrimental interactions [@Clyatt2016]. Demographic processes of dispersal, recruitment, and mortality affect forest structure by adding or subtracting whole trees. Reciprocally, the forest structure can also influence these pattern-forming processes such as when vegetation overstory alters microclimate or changes tree demographic rates [@Larson2012; @DeFrenne2013; @Ford2013]. The stabilizing effects of these reciprocal processes in forests are hallmarks of a resilient system [@Folke2004]. In the Sierra Nevada range of California, the strongest feedbacks between forest structure and pattern-generating ecological process relate to the widespread disturbances caused by wildfire and bark beetle outbreaks [@Raffa2008; @Larson2012; @Millar2015]. Wildfire and bark beetle outbreaks both kill live trees, affect hundreds of thousands to millions of hectares of forested area per year, and interact dynamically with the forest structures they encounter [@Westerling2006; @Raffa2008; @ParkWilliams2012; @Larson2012]. 
 
 In an ecological framework, wildfire is typically classified into different fire regimes that describe how frequently and how intensely they burn [@Mandle2011; @Keeley2011; @Steel2015]. For instance, mixed conifer forests in the Sierra Nevada burned every 11 years on average for several centuries prior to Euro-American settlement [@Steel2015]. These relatively frequent burns prevented the accumulation of fuel on the ground, and limited the intensity of the next fire. This average fire return interval is short compared to the regeneration time of the dominant species, so the fire regime of Sierra Nevada mixed conifer forests in this period is usually classified as a “high frequency/low-mid severity” [@Steel2015]. However, wildfire behavior is inherently complex and is influenced by local weather, topography, and heterogeneous fuel conditions created by departures from the average fire return interval at any particular place [@Sugihara2006; @Collins2010]. Wildfire can affect the future forest structure by changing demographic rates of individual trees (e.g. increasing growth or germination via increasing light or nitrogen availability), but it’s most lasting impact to forest structure is in the pattern of killed trees left in its wake [@Larson2012]. Reciprocally, forest structure can influence fire behavior: for instance, high tree density and presence of “ladder fuels” in the understory increase the probability of crown fire that kills a high proportion of trees [@Stephens2008; @North2009].
+
+Severity describes the effect of a wildfire on an ecosystem-- often the amount of vegetation mortality [@Sugihara2006]. Wildfire severity can be measured by comparing pre- and post-fire satellite imagery for a specific area, but this usually requires considerable manual effort for image collation and processing, followed by calibration with field data [@Miller2007; @Miller2009a; @DeSantis2010; @Cansler2012; @Veraverbeke2013; @Parks2014; @Prichard2014; @Edwards2018]. Efforts to measure severity across broad spatial extents, such as the Monitoring Trends in Burn Severity project [@Eidenshink2007], are unsuitably subjective for rigourous scientific analysis though they serve their intended management purpose admirably [@Kolden2015]. Automated efforts to remotely assess wildfire have arisen, but they tend to focus on more aggregate measures of wildfire such as whether an area burned or the probability that it burned rather than the severity of the burn [@Bastarrika2011; @Goodwin2014; @Boschetti2015; @Hawbaker2017]. Here, we present a method to automate the measurement of wildfire severity using minimal user inputs: a geometry of interest (a wildfire perimeter or a field plot location) and an alarm date (the date the fire began). This information is readily available in many fire-prone areas (such as California, via the Fire and Resource Assessment Program; http://frap.fire.ca.gov/projects/fire_data/fire_perimeters_index) or could potentially be derived using existing products (such as the Landsat Burned Area Essential Climate Variable product described in @Hawbaker2017). Further, the flexibility of this approach faciliates calibration with field-collected wildfire severity data. 
 
 Resilience has gained new attention in light of anthropogenic global change because of the potential for novel disturbance regimes to exceed a system’s capacity to recover [@Millar2007; @Turner2013]. Beyond these thresholds, catastrophic shifts in ecosystems are likely, with myriad consequences for ecosystems and the services they provide [@Scheffer2001; @Turner2013]. Changes in wildfire disturbance regimes are particularly suited to catalyze catastrophic shifts in ecosystems because of their feedback with spatial forest heterogeneity at multiple scales. Anthropogenic global change and a century of fire suppression policy in the United States have resulted in forest conditions far outside their range of historic variability, with potentially dire consequences for society [@North2015]. In California, increasing temperature couples with increasing drought frequency to exacerbate water stress and drive tree mortality during “hotter droughts” [@ParkWilliams2012; @Millar2015]. Further, a century of fire suppression policy has led to drastic changes in forest structure [@North2015]. Canopy cover has increased by 25-49%, overall tree density has increased by >75%, and white fir (*Abies concolor*) makes up a greater percentage of basal area compared to forests in the early 20th century [@Stephens2015]. The change in tree density is underlaid by a shift in size distribution: modern mixed conifer forests have 2.5 times as many trees between 30.4 and 61.0cm diameter at breast height (dbh) per hectare (103.9 versus 41.0 trees/ha) and half as many trees greater than 91.4cm dbh per hectare (8.7 versus 16.7 trees/ha) compared to forests in 1911 [@Stephens2015]. Thus, western North American forests are experiencing novel, “unhealthy” conditions (*sensu* @Raffa2009) that are liable to upset the feedbacks between forest structure and pattern-forming ecological disturbances that historically stabilized the system and made it resilient [@Raffa2008; @Millar2015]. 
 
@@ -75,15 +88,48 @@ Previous work has suggested that forests with heterogeneous structures are more 
 
 A forest that is resistant to wildfire will be less impacted following a disturbance of that type. In forests with relatively intact fire regimes and heterogeneous stand conditions such as in the Jeffrey pine forests of the Sierra San Pedro Martir in Baja, California, there tends to be reduced vegetation mortality after wildfires compared to fire-suppressed forests [@Stephens2008]. A heterogeneous forest can largely avoid overstory tree mortality because a reduced amount of accumulated ladder fuel decreases its ability to get into the crown (where mortality is more likely to result), because widely-spaced tree clumps interrupt fire spread across the landscape, and because tree clumps with fewer trees don’t facilitate self-propagating fire behavior [@Graham2004; @Scholl2010]. Thus, forests with heterogeneous structure are predicted to persist in that state due to resistance to inevitable wildfire disturbance. 
 
-The distribution of patch sizes of fire may represent a key pattern signaling resilience in a forest [@Kefi2011; @Svejcar2015]. There is some evidence that this distribution is stable under typical wildfire disturbance regimes, but is fundamentally altered when disturbance regimes lie outside the range of their historical variation [@Collins2009; @Miller2009b]. For instance, in fire-suppressed forests, there has been an increase in the average and maximum patches of high severity fire compared to historic conditions [@Miller2009b]. The patch size distribution of fires can be described with a power law distribution [@Malamud2005; @Moritz2005], and departures can be early warning signals of regime shifts [@Kefi2011]. Changes from historic distributions would indicate a shift in the underlying parameters that historically constrained the systems’ movement within the stability landscape. It is unclear whether observed increases in mean and maximum patch sizes through time are also accompanied by fundamental shifts in the distribution of patch sizes, a potential signal of forest precariousness to a threshold of an alternate stable state [@Coppoletta2016].
-
-Questions: What is the effect of heterogeneity of forest structure on wildfire severity
+What is the effect of heterogeneity of forest structure on wildfire severity
 
 # Methods
 
-## Remote sensing severity
+## Remote sensing wildfire severity
 
-![Schematic for how Landsat imagery was assembled in order to make comparisons between pre- and post-fire images.](../figs/image-acquisition-algorithm.pdf)
+
+
+
+### Collation and processing of pre- and post-fire imagery
+
+
+![Schematic for how Landsat imagery was assembled in order to make comparisons between pre- and post-fire conditions. This schematic depicts a 64-day window of image collation prior to the fire which comprise the pre-fire image collection. A similar, 2-month window collection of imagery is assembled one year after the pre-fire image collection.](figures/image-acquisition-algorithm.pdf)
+
+### Calculation of wildfire severity
+
+We calculated remotely-sensed wildfire using the relative burn ratio (RBR) [@Parks2014], the delta normalized burn ratio (dNBR), the relative differenced normalized burn ratio (RdNBR), the delta normalized burn ratio 2 (dNBR2), and the relative differenced normalized burn ratio 2 (RdNBR2).
+
+$$
+NBR = \frac{NIR - SWIR}{NIR + SWIR }
+$$
+Where NIR is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on Landsat 8) and SWIR is the short wave infrared band (band 7 on Landsat 4, 5, 7, and 8)
+
+### Calibrating remotely-sensed wildfire severity with field-measured wildfire severity
+
+We calibrated our remotely-sensed measure of wildfire severity with field measures of overstory tree mortality from two previously published studies [@Zhu2006; @Sikkink2013]. The Composite Burn Index (CBI) is a metric of change in vegetation across several vertical strata [@Key2006] and has a long history of use in calibrating remotely-sensed severity data [@Miller2007; @Miller2009a; @Cansler2012; @Parks2014; @Prichard2014]. 
+
+$$
+\text{remote\_severity} = \beta_0 + \beta_1 e^{\beta_2 \text{cbi\_overstory}}
+$$
+
+We applied the image collation, image processing, and wildfire severity calculation workflow to 402 previously-published Composite Burn Index plotUpon We used the Relative Burn Ratio 
+
+## Remote sensing other conditions
+
+### Topographic conditions
+
+### Vegetation conditions
+
+### Fire weather conditions
+
+
 
 ## Modeling the effect of heterogeneity on severity
 
@@ -94,13 +140,7 @@ We used on-the-ground measurements of wildfire severity, the Composite Burn Inde
 
 Wildfire severity is defined by the percentage of fire-killed vegetation in an area, and it can be reliably measured by comparing pre- and post-fire satellite imagery. I used imagery from the Landsat 5 satellite, which provided publically available imagery of the whole earth at 30m spatial resolution every 16 days from 1984 to 2013. The relativized difference in normalized burn ratio (RdNBR) is a measurement of wildfire severity that is calculated using the near infrared (band 4) and short wave infrared band (band 7) of the Landsat 5 satellite according to @Miller2007:
 
-$$
-\begin{aligned}
-NBR &= \frac{NIR(Band 4)-SWIR(Band 7)}{NIR(Band 4) + SWIR (Band 7)} \\
-dNBR &= NBR_{postfire} – NBR_{prefire} \\
-RdNBR &= \frac{dNBR}{\sqrt{\left|\frac{NBR_{prefire}}{1000}\right|}}
-\end{aligned}
-$$
+
 
 This measure positively correlates with burn severity in mixed conifer forests in California [@Miller2009a]. All analyses were performed within the bounds of known fire perimeters >4 hectares in the Sierra Nevada region since 1984 as defined by the Fire and Resource Assessment Program (FRAP, http://frap.fire.ca.gov/projects/fire_data/fire_perimeters_index), which is the most comprehensive digital record of fire occurrence in California. Prefire NBR was calculated as the median NBR value per pixel for the 3 months prior to the fire date after masking clouds and non-forest pixels (median of approximately 6 images). The post-fire NBR was calculated as the median NBR value per pixel from images between 9 and 12 months after the fire (i.e. exactly one year after the set of pre-fire NBR images). RdNBR was calculated for all fires within the Sierra Nevada between 1985 and 2012. 
 
@@ -109,8 +149,10 @@ What is the effect of spatial heterogeneity on wildfire resistance?
 Publically available digital elevation maps (DEM) were used to assess slope and aspect of the forested area within fire perimeters at a 30m spatial resolution. I added 135 degrees to all aspect values and cosine transformed them so that values of -1 represented northeast aspects, and values of 1 represented southwest aspects to best capture heat loading in the northern hemisphere [@McCune2002]. The normalized difference in vegetation index (NDVI) can be used to assess canopy density, and it was calculated for all pixels using bands 3 and 4 from the Landsat 5 imagery:
 
 $$
-NDVI = \frac{NIR(Band_4) - RED (Band_3)}{NIR(Band_4) + RED(Band_3) }
+NDVI = \frac{NIR - RED}{NIR + RED }
 $$
+Where NIR is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on Landsat 8) and RED is the red band (band 3 on Landsat 4, 5, and 7; band 4 on Landsat 8).
+
 
 A measure of heterogeneity was derived which used focal operations to calculate the standard deviation of NDVI within a certain sized neighborhood around each pixel [@Tuanmu2015]. Four neighborhood sizes were used (squares with sides of 90m, 150m, 210m, and 270m) corresponding to a moving neighborhood window of $`r round(90^2 / 10000, 2)`$ ha, $`r round(150^2 / 10000, 2)`$ ha, $`r round(210^2, 2)`$ ha, and $`r round(270^2, 2)`$ ha. 
 
@@ -134,6 +176,8 @@ We correlated the RdNBR values calculated above to field-measured severity (comp
 1. The relative importance of heterogeneity depends on fire weather conditions (fuel moisture).
 
 ## Discussion
+
+Our method should work best in denser vegetation such as forests, as the signal of a wildfire in other systems can be invisible in a matter of weeks [@Goodwin2014]. This method would also require calibration with field data in other systems, as some severity metrics (such as RBR and RdNBR) have found limited success in other regions [@Fernandez2018].
 
 The heterogeneity measure (standard deviation of NDVI in a 2ha moving window) can be fine-tuned and put into context by cross walking it with imagery at a finer spatial resolution (but with a cost in temporal resolution and time series depth; e.g. NAIP imagery at 1m resolution but with only 3 total images starting in 2008) [@Dickinson2016]. Additional metrics of heterogeneity such as vegetation patch size distributions or non-vegetated gap size distributions, may also be more tractable using the finer spatial resolution of NAIP imagery, though the specific fires used in these analyses will be limited to those taking place after 2008. If heterogeneous forests are more resilient to fire, then we expect heterogeneity to be relatively maintained after fire. I plan to test this hypothesis using the finer spatial resolution imagery provided by NAIP.
 The spatial autocorrelation inherent in analyses of spatial processes is an important consideration for model inference, because it challenges the assumptions of standard statistical techniques. Future directions for this work will include more explicit tests of spatial autocorrelation in the residuals of the model, and modeling techniques that account for some of the autocorrelated residual error with neighborhood effects. Rather than a simple linear model, the model would be:

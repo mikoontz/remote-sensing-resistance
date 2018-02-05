@@ -1,0 +1,158 @@
+---
+title: "Explore CBI"
+author: "Michael Koontz"
+output: pdf_document
+---
+
+```{r setup}
+library(ggplot2)
+library(rlang)
+library(sf)
+library(dplyr)
+library(mgcv)
+library(purrr)
+library(broom)
+library(modelr)
+library(tidyr)
+library(lazyeval)
+library(lme4)
+
+###
+### Bilinear interpolation
+###
+
+# Get 16-day window, bilinear interpolation data
+cbi_16_bilinear <- st_read("../data/cbi_calibration/cbi-calibration_16-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
+
+# Get 32-day window, bilinear interpolation data
+cbi_32_bilinear <- st_read("../data/cbi_calibration/cbi-calibration_32-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
+
+# Get 48-day window, bilinear interpolation data
+cbi_48_bilinear <- st_read("../data/cbi_calibration/cbi-calibration_48-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
+
+# Get 64-day window, bilinear interpolation data
+cbi_64_bilinear <- st_read("../data/cbi_calibration/cbi-calibration_64-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
+
+### 
+### Bicubic interpolation
+###
+
+# Get 16-day window, bicubic interpolation data
+cbi_16_bicubic <- st_read("../data/cbi_calibration/cbi-calibration_16-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
+
+# Get 32-day window, bicubic interpolation data
+cbi_32_bicubic <- st_read("../data/cbi_calibration/cbi-calibration_32-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
+
+# Get 48-day window, bicubic interpolation data
+cbi_48_bicubic <- st_read("../data/cbi_calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
+
+# Get 64-day window, bicubic interpolation data
+cbi_64_bicubic <- st_read("../data/cbi_calibration/cbi-calibration_64-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
+
+cbi_list <- list(bilinear_16 = cbi_16_bilinear,
+                 bilinear_32 = cbi_32_bilinear,
+                 bilinear_48 = cbi_48_bilinear,
+                 bilinear_64 = cbi_64_bilinear,
+                 bicubic_16 = cbi_16_bicubic,
+                 bicubic_32 = cbi_32_bicubic,
+                 bicubic_48 = cbi_48_bicubic,
+                 bicubic_64 = cbi_64_bicubic)
+```
+
+How will we compare different response variables?
+
+```{r r2_function}
+# Conveient function to get coefficient of determination from a non-linear model. Note this value (R^2)
+# does NOT have the same meaning in a non-linear context as it does in a a linear context. Thus
+# it shouldn't be used as an estimate of how much variation in the data is explained by the model.
+# Here, I'm using it to at least have some comparison to severity models in the literature.
+
+r2 <- function(m) {
+  r2 <- 1 - (sum(residuals(m)^2)) / sum(((m$model[[1]]) - mean(m$model[[1]], na.rm = TRUE))^2, na.rm = TRUE)
+  r2
+}
+
+# Non-linear models (of the form used by Miller and Thode (2007) and Parks et al. (2014))
+### Example of overall R^2
+m1a <- nls(RBR ~ a + b * exp(cbi_over * c), 
+            data = cbi_16_bicubic[cbi_16_bicubic$conifer_forest == 1, ],
+            start = list(a = 0, b = 1, c = 1),
+            model = TRUE)
+
+r2(m1a)
+```
+
+```{r what_responses_are_available}
+cbi_sn <- st_read("../data/features/cbi_data/cbi_sn/cbi_sn.shp")
+glimpse(cbi_sn)
+summary(cbi_sn)
+glimpse(cbi_16_bicubic)
+```
+
+Basic plot of where these CBI plots are...
+
+```{r basic_plot}
+
+plot(cbi_16_bicubic$cbi_over[cbi_16_bicubic$conifer_forest == 1], 
+     cbi_16_bicubic$RBR[cbi_16_bicubic$conifer_forest == 1], 
+     pch = 19)
+lines(seq(0, 3, by = 0.01), predict(m1a, newdata = data.frame(cbi_over = seq(0, 3, by = 0.01))))
+
+# Where would the cutoff for "high severity" be? CBI of 2.25 or greater translates to an RdNBR of...
+severity_thresholds <- predict(m1a, newdata = data.frame(cbi_over = c(0, 0.1, 1.25, 2.25)))
+severity_thresholds
+```
+
+```{r data_summary}
+# How many missing values for each set of data?
+nrow(cbi_16_bicubic) # 401 total points
+nrow(cbi_16_bicubic[is.na(cbi_16_bicubic$RBR), ]) # 44 missing points
+nrow(cbi_16_bicubic[is.na(cbi_16_bicubic$RBR), ]) / nrow(cbi_16_bicubic)
+
+# Just a check, should be the same regardless of interpolation method
+nrow(cbi_16_bilinear[is.na(cbi_16_bilinear$RBR), ])
+
+nrow(cbi_32_bicubic[is.na(cbi_32_bicubic$RBR), ]) / nrow(cbi_32_bicubic)
+nrow(cbi_48_bicubic[is.na(cbi_48_bicubic$RBR), ]) / nrow(cbi_48_bicubic)
+nrow(cbi_64_bicubic[is.na(cbi_64_bicubic$RBR), ]) / nrow(cbi_64_bicubic)
+
+
+d <- cbi_32_bicubic
+
+plot(d$cbi_over[d$conifer_forest == 1], d$RBR[d$conifer_forest == 1], pch = 19)
+m1 <- nls(RBR ~ a + b * exp(cbi_over * c), 
+                 data = subset(d, conifer_forest == 1),
+                 start = list(a = 0, b = 1, c = 1),
+                 model = TRUE) 
+lines(seq(0, 3, by = 0.01), predict(m1, newdata = data.frame(cbi_over = seq(0, 3, by = 0.01))))  
+summary(m1)  
+r2(m1)
+
+```
+
+I just read about the dNBR - EVI metric [here](https://www.sciencedirect.com/science/article/pii/S0034425717306041), which performed the best and had the most portability. Let's try it out.
+
+```{r dNBR_EVI}
+
+d <- cbi_48_bicubic
+glimpse(d)
+
+d <- 
+  d %>% 
+  mutate(dNBR_EVI = dNBR - postFire_evi) %>% 
+  filter(conifer_forest == 1) %>% 
+  filter(dNBR_EVI > -10)
+
+ggplot(d) +
+  geom_point(aes(x = dNBR_EVI, y = cbi_over))
+
+summary(lm(cbi_over ~ dNBR_EVI, data = d))
+
+m2 <- nls(dNBR_EVI ~ a + b * exp(cbi_over * c), 
+                 data = subset(d, conifer_forest == 1),
+                 start = list(a = 0, b = 1, c = 1),
+                 model = TRUE) 
+r2(m2)
+
+```
+

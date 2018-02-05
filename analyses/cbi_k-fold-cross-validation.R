@@ -72,24 +72,6 @@ r2 <- function(m) {
   r2
 }
 
-# Non-linear models (of the form used by Miller and Thode (2007) and Parks et al. (2014))
-### Example of overall R^2
-m1a <- nls(RBR ~ a + b * exp(cbi_over * c), 
-            data = cbi_16_bicubic[cbi_16_bicubic$conifer_forest == 1, ],
-            start = list(a = 0, b = 1, c = 1),
-            model = TRUE)
-
-r2(m1a)
-
-plot(cbi_16_bicubic$cbi_over[cbi_16_bicubic$conifer_forest == 1], 
-     cbi_16_bicubic$RBR[cbi_16_bicubic$conifer_forest == 1], 
-     pch = 19)
-lines(seq(0, 3, by = 0.01), predict(m1a, newdata = data.frame(cbi_over = seq(0, 3, by = 0.01))))
-
-# Where would the cutoff for "high severity" be? CBI of 2.25 or greater translates to an RdNBR of...
-severity_thresholds <- predict(m1a, newdata = data.frame(cbi_over = c(0, 0.1, 1.25, 2.25)))
-severity_thresholds
-
 ###
 ### K-fold cross validation
 ###
@@ -213,26 +195,3 @@ write.csv(model_summary, "data/cbi_calibration_model_comparison.csv", row.names 
 # depending on how the random assignment of training and test data go.
 # For instance, RdNDVI ends up on top pretty often.
 
-# How many missing values for each set of data?
-nrow(cbi_16_bicubic) # 401 total points
-nrow(cbi_16_bicubic[is.na(cbi_16_bicubic$RBR), ]) # 44 missing points
-nrow(cbi_16_bicubic[is.na(cbi_16_bicubic$RBR), ]) / nrow(cbi_16_bicubic)
-
-# Just a check, should be the same regardless of interpolation method
-nrow(cbi_16_bilinear[is.na(cbi_16_bilinear$RBR), ])
-
-nrow(cbi_32_bicubic[is.na(cbi_32_bicubic$RBR), ]) / nrow(cbi_32_bicubic)
-nrow(cbi_48_bicubic[is.na(cbi_48_bicubic$RBR), ]) / nrow(cbi_48_bicubic)
-nrow(cbi_64_bicubic[is.na(cbi_64_bicubic$RBR), ]) / nrow(cbi_64_bicubic)
-
-
-d <- cbi_32_bicubic
-
-plot(d$cbi_over[d$conifer_forest == 1], d$RBR[d$conifer_forest == 1], pch = 19)
-m1 <- nls(RBR ~ a + b * exp(cbi_over * c), 
-                 data = subset(d, conifer_forest == 1),
-                 start = list(a = 0, b = 1, c = 1),
-                 model = TRUE) 
-lines(seq(0, 3, by = 0.01), predict(m1, newdata = data.frame(cbi_over = seq(0, 3, by = 0.01))))  
-summary(m1)  
-r2(m1)
