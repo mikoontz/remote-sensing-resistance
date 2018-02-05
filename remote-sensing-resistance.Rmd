@@ -127,6 +127,8 @@ We applied the image collation, image processing, and wildfire severity calculat
 
 ### Vegetation conditions
 
+![Highly heterogeneous forest in the Beaver Creek Pinery and homogenous forest nearby. Aerial photographs from USDA Farm Service Agency](figures/heterogeneity-imagery-histograms.pdf)
+
 ### Fire weather conditions
 
 
