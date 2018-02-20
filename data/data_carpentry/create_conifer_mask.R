@@ -17,7 +17,7 @@ ssn <- st_read("data/features/fire_return_interval_departure/FRID_SouthSierra15_
 
 # Directly combine the vector shapes into a single, large vector shape
 sn_v <- rbind(nsn, ssn)
-st_write(obj = sn_v, dsn = "data/features/landcover_PFR/mixed_conifer/mixed_conifer.shp", driver = "ESRI Shapefile")
+st_write(obj = sn_v, dsn = "data/data_output/landcover_PFR/mixed_conifer/mixed_conifer.shp", driver = "ESRI Shapefile")
 # Successful write; some warnings about truncated column names and truncated
 # values in the shape_area column (we can always recalculate these)
 # This shapefile was uploaded to Google Earth Engine and is available here:
@@ -33,4 +33,4 @@ sn_r <- raster::merge(nsn_r, ssn_r)
 plot(sn_r)
 plot(sn$geometry, add = TRUE)
 
-writeRaster(x = sn_r, filename = "data/features/landcover_PFR/mixed_conifer.tif")
+writeRaster(x = sn_r, filename = "data/data_output/landcover_PFR/mixed_conifer.tif")
