@@ -23,9 +23,9 @@ fires <- st_read(dsn = "../data/features/fire_perim/fire_perim_sn_16_1_shp/",
                  stringsAsFactors = FALSE)
 sn <- st_read("../data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp") %>% 
   st_transform(4326)
-samps1 <- st_read("../data/fire_samples/fires-strat-samples_48-day-window_L45_none-interp.geojson")
-samps2 <- st_read("../data/fire_samples/fires-strat-samples_48-day-window_L578_none-interp.geojson")
-samps3 <- st_read("../data/fire_samples/fires-strat-samples_48-day-window_L78_none-interp.geojson")
+samps1 <- st_read("../data/ee_fire-samples/fires-strat-samples_48-day-window_L45_none-interp.geojson")
+samps2 <- st_read("../data/ee_fire-samples/fires-strat-samples_48-day-window_L578_none-interp.geojson")
+samps3 <- st_read("../data/ee_fire-samples/fires-strat-samples_48-day-window_L78_none-interp.geojson")
 samps <- rbind(samps1, samps2, samps3)
 ```
 
@@ -236,7 +236,7 @@ metrics tend to have a non-linear relationship with on-the-ground severity
 
 
 ```{r get_cbi_calibration_model_summary}
-model_summary <- read.csv("../data/cbi_calibration_model_comparison.csv", stringsAsFactors = FALSE)
+model_summary <- read.csv("../data_output/cbi_calibration_model_comparison.csv", stringsAsFactors = FALSE)
 target_model <- model_summary[model_summary$response == "RBR" &
                                 model_summary$time_window == 48 &
                                 model_summary$interpolation == "bicubic", ]
