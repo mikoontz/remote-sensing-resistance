@@ -4,10 +4,7 @@ library(dplyr)
 library(viridis)
 
 # Where were some of the highest and lowest heterogeneity samples?
-samps1 <- st_read("data/fire_samples/fires-strat-samples_48-day-window_L45_none-interp.geojson")
-samps2 <- st_read("data/fire_samples/fires-strat-samples_48-day-window_L578_none-interp.geojson")
-samps3 <- st_read("data/fire_samples/fires-strat-samples_48-day-window_L78_none-interp.geojson")
-s <- rbind(samps1, samps2, samps3)
+s <- load("data/data_output/all-fire-samples.rds")
 
 # sn <- st_read("data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp") %>% st_transform(4326)
 # 
@@ -37,10 +34,10 @@ s <- rbind(samps1, samps2, samps3)
 #   select(het_ndvi_1, het_ndvi_2, het_ndvi_3, het_ndvi_4, elev, slope, aspect, alarm_date, year_, focal_mean_ndvi_1, focal_mean_ndvi_2, focal_mean_ndvi_3, focal_mean_ndvi_4, preFire_ndvi, fire_name, id)
 
 
-# st_write(five_low, "data/fire_samples/five-low.kml", layer = "fire_samps")
-# st_write(five_high, "data/fire_samples/five-high.kml", layer = "fire_samps")
+# st_write(five_low, "data/data_output/five-low.kml", layer = "fire_samps")
+# st_write(five_high, "data/data_output/five-high.kml", layer = "fire_samps")
 
-d <- st_read("data/heterogeneity-demo.geojson")
+d <- st_read("data_output/heterogeneity-demo.geojson")
 glimpse(d)
 
 sup1 <- readPNG("figs/heterogeneity-demo/suppressed_1-pixel.png")
