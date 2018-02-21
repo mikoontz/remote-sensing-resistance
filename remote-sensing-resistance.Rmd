@@ -100,69 +100,45 @@ Does spatial variability in forest structure confer resilience to California mix
 
 This work occurred in two phases. First, we developed a new approach to calculating wildfire severity across broad spatial and temporal scales and calibrated our measurements to those frome the field. We applied this approach to all known fire perimeters in the Sierra Nevada region between 1984 and 2016 as defined by the Fire and Resource Assessment Program (FRAP, http://frap.fire.ca.gov/projects/fire_data/fire_perimeters_index), which is the most comprehensive digital record of fire occurrence in California. Second, we used texture analysis of remotely-sensed imagery bounded by the perimeters in the FRAP database to develop a measure of vegetation heterogeneity and modeled how that heterogeneity affected wildfire severity, accounting for other key drivers of wildfire behavior. 
 
+![Locations of fires in yellow pine/mixed conifer forests in the Sierra Nevada mountain range of California. Colored pixels are designated yellow pine/mixed conifer according to the presettlement fire regime from the FRID database. Colors represent the number of fires that burned in that area during the satellite era. \label{fig-frap-extent}](figures/frap-extent.pdf)
+
 ## Study area
 
 Yellow pine and mixed conifer forests of Sierra Nevada, California between 1984 and 2016.
 
 ## A new approach to remotely sensing wildfire severity
 
-Wildfire severity can be reliably detected remotely by comparing pre- and post-fire imagery from sensors aboard the Landsat series of satellites [@Eidenshink2007; @Miller2007]. The Thematic Mapper (TM; Landsat 4 and 5), Enhanced Thematic Mapper Plus (ETM+; Landsat 7), and Operational Land Imager (OLI; Landsat 8) sensors generate compatible top-of-atmosphere (TOA) spectral reflectance data suitable for scientific analysis. Recent advances in radiometric correction post-processing can compensate for various atmospheric distortions and generate more accurate measurements of surface reflectance in narrow wavelength bands spanning the electromagnetic spectrum [@Masek2006; @Vermote2016; @USGSledaps2017; @USGSlasrc2017]. Landsat satellites image the entire Earth approximately every 16-days and repeat images of the same area are geometrically coregistered such that overlapping pixels correspond to the same area on the ground. We used Google Earth Engine, a cloud-based geographic information system and image hosting platform, for all image collation and processing in order to leverage the centralized availability of the latest processed satellite images and integrated image processing tools for broad-scale analyses [@Gorelick2017].
+Wildfire severity can be reliably detected remotely by comparing pre- and postfire imagery from sensors aboard the Landsat series of satellites [@Eidenshink2007; @Miller2007]. The Thematic Mapper (TM; Landsat 4 and 5), Enhanced Thematic Mapper Plus (ETM+; Landsat 7), and Operational Land Imager (OLI; Landsat 8) sensors generate compatible top-of-atmosphere (TOA) spectral reflectance data suitable for scientific analysis. Recent advances in radiometric correction post-processing can compensate for various atmospheric distortions and generate more accurate measurements of surface reflectance in narrow wavelength bands spanning the electromagnetic spectrum [@Masek2006; @Vermote2016; @USGSledaps2017; @USGSlasrc2017]. Landsat satellites image the entire Earth approximately every 16-days and repeat images of the same area are geometrically coregistered such that overlapping pixels correspond to the same area on the ground. We used Google Earth Engine, a cloud-based geographic information system and image hosting platform, for all image collation and processing in order to leverage the centralized availability of the latest processed satellite images and integrated image processing tools for broad-scale analyses [@Gorelick2017].
 
-![Locations of fires in yellow pine/mixed conifer forests in the Sierra Nevada mountain range of California. Colored pixels are designated yellow pine/mixed conifer according to the presettlement fire regime from the FRID database. Colors represent the number of fires that burned in that area during the satellite era. \label{fig-frap-extent}](figures/frap-extent.pdf)
+The base assumption of our new approach to calculating wildfire severity is that each fire's geographic data and associated attributes are represented by a self-contained "feature". Many fire datasets (e.g., FRAP, USFS Region 5 Fire Perimeter Data, CBI field plot locations from @Zhu2006 and @Sikkink2013) already meet this criteria. In order to achieve a programmatic, automatic assessment of wildfire severity, severity-calculating algorithms must be able to use only the information within each feature. Time efficiencies and data compatibility benefits are attained when those algorithms are applied across an entire feature collection, performing their operation on each feature in turn. At a minimum, our algorithm requires that each feature contain some geographic information (e.g., a fire perimeter or a cbi plot location) and a fire start date (i.e., an "alarm date").
 
-![Locations of samples from fires in yellow pine/mixed conifer forests in the Sierra Nevada mountain range of California.  \label{fig-fire-samples-extent}](figures/fire-samples-extent.pdf)
+### Fetching and processing pre- and postfire imagery
 
-### Collation of pre- and post-fire imagery
+All Landsat imagery was fetched by "scene"-- the atomic unit of image data in the Landsat collection representing an area on the Earth's surface approximately 170 km long by 183 km wide. For each feature, a collection of Landsat scenes was fetched both before and after the fire by defining a date range to search for imagery. The date range for prefire imagery started one day before each feature's alarm date and extended backward in time by a user-defined time window. The date range for postfire imagery was exactly one year after the date range for the prefire search (i.e., one year after the day before the fire, extending backward in time by the same time window). We tested 4 time windows: 16, 32, 48, or 64 days which were chosen to ensure that at least 1, 2, 3, or 4 Landsat images, taken on a 16-day interval, were captured by the date ranges (Fig. \ref{fig-image-acquisition-algorithm}).
 
-We collated and processed Landsat imagery 
+![Schematic for how Landsat imagery was assembled in order to make comparisons between pre- and post-fire conditions. This schematic depicts a 64-day window of image collation prior to the fire which comprise the pre-fire image collection. A similar, 2-month window collection of imagery is assembled one year after the pre-fire image collection. \label{fig-image-acquisition-algorithm}](figures/image-acquisition-algorithm.pdf)
 
-Individual Landsat images (a.k.a. "scenes") represent an area on the Earth's surface approximately 170 km long by 183 km wide.
+The Landsat archive was filtered to generate a prefire image collection comprising only the Landsat scenes depicting some part of the feature geometry and within the prefire date range. A postfire image collection was similarly generated by filtering the Landsat archive by the postfire date range and the feature geometry. The Landsat archive we filtered included imagery from Landsat 4, 5, 7, and 8, so each pre- and postfire image collection may contain a mix of scenes from different satellite sources to enhance coverage.
 
-
-![Schematic for how Landsat imagery was assembled in order to make comparisons between pre- and post-fire conditions. This schematic depicts a 64-day window of image collation prior to the fire which comprise the pre-fire image collection. A similar, 2-month window collection of imagery is assembled one year after the pre-fire image collection.](figures/image-acquisition-algorithm.pdf)
-
-### Wildfire severity
-
-The normalized difference vegetation index (NDVI) can be used to assess canopy density, and it was calculated for all pixels using the near infrared band and the red band [@Rouse1973]:
+For each image in the pre- and postfire image collections, we masked pixels that were not clear (i.e., clouds, cloud shadows, snow, and water) and calculated standard indices that capture vegetation cover and fire effects such as charring: normalized difference vegetation index (NDVI; @Rouse1973), normalized difference moisture index (NDMI; @Gao1996), normalized burn ratio (NBR; @Key2006; @USGSlasrc2017; @USGSledaps2017), and normalized burn ratio version 2 (NBR2; @USGSlasrc2017; @USGSledaps2017; @Hawbaker2017) following Eq. \ref{eq-nindices}:
 
 \begin{equation}
-\label{eq-ndvi}
-NDVI = \frac{NIR - RED}{NIR + RED}
+\begin{aligned}
+\label{eq-nindices}
+NDVI &= \mathopen(NIR - RED\mathclose) / \mathopen(NIR + RED\mathclose) \\
+NDMI &= \mathopen(NIR - SWIR1\mathclose) / \mathopen(NIR + SWIR1\mathclose) \\
+NBR &= \mathopen(NIR - SWIR2\mathclose) / \mathopen(NIR + SWIR2\mathclose) \\
+NBR2 &= \mathopen(SWIR1 - SWIR2\mathclose) / \mathopen(SWIR1 + SWIR2\mathclose)
+\end{aligned}
 \end{equation}
 
-Where NIR is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on Landsat 8) and RED is the red band (band 3 on Landsat 4, 5, and 7; band 4 on Landsat 8).
+Where NIR is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on Landsat 8) and RED is the red band (band 3 on Landsat 4, 5, and 7; band 4 on Landsat 8), SWIR1 is the first short wave infrared band (band 5 on Landsat 4, 5, and 7; band 4 on Landsat 8), SWIR2 is the second short wave infrared band (band 7 on Landsat 4, 5, 7, and 8)
 
-The normalized difference moisture index (NDMI) can be used to assess canopy density, and it was calculated for all pixels using the near infrared band and the red band [@Gao1996]:
-
-\begin{equation}
-\label{eq-ndmi}
-NDMN = \frac{NIR - SWIR1}{NIR + SWIR1}
-\end{equation}
-
-Where NIR is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on Landsat 8) and SWIR1 is the first short wave infrared band (band 5 on Landsat 4, 5, and 7; band 4 on Landsat 8).
-
-The normalized burn ratio is calculated as [@Key2006; @USGSlasrc2017; @USGSledaps2017]
-
-\begin{equation}
-\label{eq-nbr}
-NBR = \frac{NIR - SWIR2}{NIR + SWIR2}
-\end{equation}
-
-Where NIR is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on Landsat 8) and SWIR2 is the second short wave infrared band (band 7 on Landsat 4, 5, 7, and 8)
-
-The normalized burn ratio version 2 (NBR2) is calculated as [@USGSlasrc2017; @USGSledaps2017; @Hawbaker2017]:
-
-\begin{equation}
-\label{eq-nbr2}
-NBR2 = \frac{SWIR1 - SWIR2}{SWIR1 + SWIR2}
-\end{equation}
-
-Where SWIR1 is the first short wave infrared band (band 5 on Landsat 4, 5, and 7; band 6 on Landsat 8) and SWIR2 is the short wave infrared band (band 7 on Landsat 4, 5, 7, and 8).
+We summarized each prefire image collection into a single prefire image using a median reducer, which calculated the median of the unmasked values on a per-pixel basis across the stack of images in the prefire collection. We similarly summarized the postfire image collection into a single postfire image (Fig. \ref{fig-reduce-collection}).
 
 ![Reductions of an image collection that characterize each pixel as a summary statistic of a stack of corresponding pixels at different points in time. In our case we summarize a time series of each pixel into the median value across that series. Image courtesy of Google and can be found at https://developers.google.com/earth-engine/reducers_image_collection \label{fig-reduce-collection}](figures/reduce-imageCollection-cartoon.png)
 
-
-### Calculation of wildfire severity
+### Calculating wildfire severity
 
 We calculated remotely-sensed wildfire severity using the relative burn ratio (RBR) [@Parks2014], the delta normalized burn ratio (dNBR) [@Eidenshink2007; @Miller2007], the relative delta normalized burn ratio (RdNBR) [@Miller2007], the delta normalized burn ratio 2 (dNBR2) [@Hawbaker2017], the relative delta normalized burn ratio 2 (RdNBR2), and the delta normalized difference vegetation index (dNDVI) [@Eidenshink2007]. Following the success of the RdNBR metric in other studies, we also calculate an analogous metric using NDVI-- the relative delta normalized difference vegetation index (RdNDVI).
 
@@ -173,7 +149,7 @@ We calculated the delta severity indices by subracting the postfire index from t
 dINDEX = INDEX_{\text{prefire}} - INDEX_{\text{postfire}}
 \end{equation}
 
-Following @Reilly2017, we chose not to correct the delta indices using a phenological offset value (typically calculated as the delta index in homogenous forest outside of the fire perimeter), instead choosing to account for phenology by using a per-pixel median reducer across multiple cloud-free images captured during the same time window just before the fire and one year later.  
+Following @Reilly2017, we chose not to correct the delta indices using a phenological offset value (typically calculated as the delta index in homogenous forest patch outside of the fire perimeter), as our approach implicitly accounts for phenology by incorporating multiple cloud-free images across the same time window both before the fire and one year later.
 
 We calculated the relative delta severity indices by scaling the delta index from Eq. \ref{eq-dindex} by a square root transformation of the absolute value of the prefire index:
 
@@ -182,16 +158,12 @@ We calculated the relative delta severity indices by scaling the delta index fro
 RdINDEX = \frac{dINDEX}{\sqrt{\mathopen|INDEX_{\text{prefire}}\mathclose|}}
 \end{equation}
 
-
-
+We calculated the relative burn ratio (RBR) following @Parks2014:
 
 \begin{equation}
 \label{eq-rbr}
 RBR = \frac{dNBR}{NBR_{\text{prefire}} + 1.001}
 \end{equation}
-
-Prefire values of these indices are calculated by first calculating them for each image in the prefire image collection, and then using a median reducer across the stack of images (see Fig. \ref{fig-reduce-collection}).
-
 
 
 ### Calibrating remotely-sensed wildfire severity with field-measured wildfire severity
@@ -205,9 +177,7 @@ We calibrated our remotely-sensed measure of wildfire severity with `r total_con
 
 We fit the model in Eq. \ref{eq-cbi-calibration} for all 7 of our remotely-sensed severity metrics (RBR, dNBR, RdNBR, dNBR2, RdNBR2, dNDVI, RdNDVI) using 4 different time windows from which to collate satellite imagery (16, 32, 48, and 64 days). Following @Cansler2012 and @Parks2014, we used interpolation to extract remotely-sensed severity at the locations of the CBI field plots to better align remote and field measures of severity. We extracted remotely-sensed severity values using both bilinear interpolation, which returns a severity value weighted by the 9 pixel values nearest to the CBI plot location, and bicubic interpolation, which returns a severity value weighted by the 16 pixel values nearest to the CBI plot location. In total, we fit 56 models (7 severity measures, 4 time windows, 2 interpolation methods) and performed five-fold cross validation using the `modelr` and `purrr` packages. To compare goodness of model fits with @Miller2007, @Miller2009a, and @Parks2014, we report the average R^2^ value from the five folds for each of the 56 models but note that R^2^ for non-linear regressions do not have the same interpretation that they do for linear regression (i.e., R^2^ can be greater than 1 for non-linear regression, so it can't be interpreted as the proportion of variation explained by the model). We used the Relative Burn Ratio (RBR) calculated using bicubic interpolation within a 48-day window as our response variable for analyses of vegetation heterogeneity, as it showed the best correspondence to field severity data measured as average R^2^ across the five folds.
 
-
 ![Location of CBI plots in the Sierra Nevada mountain range of California \label{fig-cbi-extent}](figures/cbi-extent.pdf)
-
 
 ## Remote sensing other conditions
 
@@ -255,7 +225,9 @@ The 100-hour fuel moisture data were sourced from the Gridmet product [@Abatzogl
 
 ## Modeling the effect of heterogeneity on severity
 
-I scaled all predictor variables, and treated each individual fire as having a random intercept effect using the following mixed effects model:
+![Locations of samples from fires in yellow pine/mixed conifer forests in the Sierra Nevada mountain range of California.  \label{fig-fire-samples-extent}](figures/fire-samples-extent.pdf)
+
+We scaled all predictor variables, and treated each individual fire as having a random intercept effect using the following mixed effects model:
 
 \begin{equation}
 \begin{aligned}
