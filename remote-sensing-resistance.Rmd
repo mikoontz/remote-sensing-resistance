@@ -1,10 +1,10 @@
 ---
 output: 
-  # pdf_document:
-  #   template: "ms_carpentry/mjk_ms_template.tex"
-  #   fig_caption: yes
-  word_document:
-    reference_docx: "ms_carpentry/mjk_ms_template_word.docx"
+  pdf_document:
+    template: "ms_carpentry/mjk_ms_template.tex"
+    fig_caption: yes
+  # word_document:
+  #   reference_docx: "ms_carpentry/mjk_ms_template_word.docx"
 geometry: margin=1in
 header-includes: 
 - \usepackage{graphicx}
@@ -125,14 +125,14 @@ For each image in the pre- and postfire image collections, we masked pixels that
 \begin{equation}
 \begin{aligned}
 \label{eq-nindices}
-NDVI &= \mathopen(NIR - RED\mathclose) / \mathopen(NIR + RED\mathclose) \\
-NDMI &= \mathopen(NIR - SWIR1\mathclose) / \mathopen(NIR + SWIR1\mathclose) \\
-NBR &= \mathopen(NIR - SWIR2\mathclose) / \mathopen(NIR + SWIR2\mathclose) \\
-NBR2 &= \mathopen(SWIR1 - SWIR2\mathclose) / \mathopen(SWIR1 + SWIR2\mathclose)
+ndvi &= \mathopen(nir - red\mathclose) / \mathopen(nir + red\mathclose) \\
+ndmi &= \mathopen(nir - swir1\mathclose) / \mathopen(nir + swir1\mathclose) \\
+nbr &= \mathopen(nir - swir2\mathclose) / \mathopen(nir + swir2\mathclose) \\
+nbr2 &= \mathopen(swir1 - swir2\mathclose) / \mathopen(swir1 + swir2\mathclose)
 \end{aligned}
 \end{equation}
 
-Where NIR is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on Landsat 8) and RED is the red band (band 3 on Landsat 4, 5, and 7; band 4 on Landsat 8), SWIR1 is the first short wave infrared band (band 5 on Landsat 4, 5, and 7; band 4 on Landsat 8), SWIR2 is the second short wave infrared band (band 7 on Landsat 4, 5, 7, and 8)
+Where $nir$ is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on Landsat 8) and $red$ is the red band (band 3 on Landsat 4, 5, and 7; band 4 on Landsat 8), $swir1$ is the first short wave infrared band (band 5 on Landsat 4, 5, and 7; band 4 on Landsat 8), $swir2$ is the second short wave infrared band (band 7 on Landsat 4, 5, 7, and 8)
 
 We summarized each prefire image collection into a single prefire image using a median reducer, which calculated the median of the unmasked values on a per-pixel basis across the stack of images in the prefire collection. We similarly summarized the postfire image collection into a single postfire image (Fig. \ref{fig-reduce-collection}).
 
@@ -183,41 +183,31 @@ We fit the model in Eq. \ref{eq-cbi-calibration} for all 7 of our remotely-sense
 
 ### Heterogeneity of vegetation
 
-We used texture analysis to calculate a remotely-sensed measure of forest heterogeneity [@Haralick1973; @Tuanmu2015]. Within a moving square neighborhood window with sides of 90m, 150m, 210m, and 270m (corresponding to a moving neighborhood window of $`r round(90^2 / 10000, 2)`$ ha, $`r round(150^2 / 10000, 2)`$ ha, $`r round(210^2 / 10000, 2)`$ ha, and $`r round(270^2 / 10000, 2)`$ ha), we calculated heterogeneity for each focal pixel as the standard deviation of the NDVI values of its neighbors (not including itself).
+We used texture analysis to calculate a first order, remotely-sensed measure of forest heterogeneity [@Haralick1973; @Tuanmu2015]. Within a moving square neighborhood window with sides of 90m, 150m, 210m, and 270m (corresponding to a moving neighborhood window of $`r round(90^2 / 10000, 2)`$ ha, $`r round(150^2 / 10000, 2)`$ ha, $`r round(210^2 / 10000, 2)`$ ha, and $`r round(270^2 / 10000, 2)`$ ha), we calculated heterogeneity for each pixel as the standard deviation of the NDVI values of its neighbors (not including itself). To account for different amounts of vegetation in these moving neighborhood windows in the modeling step, we also calculated the mean value of NDVI of the neighboring pixels for each pixel.
 
 ![Neighborhood reducer that characterize each pixel as a summary of the neighboring pixels within a specified kernel. Image courtesy of Google and can be found at https://developers.google.com/earth-engine/reducers_reduce_neighborhood \label{fig-reduce-neighborhood}](figures/reduce-neighborhood-cartoon.png)
-
-### Other vegetation conditions
-
-We calculated pre-fire NDVI for each pixel.
-
-We calculated the pre-fire mean NDVI in the same moving windows as the standard deviation of NDVI.
 
 ### Topographic conditions
 
 Elevation data were sourced from the Shuttle Radar Topography Mission [@Farr2007], a 1-arc second digital elevation model. Slope and aspect were extracted from the digital elevation model. Per-pixel topographic roughness was calculated as the standard deviation of elevation values within a the same kernel sizes as those used for vegetation heterogeneity (approximately 90m, 150m, 210m, and 270m on a side and not including the central pixel). Some work has shown that terrain ruggedness [@Holden2009], and particularly coarser-scale terrain ruggedness [@Dillon2011], is an important predictor of wildfire severity.
 
-We used the digital elevation model to calculate the potential annual heat load at each pixel, which is an integrated measure of latitude, slope, and aspect (@McCune2002 with correction in @McCune2007).
-
-Folding the aspect about the northeast-southwest line, such that northeast becomes 0 radians and southwest becomes $\pi$ radians.
-
-\begin{equation}
-\label{eq-folded-aspect}
-aspect_{folded} = \mathopen| \pi - \mathopen| aspect - \frac{5\pi}{4}\mathclose| \mathclose|
-\end{equation}
+We used the digital elevation model to calculate the potential annual heat load at each pixel, which is an integrated measure of latitude, slope, and a folding transformation of aspect about the northeast-southwest line, such that northeast becomes 0 radians and southwest becomes $\pi$ radians (@McCune2002 with correction in @McCune2007):
 
 \begin{equation}
 \begin{aligned}
 \label{eq-potential-annual-heat-load}
-log(PAHL) = -1.467 &+ \\
-1.582 &* cos(latitude) * cos(slope) - \\
-1.5 &* cos(aspect_{folded}) * sin(slope) * sin(latitude) - \\
-0.262 &* sin(lat) * sin(slope) + \\
-0.607 &* sin(aspect_{folded}) * sin(slope) \\
+aspect_{folded} &= \mathopen| \pi - \mathopen| aspect - \frac{5\pi}{4}\mathclose| \mathclose| \\
+log(pahl) &= \begin{aligned}[t]
+&-1.467 + \\
+&1.582 * cos(latitude) cos(slope) - \\
+&1.5 * cos(aspect_{folded}) sin(slope) sin(latitude) - \\
+&0.262 * sin(lat) sin(slope) + \\
+&0.607 * sin(aspect_{folded}) sin(slope) \\
+\end{aligned}
 \end{aligned}
 \end{equation}
 
-Where PAHL is the potential annual heat load, folded_aspect is determined by Eq. \ref{eq-folded-aspect} and is in units of radians, and both latitude and slope are extracted from a digital elevation model with units of radians.
+Where $pahl$ is the potential annual heat load, $aspect_{folded}$ is a transformation of aspect in radians, and both $latitude$ and $slope$ are extracted from a digital elevation model with units of radians.
 
 ### Fire weather conditions
 
@@ -232,13 +222,24 @@ We scaled all predictor variables, and treated each individual fire as having a 
 \begin{equation}
 \begin{aligned}
 \label{eq-severity-model}
-severity_{i, j} &\sim \mathcal{N}(\mu_{i,j}, \sigma_{\text{error}}) \\
-\mu_{i,j} &= \beta_0 + \gamma_j + \beta_{\text{heterogeneity}}*\text{heterogeneity\_i}
+severity_{i, j} &\sim \mathcal{N}(\mu_{i,j}, \sigma_{\text{residual}}) \\
+\mu_{i,j} &= 
+\begin{aligned}[t]
+& \beta_0 + \gamma_j + \\
+& \beta_{\text{heterogeneity}} * \text{heterogeneity}_i + \\
+& \beta_{\text{heterogeneity*extreme\_fm100}} * \text{heterogeneity}_i * \text{extreme}_\text{fm100} + \\ 
+& \beta_{\text{neighborhood\_mean}} * \text{neighborhood\_mean}_i + \\
+& \beta_{\text{terrain\_ruggedness}} * \text{terrain\_ruggedness}_i + \\
+& \beta_{\text{pahl}} * \text{pahl}_i + \\
+& \beta_{\text{fm100}} * \text{fm100}_i + \\
+& \beta_{\text{extreme\_fm100}} + \text{fm100}
+\end{aligned}
+\\
+\gamma_j &\sim \mathcal{N}(0, \sigma_{\text{fire}})
 \end{aligned}
 \end{equation}
 
-
-Each neighborhood size was substituted in turn for the heterogeneity of NDVI covariate, to generate a candidate set of 4 models which were compared using AIC. The model with the best out-of-sample prediction was further analyzed by comparing the B coefficients to assess the relative effect of each predictor on wildfire severity.
+Each neighborhood size was substituted in turn for the heterogeneity of NDVI, neighborhood mean NDVI, and terrain ruggedness covariates to generate a candidate set of 4 models which were compared using AIC. The model with the best out-of-sample prediction was further analyzed by comparing the $\beta$ coefficients to assess the relative effect of each predictor on wildfire severity.
 
 ## Statistical software and data availability
 
