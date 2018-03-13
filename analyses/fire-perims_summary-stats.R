@@ -4,21 +4,22 @@ library(sf)
 library(lme4)
 library(dplyr)
 library(ggplot2)
+library(here)
 
-frap <- st_read(dsn = "data/features/fire_perim/fire_perim_sn_16_1_shp/",
+frap <- st_read(dsn = here::here("data/features/fire_perim/fire_perim_sn_16_1_shp/"),
                  stringsAsFactors = FALSE) %>% 
   st_transform(4326)
 
-if (file.exists("data/data_output/usfs-fire-perimeters-sn.rds")) {
-  load("data/data_output/usfs-fire-perimeters-sn.rds")
+if (file.exists(here::here("data/data_output/usfs-fire-perimeters-sn.rds"))) {
+  load(here::here("data/data_output/usfs-fire-perimeters-sn.rds"))
 } else {
-  source("data/data_carpentry/filter-sn_usfs_fire_perims.R")
+  source(here::here("data/data_carpentry/filter-sn_usfs_fire_perims.R"))
 }
 
-if (file.exists("data/data_output/all-fire-samples.rds")) {
-  load("data/data_output/all-fire-samples.rds")
+if (file.exists(here::here("data/data_output/all-fire-samples.rds"))) {
+  load(here::here("data/data_output/all-fire-samples.rds"))
 } else {
-  source("data/data_carpentry/merge_fire_samples.R")
+  source(here::here("data/data_carpentry/merge_fire_samples.R"))
 }
 
 samps

@@ -20,38 +20,39 @@ library(modelr)
 library(tidyr)
 library(lazyeval)
 library(lme4)
+library(here)
 
 ###
 ### Bilinear interpolation
 ###
 
 # Get 16-day window, bilinear interpolation data
-cbi_16_bilinear <- st_read("data/ee_cbi-calibration/cbi-calibration_16-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
+cbi_16_bilinear <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_16-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 32-day window, bilinear interpolation data
-cbi_32_bilinear <- st_read("data/ee_cbi-calibration/cbi-calibration_32-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
+cbi_32_bilinear <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_32-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 48-day window, bilinear interpolation data
-cbi_48_bilinear <- st_read("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
+cbi_48_bilinear <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 64-day window, bilinear interpolation data
-cbi_64_bilinear <- st_read("data/ee_cbi-calibration/cbi-calibration_64-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
+cbi_64_bilinear <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_64-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
 
 ### 
 ### Bicubic interpolation
 ###
 
 # Get 16-day window, bicubic interpolation data
-cbi_16_bicubic <- st_read("data/ee_cbi-calibration/cbi-calibration_16-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
+cbi_16_bicubic <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_16-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 32-day window, bicubic interpolation data
-cbi_32_bicubic <- st_read("data/ee_cbi-calibration/cbi-calibration_32-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
+cbi_32_bicubic <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_32-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 48-day window, bicubic interpolation data
-cbi_48_bicubic <- st_read("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
+cbi_48_bicubic <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 64-day window, bicubic interpolation data
-cbi_64_bicubic <- st_read("data/ee_cbi-calibration/cbi-calibration_64-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
+cbi_64_bicubic <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_64-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
 
 cbi_list <- list(bilinear_16 = cbi_16_bilinear,
                  bilinear_32 = cbi_32_bilinear,
@@ -187,7 +188,7 @@ model_summary
 model_summary[order(model_summary$r2_kfold, decreasing = TRUE), ]
 model_summary[order(model_summary$r2_all, decreasing = TRUE), ]
 
-write.csv(model_summary, "data_output/cbi_calibration_model_comparison.csv", row.names = FALSE)
+write.csv(model_summary, here::here("data_output/cbi_calibration_model_comparison.csv"), row.names = FALSE)
 # For conifer forest, it appears that the bicubic interpolation of RBR and using 
 # a 48-day window prior to the fire results in the best fit to on-the-ground severity. 
 # Best model using all the data is RBR, bicubic, 32-day window
