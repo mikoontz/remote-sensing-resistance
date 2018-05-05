@@ -15,3 +15,4 @@ data/ee_fire-images/american-fire_2013_visualize.tif
 data/ee_fire-images/hamm-fire_1987_visualize.tif
 data/ee_fire-samples/*
 manuscript/feedback
+*.rds
