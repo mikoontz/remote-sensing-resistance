@@ -219,7 +219,7 @@ summary(fm4)
 ```
 # Plot focal NDVI vs. neighborhood NDVI
 
-```{r focal_ndvi_v_neighborhood_ndvi, cache = TRUE}
+```{r focal_ndvi_v_neighborhood_ndvi, cache = FALSE}
 par(mfrow = c(2, 2))
 plot(x = ss$preFire_ndvi, y = ss$focal_mean_ndvi_1, pch = 20)
 plot(x = ss$preFire_ndvi, y = ss$focal_mean_ndvi_2, pch = 20)
