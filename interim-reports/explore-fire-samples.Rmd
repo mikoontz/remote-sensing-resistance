@@ -1,40 +1,46 @@
 ---
 title: "Explore Fire Samples"
 author: "Michael Koontz"
-date: "1/23/2018"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output: html_document
-bibliography: "../ms/ms_carpentry/remote-sensing-resistance.bib"
-csl: "../ms/ms_carpentry/ecology-letters.csl"
+bibliography: '`r here::here("manuscript/ms_carpentry/remote-sensing-resistance.bib")`'
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/ecology-letters.csl
 ---
 
 This document represents the initial exploratory data analysis of the fire samples
 derived using the Earth Engine code.
 
 ```{r setup, message = FALSE}
-library(lubridate)
 library(sf)
 library(lme4)
 library(dplyr)
 library(ggplot2)
+library(here)
+library(lubridate)
 ```
 
-```{r read_files, cache = TRUE, message = FALSE}
-fires <- st_read(dsn = "../data/features/fire_perim/fire_perim_sn_16_1_shp/",
-                 stringsAsFactors = FALSE)
-sn <- st_read("../data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp") %>% 
+```{r read_files, message = FALSE}
+fires <- st_read(dsn = here::here("/data/features/fire_perim/fire_perim_sn_16_1_shp/"),
+                 stringsAsFactors = FALSE) %>% 
   st_transform(4326)
-samps1 <- st_read("../data/ee_fire-samples/fires-strat-samples_48-day-window_L45_none-interp.geojson")
-samps2 <- st_read("../data/ee_fire-samples/fires-strat-samples_48-day-window_L578_none-interp.geojson")
-samps3 <- st_read("../data/ee_fire-samples/fires-strat-samples_48-day-window_L78_none-interp.geojson")
-samps <- rbind(samps1, samps2, samps3)
+sn <- st_read(here::here("/data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp")) %>% 
+  st_transform(4326)
+
+if (!file.exists(here::here("data/data_output/all-fire-samples_texture.rds"))) {
+  source(here::here("data/data_carpentry/merge_fire-samples.R"))
+}
+
+load(here::here("data/data_output/all-fire-samples_texture.rds"))
+
+samps <- texture_samps
 ```
 
 What fires are available for data collection in Earth Engine?
 
-```{r explore_fires_raw, cache = TRUE}
+```{r explore_fires_raw, cache = FALSE}
 glimpse(fires)
 fires %>% 
-  filter(YEAR_ >= 1982) %>% 
+  filter(YEAR_ > 1982) %>% 
   group_by(YEAR_) %>% 
   tally()
 
@@ -53,7 +59,20 @@ fires %>%
 
 ```
 
-```{r look_at_samples, cache = TRUE}
+How many fires do we expect to be able to get samples from? That is, how many FRAP perimeters after 1982 in the Sierra Nevada?
+
+```{r total_FRAP_fires}
+sn_fires <-
+  fires %>% 
+  filter(!is.na(ALARM_DATE)) %>% 
+  mutate(datetime = ymd(ALARM_DATE)) %>% 
+  filter(datetime > ymd('1982-08-22')) %>% 
+  filter(datetime < ymd('2017-03-15')) %>% 
+  st_intersection(sn)
+```
+There are `r nrow(sn_fires)` possible fires in the Sierra Nevada during the modern Landat era in the FRAP database. Note that some of these fires may not contain any points in mixed conifer, and some imagery might not be available (especially near the ends of the time series) so the representation of all of these fires in the fire samples may not be complete.
+
+```{r look_at_samples, cache = FALSE}
 glimpse(samps)
 # Extract unique Fire ID from the sample point IDs
 samps$fire_id <- substr(as.character(samps$id), start = 1, stop = 20)
@@ -155,15 +174,34 @@ timing_vars <- c("year_", "alarm_date", "cont_date", "c_doy")
 Consolidate vegetation variable names.
 
 ```{r consolidate_veg_var_names}
-veg_vars <- c("focal_mean_evi_1", "focal_mean_evi_2", "focal_mean_evi_3", "focal_mean_evi_4", 
-              "focal_mean_ndvi_1", "focal_mean_ndvi_2", "focal_mean_ndvi_3", "focal_mean_ndvi_4",
-              "focal_mean_ndwi_1", "focal_mean_ndwi_2", "focal_mean_ndwi_3", "focal_mean_ndwi_4", 
-              "het_evi_1", "het_evi_2", "het_evi_3", "het_evi_4", 
-              "het_ndvi_1", "het_ndvi_2", "het_ndvi_3", "het_ndvi_4",
-              "het_ndwi_1", "het_ndwi_2", "het_ndwi_3", "het_ndwi_4", 
-              "preFire_evi",
-              "preFire_ndvi",
-              "preFire_ndwi")
+veg_vars <-
+  sapply(X = 1:4, 
+         FUN = function(i) paste(
+           c(
+             "focal_mean_ndvi",
+             "focal_mean_ndwi",
+             "het_ndvi",
+             "het_ndwi",
+             "ndvi_asm",
+             "ndvi_contrast",
+             "ndvi_corr",
+             "ndvi_dent",
+             "ndvi_diss",
+             "ndvi_dvar",
+             "ndvi_ent",
+             "ndvi_idm",
+             "ndvi_imcorr1",
+             "ndvi_imcorr2",
+             "ndvi_inertia",
+             "ndvi_prom",
+             "ndvi_savg",
+             "ndvi_sent",
+             "ndvi_shade",
+             "ndvi_svar",
+             "ndvi_var"
+           ), i, sep = "_")) %>% 
+  as.vector() %>% 
+  c("preFire_ndvi", "preFire_ndwi")
 ```
 
 ## Fire weather variables
@@ -207,7 +245,7 @@ glimpse(ss)
 
 We will use the Relative Burn Ratio (RBR) from [@Parks2014] as our response variable. Look at models at different scales
 
-```{r build_models_continuous, cache = TRUE}
+```{r build_models_continuous, cache = FALSE}
 m1 <- lmer(RBR ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss)
 m2 <- lmer(RBR ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss)
 m3 <- lmer(RBR ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss)
@@ -223,8 +261,8 @@ AIC(m1, m2, m3, m4)
 
 Correlations amongst response variables?
 
-```{r response_correlations, cache = TRUE}
-pairs(samps[, c("RdNBR", "RdNBR2", "RdNDVI", "RdEVI", "RBR"), drop = TRUE])
+```{r response_correlations, cache = FALSE}
+pairs(samps[, c("RdNBR", "RdNBR2", "RdNDVI", "RBR"), drop = TRUE])
 ```
 
 Consider switching to a "high severity" / "not high severity" boolean response.
@@ -236,7 +274,7 @@ metrics tend to have a non-linear relationship with on-the-ground severity
 
 
 ```{r get_cbi_calibration_model_summary}
-model_summary <- read.csv("../data_output/cbi_calibration_model_comparison.csv", stringsAsFactors = FALSE)
+model_summary <- read.csv(here::here("data/data_output/cbi_calibration_model_comparison.csv"), stringsAsFactors = FALSE)
 target_model <- model_summary[model_summary$response == "RBR" &
                                 model_summary$time_window == 48 &
                                 model_summary$interpolation == "bicubic", ]
@@ -256,7 +294,7 @@ ss$stand_replacing <- ifelse(ss$RBR > target_model$hi_sev, yes = 1, no = 0)
 
 Our modeling effort then becomes a generalized linear model with a logit link, estimating how different covariate affect the *probability* of a high severity fire
 
-```{r build_model_binomial, cache = TRUE}
+```{r build_model_binomial, cache = FALSE}
 glm1 <- glmer(stand_replacing ~ het_ndvi_1_s * fm100_s + 
                 preFire_ndvi_s + 
                 topo_roughness_1_s + 
@@ -278,7 +316,7 @@ Just a check here: neighborhood windows with very low and very high mean values 
 
 This plot is beautifully concave down:
 
-```{r focal_mean_v_focal_het, cache = TRUE}
+```{r focal_mean_v_focal_het, cache = FALSE}
 ggplot(ss, aes(x = focal_mean_ndvi_1, y = het_ndvi_1)) +
   geom_point() + 
   geom_smooth(method = "loess")
@@ -290,7 +328,7 @@ We expect that low and high mean neighborhood values of greeness (e.g., NDVI) sh
 
 This plot is fairly flat until a point, then it declines quickly.
 
-```{r center_mean_v_focal_het, cache = TRUE}
+```{r center_mean_v_focal_het, cache = FALSE}
 ggplot(ss, aes(x = preFire_ndvi, y = het_ndvi_1)) +
   geom_point() +
   geom_smooth(method = "loess")
@@ -300,7 +338,7 @@ So that non-linearity poses a problem for answering the question that we really 
 Any signal of heterogeneity is lost at high levels of greenness
 As an example, subset the data to only include preFire_ndvi values where heterogeneity is even (i.e., prior to the declining relationship between focal pixel greenness and heterogeneity)
 
-```{r split_model, cache = TRUE}
+```{r split_model, cache = FALSE}
 glm2 <- glmer(stand_replacing ~  het_ndvi_1_s * fm100_s + 
                 preFire_ndvi_s + 
                 topo_roughness_1_s + 
@@ -319,7 +357,7 @@ All of a sudden, a huge impact of heterogeneity, as we expected. How best to acc
 
 Pretty highly correlated, and declining as scales diverge:
 
-```{r het_correlations, cache = TRUE}
+```{r het_correlations, cache = FALSE}
 cor(ss[, c("het_ndvi_1", "het_ndvi_2", "het_ndvi_3", "het_ndvi_4"), drop = TRUE])
 pairs(ss[, c("het_ndvi_1", "het_ndvi_2", "het_ndvi_3", "het_ndvi_4"), drop = TRUE])
 ```
@@ -328,7 +366,7 @@ pairs(ss[, c("het_ndvi_1", "het_ndvi_2", "het_ndvi_3", "het_ndvi_4"), drop = TRU
 
 A negative correlation:
 
-```{r rough_v_het, cache = TRUE}
+```{r rough_v_het, cache = FALSE}
 cor(ss$topo_roughness_1, ss$het_ndvi_1)
 ggplot(ss, aes(x = topo_roughness_1, y = het_ndvi_1)) +
   geom_point() +
@@ -353,7 +391,7 @@ ss %>%
 
 What is the relationship between neighborhood mean NDVI and focal pixel NDVI?
 
-```{r center_v_focal_ndvi, cache = TRUE}
+```{r center_v_focal_ndvi, cache = FALSE}
 ggplot(ss, aes(y = focal_mean_ndvi_1, x = preFire_ndvi)) +
   geom_point() +
   geom_smooth()
@@ -410,24 +448,71 @@ summary(extreme80_lm_1)
 And with the bionomial
 
 ```{r}
+extreme80_glm_1 <- glmer(stand_replacing ~ het_ndvi_1_s +
+                           fm100_s +
+                           extreme80_fm100 +
+                           het_ndvi_1_s:extreme80_fm100 + 
+                           het_ndvi_1_s:fm100_s +
+                           preFire_ndvi_s + 
+                           topo_roughness_1_s + 
+                           pdir_s + 
+                           (1 | fire_id), 
+                         data = ss, 
+                         family = "binomial",
+                         control = glmerControl(optimizer = "bobyqa"))
 
+summary(extreme80_glm_1)
 ```
 
-extreme_glm_1 <- glmer(stand_replacing ~ het_ndvi_1_s +
-                                 fm100_s +
-                                 extreme80_fm100 +
-                                 het_ndvi_1_s:extreme80_fm100 + 
-                                 het_ndvi_1_s:fm100_s +
-                                 preFire_ndvi_s + 
-                                 topo_roughness_1_s + 
-                                 pdir_s + 
-                               (1 | fire_id), 
-                             data = ss, 
-                             family = "binomial",
-                             control = glmerControl(optimizer = "bobyqa"))
+```{r}
+extreme80_glm_1 <- glmer(stand_replacing ~ het_ndvi_1_s +
+                           fm100_s +
+                           extreme80_fm100 +
+                           het_ndvi_1_s:extreme80_fm100 + 
+                           het_ndvi_1_s:fm100_s +
+                           preFire_ndvi_s +
+                           focal_mean_ndvi_1 +
+                           topo_roughness_1_s + 
+                           pdir_s + 
+                           (1 | fire_id), 
+                         data = ss, 
+                         family = "binomial",
+                         control = glmerControl(optimizer = "bobyqa"))
 
-summary(extreme_lm_1)
-summary(extreme_glm_1)
+summary(extreme80_glm_1)
 ```
 
+Okay, let's also consider the focal mean NDVI
+
+```{r extreme80_lm_1_with_focal_mean}
+extreme80_lm_1_focal_mean <- lmer(RBR ~ het_ndvi_1_s +
+                                    fm100_s +
+                                    extreme80_fm100 +
+                                    het_ndvi_1_s:extreme80_fm100 + 
+                                    het_ndvi_1_s:fm100_s +
+                                    preFire_ndvi_s + 
+                                    focal_mean_ndvi_1 +
+                                    topo_roughness_1_s + 
+                                    pdir_s + 
+                                    (1 | fire_id), 
+                                  data = ss)
+
+summary(extreme80_lm_1_focal_mean)
+```
+
+Let's consider the focal mean NDVI and *not* the actual value of fm100, just the extreme/not extreme dummy variable
+
+```{r extreme80_lm_1_with_focal_mean_no_fm100}
+extreme80_lm_1_focal_mean_no_fm100 <- lmer(RBR ~ het_ndvi_1_s +
+                                             extreme80_fm100 +
+                                             het_ndvi_1_s:extreme80_fm100 + 
+                                             preFire_ndvi_s + 
+                                             focal_mean_ndvi_1 +
+                                             topo_roughness_1_s + 
+                                             pdir_s + 
+                                             (1 | fire_id), 
+                                           data = ss)
+
+summary(extreme80_lm_1_focal_mean_no_fm100)
+```
 
