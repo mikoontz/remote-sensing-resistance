@@ -35,7 +35,7 @@ l5_fires <-
   filter(ALARM_DATE > ymd("1984-04-01")) %>%
   filter(ALARM_DATE < ymd("2011-05-04")) %>%
   rename(fire_date = ALARM_DATE, fire_name = FIRE_NAME) %>%
-  select(fire_name, fire_date, Shape_Area, GIS_ACRES, geometry) %>%
+  dplyr::select(fire_name, fire_date, Shape_Area, GIS_ACRES, geometry) %>%
   mutate(area = st_area(.))
 
 # Confirmed: 1652 fires is exactly how many Google Earth Engine shows using the
@@ -50,3 +50,25 @@ dim(l5_fires)
 # the Sierra Nevada was kept. This is NOT what happens with the filterBounds()
 # operation in Google Earth Engine, so additional clipping will be necessary
 # there.
+
+# Find the Storrie Fire
+
+storrie <-
+  fires %>% 
+  filter(ALARM_DATE > ymd("2000-01-01")) %>% 
+  filter(ALARM_DATE < ymd("2000-12-30")) %>% 
+  filter(FIRE_NAME == "STORRIE")
+
+storrie
+plot(storrie$geometry)
+
+# Find the McNally Fire
+
+mcnally <-
+  fires %>% 
+  filter(ALARM_DATE > ymd("2002-01-01")) %>% 
+  filter(ALARM_DATE < ymd("2002-12-30")) %>% 
+  filter(FIRE_NAME == "MCNALLY")
+
+mcnally
+plot(mcnally$geometry)
