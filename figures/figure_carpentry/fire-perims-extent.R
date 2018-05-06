@@ -16,13 +16,13 @@ library(viridis)
 
 
 # Get the fire samples ----------------------------------------------------
-# object is called 'samps'
+# object is called 'ss_burned'
 
-if (file.exists("data/data_output/all-fire-samples.rds")) {
-  load("data/data_output/all-fire-samples.rds")
-} else {
-  source("data/data_carpentry/merge_fire_samples.R")
+if (!file.exists("data/data_output/burned-fire-samples_texture_configured.rds")) {
+  source("data/data_carpentry/configure_fire-samples.R")
 }
+
+load(here::here("data/data_output/burned-fire-samples_texture_configured.rds"))
 
 # Get conifer forest ------------------------------------------------------
 
@@ -47,7 +47,7 @@ ca <- raster::getData(name = "GADM",country = "USA",level = 1, path = "data/feat
   filter(NAME_1 == "California") %>% 
   st_transform(st_crs(sn))
 
-# Less detailed CA outline in case first version makes things too slow ---------------------------------------
+# Less_burned detailed CA outline in case first version makes things too slow ---------------------------------------
 
 # A lighter-weight California outline (not a multipolygon, not as detailed)
 # usa <-
@@ -65,18 +65,97 @@ ca <- raster::getData(name = "GADM",country = "USA",level = 1, path = "data/feat
 
 #  Build the plot! --------------------------------------------------------
 
-pdf("figures/frap-extent.pdf", width = 8.2 / 2.54, height = 10.2 /2.54)
+# pdf("figures/frap-extent.pdf", width = 8.2 / 2.54, height = 10.2 /2.54)
+mar_old <- par()$mar
+fig_old <- par()$fig
 
-plot(ca$geometry, axes = TRUE, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0))
-plot(sn$geometry, add = TRUE)
+pdf("figures/frap-extent.pdf", width = 11 / 2.54, height = 11 /2.54)
+
+par(mar = rep(0, 4))
+plot(sn$geometry, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0), col = "lightgrey")
 plot(frap_mixed_con, add = TRUE, col = viridis(6))
 
+par(fig = c(0, 0.4, 0, 0.4), new = TRUE)
+plot(ca$geometry, axes = FALSE)
+box(which = "figure")
+plot(sn$geometry, add = TRUE, col = "lightgrey")
+
+par(fig = fig_old, new = FALSE, mar = mar_old)
+
 dev.off()
 
-pdf("figures/fire-samples-extent.pdf", width = 8.2 / 2.54, height = 10.2 /2.54)
 
-plot(ca$geometry, axes = TRUE, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0))
-plot(sn$geometry, add = TRUE)
-plot(samps$geometry, add = TRUE, pch = 19, cex = 0.01)
+# pdf("figures/fire-samples-extent.pdf", width = 8.2 / 2.54, height = 10.2 /2.54)
+pdf("figures/fire-samples-extent.pdf", width = 11 / 2.54, height = 11 /2.54)
+
+par(mar = rep(0, 4))
+plot(sn$geometry, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0), col = "lightgrey")
+plot(ss_burned$geometry, add = TRUE, pch = 19, cex = 0.01)
+
+par(fig = c(0, 0.4, 0, 0.4), new = TRUE)
+plot(ca$geometry, axes = FALSE)
+box(which = "figure")
+plot(sn$geometry, add = TRUE, col = "lightgrey")
+
+par(fig = fig_old, new = FALSE, mar = mar_old)
 
 dev.off()
+
+# Create a conifer plot
+
+pdf("figures/mixed-conifer.pdf", width = 11 / 2.54, height = 11 / 2.54)
+mixed_con <- raster("data/data_output/landcover_PFR/mixed_conifer_sn-mask_10-fold-res.tif")
+
+par(mar = rep(0, 4))
+plot(sn$geometry, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0), col = "lightgrey")
+plot(mixed_con, col = c("white", "darkgreen"), add = TRUE, legend = FALSE)
+
+par(fig = c(0, 0.4, 0, 0.4), new = TRUE)
+plot(ca$geometry, axes = FALSE)
+box(which = "figure")
+plot(sn$geometry, add = TRUE, col = "lightgrey")
+
+par(fig = fig_old, new = FALSE, mar = mar_old)
+
+dev.off()
+
+
+# Tripanel plot of fire extent, mixed conifer extent, and samples from those fires used in analysis
+pdf("figures/study-geographic-setting.pdf", width = 17.3 / 2.54, height = 11 / 2.54)
+par(mfrow = c(1, 3), mar = c(0, 2, 0, 0), oma = c(0, 3, 0, 0), xpd = NA)
+mar_old <- par()$mar
+
+plot(sn$geometry, cex.axis = 0.5, las = 1, col = "lightgrey")
+plot(frap_mixed_con, add = TRUE, col = viridis(6), legend = FALSE)
+plot(frap_mixed_con, 
+     smallplot = c(0.085, 0.1, 0.45, 0.85), 
+     legend.only = TRUE, 
+     col = viridis(6), 
+     legend.args = list(text = "Number\nof fires", 
+                        side = 1, 
+                        line = 3),
+     axis.args = list(line = 0,
+                      tcl = 1,
+                      mgp = c(0, -2, 0)))
+
+text(x = -119, y = 40, labels = "A", cex = 3)
+
+plot(sn$geometry, cex.axis = 0.5, las = 1, col = "lightgrey")
+plot(mixed_con, col = c("white", "darkgreen"), add = TRUE, legend = FALSE)
+
+text(x = -119, y = 40, labels = "B", cex = 3)
+
+plot(sn$geometry, cex.axis = 0.5, las = 1, col = "lightgrey")
+used_ss_burned <- ss_burned %>% 
+  filter(conifer_forest == 1)
+plot(ss_burned$geometry, add = TRUE, pch = 19, cex = 0.1)
+
+text(x = -119, y = 40, labels = "C", cex = 3)
+
+par(fig = c(0, 0.15, 0, 0.35), new = TRUE, mar = rep(0, 4))
+plot(ca$geometry, axes = FALSE, outer = TRUE)
+plot(sn$geometry, add = TRUE, col = "lightgrey", outer = TRUE)
+# box(which = "figure")
+
+dev.off()
+
