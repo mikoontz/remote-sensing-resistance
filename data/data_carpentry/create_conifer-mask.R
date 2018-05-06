@@ -34,3 +34,15 @@ plot(sn_r)
 plot(sn$geometry, add = TRUE)
 
 writeRaster(x = sn_r, filename = "data/data_output/landcover_PFR/mixed_conifer.tif")
+
+# Create a masked version of the conifer_mask (clipped to the Sierra Nevada geometry)
+# Good for visualization only, as it isn't the same resolution of the Landsat data
+plot(sn_v)
+
+r_masked <- raster(sn, resolution = res(r) * 10)
+nsn_r_masked <- fasterize(sf = nsn, raster = r_masked)
+ssn_r_masked <- fasterize(sf = ssn, raster = r_masked)
+sn_r_masked <- merge(nsn_r_masked, ssn_r_masked)
+plot(sn_r_masked)
+
+writeRaster(x = sn_r_masked, filename = "data/data_output/landcover_PFR/mixed_conifer_sn-mask_10-fold-res.tif")
