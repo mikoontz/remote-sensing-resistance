@@ -41,7 +41,7 @@ ca <- raster::getData(name = "GADM",country = "USA",level = 1, path = "data/feat
 sn <- st_read("data/features/SierraEcoregion_Jepson/") %>% st_transform(4326)
 
 # Get 48-day window, bicubic interpolation data ---------------------------
-cbi_48_bicubic <- st_read("data/cbi_calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE) %>% 
+cbi_48_bicubic <- st_read("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp_texture.geojson", stringsAsFactors = FALSE) %>% 
   mutate(alarm_date = as.POSIXct(alarm_date / 1000, origin = "1970-01-01")) %>% 
   mutate(alarm_date = floor_date(alarm_date, unit = "days")) %>% 
   mutate(year = year(alarm_date))
@@ -60,16 +60,28 @@ year_colors <- viridis(n_distinct(conifer_only$year))
 # year_colors <- sf.colors(n_distinct(conifer_only$year))
 plot_colors <- year_colors[match(conifer_only$year, years)]
 
-pdf("figures/cbi-extent.pdf", width = 8.2 / 2.54, height = 10.2 /2.54)
-plot(ca$geometry, axes = TRUE, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0))
-plot(sn$geometry, add = TRUE)
-plot(conifer_only$geometry, add = TRUE, pch = 19, col = plot_colors, cex = 0.25)
+### Version 1
+# pdf("figures/cbi-extent.pdf", width = 8.2 / 2.54, height = 10.2 /2.54)
+# 
+# plot(ca$geometry, axes = TRUE, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0))
+# plot(sn$geometry, add = TRUE)
+# plot(conifer_only$geometry, add = TRUE, pch = 19, col = plot_colors, cex = 0.25)
+# legend("topright", legend = years, pch = 19, title = "Years", col = year_colors, bty = "n", cex = 0.5)
+# 
+# dev.off()
+###
+
+pdf("figures/cbi-extent.pdf", width = 11 / 2.54, height = 11 /2.54)
+
+par(mar = rep(0, 4))
+plot(sn$geometry, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0))
+plot(conifer_only$geometry, add = TRUE, pch = 19, cex = 0.25, col = plot_colors)
 legend("topright", legend = years, pch = 19, title = "Years", col = year_colors, bty = "n", cex = 0.5)
+
+par(fig = c(0, 0.4, 0, 0.4), new = TRUE)
+plot(ca$geometry, axes = FALSE)
+box(which = "figure")
+plot(sn$geometry, add = TRUE)
+
 dev.off()
-# ggplot() +
-#   geom_sf(data = ca, fill = NA) +
-#   geom_sf(data = sn) +
-#   geom_sf(data = conifer_only, aes(col = as.factor(year))) +
-#   scale_color_viridis(discrete = TRUE) +
-#   theme_minimal()
-?par
+
