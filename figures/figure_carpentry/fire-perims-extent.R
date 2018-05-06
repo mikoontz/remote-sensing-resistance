@@ -26,7 +26,7 @@ load(here::here("data/data_output/burned-fire-samples_texture_configured.rds"))
 
 # Get conifer forest ------------------------------------------------------
 
-mixed_con <- raster("data/data_output/landcover_PFR/mixed_conifer.tif")
+mixed_con <- raster("data/data_output/landcover_PFR/mixed_conifer_sn-mask_10-fold-res.tif")
 # plot(mixed_con) 
 
 # Get frap fires --------------------------------------------------
