@@ -188,7 +188,7 @@ model_summary
 model_summary[order(model_summary$r2_kfold, decreasing = TRUE), ]
 model_summary[order(model_summary$r2_all, decreasing = TRUE), ]
 
-write.csv(model_summary, here::here("data_output/cbi_calibration_model_comparison.csv"), row.names = FALSE)
+write.csv(model_summary, here::here("data/data_output/cbi_calibration_model_comparison.csv"), row.names = FALSE)
 # For conifer forest, it appears that the bicubic interpolation of RBR and using 
 # a 48-day window prior to the fire results in the best fit to on-the-ground severity. 
 # Best model using all the data is RBR, bicubic, 32-day window
