@@ -1,9 +1,7 @@
 library(tidyr)
 library(lubridate)
 library(sf)
-library(lme4)
 library(dplyr)
-library(ggplot2)
 library(here)
 
 frap <- st_read(dsn = here::here("data/features/fire_perim/fire_perim_sn_16_1_shp/"),
