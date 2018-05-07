@@ -17,7 +17,7 @@ cbi_32_bilinear <- st_read("data/ee_cbi-calibration/cbi-calibration_32-day-windo
 # For the RdNDVI severity metric
 cbi_48_bilinear <- st_read("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
 
-cbi_table <- read_csv("data_output/cbi_calibration_model_comparison.csv")
+cbi_table <- read_csv("data/data_output/cbi_calibration_model_comparison.csv")
 
 
 cbi_mask_conifer <- function(data) {
@@ -120,7 +120,7 @@ text(x = 0, y = max(cbi_mask_conifer(cbi_32_bilinear)$RdNBR, na.rm = TRUE) * pos
      cex = cex_in_panel_text)
 
 plot(x = cbi_mask_conifer(cbi_48_bilinear)$cbi_over, y = cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, 
-     pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RdNDVI (32-day window)")
+     pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RdNDVI (48-day window)")
 lines(cbi_over, yhat_rdndvi)
 text(x = 0, y = max(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE), 
      labels = bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rdndvi$r2_kfold, 5))),
