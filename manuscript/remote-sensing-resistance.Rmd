@@ -15,6 +15,7 @@ header-includes:
 - \usepackage{longtable}
 - \usepackage{makecell}
 - \usepackage{caption}
+- \usepackage{textgreek}
 - \linenumbers
 - \renewcommand\abstractname{\vspace{-1em}}
 # - \captionsetup{width=15cm}
@@ -209,7 +210,7 @@ We calculated the relative burn ratio (RBR) following @Parks2014:
 RBR = \frac{dNBR}{NBR_{\text{prefire}} + 1.001}
 \end{equation}
 
-![Example algorithm outputs for the Hamm Fire of 1987 (top row) and the American Fire of 2013 (bottom row) showing: prefire true color image (left column), postfire true color image (center column), relative burn ratio (RBR) calculation using a 48-day image collation window before the fire and one year later. For visualization purposes, these algorithm outputs have been resampled to a resolution of 100m x 100m from their original resolution of 30m x 30m. Data were sampled from the outputs at the original resolution. \label{fig-pre-post-rbr}](../figures/pre-post-rbr.pdf)
+![Example algorithm outputs for the Hamm Fire of 1987 (top row) and the American Fire of 2013 (bottom row) showing: prefire true color image (left column), postfire true color image (center column), relative burn ratio (RBR) calculation using a 48-day image collation window before the fire and one year later. For visualization purposes, these algorithm outputs have been resampled to a resolution of 100m x 100m from their original resolution of 30m x 30m. Data used for analyses were sampled from the outputs at the original resolution. \label{fig-pre-post-rbr}](../figures/pre-post-rbr.pdf)
 
 ### Calibrating remotely-sensed wildfire severity with field-measured wildfire severity
 
@@ -310,19 +311,19 @@ print_cbi_models <-
 
 ## A new approach to remotely sensing wildfire severity
 
-We found that the remotely sensed relative burn ratio (RBR) metric of wildfire severity measured across a 48 day interval prior to the wildfire alarm date correlated best with ground based composite burn index (CBI) measurements of severity (5-fold cross validation $R^2 = $ `r print_cbi_models$r2_kfold[1]`; Table \ref{table-cbi-models}). Our method to calculate remotely sensed severity using automated Landsat image fetching performs as well or better than most other reported methods that use hand-curation of Landsat imagery [@Edwards2018]. Further, several combinations of remotely sensed severity metrics, time windows, and interpolation methods validate well with the ground based severity metrics, including those based on NDVI which is calculated using reflectance in shorter wavelengths than those typically used for measuring severity (Table \ref{table-cbi-models}). The top three models are depicted in Fig. \ref{fig-cbi-calibration}.
-
 ![Calibration of three remotely-sensed severity metrics using new automated image collation algorithm to `r total_conifer_plots` field measures of severity. \label{fig-cbi-calibration}](../figures/remote-sensed-severity-calibration.pdf)
+
+We found that the remotely sensed relative burn ratio (RBR) metric of wildfire severity measured across a 48 day interval prior to the wildfire alarm date correlated best with ground based composite burn index (CBI) measurements of severity (5-fold cross validation $R^2 = $ `r print_cbi_models$r2_kfold[1]`; Table \ref{table-cbi-models}). Our method to calculate remotely sensed severity using automated Landsat image fetching performs as well or better than most other reported methods that use hand-curation of Landsat imagery [@Edwards2018]. Further, several combinations of remotely sensed severity metrics, time windows, and interpolation methods validate well with the ground based severity metrics, including those based on NDVI which is calculated using reflectance in shorter wavelengths than those typically used for measuring severity (Table \ref{table-cbi-models}). The top three models are depicted in Fig. \ref{fig-cbi-calibration}.
 
 ```{r cbi_models_table}
 knitr::kable(print_cbi_models,
              # format = "latex",
              longtable = TRUE,
              booktabs = TRUE,
-             caption = "Comparison of models used to validate and calibrate remotely sensed wildfire severity with ground based composite burn index (CBI) severity sorted in descending order by the $R^2$ value from a 5-fold cross validation. A total of 56 models were tested representing all possible combinations of 7 different measures of wildfire severity (RBR, dNBR, dNBR2, RdNBR, RdNBR2, dNDVI, and RdNDVI), 4 different time windows in which Landsat imagery was acquired and summarized with a median reducer on a pixel-by-pixel basis (16 days, 32 days, 48 days, and 64 days), and two different interpolation methods (bilinear and bicubic). The three parameters (a, b, and c) from the nonlinear model fit described in Eq. \\ref{eq-cbi-calibration} are reported. For each model, the value of the remotely sensed wildfire severity measurement corresponding to the lower bounds of 3 commonly used categories of severity are reported ('low' corresponds to a CBI value of 0.1, 'mod' corresponds to a CBI value of 1.25, and 'high' corresponds to a CBI value of 2.25) \\label{table-cbi-models}",
+             caption = "Comparison of models used to validate and calibrate remotely sensed wildfire severity with ground based composite burn index (CBI) severity sorted in descending order by the $R^2$ value from a 5-fold cross validation. A total of 56 models were tested representing all possible combinations of 7 different measures of wildfire severity (RBR, dNBR, dNBR2, RdNBR, RdNBR2, dNDVI, and RdNDVI), 4 different time windows in which Landsat imagery was acquired and summarized with a median reducer on a pixel-by-pixel basis (16 days, 32 days, 48 days, and 64 days), and two different interpolation methods (bilinear and bicubic). The three parameters (\\textbeta\\textsubscript{0}, \\textbeta\\textsubscript{1}, and \\textbeta\\textsubscript{2}) from the nonlinear model fit described in Eq. \\ref{eq-cbi-calibration} are reported. For each model, the value of the remotely sensed wildfire severity measurement corresponding to the lower bounds of 3 commonly used categories of severity are reported ('low' corresponds to a CBI value of 0.1, 'mod' corresponds to a CBI value of 1.25, and 'high' corresponds to a CBI value of 2.25) \\label{table-cbi-models}",
              caption.short = "Comparison of models used to validate and calibrate remotely sensed wildfire severity with CBI severity",
              escape = FALSE,
-             col.names = c("Rank", "\\makecell[c]{Severity\\\\measure}", "\\makecell[c]{Time\\\\window}", "Interpolation", "\\makecell[c]{k-fold\\\\$R^2$}", "a", "b", "c", "low", "mod", "high")) %>%
+             col.names = c("Rank", "\\makecell[c]{Severity\\\\measure}", "\\makecell[c]{Time\\\\window}", "Interpolation", "\\makecell[c]{k-fold\\\\$R^2$}", "\\makecell[c]{\\textbeta\\textsubscript{0}}", "\\makecell[c]{\\textbeta\\textsubscript{1}}", "\\makecell[c]{\\textbeta\\textsubscript{2}}", "low", "mod", "high")) %>%
   kable_styling(latex_options = c("repeat_header"))
 ```
 
