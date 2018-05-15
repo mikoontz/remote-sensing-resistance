@@ -1,10 +1,10 @@
 ---
 output: 
-  pdf_document:
-    template: "ms_carpentry/mjk_ms_template.tex"
-    fig_caption: yes
-  # word_document:
-  #   reference_docx: "ms_carpentry/mjk_ms_template_word.docx"
+  # pdf_document:
+  #   template: "ms_carpentry/mjk_ms_template.tex"
+  #   fig_caption: yes
+  word_document:
+    reference_docx: "ms_carpentry/mjk_ms_template_word.docx"
 geometry: margin=1in
 header-includes: 
 - \usepackage{graphicx}
@@ -189,7 +189,7 @@ We summarized each prefire image collection into a single prefire image using a 
 
 We calculated remotely-sensed wildfire severity using the relative burn ratio (RBR) [@Parks2014], the delta normalized burn ratio (dNBR) [@Eidenshink2007; @Miller2007], the relative delta normalized burn ratio (RdNBR) [@Miller2007], the delta normalized burn ratio 2 (dNBR2) [@Hawbaker2017], the relative delta normalized burn ratio 2 (RdNBR2), and the delta normalized difference vegetation index (dNDVI) [@Eidenshink2007]. Following the success of the RdNBR metric in other studies, we also calculate an analogous metric using NDVI-- the relative delta normalized difference vegetation index (RdNDVI).
 
-We calculated the delta severity indices (dNBR, dNDVI, dNDVI2) by subracting the respective postfire indices from the prefire indices (NBR, NBR2, and NDVI) without multiplying by a rescaling constant (e.g., we did not multiply the result by 1000 as in @Miller2007; \ref{eq-dindex}). Following @Reilly2017, we chose not to correct the delta indices using a phenological offset value (typically calculated as the delta index in homogenous forest patch outside of the fire perimeter), as our approach implicitly accounts for phenology by incorporating multiple cloud-free images across the same time window both before the fire and one year later.
+We calculated the delta severity indices (dNBR, dNBR2, dNDVI) by subracting the respective postfire indices from the prefire indices (NBR, NBR2, and NDVI) without multiplying by a rescaling constant (e.g., we did not multiply the result by 1000 as in @Miller2007; Eq. \ref{eq-dindex}). Following @Reilly2017, we chose not to correct the delta indices using a phenological offset value (typically calculated as the delta index in homogenous forest patch outside of the fire perimeter), as our approach implicitly accounts for phenology by incorporating multiple cloud-free images across the same time window both before the fire and one year later.
 
 \begin{equation}
 \label{eq-dindex}
