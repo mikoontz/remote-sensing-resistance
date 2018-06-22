@@ -1,5 +1,5 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var l5sr = ee.ImageCollection("LANDSAT/LT5_SR"),
+var l5sr = ee.ImageCollection("LANDSAT/LT05/C01/T1_SR"),
     sn = ee.FeatureCollection("ft:1vdDUTu09Rkw5qKR_DSfmFX-b_7kqy4E-pjxg9Sq6");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 var landsat = ee.Image(l5sr.filterDate("1985-07-27", "1986-07-27").

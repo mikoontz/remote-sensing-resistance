@@ -1,0 +1,38 @@
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var mixed_conifer = ee.Image("users/mkoontz/mixed_conifer"),
+    frap_fires = ee.FeatureCollection("users/mkoontz/fire_perim_sn_16_1_v2"),
+    sn = ee.FeatureCollection("users/mkoontz/SierraEcoregion_Jepson"),
+    perims = ee.FeatureCollection("users/mkoontz/fire_perim_16_1");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+var mix_con = mixed_conifer.updateMask(mixed_conifer.select(['b1']));
+
+Map.addLayer(mix_con, {}, "Presettlement fire regime yellow pine/mixed conifer");
+// Map.addLayer(frap_fires, {}, "FRAP fire perimeters");
+
+var frap_conifer_fires = mix_con.clipToCollection(frap_fires);
+Map.addLayer(frap_conifer_fires, {}, 'frap conifer fires');
+
+print(frap_fires.propertyNames());
+print(ee.Date(frap_fires.first().get('ALARM_DATE')));
+
+var frap_satellite_era_fires = frap_fires
+                  .filterBounds(sn)
+                  .filter(ee.Filter.neq('ALARM_DATE', null))
+                  .filter(ee.Filter.gte('ALARM_DATE', ee.Date('1984-01-01').millis()));
+
+print(frap_satellite_era_fires.size())                                
+var num_frap_conifer_fires = frap_satellite_era_fires
+                                .reduceToImage(['ALARM_DATE'], ee.Reducer.countDistinct())
+                                .updateMask(mix_con)
+                                .clip(sn);
+                                
+Map.addLayer(num_frap_conifer_fires, {min: 0, max: 5, palette: ["440154", "31688E", "35B779", "FDE725"]}, "number of fires");
+Map.addLayer(sn);
+
+Export.image.toDrive({image: num_frap_conifer_fires,
+                      description: "frap-fire-extent-image", 
+                      folder: 'ee',
+                      fileNamePrefix: "frap-fire-extent-image",
+                      region: sn,
+                      maxPixels: 3000000000,
+                      scale: 30});
