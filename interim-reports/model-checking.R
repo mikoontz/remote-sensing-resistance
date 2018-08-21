@@ -94,6 +94,13 @@ ggplot(data = ss_burned, aes(x = het_ndvi_1_s, y = RBR, color = preFire_ndvi_s))
   scale_color_viridis_c() +
   facet_wrap(~ extreme80_fm100)
 
+ggplot(data = ss_burned, aes(x = het_ndvi_4_s, y = RBR, color = preFire_ndvi_s)) +
+  geom_point() +
+  geom_smooth(method = "loess") +
+  scale_color_viridis_c() +
+  facet_wrap(~ extreme80_fm100)
+
+
 ggplot(data = ss_burned, aes(x = het_ndvi_1_s, y = RBR, color = fm100_s)) +
   geom_point() +
   geom_smooth(method = "loess") +
