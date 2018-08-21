@@ -14,6 +14,7 @@ library(ggplot2)
 library(here)
 library(lubridate)
 library(multcomp)
+library(effects)
 ```
 
 ```{r read_files, message = FALSE}
@@ -109,7 +110,7 @@ samps$year_ <- as.numeric(as.character(samps$year_))
 Consolidate timing variable names.
 
 ```{r consolidate_timing_vars}
-timing_vars <- c("year_", "alarm_date", "cont_date", "c_doy")
+timing_vars <- c("alarm_year", "alarm_date", "cont_date", "c_doy")
 ```
 
 ## Vegetation variables
@@ -422,6 +423,405 @@ summary(m_extreme)
 
 ```
 
+```{r rethinking_models}
+m_sevOrNot_meanNDVI_localNDVI_rawFm100_1_ssBurned <- 
+  glmer(stand_replacing ~ 
+          het_ndvi_1_s * 
+          preFire_ndvi_s * 
+          fm100_s * 
+          focal_mean_ndvi_1_s + 
+          topo_roughness_1_s + 
+          pdir_s + 
+          (1 | fire_id), 
+        family = "binomial", 
+        data = ss_burned, 
+        control = glmerControl(optimizer = "bobyqa"))
+
+m_sevOrNot_meanNDVI_localNDVI_rawFm100_2_ssBurned <- 
+  glmer(stand_replacing ~ 
+          het_ndvi_2_s * 
+          preFire_ndvi_s * 
+          fm100_s * 
+          focal_mean_ndvi_2_s +
+          topo_roughness_2_s + 
+          pdir_s + 
+          (1 | fire_id), 
+        family = "binomial", 
+        data = ss_burned, 
+        control = glmerControl(optimizer = "bobyqa"))
+
+m_sevOrNot_meanNDVI_localNDVI_rawFm100_3_ssBurned <- 
+  glmer(stand_replacing ~ 
+          het_ndvi_3_s * 
+          preFire_ndvi_s * 
+          fm100_s * 
+          focal_mean_ndvi_3_s +
+          topo_roughness_3_s + 
+          pdir_s + 
+          (1 | fire_id), 
+        family = "binomial", 
+        data = ss_burned, 
+        control = glmerControl(optimizer = "bobyqa"))
+
+m_sevOrNot_meanNDVI_localNDVI_rawFm100_4_ssBurned <- 
+  glmer(stand_replacing ~ 
+          het_ndvi_4_s * 
+          preFire_ndvi_s * 
+          fm100_s * 
+          focal_mean_ndvi_4_s + 
+          topo_roughness_4_s + 
+          pdir_s + 
+          (1 | fire_id), 
+        family = "binomial", 
+        data = ss_burned, 
+        control = glmerControl(optimizer = "bobyqa"))
+
+fm100_labeller <- c(`-0.5` = "Low fuel moisture", 
+                    `0` = "Mean fuel moisture",
+                    `0.5` = "High fuel moisture")
+
+focal_ndvi_labeller <- c(`-2` = "Low neighborhood NDVI", 
+                    `0` = "Mean neighborhood NDVI",
+                    `2` = "High neighborhood NDVI")
+
+e_1_4way <- effect("het_ndvi_1_s:preFire_ndvi_s:fm100_s:focal_mean_ndvi_1_s", m_sevOrNot_meanNDVI_localNDVI_rawFm100_1_ssBurned, xlevels = list(preFire_ndvi_s = c(0, 0), fm100_s = c(-0.5, 0, 0.5), focal_mean_ndvi_1_s = c(-2, 0, 2), het_ndvi_1_s = seq(-2, 2, by = 0.1)))
+
+e_1_4way_allEffects <- effect("het_ndvi_1_s:preFire_ndvi_s:fm100_s:focal_mean_ndvi_1_s", m_sevOrNot_meanNDVI_localNDVI_rawFm100_1_ssBurned, xlevels = list(preFire_ndvi_s = seq(-2, 2, by = 0.25), fm100_s = seq(-2, 2, by = 0.25), focal_mean_ndvi_1_s = c(0, 0), het_ndvi_1_s = seq(-2, 2, by = 0.25)))
+
+glimpse(as.data.frame(e_1_4way_allEffects))
+e_1_4way_allEffects_gg <- as.data.frame(e_1_4way_allEffects)
+
+# prefire NDVI main effect
+prefireNDVI_ggplot <-
+  ggplot(subset(e_1_4way_allEffects_gg, e_1_4way_allEffects_gg$fm100_s == 0 & e_1_4way_allEffects_gg$focal_mean_ndvi_1_s == 0 & e_1_4way_allEffects_gg$het_ndvi_1_s == 0), aes(x = preFire_ndvi_s, y = fit, ymin = lower, ymax = upper)) +
+  geom_line(lwd = 1.25) +
+  geom_ribbon(alpha = 0.4) +
+  xlab(label = "Prefire vegetation density") +
+  ylab(label = "") +
+  theme_bw() +
+  theme(text = element_text(size = 28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
+
+
+# fm100 main effect
+fm100_ggplot <-
+  ggplot(subset(e_1_4way_allEffects_gg, e_1_4way_allEffects_gg$preFire_ndvi_s == 0 & e_1_4way_allEffects_gg$focal_mean_ndvi_1_s == 0 & e_1_4way_allEffects_gg$het_ndvi_1_s == 0), aes(x = fm100_s, y = fit, ymin = lower, ymax = upper)) +
+  geom_line(lwd = 1.25) +
+  geom_ribbon(alpha = 0.4) +
+  xlab(label = "Fuel moisture") +
+  ylab(label = "") +
+  theme_bw() +
+  theme(text = element_text(size = 28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
+
+
+pahl_effect <- effect("pdir_s", m_sevOrNot_meanNDVI_localNDVI_rawFm100_1_ssBurned, xlevels = list(pdir_s = seq(-2, 2, by = 0.25)))
+pahl_effect_gg <- as.data.frame(pahl_effect)
+
+# pahl main effect
+pahl_ggplot <- 
+  ggplot(pahl_effect_gg, aes(x = pdir_s, y = fit, ymin = lower, ymax = upper)) +
+  geom_line(lwd = 1.25) +
+  geom_ribbon(alpha = 0.4) +
+  xlab(label = "Annual heat load") +
+  ylab(label = "") +
+  theme_bw() +
+  theme(text = element_text(size = 28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
+
+
+
+topo_rough_effect <- effect("topo_roughness_1_s", m_sevOrNot_meanNDVI_localNDVI_rawFm100_1_ssBurned, xlevels = list(topo_roughness_1_s = seq(-2, 2, by = 0.25)))
+topo_rough_effect_gg <- as.data.frame(topo_rough_effect)
+
+# topo rough main effect
+topo_rough_ggplot <-
+  ggplot(topo_rough_effect_gg, aes(x = topo_roughness_1_s, y = fit, ymin = lower, ymax = upper)) +
+  geom_line(lwd = 1.25) +
+  geom_ribbon(alpha = 0.4) +
+  xlab(label = "Topographic roughness") +
+  ylab(label = "") +
+  theme_bw() +
+  theme(text = element_text(size = 28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
+
+library(cowplot)
+
+panel_plot <- plot_grid(NULL, prefireNDVI_ggplot, fm100_ggplot, NULL, pahl_ggplot, topo_rough_ggplot, ncol=3, nrow = 2, rel_widths = c(0.2, 1, 1))
+
+panel_plot_labelled <- 
+  panel_plot + 
+  draw_label(label = "Probability of\n90%\ntree mortality", x = 0.08, angle = 0, size = 28)
+
+ggplot2::ggsave(plot = panel_plot_labelled, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/usual-suspects.png", device = "png", width = 15)
+
+
+e_1_4way_gg <- as.data.frame(e_1_4way)
+e_1_4way_ggplot <- ggplot(e_1_4way_gg, aes(x = het_ndvi_1_s, y = fit, ymin = lower, ymax = upper, color = as.factor(focal_mean_ndvi_1_s), fill = as.factor(focal_mean_ndvi_1_s))) + 
+  geom_line(lwd = 1.25) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.4) +
+  facet_wrap(~ fm100_s, labeller = as_labeller(fm100_labeller)) +
+  ylab(label = "Probability of >90% tree mortality") +
+  xlab(label = "Neighborhood forest variability (scaled)\n(90m x 90m window)") +
+  scale_color_viridis_d(name = "Neighborhood NDVI\n(scaled)") +
+  scale_fill_viridis_d(name = "Neighborhood NDVI\n(scaled)") +
+  theme_bw() +
+  theme(text = element_text(size=28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
+
+ggsave(plot = e_1_4way_ggplot, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/4-way-plot.png", device = "png", width = 15, units = "in")
+```
+
+```{r simplify_models}
+fm1 <- 
+  glmer(stand_replacing ~ 
+          het_ndvi_1_s +
+          focal_mean_ndvi_1_s +
+          het_ndvi_1_s:focal_mean_ndvi_1_s +
+          preFire_ndvi_s +
+          preFire_ndvi_s:focal_mean_ndvi_1_s +
+          het_ndvi_1_s:preFire_ndvi_s +
+          fm100_s +
+          het_ndvi_1_s:fm100_s +
+          topo_roughness_1_s + 
+          pdir_s + 
+          (1 | fire_id), 
+        family = "binomial", 
+        data = ss_burned, 
+        control = glmerControl(optimizer = "bobyqa"))
+
+fm2 <- 
+  glmer(stand_replacing ~ 
+          het_ndvi_2_s +
+          focal_mean_ndvi_2_s +
+          het_ndvi_2_s:focal_mean_ndvi_2_s +
+          preFire_ndvi_s +
+          preFire_ndvi_s:focal_mean_ndvi_2_s +
+          het_ndvi_2_s:preFire_ndvi_s +
+          fm100_s +
+          topo_roughness_2_s + 
+          pdir_s + 
+          (1 | fire_id), 
+        family = "binomial", 
+        data = ss_burned, 
+        control = glmerControl(optimizer = "bobyqa"))
+
+fm3 <- 
+  glmer(stand_replacing ~ 
+          het_ndvi_3_s +
+          focal_mean_ndvi_3_s +
+          het_ndvi_3_s:focal_mean_ndvi_3_s +
+          preFire_ndvi_s +
+          preFire_ndvi_s:focal_mean_ndvi_3_s +
+          het_ndvi_3_s:preFire_ndvi_s +
+          fm100_s +
+          topo_roughness_3_s + 
+          pdir_s + 
+          (1 | fire_id), 
+        family = "binomial", 
+        data = ss_burned, 
+        control = glmerControl(optimizer = "bobyqa"))
+
+fm4 <- 
+  glmer(stand_replacing ~ 
+          het_ndvi_4_s +
+          focal_mean_ndvi_4_s +
+          het_ndvi_4_s:focal_mean_ndvi_4_s +
+          preFire_ndvi_s +
+          preFire_ndvi_s:focal_mean_ndvi_4_s +
+          het_ndvi_4_s:preFire_ndvi_s +
+          fm100_s +
+          topo_roughness_4_s + 
+          pdir_s + 
+          (1 | fire_id), 
+        family = "binomial", 
+        data = ss_burned, 
+        control = glmerControl(optimizer = "bobyqa"))
+
+AIC(fm1, fm2, fm3, fm4, m_sevOrNot_meanNDVI_localNDVI_rawFm100_4_ssBurned)
+summary(fm1)
+
+e_fm1 <- allEffects(fm1, 
+                    xlevels = list(preFire_ndvi_s = seq(-2, 2, length.out = 17), 
+                                   fm100_s = seq(-2, 2, length.out = 17), 
+                                   focal_mean_ndvi_1_s = seq(-2, 2, length.out = 17), 
+                                   het_ndvi_1_s = seq(-2, 2, length.out = 17),
+                                   topo_roughness_1_s = seq(-2, 2, length.out = 17),
+                                   pdir_s = seq(-2, 2, length.out = 17)))
+
+e_fm1_topoRough <- as.data.frame(e_fm1[["topo_roughness_1_s"]])
+e_fm1_pahl <- as.data.frame(e_fm1[["pdir_s"]])
+e_fm1_het_neighborhoodMean <- as.data.frame(e_fm1[["het_ndvi_1_s:focal_mean_ndvi_1_s"]])
+e_fm1_focalMean_neighborhoodMean <- as.data.frame(e_fm1[["focal_mean_ndvi_1_s:preFire_ndvi_s"]])
+e_fm1_het_focalMean <- as.data.frame(e_fm1[["het_ndvi_1_s:preFire_ndvi_s"]])
+e_fm1_het_fm100 <- as.data.frame(e_fm1[["het_ndvi_1_s:fm100_s"]])
+
+# PrefireNDVI_ggplot
+e_fm1_het_focalMean_subset <- 
+  e_fm1_het_focalMean %>% 
+  filter(het_ndvi_1_s == 0)
+
+prefireNDVI_ggplot <-
+  ggplot(e_fm1_het_focalMean_subset, aes(x = preFire_ndvi_s, y = fit, ymin = lower, ymax = upper)) +
+  geom_line(lwd = 1.25) +
+  geom_ribbon(alpha = 0.4) +
+  xlab(label = "Prefire vegetation density") +
+  ylab(label = "") +
+  theme(text = element_text(size = 28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
+        axis.text.x = element_text(size = 28),
+        axis.text.y = element_text(size = 28))
+
+# fm100 effect
+e_fm1_fm100 <- 
+  e_fm1_het_fm100 %>% 
+  filter(het_ndvi_1_s == 0)
+
+fm100_ggplot <- 
+  ggplot(e_fm1_fm100, aes(x = fm100_s, y = fit, ymin = lower, ymax = upper)) +
+  geom_line(lwd = 1.25) + 
+  geom_ribbon(alpha = 0.4) +
+  xlab(label = "Fuel moisture") +
+  ylab(label = "") +
+  theme(text = element_text(size = 28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
+        axis.text.x = element_text(size = 28),
+        axis.text.y = element_text(size = 28))
+
+# topo roughness effect
+topo_rough_ggplot <- 
+  ggplot(e_fm1_topoRough, aes(x = topo_roughness_1_s, y = fit, ymin = lower, ymax = upper)) +
+  geom_line(lwd = 1.25) + 
+  geom_ribbon(alpha = 0.4) +
+  xlab(label = "Topographic roughness") +
+  ylab(label = "") +
+  theme(text = element_text(size = 28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
+        axis.text.x = element_text(size = 28),
+        axis.text.y = element_text(size = 28))
+
+# pahl effect
+pahl_ggplot <- 
+  ggplot(e_fm1_pahl, aes(x = pdir_s, y = fit, ymin = lower, ymax = upper)) +
+  geom_line(lwd = 1.25) + 
+  geom_ribbon(alpha = 0.4) +
+  xlab(label = "Annual heat load") +
+  ylab(label = "") +
+  theme(text = element_text(size = 28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
+        axis.text.x = element_text(size = 28),
+        axis.text.y = element_text(size = 28))
+
+panel_plot <- plot_grid(NULL, prefireNDVI_ggplot, fm100_ggplot, NULL, pahl_ggplot, topo_rough_ggplot, ncol=3, nrow = 2, rel_widths = c(0.2, 1, 1))
+
+panel_plot_labelled <- 
+  panel_plot + 
+  draw_label(label = "Probability of\n90%\ntree mortality", x = 0.08, angle = 0, size = 28)
+
+ggplot2::ggsave(plot = panel_plot_labelled, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/usual-suspects.png", device = "png", width = 15)
+
+# heterogeneity interacting with fuel moisture effect (not quite significant)
+e_fm1_het_fm100_subset <-
+  e_fm1_het_fm100 %>% 
+  filter(fm100_s %in% c(-2, 0, 2))
+         
+het_fm100_ggplot <- 
+  ggplot(e_fm1_het_fm100_subset, aes(x = het_ndvi_1_s, y = fit, ymin = lower, ymax = upper, color = as.factor(fm100_s), fill = as.factor(fm100_s))) +
+  geom_line(lwd = 1.25) + 
+  geom_ribbon(alpha = 0.4) +
+  xlab(label = "Neighborhood variability (scaled)") +
+  ylab(label = "") +
+  scale_color_viridis_d(name = "Fuel moisture (scaled)") +
+  scale_fill_viridis_d(name = "Fuel moisture (scaled)") +
+  theme(text = element_text(size = 28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
+        axis.text.x = element_text(size = 28),
+        axis.text.y = element_text(size = 28))
+
+# heterogeneity interacting with neighborhood mean effect (not significant)
+ggplot(e_fm1_het_neighborhoodMean, aes(x = het_ndvi_1_s, y = fit, ymin = lower, ymax = upper, color = as.factor(focal_mean_ndvi_1_s), fill = as.factor(focal_mean_ndvi_1_s))) +
+  geom_line(lwd = 1.25) + 
+  geom_ribbon(alpha = 0.4) +
+  scale_fill_viridis_d() +
+  scale_color_viridis_d()
+
+# focal mean interacting with neighborhood mean effect (strong interaction)
+e_fm1_focalMean_neighborhoodMean_subset <-
+  e_fm1_focalMean_neighborhoodMean %>% 
+  filter(focal_mean_ndvi_1_s %in% c(-2, 0, 2))
+
+e_fm1_focalMean_neighborhoodMean_ggplot <-
+  ggplot(e_fm1_focalMean_neighborhoodMean_subset, aes(x = preFire_ndvi_s, y = fit, ymin = lower, ymax = upper, color = as.factor(focal_mean_ndvi_1_s), fill = as.factor(focal_mean_ndvi_1_s))) +
+  geom_line(lwd = 1.25) + 
+  geom_ribbon(alpha = 0.4) +
+  scale_fill_viridis_d(name = "Neighborhood NDVI (scaled)") +
+  scale_color_viridis_d(name = "Neighborhood NDVI (scaled)") +
+  xlab(label = "Prefire vegetation density (scaled)") +
+  ylab(label = "Probability of 90% tree mortality") +
+  theme(text = element_text(size = 28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
+        axis.text.x = element_text(size = 28),
+        axis.text.y = element_text(size = 28))
+
+# focal mean interacting with neighborhood mean effect (strong interaction)
+e_fm1_focalMean_neighborhoodMean_subset_2 <-
+  e_fm1_focalMean_neighborhoodMean %>% 
+  filter(preFire_ndvi_s %in% c(-2, 0, 2))
+
+e_fm1_focalMean_neighborhoodMean_ggplot_2 <-
+  ggplot(e_fm1_focalMean_neighborhoodMean_subset_2, aes(x = focal_mean_ndvi_1_s, y = fit, ymin = lower, ymax = upper, color = as.factor(preFire_ndvi_s), fill = as.factor(preFire_ndvi_s))) +
+  geom_line(lwd = 1.25) + 
+  geom_ribbon(alpha = 0.4) +
+  scale_fill_viridis_d(name = "Prefire NDVI (scaled)") +
+  scale_color_viridis_d(name = "Prefire NDVI (scaled)") +
+  xlab(label = "Neighborhood NDVI (scaled)") +
+  ylab(label = "Probability of 90% tree mortality") +
+  theme(text = element_text(size = 28),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
+        axis.text.x = element_text(size = 28),
+        axis.text.y = element_text(size = 28))
+
+ggplot2::ggsave(plot = e_fm1_focalMean_neighborhoodMean_ggplot, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/focalMean_neighborhoodMean.png", device = "png")
+
+# heterogeneity interacting with focal mean effect (not significant)
+ggplot(e_fm1_het_focalMean, aes(x = het_ndvi_1_s, y = fit, ymin = lower, ymax = upper, color = as.factor(preFire_ndvi_s), fill = as.factor(preFire_ndvi_s))) +
+  geom_line(lwd = 1.25) + 
+  geom_ribbon(alpha = 0.4) +
+  scale_fill_viridis_d() +
+  scale_color_viridis_d()
+
+# Heterogeneity main effect
+het_effect_gg <- 
+  e_fm1_het_focalMean %>% 
+  filter(preFire_ndvi_s == 0)
+
+het_effect_ggplot <-
+  ggplot(het_effect_gg, aes(x = het_ndvi_1_s, y = fit, ymin = lower, ymax = upper)) +
+  geom_line(lwd = 1.25) +
+  geom_ribbon(alpha = 0.4) +
+  ylab(label = "Probability of 90% tree mortality") +
+  xlab(label = "Neighborhood forest variability (scaled)\n(90m x 90m window)") +
+  theme(text = element_text(size = 28),
+        axis.text.x = element_text(size = 28, margin = margin(t = 14, b = 14, l = 0, r = 0)),
+        axis.text.y = element_text(size = 28, margin = margin(t = 0, b = 0, l = 14, r = 14)),
+        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
+
+ggplot2::ggsave(plot = het_effect_ggplot, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/het_effect.png", device = "png")
+```
+
 ```{r rbr_response}
 
 # RBR response, fm100 covariate, all samples from within fire perimeter (some may not have burned)
@@ -489,173 +889,173 @@ summary(m_rbr_extremeFm100AndRawFm100_4_ss)
 
 ```
 
-```{r}
-# Calculating the differences between B11, B12, and B13:
-H0s <- rbind(het_normal = c(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-             het_xtreme = c(0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0),
-             norm_xtreme = c(0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0))
+<!-- ```{r} -->
+<!-- # Calculating the differences between B11, B12, and B13: -->
+<!-- H0s <- rbind(het_normal = c(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0), -->
+<!--              het_xtreme = c(0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0), -->
+<!--              norm_xtreme = c(0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0)) -->
 
-# Binomial response, all samps
-tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_1_ss, linfct = H0s)
-summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ss)
+<!-- # Binomial response, all samps -->
+<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_1_ss, linfct = H0s) -->
+<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ss) -->
 
-tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_2_ss, linfct = H0s)
-summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ss)
+<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_2_ss, linfct = H0s) -->
+<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ss) -->
 
-tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_3_ss, linfct = H0s)
-summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ss)
+<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_3_ss, linfct = H0s) -->
+<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ss) -->
 
-tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_4_ss, linfct = H0s)
-summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ss)
+<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_4_ss, linfct = H0s) -->
+<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ss) -->
 
-# Binomial response, burned samps
-tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned, linfct = H0s)
-summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned)
+<!-- # Binomial response, burned samps -->
+<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned, linfct = H0s) -->
+<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned) -->
 
-tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned, linfct = H0s)
-summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned)
+<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned, linfct = H0s) -->
+<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned) -->
 
-tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned, linfct = H0s)
-summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned)
+<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned, linfct = H0s) -->
+<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned) -->
 
-tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned, linfct = H0s)
-summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned)
+<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned, linfct = H0s) -->
+<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned) -->
 
-# RBR response, all samps
-tH0s_m_rbr_extremeFm100AndRawFm100_1_ss <- glht(m_rbr_extremeFm100AndRawFm100_1_ss, linfct = H0s)
-summary(tH0s_m_rbr_extremeFm100AndRawFm100_1_ss)
+<!-- # RBR response, all samps -->
+<!-- tH0s_m_rbr_extremeFm100AndRawFm100_1_ss <- glht(m_rbr_extremeFm100AndRawFm100_1_ss, linfct = H0s) -->
+<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_1_ss) -->
 
-tH0s_m_rbr_extremeFm100AndRawFm100_2_ss <- glht(m_rbr_extremeFm100AndRawFm100_2_ss, linfct = H0s)
-summary(tH0s_m_rbr_extremeFm100AndRawFm100_2_ss)
+<!-- tH0s_m_rbr_extremeFm100AndRawFm100_2_ss <- glht(m_rbr_extremeFm100AndRawFm100_2_ss, linfct = H0s) -->
+<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_2_ss) -->
 
-tH0s_m_rbr_extremeFm100AndRawFm100_3_ss <- glht(m_rbr_extremeFm100AndRawFm100_3_ss, linfct = H0s)
-summary(tH0s_m_rbr_extremeFm100AndRawFm100_3_ss)
+<!-- tH0s_m_rbr_extremeFm100AndRawFm100_3_ss <- glht(m_rbr_extremeFm100AndRawFm100_3_ss, linfct = H0s) -->
+<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_3_ss) -->
 
-tH0s_m_rbr_extremeFm100AndRawFm100_4_ss <- glht(m_rbr_extremeFm100AndRawFm100_4_ss, linfct = H0s)
-summary(tH0s_m_rbr_extremeFm100AndRawFm100_4_ss)
+<!-- tH0s_m_rbr_extremeFm100AndRawFm100_4_ss <- glht(m_rbr_extremeFm100AndRawFm100_4_ss, linfct = H0s) -->
+<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_4_ss) -->
 
-# RBR response, burned samps
-tH0s_m_rbr_extremeFm100AndRawFm100_1_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_1_ssBurned, linfct = H0s)
-summary(tH0s_m_rbr_extremeFm100AndRawFm100_1_ssBurned)
+<!-- # RBR response, burned samps -->
+<!-- tH0s_m_rbr_extremeFm100AndRawFm100_1_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_1_ssBurned, linfct = H0s) -->
+<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_1_ssBurned) -->
 
-tH0s_m_rbr_extremeFm100AndRawFm100_2_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_2_ssBurned, linfct = H0s)
-summary(tH0s_m_rbr_extremeFm100AndRawFm100_2_ssBurned)
+<!-- tH0s_m_rbr_extremeFm100AndRawFm100_2_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_2_ssBurned, linfct = H0s) -->
+<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_2_ssBurned) -->
 
-tH0s_m_rbr_extremeFm100AndRawFm100_3_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_3_ssBurned, linfct = H0s)
-summary(tH0s_m_rbr_extremeFm100AndRawFm100_3_ssBurned)
+<!-- tH0s_m_rbr_extremeFm100AndRawFm100_3_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_3_ssBurned, linfct = H0s) -->
+<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_3_ssBurned) -->
 
-tH0s_m_rbr_extremeFm100AndRawFm100_4_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_4_ssBurned, linfct = H0s)
-summary(tH0s_m_rbr_extremeFm100AndRawFm100_4_ssBurned)
+<!-- tH0s_m_rbr_extremeFm100AndRawFm100_4_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_4_ssBurned, linfct = H0s) -->
+<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_4_ssBurned) -->
 
-```
+<!-- ``` -->
 
-```{r fit_with_brms}
-library(brms)
-# Severe or not as bernoulli response, extreme or not dummy covariate, interaction with raw fm100, only samples that were burned
+<!-- ```{r fit_with_brms} -->
+<!-- library(brms) -->
+<!-- # Severe or not as bernoulli response, extreme or not dummy covariate, interaction with raw fm100, only samples that were burned -->
 
-m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_1_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned)
+<!-- m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_1_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned) -->
 
-m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_2_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned)
+<!-- m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_2_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned) -->
 
-m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_3_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned)
+<!-- m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_3_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned) -->
 
-m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_4_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned)
+<!-- m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_4_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned) -->
 
-m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm)
-# m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm)
-# m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm)
-# m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm)
-```
+<!-- m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm) -->
+<!-- # m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm) -->
+<!-- # m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm) -->
+<!-- # m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm) -->
+<!-- ``` -->
 
-Set up the proper contrasts for each model
-```{r contrasts_setup}
-# Contrasts
-# Fix these so that fm100_s isn't 0, but rather the mean for each group (greater than 0 for non-extreme, less than 0 for extreme)
+<!-- Set up the proper contrasts for each model -->
+<!-- ```{r contrasts_setup} -->
+<!-- # Contrasts -->
+<!-- # Fix these so that fm100_s isn't 0, but rather the mean for each group (greater than 0 for non-extreme, less than 0 for extreme) -->
 
-# What is the mean fm100_s for non-extreme and extreme conditions?
-fm100_s_means <- 
-  ss_burned %>% 
-  as.data.frame() %>% 
-  group_by(extreme80_fm100) %>% 
-  summarize(mean_fm100 = mean(fm100_s))
+<!-- # What is the mean fm100_s for non-extreme and extreme conditions? -->
+<!-- fm100_s_means <-  -->
+<!--   ss_burned %>%  -->
+<!--   as.data.frame() %>%  -->
+<!--   group_by(extreme80_fm100) %>%  -->
+<!--   summarize(mean_fm100 = mean(fm100_s)) -->
 
-het_normal <- c(0, 1, 0, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 0), mean_fm100)), 0, 0, 0, 0, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 0), mean_fm100)), 0, 0)
+<!-- het_normal <- c(0, 1, 0, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 0), mean_fm100)), 0, 0, 0, 0, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 0), mean_fm100)), 0, 0) -->
 
-het_xtreme <- c(0, 1, 1, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100))
-, 0, 0, 0, 1, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100))
-, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100))
-, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100))
-)
-```
+<!-- het_xtreme <- c(0, 1, 1, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100)) -->
+<!-- , 0, 0, 0, 1, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100)) -->
+<!-- , pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100)) -->
+<!-- , pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100)) -->
+<!-- ) -->
+<!-- ``` -->
 
-Look at smallest neighborhood effect of heterogeneity:
+<!-- Look at smallest neighborhood effect of heterogeneity: -->
 
-```{r one_pixel_neighbornood}
-m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm)
-m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_samps[, 1:11]
+<!-- ```{r one_pixel_neighbornood} -->
+<!-- m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm) -->
+<!-- m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_samps[, 1:11] -->
 
-het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_betas, 1, function(x) x %*% het_normal)
-het_xtreme_sevOrNot_extremeFm100AndRawFm100_1_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme)
+<!-- het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_betas, 1, function(x) x %*% het_normal) -->
+<!-- het_xtreme_sevOrNot_extremeFm100AndRawFm100_1_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme) -->
 
-hist(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned, breaks = 100)
-ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned)(0)
+<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned, breaks = 100) -->
+<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned)(0) -->
 
-hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_1_ssBurned, breaks = 100)
-ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_1_ssBurned)(0)
+<!-- hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_1_ssBurned, breaks = 100) -->
+<!-- ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_1_ssBurned)(0) -->
 
-hist(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned - het_xtreme_samps, breaks = 100)
-ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned - het_xtreme_samps)(0)
-```
+<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned - het_xtreme_samps, breaks = 100) -->
+<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned - het_xtreme_samps)(0) -->
+<!-- ``` -->
 
-```{r two_pixel_neighbornood}
-m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm)
-m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_samps[, 1:11]
+<!-- ```{r two_pixel_neighbornood} -->
+<!-- m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm) -->
+<!-- m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_samps[, 1:11] -->
 
-het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_betas, 1, function(x) x %*% het_normal)
-het_xtreme_sevOrNot_extremeFm100AndRawFm100_2_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme)
+<!-- het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_betas, 1, function(x) x %*% het_normal) -->
+<!-- het_xtreme_sevOrNot_extremeFm100AndRawFm100_2_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme) -->
 
-hist(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned, breaks = 100)
-ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned)(0)
+<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned, breaks = 100) -->
+<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned)(0) -->
 
-hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_2_ssBurned, breaks = 100)
-ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_2_ssBurned)(0)
+<!-- hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_2_ssBurned, breaks = 100) -->
+<!-- ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_2_ssBurned)(0) -->
 
-hist(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned - het_xtreme_samps, breaks = 100)
-ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned - het_xtreme_samps)(0)
-```
+<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned - het_xtreme_samps, breaks = 100) -->
+<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned - het_xtreme_samps)(0) -->
+<!-- ``` -->
 
-```{r three_pixel_neighbornood}
-m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm)
-m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_samps[, 1:11]
+<!-- ```{r three_pixel_neighbornood} -->
+<!-- m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm) -->
+<!-- m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_samps[, 1:11] -->
 
-het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_betas, 1, function(x) x %*% het_normal)
-het_xtreme_sevOrNot_extremeFm100AndRawFm100_3_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme)
+<!-- het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_betas, 1, function(x) x %*% het_normal) -->
+<!-- het_xtreme_sevOrNot_extremeFm100AndRawFm100_3_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme) -->
 
-hist(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned, breaks = 100)
-ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned)(0)
+<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned, breaks = 100) -->
+<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned)(0) -->
 
-hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_3_ssBurned, breaks = 100)
-ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_3_ssBurned)(0)
+<!-- hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_3_ssBurned, breaks = 100) -->
+<!-- ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_3_ssBurned)(0) -->
 
-hist(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned - het_xtreme_samps, breaks = 100)
-ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned - het_xtreme_samps)(0)
-```
+<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned - het_xtreme_samps, breaks = 100) -->
+<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned - het_xtreme_samps)(0) -->
+<!-- ``` -->
 
-```{r four_pixel_neighbornood}
-m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm)
-m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_samps[, 1:11]
+<!-- ```{r four_pixel_neighbornood} -->
+<!-- m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm) -->
+<!-- m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_samps[, 1:11] -->
 
-het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_betas, 1, function(x) x %*% het_normal)
-het_xtreme_sevOrNot_extremeFm100AndRawFm100_4_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme)
+<!-- het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_betas, 1, function(x) x %*% het_normal) -->
+<!-- het_xtreme_sevOrNot_extremeFm100AndRawFm100_4_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme) -->
 
-hist(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned, breaks = 100)
-ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned)(0)
+<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned, breaks = 100) -->
+<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned)(0) -->
 
-hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_4_ssBurned, breaks = 100)
-ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_4_ssBurned)(0)
+<!-- hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_4_ssBurned, breaks = 100) -->
+<!-- ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_4_ssBurned)(0) -->
 
-hist(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned - het_xtreme_samps, breaks = 100)
-ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned - het_xtreme_samps)(0)
-```
+<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned - het_xtreme_samps, breaks = 100) -->
+<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned - het_xtreme_samps)(0) -->
+<!-- ``` -->
 
 
