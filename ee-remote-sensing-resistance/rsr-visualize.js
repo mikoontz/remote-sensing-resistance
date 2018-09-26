@@ -193,3 +193,27 @@ var mcnally_img = rsr.get_variables(mcnally, timeWindow, resample_method, sats).
 
 Map.addLayer(mcnally_img.select(['RBR']), RBR_viz, 'The McNally fire of 2002');
 Map.centerObject(mcnally_img);
+
+// COTTONWOOD FIRE
+timeWindow = 48;
+resample_method = 'bicubic';
+sats_string = '57';
+sats = ee.List(sats_string.split(''));
+
+var cottonwood = ee.Feature(perim
+                        .filterBounds(sn)
+                        .filter(ee.Filter.gte('alarm_date', ee.Date('1994-07-31').millis()))
+                        .filter(ee.Filter.lt('alarm_date', ee.Date('1994-08-31').millis()))
+                        .filterMetadata('fire_name', 'equals', 'COTTONWOOD').first());
+var cottonwood_img = rsr.get_variables(cottonwood, timeWindow, resample_method, sats).clip(cottonwood);
+
+Map.addLayer(cottonwood_img.select(['RBR']), RBR_viz, 'The Cottonwood fire of 1994');
+Map.centerObject(cottonwood_img);
+
+Export.image.toDrive({
+  image: cottonwood_img.float(),
+  description: 'cottonwood-fire_2009_visualize_full-res',
+  folder: 'ee',
+  region: cottonwood,
+  scale: 30
+});
