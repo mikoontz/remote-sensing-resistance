@@ -31,14 +31,14 @@ if (all_or_burned == "all") {
   if (!file.exists(here::here("data/data_output/all-fire-samples_configured.rds"))) {
     source(here::here("data/data_carpentry/configure_fire-samples.R"))
   }
-  ss <- load(here::here("data/data_output/all-fire-samples_configured.rds"))
+  ss <- readRDS(here::here("data/data_output/all-fire-samples_configured.rds"))
 }
 
 if (all_or_burned == "burned") {
   if (!file.exists(here::here("data/data_output/burned-fire-samples_configured.rds"))) {
       source(here::here("data/data_carpentry/configure_fire-samples.R"))
     }
-    ss_burned <- loadRDS(here::here("data/data_output/burned-fire-samples_configured.rds"))
+    ss_burned <- readRDS(here::here("data/data_output/burned-fire-samples_configured.rds"))
 }
 
 ```
