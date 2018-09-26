@@ -7,7 +7,8 @@ var mixed_conifer = ee.Image("users/mkoontz/mixed_conifer"),
     l7sr = ee.ImageCollection("LANDSAT/LE07/C01/T1_SR"),
     l8sr = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR"),
     perim = ee.FeatureCollection("users/mkoontz/fire_perim_16_1"),
-    sn = ee.FeatureCollection("users/mkoontz/SierraEcoregion_Jepson");
+    sn = ee.FeatureCollection("users/mkoontz/SierraEcoregion_Jepson"),
+    cbi_sn = ee.FeatureCollection("users/mkoontz/cbi_sn");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 // HELPER FUNCTIONS
 // Generally for gathering and masking imagery, and not for
@@ -325,7 +326,7 @@ var get_preFireGridmet = function(feature, gridmet_timeWindow, resample_method) 
       .filterDate(prestart, preend)
       .filterBounds(firePerim);
       
-  preFireGridmetCol = ee.Algorithms.If(resample_method = 'none',
+  preFireGridmetCol = ee.Algorithms.If(resample_method === 'none',
                                         preFireGridmetCol,
                                         preFireGridmetCol.map(map_resample(resample_method)));
   
@@ -774,6 +775,26 @@ var get_RBR = function(feature, timeWindow, resample_method, sats) {
   return ee.Image(RBR);
 };
 
+// get_RVI() returns the "relativized vegetation index",
+// a newly created burn severity metric using the same 
+// math as the Relative Burn Ratio (RBR) from Parks et 
+// al. (2015. Remote Sensing of the Environment) but using
+// NDVI instead of NBR since we learned that change in NDVI is a
+// pretty good metric of severity
+
+var get_RVI = function(feature, timeWindow, resample_method, sats) {
+  
+  var preFire_ndvi = get_preFndvi(feature, timeWindow, resample_method, sats);
+  var delta_ndvi = get_dNDVI(feature, timeWindow, resample_method, sats);
+  
+  var RVI = ee.Algorithms.If( delta_ndvi,
+                                delta_ndvi.divide(preFire_ndvi.add(1.001)), 
+                                null);
+
+  return ee.Image(RVI);
+};
+
+
 //
 // INDEPENDENT/PREDICTOR VARIABLES
 // Calculation of independent variables for the remote-sensing-resistance
@@ -1043,6 +1064,38 @@ var get_texture = function(feature, size, timeWindow, resample_method, sats) {
 // Start get_variables function
 //
 
+// Spatial autocorrelation measure
+
+var get_gearys_c = function(feature, pixel_rad, timeWindow, resample_method, sats) {
+  
+  var neigh_length = pixel_rad + pixel_rad + 1;
+  
+  var kernel_size = Math.pow(neigh_length, 4);
+  var kern = create_kernel(pixel_rad);
+  
+  var preFire_ndvi = get_preFndvi(feature, timeWindow, resample_method, sats).multiply(10000).toInt();
+  
+  // Compute local Geary's C, a measure of spatial association.
+  // Code modified from https://developers.google.com/earth-engine/image_texture
+  
+  var gearys = ee.Algorithms.If(preFire_ndvi.bandNames(),
+                  preFire_ndvi
+                      .subtract(preFire_ndvi.neighborhoodToBands(kern))
+                      .pow(2)
+                      .reduce(ee.Reducer.sum())
+                      .divide(kernel_size),
+                  null);
+                  
+  gearys = ee.Image(gearys);
+  
+  gearys = ee.Algorithms.If(gearys.bandNames(),
+              gearys.rename(paste(ee.List(['gearys_c']), ee.String(ee.Number(pixel_rad)))),
+              null);
+  
+  return ee.Image(gearys);
+};
+             
+             
 var get_variables = function(feature, timeWindow, resample_method, sats) {   
     
     var geo = feature.geometry();
@@ -1065,16 +1118,7 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
                                         elev.resample(resample_method)));
 
     var conifer = mixed_conifer.select('b1').int();
-    var rough1 = get_roughness(feature, 1, resample_method);
-    var rough2 = get_roughness(feature, 2, resample_method);
-    var rough3 = get_roughness(feature, 3, resample_method);
-    var rough4 = get_roughness(feature, 4, resample_method);
-    
-    var texture1 = get_texture(feature, '1', timeWindow, resample_method, sats);
-    var texture2 = get_texture(feature, '2', timeWindow, resample_method, sats);
-    var texture3 = get_texture(feature, '3', timeWindow, resample_method, sats);
-    var texture4 = get_texture(feature, '4', timeWindow, resample_method, sats);
-    
+   
     // Not dependent on neighborhood size, but derived from the fire information
     var date = ee.Image(
       ee.Number(
@@ -1109,12 +1153,13 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
     var dndvi = get_dNDVI(feature, timeWindow, resample_method, sats);
     var rdndvi = get_RdNDVI(feature, timeWindow, resample_method, sats);
     
-    var preFevi = get_preFevi(feature, timeWindow, resample_method, sats);
-    var postFevi = get_postFevi(feature, timeWindow, resample_method, sats);
-    var devi = get_dEVI(feature, timeWindow, resample_method, sats);
-    var rdevi = get_RdEVI(feature, timeWindow, resample_method, sats);
-    
+    // var preFevi = get_preFevi(feature, timeWindow, resample_method, sats);
+    // var postFevi = get_postFevi(feature, timeWindow, resample_method, sats);
+    // var devi = get_dEVI(feature, timeWindow, resample_method, sats);
+    // var rdevi = get_RdEVI(feature, timeWindow, resample_method, sats);
+
     var rbr = get_RBR(feature, timeWindow, resample_method, sats);
+    var rvi = get_RVI(feature, timeWindow, resample_method, sats);
     
     var preFndwi = get_preFndwi(feature, timeWindow, resample_method, sats);
     var postFndwi = get_postFndwi(feature, timeWindow, resample_method, sats);
@@ -1123,39 +1168,55 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
     // Radius of 1 pixel = 3x3 window = 90m x 90m = 8100 m^2 = 0.81 ha
     var het_ndvi_1 = get_hetNDVI(feature, 1, timeWindow, resample_method, sats);
     var het_ndwi_1 = get_hetNDWI(feature, 1, timeWindow, resample_method, sats);
-    var het_evi_1 = get_hetEVI(feature, 1, timeWindow, resample_method, sats);
+    // var het_evi_1 = get_hetEVI(feature, 1, timeWindow, resample_method, sats);
     
     var focal_mean_ndvi_1 = get_focal_mean_NDVI(feature, 1, timeWindow, resample_method, sats);
     var focal_mean_ndwi_1 = get_focal_mean_NDWI(feature, 1, timeWindow, resample_method, sats);
-    var focal_mean_evi_1 = get_focal_mean_EVI(feature, 1, timeWindow, resample_method, sats);
+    // var focal_mean_evi_1 = get_focal_mean_EVI(feature, 1, timeWindow, resample_method, sats);
+    
+    var rough1 = get_roughness(feature, 1, resample_method);
+    var texture1 = get_texture(feature, '1', timeWindow, resample_method, sats);
+    var gearys1 = get_gearys_c(feature, 1, timeWindow, resample_method, sats);
     
     // Radius of 2 pixels = 5x5 window = 150m x 150m = 22500 m^2 = 2.25 ha
     var het_ndvi_2 = get_hetNDVI(feature, 2, timeWindow, resample_method, sats);
     var het_ndwi_2 = get_hetNDWI(feature, 2, timeWindow, resample_method, sats);
-    var het_evi_2 = get_hetEVI(feature, 2, timeWindow, resample_method, sats);
+    // var het_evi_2 = get_hetEVI(feature, 2, timeWindow, resample_method, sats);
     
     var focal_mean_ndvi_2 = get_focal_mean_NDVI(feature, 2, timeWindow, resample_method, sats);
     var focal_mean_ndwi_2 = get_focal_mean_NDWI(feature, 2, timeWindow, resample_method, sats);
-    var focal_mean_evi_2 = get_focal_mean_EVI(feature, 2, timeWindow, resample_method, sats);
+    // var focal_mean_evi_2 = get_focal_mean_EVI(feature, 2, timeWindow, resample_method, sats);
+    
+    var rough2 = get_roughness(feature, 2, resample_method);
+    var texture2 = get_texture(feature, '2', timeWindow, resample_method, sats);
+    var gearys2 = get_gearys_c(feature, 2, timeWindow, resample_method, sats);
     
     // Radius of 3 pixels = 7x7 window = 210m x 210m = 44100 m^2 = 4.41 ha
     var het_ndvi_3 = get_hetNDVI(feature, 3, timeWindow, resample_method, sats);
     var het_ndwi_3 = get_hetNDWI(feature, 3, timeWindow, resample_method, sats);
-    var het_evi_3 = get_hetEVI(feature, 3, timeWindow, resample_method, sats);
+    // var het_evi_3 = get_hetEVI(feature, 3, timeWindow, resample_method, sats);
     
     var focal_mean_ndvi_3 = get_focal_mean_NDVI(feature, 3, timeWindow, resample_method, sats);
     var focal_mean_ndwi_3 = get_focal_mean_NDWI(feature, 3, timeWindow, resample_method, sats);
-    var focal_mean_evi_3 = get_focal_mean_EVI(feature, 3, timeWindow, resample_method, sats);
+    // var focal_mean_evi_3 = get_focal_mean_EVI(feature, 3, timeWindow, resample_method, sats);
 
+    var rough3 = get_roughness(feature, 3, resample_method);
+    var texture3 = get_texture(feature, '3', timeWindow, resample_method, sats);
+    var gearys3 = get_gearys_c(feature, 3, timeWindow, resample_method, sats);
+    
     // Radius of 4 pixels = 9x9 window = 270m x 270m = 72900 m^2 = 7.29 ha
     var het_ndvi_4 = get_hetNDVI(feature, 4, timeWindow, resample_method, sats);
     var het_ndwi_4 = get_hetNDWI(feature, 4, timeWindow, resample_method, sats);
-    var het_evi_4 = get_hetEVI(feature, 4, timeWindow, resample_method, sats);
+    // var het_evi_4 = get_hetEVI(feature, 4, timeWindow, resample_method, sats);
     
     var focal_mean_ndvi_4 = get_focal_mean_NDVI(feature, 4, timeWindow, resample_method, sats);
     var focal_mean_ndwi_4 = get_focal_mean_NDWI(feature, 4, timeWindow, resample_method, sats);
-    var focal_mean_evi_4 = get_focal_mean_EVI(feature, 4, timeWindow, resample_method, sats);
+    // var focal_mean_evi_4 = get_focal_mean_EVI(feature, 4, timeWindow, resample_method, sats);
 
+    var rough4 = get_roughness(feature, 4, resample_method);
+    var texture4 = get_texture(feature, '4', timeWindow, resample_method, sats);
+    var gearys4 = get_gearys_c(feature, 4, timeWindow, resample_method, sats);
+    
     // weather/fuel condition variables
       
     var erc = get_preFerc(feature, 4, resample_method); // Take the median ERC for the 3 days prior to the fire
@@ -1191,6 +1252,7 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
         // .addBands(devi)
         // .addBands(rdevi)
         .addBands(rbr)
+        .addBands(rvi)
         .addBands(preFndvi)
         .addBands(postFndvi)
         .addBands(preFndwi)
@@ -1249,6 +1311,7 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
           // 'dEVI',
           // 'RdEVI',
           'RBR',
+          'RVI',
           'preFire_ndvi',
           'postFire_ndvi',
           'preFire_ndwi',
@@ -1299,10 +1362,14 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
         .addBands(texture2)
         .addBands(texture3)
         .addBands(texture4)
+        .addBands(gearys1)
+        // .addBands(gearys2)
+        // .addBands(gearys3)
+        // .addBands(gearys4)
         .addBands(preFraw)
         .addBands(postFraw),
       null);
-    
+
     export_img = ee.Algorithms.If(export_img,
                     ee.Algorithms.If(export_weatherFuel,
                           ee.Image(export_img)
