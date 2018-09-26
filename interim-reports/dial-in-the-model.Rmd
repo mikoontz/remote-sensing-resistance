@@ -15,6 +15,7 @@ library(here)
 library(lubridate)
 library(multcomp)
 library(effects)
+library(cowplot)
 ```
 
 ```{r read_files, message = FALSE}
@@ -24,572 +25,41 @@ fires <- st_read(dsn = here::here("/data/features/fire_perim/fire_perim_sn_16_1_
 sn <- st_read(here::here("/data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp")) %>% 
   st_transform(4326)
 
-if (!file.exists(here::here("data/data_output/all-fire-samples_texture.rds"))) {
-  source(here::here("data/data_carpentry/merge_fire_samples.R"))
+all_or_burned <- "burned"
+
+if (all_or_burned == "all") {
+  if (!file.exists(here::here("data/data_output/all-fire-samples_configured.rds"))) {
+    source(here::here("data/data_carpentry/configure_fire-samples.R"))
+  }
+  ss <- load(here::here("data/data_output/all-fire-samples_configured.rds"))
 }
 
-load(here::here("data/data_output/all-fire-samples_texture.rds"))
-
-samps <- texture_samps
-```
-
-```{r look_at_samples, cache = FALSE}
-# Extract unique Fire ID from the sample point IDs
-samps$fire_id <- substr(as.character(samps$id), start = 1, stop = 20)
-```
-
-## Topography variables
-
-Adjust aspect to reflect "heat load index" [@McCune2002] with southwest having a value of 1, and northeast having a value of -1
-
-```{r adjust_aspect}
-circular_aspect <- function(aspect) {
-  
-  new_aspect <- ((-1 * (aspect)) * pi / 180) - (3/4 * pi)
-  return(cos(new_aspect))
-  
+if (all_or_burned == "burned") {
+  if (!file.exists(here::here("data/data_output/burned-fire-samples_configured.rds"))) {
+      source(here::here("data/data_carpentry/configure_fire-samples.R"))
+    }
+    ss_burned <- loadRDS(here::here("data/data_output/burned-fire-samples_configured.rds"))
 }
 
-samps$c_aspect <- circular_aspect(samps$aspect)
 ```
-
-
-Calculate predicted potential annual direct incident radiation (also from @McCune2002) which combines slope, aspect, and latitude
-
-```{r calc_heat_load}
-fold_aspect <- function(asp) {
-  
-  rad <- asp * pi / 180
-  folded_aspect <- pi - abs(rad - pi)
-  return(folded_aspect)
-  
-}
-
-samps$folded_aspect <- fold_aspect(samps$aspect)
-
-# G column: latitude
-# H column: slope
-# I column: folded aspect
-
-# Potential 
-pdir <- function(lat, slope, folded_asp) {
-  lat <- lat * pi / 180
-  slope <- slope * pi / 180
-  exp(-1.467 + 1.582 * cos(lat) * cos(slope) - 1.5 * cos(folded_asp) * sin(slope) * sin(lat) - 0.262 * sin(lat) * sin(slope) + 0.607 * sin(folded_asp) * sin(slope))
-}
-
-samps$pdir <- pdir(samps$lat, samps$slope, samps$folded_aspect)
-```
-
-Consolidate the names of the topography variables
-```{r consolidate_topo_vars}
-topo_vars <- c("c_aspect", "pdir", "elev", "lat", "lon", "slope", "topo_roughness_1", "topo_roughness_2", "topo_roughness_3", "topo_roughness_4")
-```
-
-## Timing variables
-
-Adjust ordinal day to reflect "middle of summer-ness" with August 6th (the 218th day of the year) getting a 1 and February 4th (the 35th day of the year) getting a value of -1
-
-```{r adjust_ordinal_day}
-circular_doy <- function(doy) {
-  
-  new_doy <- ((doy - 218) / 365) * 2 * pi
-  return(cos(new_doy))
-  
-}
-
-samps$c_doy <- circular_doy(samps$ordinal_day)
-```
-
-Make year an integer
-
-```{r year_to_integer}
-samps$year_ <- as.numeric(as.character(samps$year_))
-```
-
-Consolidate timing variable names.
-
-```{r consolidate_timing_vars}
-timing_vars <- c("alarm_year", "alarm_date", "cont_date", "c_doy")
-```
-
-## Vegetation variables
-
-Consolidate vegetation variable names.
-
-```{r consolidate_veg_var_names}
-veg_vars <-
-  sapply(X = 1:4, 
-         FUN = function(i) paste(
-           c(
-             "focal_mean_ndvi",
-             "focal_mean_ndwi",
-             "het_ndvi",
-             "het_ndwi",
-             "ndvi_asm",
-             "ndvi_contrast",
-             "ndvi_corr",
-             "ndvi_dent",
-             "ndvi_diss",
-             "ndvi_dvar",
-             "ndvi_ent",
-             "ndvi_idm",
-             "ndvi_imcorr1",
-             "ndvi_imcorr2",
-             "ndvi_inertia",
-             "ndvi_prom",
-             "ndvi_savg",
-             "ndvi_sent",
-             "ndvi_shade",
-             "ndvi_svar",
-             "ndvi_var"
-           ), i, sep = "_")) %>% 
-  as.vector() %>% 
-  c("preFire_ndvi", "preFire_ndwi")
-```
-
-## Fire weather variables
-
-Consolidate fire weather variable names.
-
-```{r consolidate_fire_weather_var_names}
-fireWeather_vars <- c("erc", "fm100", "tmmx")
-```
-
-# Scale all predictor variables
-
-First consolidate all variable names.
-
-```{r consolidate_var_names}
-all_vars <- c(topo_vars, timing_vars, veg_vars, fireWeather_vars)
-```
-
-Just focus on the points from the mixed conifer/yellow pine forest
-
-```{r conifer_subset}
-mixed_con <- 
-  samps %>%
-  filter(conifer_forest == 1)
-```
-
-Scale the predictors (ss = scaled samples)
-
-```{r scale_samples}
-ss <-
-  mixed_con %>%
-  mutate_at(.vars = all_vars, .funs = funs(s = as.numeric(scale(.))))
-
-glimpse(ss)  
-```
-
-## High severity/non-high severity
-
-```{r get_cbi_calibration_model_summary}
-model_summary <- read.csv(here::here("data/data_output/cbi_calibration_model_comparison.csv"), stringsAsFactors = FALSE)
-target_model <- model_summary[model_summary$response == "RBR" &
-                                model_summary$time_window == 48 &
-                                model_summary$interpolation == "bicubic", ]
-```
-
-Here are the other thresholds for the model using bicubic interpolation and a 48 day window:
-
-- `r target_model$unchanged` equates to a CBI of 0
-- `r target_model$low_sev` equates to a CBI of 0.1 -- threshold between "unchanged" and "low"
-- `r target_model$mod_sev` equates to a CBI of 1.25 -- threshold between "low" and "medium"
-- `r target_model$hi_sev` equates to a CBI of 2.25 -- threshold between "medium" and "high"
-
-```{r high_v_not-high}
-ss$stand_replacing <- ifelse(ss$RBR > target_model$hi_sev, yes = 1, no = 0)
-```
-
-Transform RBR to linear scale CBI
-
-For 100-hour fuel moisture, we refer to @Stephens2012 who find 7.7% to be the 80th
-percentile condition, 6.6% to be the 90th percentile condition, and 4.2% to be 
-the 97.5th percentile condition. See also the note in @Stephens2013a about the significance
-of 80th percentile conditions.
-
-Create a variable for "extreme conditions" versus "non-extreme" conditions (with
-respect to fuel moisture) and interact it with the heterogeneity variable.
-
-```{r extreme_fm100}
-# Extreme percentiles correspeond to 80th, 90th, and 97.5th percentiles of 100 hour
-# fuel moisture
-extreme_fm100_percentiles <- c(7.7, 6.6, 4.2)
-ss$extreme80_fm100 <- ifelse(ss$fm100 < 7.7, yes = 1, no = 0)
-ss$extreme90_fm100 <- ifelse(ss$fm100 < 6.6, yes = 1, no = 0)
-ss$extreme97.5_fm100 <- ifelse(ss$fm100 < 4.2, yes = 1, no = 0)
-```
-
-Consider also subsetting to only places that burned to avoid any impact of unburned area that happens to be within the fire perimeter.
-
-```{r conditional_on_burning}
-ss_burned <- ss %>% filter(ss$RBR > target_model$low_sev)
-```
-
-```{r}
-remoteSev_to_cbi <- function(data, response, a, b, c) {
-  log((data[, response, drop = TRUE] - a) / b) / c
-}
-
-ss_burned$cbi <- remoteSev_to_cbi(data = ss_burned, response = "RBR", a = target_model$a, b = target_model$b, c = target_model$c)
-```
-
 
 ## Modeling
 
-```{r continuous_response}
-m1a <- lm(RBR ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s, data = ss)
-m2a <- lm(RBR ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s, data = ss)
-m3a <- lm(RBR ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s, data = ss)
-m4a <- lm(RBR ~ het_ndvi_4_s * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s, data = ss)
-
-summary(m1a)
-summary(m2a)
-summary(m3a)
-summary(m4a)
-
-m5a <- lmer(RBR ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss)
-m6a <- lmer(RBR ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss)
-m7a <- lmer(RBR ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss)
-m8a <- lmer(RBR ~ het_ndvi_4_s * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss)
-
-summary(m5a)
-summary(m6a)
-summary(m7a)
-summary(m8a)
-
-m9a <- lmer(RBR ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + focal_mean_ndvi_1_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss)
-m10a <- lmer(RBR ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + focal_mean_ndvi_2_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss)
-m11a <- lmer(RBR ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + focal_mean_ndvi_3_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss)
-m12a <- lmer(RBR ~ het_ndvi_4_s * fm100_s + preFire_ndvi_s + focal_mean_ndvi_4_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss)
-
-summary(m9a)
-summary(m10a)
-summary(m11a)
-summary(m12a)
-
-m13a <- lmer(RBR ~ het_ndvi_1_s * fm100_s + focal_mean_ndvi_1_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss)
-m14a <- lmer(RBR ~ het_ndvi_2_s * fm100_s + focal_mean_ndvi_2_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss)
-m15a <- lmer(RBR ~ het_ndvi_3_s * fm100_s + focal_mean_ndvi_3_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss)
-m16a <- lmer(RBR ~ het_ndvi_4_s * fm100_s + focal_mean_ndvi_4_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss)
-
-summary(m13a)
-summary(m14a)
-summary(m15a)
-summary(m16a)
-
-m17a <- lmer(RBR ~ het_ndvi_1_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss)
-m18a <- lmer(RBR ~ het_ndvi_2_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss)
-m19a <- lmer(RBR ~ het_ndvi_3_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss)
-m20a <- lmer(RBR ~ het_ndvi_4_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss)
-
-summary(m17a)
-summary(m18a)
-summary(m19a)
-summary(m20a)
-
-AIC(m17a, m18a, m19a, m20a)
-
-AIC(m1a, m2a, m3a, m4a, m5a, m6a, m7a, m8a, m9a, m10a, m11a, m12a, m13a, m14a, m15a, m16a, m17a, m18a, m19a, m20a) %>% 
-  mutate(model = rownames(.)) %>% 
-  arrange(AIC)
-```
-```{r}
-m1b <- lm(RBR ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s, data = ss_burned)
-m2b <- lm(RBR ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s, data = ss_burned)
-m3b <- lm(RBR ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s, data = ss_burned)
-m4b <- lm(RBR ~ het_ndvi_4_s * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s, data = ss_burned)
-
-summary(m1a)
-summary(m2a)
-summary(m3a)
-summary(m4a)
-
-m5b <- lmer(RBR ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss_burned)
-m6b <- lmer(RBR ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss_burned)
-m7b <- lmer(RBR ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss_burned)
-m8b <- lmer(RBR ~ het_ndvi_4_s * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss_burned)
-
-summary(m5b)
-summary(m6b)
-summary(m7b)
-summary(m8b)
-
-m9b <- lmer(RBR ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + focal_mean_ndvi_1_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss_burned)
-m10b <- lmer(RBR ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + focal_mean_ndvi_2_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss_burned)
-m11b <- lmer(RBR ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + focal_mean_ndvi_3_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss_burned)
-m12b <- lmer(RBR ~ het_ndvi_4_s * fm100_s + preFire_ndvi_s + focal_mean_ndvi_4_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss_burned)
-
-summary(m9b)
-summary(m10b)
-summary(m11b)
-summary(m12b)
-
-m13b <- lmer(RBR ~ het_ndvi_1_s * fm100_s + focal_mean_ndvi_1_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss_burned)
-m14b <- lmer(RBR ~ het_ndvi_2_s * fm100_s + focal_mean_ndvi_2_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss_burned)
-m15b <- lmer(RBR ~ het_ndvi_3_s * fm100_s + focal_mean_ndvi_3_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss_burned)
-m16b <- lmer(RBR ~ het_ndvi_4_s * fm100_s + focal_mean_ndvi_4_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss_burned)
-
-summary(m13b)
-summary(m14b)
-summary(m15b)
-summary(m16b)
-
-m17b <- lmer(RBR ~ het_ndvi_1_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss_burned)
-m18b <- lmer(RBR ~ het_ndvi_2_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss_burned)
-m19b <- lmer(RBR ~ het_ndvi_3_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss_burned)
-m20b <- lmer(RBR ~ het_ndvi_4_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss_burned)
-
-summary(m17b)
-summary(m18b)
-summary(m19b)
-summary(m20b)
-
-AIC(m17b, m18b, m19b, m20b)
-
-
-AIC(m1b, m2b, m3b, m4b, m5b, m6b, m7b, m8b, m9b, m10b, m11b, m12b, m13b, m14b, m15b, m16b) %>% 
-  mutate(model = rownames(.)) %>% 
-  arrange(AIC)
-```
-
-
-```{r binomial_response}
-
-# Severe or not as bernoulli response, fm100 covariate, all samples from within fire perimeter (some may not have burned)
-m_sevOrNot_rawFm100_1_ss <- glmer(stand_replacing ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_rawFm100_2_ss <- glmer(stand_replacing ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_rawFm100_3_ss <- glmer(stand_replacing ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_rawFm100_4_ss <- glmer(stand_replacing ~ het_ndvi_4_s * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-
-# Severe or not as bernoulli response, fm100 covariate, only samples that were burned
-m_sevOrNot_rawFm100_1_ssBurned <- glmer(stand_replacing ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_rawFm100_2_ssBurned <- glmer(stand_replacing ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_rawFm100_3_ssBurned <- glmer(stand_replacing ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_rawFm100_4_ssBurned <- glmer(stand_replacing ~ het_ndvi_4_s * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-
-###
-
-# Severe or not as bernoulli response, extreme or not dummy covariate, all samples from within fire perimeter (some may not have burned)
-m_sevOrNot_extremeFm100_1_ss <- glmer(stand_replacing ~ het_ndvi_1_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100_2_ss <- glmer(stand_replacing ~ het_ndvi_2_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100_3_ss <- glmer(stand_replacing ~ het_ndvi_3_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100_4_ss <- glmer(stand_replacing ~ het_ndvi_4_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-
-# Severe or not as bernoulli response, extreme or not dummy covariate, only samples that were burned
-m_sevOrNot_extremeFm100_1_ssBurned <- glmer(stand_replacing ~ het_ndvi_1_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100_2_ssBurned <- glmer(stand_replacing ~ het_ndvi_2_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100_3_ssBurned <- glmer(stand_replacing ~ het_ndvi_3_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100_4_ssBurned <- glmer(stand_replacing ~ het_ndvi_4_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-
-# Severe or not as bernoulli response, extreme or not dummy covariate, interaction with raw fm100, all samples from within fire perimeter (some may not have burned)
-m_sevOrNot_extremeFm100AndRawFm100_1_ss <- glmer(stand_replacing ~ het_ndvi_1_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100AndRawFm100_2_ss <- glmer(stand_replacing ~ het_ndvi_2_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100AndRawFm100_3_ss <- glmer(stand_replacing ~ het_ndvi_3_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100AndRawFm100_4_ss <- glmer(stand_replacing ~ het_ndvi_4_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), family = "binomial", data = ss, control = glmerControl(optimizer = "bobyqa"))
-
-# Severe or not as bernoulli response, extreme or not dummy covariate, interaction with raw fm100, only samples that were burned
-m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned <- glmer(stand_replacing ~ het_ndvi_1_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned <- glmer(stand_replacing ~ het_ndvi_2_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned <- glmer(stand_replacing ~ het_ndvi_3_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned <- glmer(stand_replacing ~ het_ndvi_4_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), family = "binomial", data = ss_burned, control = glmerControl(optimizer = "bobyqa"))
-
-AIC(m_sevOrNot_rawFm100_1_ss, m_sevOrNot_rawFm100_2_ss, m_sevOrNot_rawFm100_3_ss, m_sevOrNot_rawFm100_4_ss,
-    m_sevOrNot_extremeFm100_1_ss, m_sevOrNot_extremeFm100_2_ss, m_sevOrNot_extremeFm100_3_ss, m_sevOrNot_extremeFm100_4_ss,
-    m_sevOrNot_extremeFm100AndRawFm100_1_ss, m_sevOrNot_extremeFm100AndRawFm100_2_ss, m_sevOrNot_extremeFm100AndRawFm100_3_ss, m_sevOrNot_extremeFm100AndRawFm100_4_ss)  %>% 
-  mutate(model = rownames(.)) %>% 
-  arrange(AIC)
-
-AIC(m_sevOrNot_rawFm100_1_ssBurned, m_sevOrNot_rawFm100_2_ssBurned, m_sevOrNot_rawFm100_3_ssBurned, m_sevOrNot_rawFm100_4_ssBurned,
-    m_sevOrNot_extremeFm100_1_ssBurned, m_sevOrNot_extremeFm100_2_ssBurned, m_sevOrNot_extremeFm100_3_ssBurned, m_sevOrNot_extremeFm100_4_ssBurned,
-    m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned, m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned, m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned, m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned) %>% 
-  mutate(model = rownames(.)) %>% 
-  arrange(AIC)
-
-
-# Best binomial response model; all samps
-summary(m_sevOrNot_extremeFm100AndRawFm100_2_ss)
-
-# Best binomial response model; burned samps
-summary(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned)
-
-
-m_nonextreme <- glmer(stand_replacing ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), family = "binomial", data = subset(ss_burned, subset = ss_burned$extreme80_fm100 == 0), control = glmerControl(optimizer = "bobyqa"))
-m_extreme <- glmer(stand_replacing ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), family = "binomial", data = subset(ss_burned, subset = ss_burned$extreme80_fm100 == 1), control = glmerControl(optimizer = "bobyqa"))
-
-summary(m_nonextreme)
-summary(m_extreme)
-
-```
-
-```{r rethinking_models}
-m_sevOrNot_meanNDVI_localNDVI_rawFm100_1_ssBurned <- 
-  glmer(stand_replacing ~ 
-          het_ndvi_1_s * 
-          preFire_ndvi_s * 
-          fm100_s * 
-          focal_mean_ndvi_1_s + 
-          topo_roughness_1_s + 
-          pdir_s + 
-          (1 | fire_id), 
-        family = "binomial", 
-        data = ss_burned, 
-        control = glmerControl(optimizer = "bobyqa"))
-
-m_sevOrNot_meanNDVI_localNDVI_rawFm100_2_ssBurned <- 
-  glmer(stand_replacing ~ 
-          het_ndvi_2_s * 
-          preFire_ndvi_s * 
-          fm100_s * 
-          focal_mean_ndvi_2_s +
-          topo_roughness_2_s + 
-          pdir_s + 
-          (1 | fire_id), 
-        family = "binomial", 
-        data = ss_burned, 
-        control = glmerControl(optimizer = "bobyqa"))
-
-m_sevOrNot_meanNDVI_localNDVI_rawFm100_3_ssBurned <- 
-  glmer(stand_replacing ~ 
-          het_ndvi_3_s * 
-          preFire_ndvi_s * 
-          fm100_s * 
-          focal_mean_ndvi_3_s +
-          topo_roughness_3_s + 
-          pdir_s + 
-          (1 | fire_id), 
-        family = "binomial", 
-        data = ss_burned, 
-        control = glmerControl(optimizer = "bobyqa"))
-
-m_sevOrNot_meanNDVI_localNDVI_rawFm100_4_ssBurned <- 
-  glmer(stand_replacing ~ 
-          het_ndvi_4_s * 
-          preFire_ndvi_s * 
-          fm100_s * 
-          focal_mean_ndvi_4_s + 
-          topo_roughness_4_s + 
-          pdir_s + 
-          (1 | fire_id), 
-        family = "binomial", 
-        data = ss_burned, 
-        control = glmerControl(optimizer = "bobyqa"))
-
-fm100_labeller <- c(`-0.5` = "Low fuel moisture", 
-                    `0` = "Mean fuel moisture",
-                    `0.5` = "High fuel moisture")
-
-focal_ndvi_labeller <- c(`-2` = "Low neighborhood NDVI", 
-                    `0` = "Mean neighborhood NDVI",
-                    `2` = "High neighborhood NDVI")
-
-e_1_4way <- effect("het_ndvi_1_s:preFire_ndvi_s:fm100_s:focal_mean_ndvi_1_s", m_sevOrNot_meanNDVI_localNDVI_rawFm100_1_ssBurned, xlevels = list(preFire_ndvi_s = c(0, 0), fm100_s = c(-0.5, 0, 0.5), focal_mean_ndvi_1_s = c(-2, 0, 2), het_ndvi_1_s = seq(-2, 2, by = 0.1)))
-
-e_1_4way_allEffects <- effect("het_ndvi_1_s:preFire_ndvi_s:fm100_s:focal_mean_ndvi_1_s", m_sevOrNot_meanNDVI_localNDVI_rawFm100_1_ssBurned, xlevels = list(preFire_ndvi_s = seq(-2, 2, by = 0.25), fm100_s = seq(-2, 2, by = 0.25), focal_mean_ndvi_1_s = c(0, 0), het_ndvi_1_s = seq(-2, 2, by = 0.25)))
-
-glimpse(as.data.frame(e_1_4way_allEffects))
-e_1_4way_allEffects_gg <- as.data.frame(e_1_4way_allEffects)
-
-# prefire NDVI main effect
-prefireNDVI_ggplot <-
-  ggplot(subset(e_1_4way_allEffects_gg, e_1_4way_allEffects_gg$fm100_s == 0 & e_1_4way_allEffects_gg$focal_mean_ndvi_1_s == 0 & e_1_4way_allEffects_gg$het_ndvi_1_s == 0), aes(x = preFire_ndvi_s, y = fit, ymin = lower, ymax = upper)) +
-  geom_line(lwd = 1.25) +
-  geom_ribbon(alpha = 0.4) +
-  xlab(label = "Prefire vegetation density") +
-  ylab(label = "") +
-  theme_bw() +
-  theme(text = element_text(size = 28),
-        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
-        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
-
-
-# fm100 main effect
-fm100_ggplot <-
-  ggplot(subset(e_1_4way_allEffects_gg, e_1_4way_allEffects_gg$preFire_ndvi_s == 0 & e_1_4way_allEffects_gg$focal_mean_ndvi_1_s == 0 & e_1_4way_allEffects_gg$het_ndvi_1_s == 0), aes(x = fm100_s, y = fit, ymin = lower, ymax = upper)) +
-  geom_line(lwd = 1.25) +
-  geom_ribbon(alpha = 0.4) +
-  xlab(label = "Fuel moisture") +
-  ylab(label = "") +
-  theme_bw() +
-  theme(text = element_text(size = 28),
-        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
-        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
-
-
-pahl_effect <- effect("pdir_s", m_sevOrNot_meanNDVI_localNDVI_rawFm100_1_ssBurned, xlevels = list(pdir_s = seq(-2, 2, by = 0.25)))
-pahl_effect_gg <- as.data.frame(pahl_effect)
-
-# pahl main effect
-pahl_ggplot <- 
-  ggplot(pahl_effect_gg, aes(x = pdir_s, y = fit, ymin = lower, ymax = upper)) +
-  geom_line(lwd = 1.25) +
-  geom_ribbon(alpha = 0.4) +
-  xlab(label = "Annual heat load") +
-  ylab(label = "") +
-  theme_bw() +
-  theme(text = element_text(size = 28),
-        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
-        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
-
-
-
-topo_rough_effect <- effect("topo_roughness_1_s", m_sevOrNot_meanNDVI_localNDVI_rawFm100_1_ssBurned, xlevels = list(topo_roughness_1_s = seq(-2, 2, by = 0.25)))
-topo_rough_effect_gg <- as.data.frame(topo_rough_effect)
-
-# topo rough main effect
-topo_rough_ggplot <-
-  ggplot(topo_rough_effect_gg, aes(x = topo_roughness_1_s, y = fit, ymin = lower, ymax = upper)) +
-  geom_line(lwd = 1.25) +
-  geom_ribbon(alpha = 0.4) +
-  xlab(label = "Topographic roughness") +
-  ylab(label = "") +
-  theme_bw() +
-  theme(text = element_text(size = 28),
-        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
-        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
-
-library(cowplot)
-
-panel_plot <- plot_grid(NULL, prefireNDVI_ggplot, fm100_ggplot, NULL, pahl_ggplot, topo_rough_ggplot, ncol=3, nrow = 2, rel_widths = c(0.2, 1, 1))
-
-panel_plot_labelled <- 
-  panel_plot + 
-  draw_label(label = "Probability of\n90%\ntree mortality", x = 0.08, angle = 0, size = 28)
-
-ggplot2::ggsave(plot = panel_plot_labelled, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/usual-suspects.png", device = "png", width = 15)
-
-
-e_1_4way_gg <- as.data.frame(e_1_4way)
-e_1_4way_ggplot <- ggplot(e_1_4way_gg, aes(x = het_ndvi_1_s, y = fit, ymin = lower, ymax = upper, color = as.factor(focal_mean_ndvi_1_s), fill = as.factor(focal_mean_ndvi_1_s))) + 
-  geom_line(lwd = 1.25) +
-  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = 0.4) +
-  facet_wrap(~ fm100_s, labeller = as_labeller(fm100_labeller)) +
-  ylab(label = "Probability of >90% tree mortality") +
-  xlab(label = "Neighborhood forest variability (scaled)\n(90m x 90m window)") +
-  scale_color_viridis_d(name = "Neighborhood NDVI\n(scaled)") +
-  scale_fill_viridis_d(name = "Neighborhood NDVI\n(scaled)") +
-  theme_bw() +
-  theme(text = element_text(size=28),
-        axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
-        axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
-
-ggsave(plot = e_1_4way_ggplot, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/4-way-plot.png", device = "png", width = 15, units = "in")
-```
+What is it that we really care about? It's not 4-way interactions. What about including some 2-way interactions that we think might be important, along with the additive effects of "usual suspect" types of covariates, and leave it at that?
 
 ```{r simplify_models}
 fm1 <- 
   glmer(stand_replacing ~ 
           het_ndvi_1_s +
           focal_mean_ndvi_1_s +
-          het_ndvi_1_s:focal_mean_ndvi_1_s +
           preFire_ndvi_s +
-          preFire_ndvi_s:focal_mean_ndvi_1_s +
-          het_ndvi_1_s:preFire_ndvi_s +
           fm100_s +
-          het_ndvi_1_s:fm100_s +
+          pahl_s + 
           topo_roughness_1_s + 
-          pdir_s + 
+          focal_mean_ndvi_1_s:preFire_ndvi_s +
+          het_ndvi_1_s:focal_mean_ndvi_1_s +
+          het_ndvi_1_s:preFire_ndvi_s +
+          het_ndvi_1_s:fm100_s +
           (1 | fire_id), 
         family = "binomial", 
         data = ss_burned, 
@@ -599,13 +69,14 @@ fm2 <-
   glmer(stand_replacing ~ 
           het_ndvi_2_s +
           focal_mean_ndvi_2_s +
-          het_ndvi_2_s:focal_mean_ndvi_2_s +
           preFire_ndvi_s +
-          preFire_ndvi_s:focal_mean_ndvi_2_s +
-          het_ndvi_2_s:preFire_ndvi_s +
           fm100_s +
+          pahl_s + 
           topo_roughness_2_s + 
-          pdir_s + 
+          focal_mean_ndvi_2_s:preFire_ndvi_s +
+          het_ndvi_2_s:focal_mean_ndvi_2_s +
+          het_ndvi_2_s:preFire_ndvi_s +
+          het_ndvi_2_s:fm100_s +
           (1 | fire_id), 
         family = "binomial", 
         data = ss_burned, 
@@ -615,13 +86,14 @@ fm3 <-
   glmer(stand_replacing ~ 
           het_ndvi_3_s +
           focal_mean_ndvi_3_s +
-          het_ndvi_3_s:focal_mean_ndvi_3_s +
           preFire_ndvi_s +
-          preFire_ndvi_s:focal_mean_ndvi_3_s +
-          het_ndvi_3_s:preFire_ndvi_s +
           fm100_s +
+          pahl_s + 
           topo_roughness_3_s + 
-          pdir_s + 
+          focal_mean_ndvi_3_s:preFire_ndvi_s +
+          het_ndvi_3_s:focal_mean_ndvi_3_s +
+          het_ndvi_3_s:preFire_ndvi_s +
+          het_ndvi_3_s:fm100_s +
           (1 | fire_id), 
         family = "binomial", 
         data = ss_burned, 
@@ -631,20 +103,25 @@ fm4 <-
   glmer(stand_replacing ~ 
           het_ndvi_4_s +
           focal_mean_ndvi_4_s +
-          het_ndvi_4_s:focal_mean_ndvi_4_s +
           preFire_ndvi_s +
-          preFire_ndvi_s:focal_mean_ndvi_4_s +
-          het_ndvi_4_s:preFire_ndvi_s +
           fm100_s +
+          pahl_s + 
           topo_roughness_4_s + 
-          pdir_s + 
+          focal_mean_ndvi_4_s:preFire_ndvi_s +
+          het_ndvi_4_s:focal_mean_ndvi_4_s +
+          het_ndvi_4_s:preFire_ndvi_s +
+          het_ndvi_4_s:fm100_s +
           (1 | fire_id), 
         family = "binomial", 
         data = ss_burned, 
         control = glmerControl(optimizer = "bobyqa"))
 
-AIC(fm1, fm2, fm3, fm4, m_sevOrNot_meanNDVI_localNDVI_rawFm100_4_ssBurned)
+AIC(fm1, fm2, fm3, fm4)
 summary(fm1)
+```
+
+
+```{r effects}
 
 e_fm1 <- allEffects(fm1, 
                     xlevels = list(preFire_ndvi_s = seq(-2, 2, length.out = 17), 
@@ -652,10 +129,10 @@ e_fm1 <- allEffects(fm1,
                                    focal_mean_ndvi_1_s = seq(-2, 2, length.out = 17), 
                                    het_ndvi_1_s = seq(-2, 2, length.out = 17),
                                    topo_roughness_1_s = seq(-2, 2, length.out = 17),
-                                   pdir_s = seq(-2, 2, length.out = 17)))
+                                   pahl_s = seq(-2, 2, length.out = 17)))
 
 e_fm1_topoRough <- as.data.frame(e_fm1[["topo_roughness_1_s"]])
-e_fm1_pahl <- as.data.frame(e_fm1[["pdir_s"]])
+e_fm1_pahl <- as.data.frame(e_fm1[["pahl_s"]])
 e_fm1_het_neighborhoodMean <- as.data.frame(e_fm1[["het_ndvi_1_s:focal_mean_ndvi_1_s"]])
 e_fm1_focalMean_neighborhoodMean <- as.data.frame(e_fm1[["focal_mean_ndvi_1_s:preFire_ndvi_s"]])
 e_fm1_het_focalMean <- as.data.frame(e_fm1[["het_ndvi_1_s:preFire_ndvi_s"]])
@@ -677,6 +154,7 @@ prefireNDVI_ggplot <-
         axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
         axis.text.x = element_text(size = 28),
         axis.text.y = element_text(size = 28))
+prefireNDVI_ggplot
 
 # fm100 effect
 e_fm1_fm100 <- 
@@ -694,6 +172,7 @@ fm100_ggplot <-
         axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
         axis.text.x = element_text(size = 28),
         axis.text.y = element_text(size = 28))
+fm100_ggplot
 
 # topo roughness effect
 topo_rough_ggplot <- 
@@ -707,10 +186,11 @@ topo_rough_ggplot <-
         axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
         axis.text.x = element_text(size = 28),
         axis.text.y = element_text(size = 28))
+topo_rough_ggplot
 
 # pahl effect
 pahl_ggplot <- 
-  ggplot(e_fm1_pahl, aes(x = pdir_s, y = fit, ymin = lower, ymax = upper)) +
+  ggplot(e_fm1_pahl, aes(x = pahl_s, y = fit, ymin = lower, ymax = upper)) +
   geom_line(lwd = 1.25) + 
   geom_ribbon(alpha = 0.4) +
   xlab(label = "Annual heat load") +
@@ -720,6 +200,7 @@ pahl_ggplot <-
         axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
         axis.text.x = element_text(size = 28),
         axis.text.y = element_text(size = 28))
+pahl_ggplot
 
 panel_plot <- plot_grid(NULL, prefireNDVI_ggplot, fm100_ggplot, NULL, pahl_ggplot, topo_rough_ggplot, ncol=3, nrow = 2, rel_widths = c(0.2, 1, 1))
 
@@ -727,7 +208,8 @@ panel_plot_labelled <-
   panel_plot + 
   draw_label(label = "Probability of\n90%\ntree mortality", x = 0.08, angle = 0, size = 28)
 
-ggplot2::ggsave(plot = panel_plot_labelled, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/usual-suspects.png", device = "png", width = 15)
+panel_plot_labelled
+# ggplot2::ggsave(plot = panel_plot_labelled, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/usual-suspects.png", device = "png", width = 15)
 
 # heterogeneity interacting with fuel moisture effect (not quite significant)
 e_fm1_het_fm100_subset <-
@@ -747,15 +229,11 @@ het_fm100_ggplot <-
         axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)),
         axis.text.x = element_text(size = 28),
         axis.text.y = element_text(size = 28))
+het_fm100_ggplot
 
-# heterogeneity interacting with neighborhood mean effect (not significant)
-ggplot(e_fm1_het_neighborhoodMean, aes(x = het_ndvi_1_s, y = fit, ymin = lower, ymax = upper, color = as.factor(focal_mean_ndvi_1_s), fill = as.factor(focal_mean_ndvi_1_s))) +
-  geom_line(lwd = 1.25) + 
-  geom_ribbon(alpha = 0.4) +
-  scale_fill_viridis_d() +
-  scale_color_viridis_d()
-
-# focal mean interacting with neighborhood mean effect (strong interaction)
+# focal mean interacting with neighborhood mean effect  (strong interaction; accounting variable, so not interpretting biologically)
+# these covariates are super colinear, though there is some information gained by including them both
+# Some of the covariate space just doesn't exist in real life (high focal mean, low neighborhood mean and vice versa; so no real sense in making predictions in those areas)
 e_fm1_focalMean_neighborhoodMean_subset <-
   e_fm1_focalMean_neighborhoodMean %>% 
   filter(focal_mean_ndvi_1_s %in% c(-2, 0, 2))
@@ -774,7 +252,9 @@ e_fm1_focalMean_neighborhoodMean_ggplot <-
         axis.text.x = element_text(size = 28),
         axis.text.y = element_text(size = 28))
 
-# focal mean interacting with neighborhood mean effect (strong interaction)
+e_fm1_focalMean_neighborhoodMean_ggplot
+
+# focal mean interacting with neighborhood mean effect
 e_fm1_focalMean_neighborhoodMean_subset_2 <-
   e_fm1_focalMean_neighborhoodMean %>% 
   filter(preFire_ndvi_s %in% c(-2, 0, 2))
@@ -793,14 +273,9 @@ e_fm1_focalMean_neighborhoodMean_ggplot_2 <-
         axis.text.x = element_text(size = 28),
         axis.text.y = element_text(size = 28))
 
-ggplot2::ggsave(plot = e_fm1_focalMean_neighborhoodMean_ggplot, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/focalMean_neighborhoodMean.png", device = "png")
+e_fm1_focalMean_neighborhoodMean_ggplot_2
 
-# heterogeneity interacting with focal mean effect (not significant)
-ggplot(e_fm1_het_focalMean, aes(x = het_ndvi_1_s, y = fit, ymin = lower, ymax = upper, color = as.factor(preFire_ndvi_s), fill = as.factor(preFire_ndvi_s))) +
-  geom_line(lwd = 1.25) + 
-  geom_ribbon(alpha = 0.4) +
-  scale_fill_viridis_d() +
-  scale_color_viridis_d()
+# ggplot2::ggsave(plot = e_fm1_focalMean_neighborhoodMean_ggplot, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/focalMean_neighborhoodMean.png", device = "png")
 
 # Heterogeneity main effect
 het_effect_gg <- 
@@ -818,244 +293,5 @@ het_effect_ggplot <-
         axis.text.y = element_text(size = 28, margin = margin(t = 0, b = 0, l = 14, r = 14)),
         axis.title.x = element_text(margin = margin(t = 28, b = 28, l = 0, r = 0)),
         axis.title.y = element_text(margin = margin(t = 0, b = 0, l = 28, r = 28)))
-
-ggplot2::ggsave(plot = het_effect_ggplot, filename = "~/dev/presentations/2018-08-09_esa2018-new-orleans-louisiana/het_effect.png", device = "png")
+het_effect_ggplot
 ```
-
-```{r rbr_response}
-
-# RBR response, fm100 covariate, all samples from within fire perimeter (some may not have burned)
-m_rbr_rawFm100_1_ss <- lmer(RBR ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss)
-m_rbr_rawFm100_2_ss <- lmer(RBR ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss)
-m_rbr_rawFm100_3_ss <- lmer(RBR ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss)
-m_rbr_rawFm100_4_ss <- lmer(RBR ~ het_ndvi_4_s * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss)
-
-# RBR response, fm100 covariate, only samples that were burned
-m_rbr_rawFm100_1_ssBurned <- lmer(RBR ~ het_ndvi_1_s * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss_burned)
-m_rbr_rawFm100_2_ssBurned <- lmer(RBR ~ het_ndvi_2_s * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss_burned)
-m_rbr_rawFm100_3_ssBurned <- lmer(RBR ~ het_ndvi_3_s * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss_burned)
-m_rbr_rawFm100_4_ssBurned <- lmer(RBR ~ het_ndvi_4_s * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss_burned)
-
-###
-
-# RBR response, extreme or not dummy covariate, all samples from within fire perimeter (some may not have burned)
-m_rbr_extremeFm100_1_ss <- lmer(RBR ~ het_ndvi_1_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss)
-m_rbr_extremeFm100_2_ss <- lmer(RBR ~ het_ndvi_2_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss)
-m_rbr_extremeFm100_3_ss <- lmer(RBR ~ het_ndvi_3_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss)
-m_rbr_extremeFm100_4_ss <- lmer(RBR ~ het_ndvi_4_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss)
-
-# RBR response, extreme or not dummy covariate, only samples that were burned
-m_rbr_extremeFm100_1_ssBurned <- lmer(RBR ~ het_ndvi_1_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss_burned)
-m_rbr_extremeFm100_2_ssBurned <- lmer(RBR ~ het_ndvi_2_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss_burned)
-m_rbr_extremeFm100_3_ssBurned <- lmer(RBR ~ het_ndvi_3_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss_burned)
-m_rbr_extremeFm100_4_ssBurned <- lmer(RBR ~ het_ndvi_4_s * extreme80_fm100 + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss_burned)
-
-# RBR response, extreme or not dummy covariate, interaction with raw fm100, all samples from within fire perimeter (some may not have burned)
-m_rbr_extremeFm100AndRawFm100_1_ss <- lmer(RBR ~ het_ndvi_1_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss)
-m_rbr_extremeFm100AndRawFm100_2_ss <- lmer(RBR ~ het_ndvi_2_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss)
-m_rbr_extremeFm100AndRawFm100_3_ss <- lmer(RBR ~ het_ndvi_3_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss)
-m_rbr_extremeFm100AndRawFm100_4_ss <- lmer(RBR ~ het_ndvi_4_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss)
-
-# RBR response, extreme or not dummy covariate, interaction with raw fm100, only samples that were burned
-m_rbr_extremeFm100AndRawFm100_1_ssBurned <- lmer(RBR ~ het_ndvi_1_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), data = ss_burned)
-m_rbr_extremeFm100AndRawFm100_2_ssBurned <- lmer(RBR ~ het_ndvi_2_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), data = ss_burned)
-m_rbr_extremeFm100AndRawFm100_3_ssBurned <- lmer(RBR ~ het_ndvi_3_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), data = ss_burned)
-m_rbr_extremeFm100AndRawFm100_4_ssBurned <- lmer(RBR ~ het_ndvi_4_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), data = ss_burned)
-
-AIC(m_rbr_rawFm100_1_ss, m_rbr_rawFm100_2_ss, m_rbr_rawFm100_3_ss, m_rbr_rawFm100_4_ss,
-    m_rbr_extremeFm100_1_ss, m_rbr_extremeFm100_2_ss, m_rbr_extremeFm100_3_ss, m_rbr_extremeFm100_4_ss,
-    m_rbr_extremeFm100AndRawFm100_1_ss, m_rbr_extremeFm100AndRawFm100_2_ss, m_rbr_extremeFm100AndRawFm100_3_ss, m_rbr_extremeFm100AndRawFm100_4_ss)  %>% 
-  mutate(model = rownames(.)) %>% 
-  arrange(AIC)
-
-AIC(m_rbr_rawFm100_1_ssBurned, m_rbr_rawFm100_2_ssBurned, m_rbr_rawFm100_3_ssBurned, m_rbr_rawFm100_4_ssBurned,
-    m_rbr_extremeFm100_1_ssBurned, m_rbr_extremeFm100_2_ssBurned, m_rbr_extremeFm100_3_ssBurned, m_rbr_extremeFm100_4_ssBurned,
-    m_rbr_extremeFm100AndRawFm100_1_ssBurned, m_rbr_extremeFm100AndRawFm100_2_ssBurned, m_rbr_extremeFm100AndRawFm100_3_ssBurned, m_rbr_extremeFm100AndRawFm100_4_ssBurned) %>% 
-  mutate(model = rownames(.)) %>% 
-  arrange(AIC)
-
-
-# All samps best model
-summary(m_rbr_rawFm100_4_ss)
-
-# Only burned best model
-summary(m_rbr_extremeFm100_4_ssBurned)
-
-# Model to match best model from stand replacing binomial response
-summary(m_rbr_extremeFm100AndRawFm100_1_ss)
-summary(m_rbr_extremeFm100AndRawFm100_2_ss)
-summary(m_rbr_extremeFm100AndRawFm100_3_ss)
-summary(m_rbr_extremeFm100AndRawFm100_4_ss)
-
-```
-
-<!-- ```{r} -->
-<!-- # Calculating the differences between B11, B12, and B13: -->
-<!-- H0s <- rbind(het_normal = c(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0), -->
-<!--              het_xtreme = c(0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0), -->
-<!--              norm_xtreme = c(0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0)) -->
-
-<!-- # Binomial response, all samps -->
-<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_1_ss, linfct = H0s) -->
-<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ss) -->
-
-<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_2_ss, linfct = H0s) -->
-<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ss) -->
-
-<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_3_ss, linfct = H0s) -->
-<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ss) -->
-
-<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ss <- glht(m_sevOrNot_extremeFm100AndRawFm100_4_ss, linfct = H0s) -->
-<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ss) -->
-
-<!-- # Binomial response, burned samps -->
-<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned, linfct = H0s) -->
-<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned) -->
-
-<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned, linfct = H0s) -->
-<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned) -->
-
-<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned, linfct = H0s) -->
-<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned) -->
-
-<!-- tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned <- glht(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned, linfct = H0s) -->
-<!-- summary(tH0s_m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned) -->
-
-<!-- # RBR response, all samps -->
-<!-- tH0s_m_rbr_extremeFm100AndRawFm100_1_ss <- glht(m_rbr_extremeFm100AndRawFm100_1_ss, linfct = H0s) -->
-<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_1_ss) -->
-
-<!-- tH0s_m_rbr_extremeFm100AndRawFm100_2_ss <- glht(m_rbr_extremeFm100AndRawFm100_2_ss, linfct = H0s) -->
-<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_2_ss) -->
-
-<!-- tH0s_m_rbr_extremeFm100AndRawFm100_3_ss <- glht(m_rbr_extremeFm100AndRawFm100_3_ss, linfct = H0s) -->
-<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_3_ss) -->
-
-<!-- tH0s_m_rbr_extremeFm100AndRawFm100_4_ss <- glht(m_rbr_extremeFm100AndRawFm100_4_ss, linfct = H0s) -->
-<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_4_ss) -->
-
-<!-- # RBR response, burned samps -->
-<!-- tH0s_m_rbr_extremeFm100AndRawFm100_1_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_1_ssBurned, linfct = H0s) -->
-<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_1_ssBurned) -->
-
-<!-- tH0s_m_rbr_extremeFm100AndRawFm100_2_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_2_ssBurned, linfct = H0s) -->
-<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_2_ssBurned) -->
-
-<!-- tH0s_m_rbr_extremeFm100AndRawFm100_3_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_3_ssBurned, linfct = H0s) -->
-<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_3_ssBurned) -->
-
-<!-- tH0s_m_rbr_extremeFm100AndRawFm100_4_ssBurned <- glht(m_rbr_extremeFm100AndRawFm100_4_ssBurned, linfct = H0s) -->
-<!-- summary(tH0s_m_rbr_extremeFm100AndRawFm100_4_ssBurned) -->
-
-<!-- ``` -->
-
-<!-- ```{r fit_with_brms} -->
-<!-- library(brms) -->
-<!-- # Severe or not as bernoulli response, extreme or not dummy covariate, interaction with raw fm100, only samples that were burned -->
-
-<!-- m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_1_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_1_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned) -->
-
-<!-- m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_2_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_2_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned) -->
-
-<!-- m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_3_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_3_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned) -->
-
-<!-- m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm <- brm(stand_replacing ~ het_ndvi_4_s * extreme80_fm100 * fm100_s + preFire_ndvi_s + topo_roughness_4_s + pdir_s + (1 | fire_id), family = bernoulli(), data = ss_burned) -->
-
-<!-- m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm) -->
-<!-- # m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm) -->
-<!-- # m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm) -->
-<!-- # m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm <- brms::add_loo(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm) -->
-<!-- ``` -->
-
-<!-- Set up the proper contrasts for each model -->
-<!-- ```{r contrasts_setup} -->
-<!-- # Contrasts -->
-<!-- # Fix these so that fm100_s isn't 0, but rather the mean for each group (greater than 0 for non-extreme, less than 0 for extreme) -->
-
-<!-- # What is the mean fm100_s for non-extreme and extreme conditions? -->
-<!-- fm100_s_means <-  -->
-<!--   ss_burned %>%  -->
-<!--   as.data.frame() %>%  -->
-<!--   group_by(extreme80_fm100) %>%  -->
-<!--   summarize(mean_fm100 = mean(fm100_s)) -->
-
-<!-- het_normal <- c(0, 1, 0, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 0), mean_fm100)), 0, 0, 0, 0, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 0), mean_fm100)), 0, 0) -->
-
-<!-- het_xtreme <- c(0, 1, 1, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100)) -->
-<!-- , 0, 0, 0, 1, pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100)) -->
-<!-- , pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100)) -->
-<!-- , pull(dplyr::select(filter(fm100_s_means, extreme80_fm100 == 1), mean_fm100)) -->
-<!-- ) -->
-<!-- ``` -->
-
-<!-- Look at smallest neighborhood effect of heterogeneity: -->
-
-<!-- ```{r one_pixel_neighbornood} -->
-<!-- m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm) -->
-<!-- m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_samps[, 1:11] -->
-
-<!-- het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_betas, 1, function(x) x %*% het_normal) -->
-<!-- het_xtreme_sevOrNot_extremeFm100AndRawFm100_1_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_1_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme) -->
-
-<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned, breaks = 100) -->
-<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned)(0) -->
-
-<!-- hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_1_ssBurned, breaks = 100) -->
-<!-- ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_1_ssBurned)(0) -->
-
-<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned - het_xtreme_samps, breaks = 100) -->
-<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_1_ssBurned - het_xtreme_samps)(0) -->
-<!-- ``` -->
-
-<!-- ```{r two_pixel_neighbornood} -->
-<!-- m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm) -->
-<!-- m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_samps[, 1:11] -->
-
-<!-- het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_betas, 1, function(x) x %*% het_normal) -->
-<!-- het_xtreme_sevOrNot_extremeFm100AndRawFm100_2_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_2_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme) -->
-
-<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned, breaks = 100) -->
-<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned)(0) -->
-
-<!-- hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_2_ssBurned, breaks = 100) -->
-<!-- ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_2_ssBurned)(0) -->
-
-<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned - het_xtreme_samps, breaks = 100) -->
-<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_2_ssBurned - het_xtreme_samps)(0) -->
-<!-- ``` -->
-
-<!-- ```{r three_pixel_neighbornood} -->
-<!-- m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm) -->
-<!-- m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_samps[, 1:11] -->
-
-<!-- het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_betas, 1, function(x) x %*% het_normal) -->
-<!-- het_xtreme_sevOrNot_extremeFm100AndRawFm100_3_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_3_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme) -->
-
-<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned, breaks = 100) -->
-<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned)(0) -->
-
-<!-- hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_3_ssBurned, breaks = 100) -->
-<!-- ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_3_ssBurned)(0) -->
-
-<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned - het_xtreme_samps, breaks = 100) -->
-<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_3_ssBurned - het_xtreme_samps)(0) -->
-<!-- ``` -->
-
-<!-- ```{r four_pixel_neighbornood} -->
-<!-- m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_samps <- posterior_samples(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm) -->
-<!-- m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_betas <- m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_samps[, 1:11] -->
-
-<!-- het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_betas, 1, function(x) x %*% het_normal) -->
-<!-- het_xtreme_sevOrNot_extremeFm100AndRawFm100_4_ssBurned <- apply(m_sevOrNot_extremeFm100AndRawFm100_4_ssBurned_brm_betas, 1, function(x) x %*% het_xtreme) -->
-
-<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned, breaks = 100) -->
-<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned)(0) -->
-
-<!-- hist(het_xtreme_sevOrNot_extremeFm100AndRawFm100_4_ssBurned, breaks = 100) -->
-<!-- ecdf(het_xtreme_sevOrNot_extremeFm100AndRawFm100_4_ssBurned)(0) -->
-
-<!-- hist(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned - het_xtreme_samps, breaks = 100) -->
-<!-- ecdf(het_normal_sevOrNot_extremeFm100AndRawFm100_4_ssBurned - het_xtreme_samps)(0) -->
-<!-- ``` -->
-
-
