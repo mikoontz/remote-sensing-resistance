@@ -1,6 +1,7 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var perim = ee.FeatureCollection("users/mkoontz/fire_perim_16_1"),
-    sn = ee.FeatureCollection("users/mkoontz/SierraEcoregion_Jepson");
+var perim16 = ee.FeatureCollection("users/mkoontz/fire_perim_16_1"),
+    sn = ee.FeatureCollection("users/mkoontz/SierraEcoregion_Jepson"),
+    perim17 = ee.FeatureCollection("users/mkoontz/fire17_1");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 var rsr = require('users/mkoontz/ee-remote-sensing-resistance:rsr-functions.js');
 
@@ -9,22 +10,25 @@ var rsr = require('users/mkoontz/ee-remote-sensing-resistance:rsr-functions.js')
 // This is good for collecting the data that will be used for analysis of severity vs. heterogeneity hypotheses
 
 // For sampling within perimeters, how many samples in each fire for each cover class?
-var non_conifer_samps = 10;
-var conifer_samps = 50;
+var latest_fire_year = 2017;
+var non_conifer_samps = 0;
+var conifer_samps = 100;
 var timeWindow = 48;
 var resample_method = 'none';
 
 // How many FRAP fires might be usable for this analysis?
 
-var all_fires = perim
+var all_fires = perim17
                     .filterBounds(sn)
                     .filter(ee.Filter.neq('alarm_date', null))
                     .filter(ee.Filter.gt('alarm_date', ee.Date('1982-08-22').millis()))
-                    .filter(ee.Filter.lt('alarm_date', ee.Date('2017-03-15').millis()));
+                    .filter(ee.Filter.lt('alarm_date', ee.Date('2017-12-31').millis()));
 
-// print(all_fires.size());
-// 2143 possible fires within Sierra Nevada between these dates
-// Some may not have imagery available at their location, some may not contain any conifer forest
+print(all_fires.size());
+// 2143 possible fires within Sierra Nevada between these dates (through 2016)
+// 2294 possible fires within Sierra Nevada through 2017
+// Some may not have imagery available at their location, some may not contain any conifer forest,
+// so the final number of sampled fires may be quite a bit less than this.
 
 // Data availability:
 //  Landast 4 SR: August 22, 1982 and December 14, 1993
@@ -49,7 +53,7 @@ var sats = ee.List(sats_string.split(''));
 // including fires that could have Landsat 7 contribute to their 
 // assessment, be sure to end the filter one year prior to the start
 // of Landsat 7 data availability
-var early_target_fires = perim
+var early_target_fires = perim17
                     .filterBounds(sn)
                     .filter(ee.Filter.neq('alarm_date', null))
                     .filter(ee.Filter.gt('alarm_date', ee.Date('1982-08-22').millis()))
@@ -64,11 +68,11 @@ var early_fire_assessments = early_target_fires.map( rsr.assess_whole_fire({ tim
 }),
                                           true);
 
-var early_fires_strat_samps = early_fire_assessments.map(rsr.get_stratified_samps({conifer_samps: 50,
-                                                                       non_conifer_samps: 10}),
+var early_fires_strat_samps = early_fire_assessments.map(rsr.get_stratified_samps({conifer_samps: conifer_samps,
+                                                                       non_conifer_samps: non_conifer_samps}),
                                               true);
                                                                     
-var fire_samps_description = "fires-strat-samples_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
+var fire_samps_description = "fires-strat-samples_" + latest_fire_year + "_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': early_fires_strat_samps.flatten(),
@@ -89,7 +93,7 @@ sats = ee.List(sats_string.split(''));
 // and 8 after the Landsat 7 period starts. Only a few months
 // of the Landsat 8 imagery might be used, but this will complete
 // all of the possible data use of the Landsat 5 series
-var mid_target_fires = perim
+var mid_target_fires = perim17
                     .filterBounds(sn)
                     .filter(ee.Filter.neq('alarm_date', null))
                     .filter(ee.Filter.gt('alarm_date', ee.Date('1998-01-01').millis()))
@@ -101,11 +105,11 @@ var mid_fire_assessments = mid_target_fires.map( rsr.assess_whole_fire({ timeWin
 }),
                                           true);
 
-var mid_fires_strat_samps = mid_fire_assessments.map(rsr.get_stratified_samps({conifer_samps: 50,
-                                                                       non_conifer_samps: 10}),
+var mid_fires_strat_samps = mid_fire_assessments.map(rsr.get_stratified_samps({conifer_samps: conifer_samps,
+                                                                       non_conifer_samps: non_conifer_samps}),
                                               true);
                                                                     
-var fire_samps_description = "fires-strat-samples_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
+var fire_samps_description = "fires-strat-samples_"  + latest_fire_year + "_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': mid_fires_strat_samps.flatten(),
@@ -158,9 +162,9 @@ sats = ee.List(sats_string.split(''));
 
 // I keep getting a "User memory limit exceeded" error for this final run. Probably becuase 
 // there are way more Landsat 8 scenes that need band renaming and selecting
-// Let's try breaking this into two smaller batches
+// Let's try breaking this into X smaller batches
 
-var late_target_fires_1 = perim
+var late_target_fires_1 = perim17
                     .filterBounds(sn)
                     .filter(ee.Filter.neq('alarm_date', null))
                     .filter(ee.Filter.gt('alarm_date', ee.Date('2012-06-07').millis()))
@@ -173,12 +177,12 @@ var late_fire_assessments_1 = late_target_fires_1.map( rsr.assess_whole_fire({ t
                                           true);
 
 
-var late_fires_strat_samps_1 = late_fire_assessments_1.map(rsr.get_stratified_samps({conifer_samps: 50,
-                                                                       non_conifer_samps: 10}),
+var late_fires_strat_samps_1 = late_fire_assessments_1.map(rsr.get_stratified_samps({conifer_samps: conifer_samps,
+                                                                       non_conifer_samps: non_conifer_samps}),
                                               true);
                                                                     
 
-var fire_samps_description_1 = "fires-strat-samples_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_1";
+var fire_samps_description_1 = "fires-strat-samples_"  + latest_fire_year + "_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_1";
 
 Export.table.toDrive({
   'collection': late_fires_strat_samps_1.flatten(),
@@ -190,7 +194,7 @@ Export.table.toDrive({
 
 // Batch 2
 
-var late_target_fires_2 = perim
+var late_target_fires_2 = perim17
                     .filterBounds(sn)
                     .filter(ee.Filter.neq('alarm_date', null))
                     .filter(ee.Filter.gt('alarm_date', ee.Date('2013-06-07').millis()))
@@ -202,11 +206,11 @@ var late_fire_assessments_2 = late_target_fires_2.map( rsr.assess_whole_fire({ t
 }),
                                           true);
 
-var late_fires_strat_samps_2 = late_fire_assessments_2.map(rsr.get_stratified_samps({conifer_samps: 50,
-                                                                      non_conifer_samps: 10}),
+var late_fires_strat_samps_2 = late_fire_assessments_2.map(rsr.get_stratified_samps({conifer_samps: conifer_samps,
+                                                                      non_conifer_samps: non_conifer_samps}),
                                               true);
                                                                     
-var fire_samps_description_2 = "fires-strat-samples_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_2";
+var fire_samps_description_2 = "fires-strat-samples_"  + latest_fire_year + "_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_2";
 
 Export.table.toDrive({
   'collection': late_fires_strat_samps_2.flatten(),
@@ -218,7 +222,7 @@ Export.table.toDrive({
 
 // Batch 3
 
-var late_target_fires_3 = perim
+var late_target_fires_3 = perim17
                     .filterBounds(sn)
                     .filter(ee.Filter.neq('alarm_date', null))
                     .filter(ee.Filter.gt('alarm_date', ee.Date('2014-06-07').millis()))
@@ -231,12 +235,12 @@ var late_fire_assessments_3 = late_target_fires_3.map( rsr.assess_whole_fire({ t
                                           true);
 
 
-var late_fires_strat_samps_3 = late_fire_assessments_3.map(rsr.get_stratified_samps({conifer_samps: 50,
-                                                                      non_conifer_samps: 10}),
+var late_fires_strat_samps_3 = late_fire_assessments_3.map(rsr.get_stratified_samps({conifer_samps: conifer_samps,
+                                                                      non_conifer_samps: non_conifer_samps}),
                                               true);
                                                                     
 
-var fire_samps_description_3 = "fires-strat-samples_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_3";
+var fire_samps_description_3 = "fires-strat-samples_"  + latest_fire_year + "_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_3";
 
 Export.table.toDrive({
   'collection': late_fires_strat_samps_3.flatten(),
@@ -248,7 +252,7 @@ Export.table.toDrive({
 
 // Batch 4
 
-var late_target_fires_4 = perim
+var late_target_fires_4 = perim17
                     .filterBounds(sn)
                     .filter(ee.Filter.neq('alarm_date', null))
                     .filter(ee.Filter.gt('alarm_date', ee.Date('2015-06-07').millis()))
@@ -261,11 +265,11 @@ var late_fire_assessments_4 = late_target_fires_4.map( rsr.assess_whole_fire({ t
 }),
                                           true);
 
-var late_fires_strat_samps_4 = late_fire_assessments_4.map(rsr.get_stratified_samps({conifer_samps: 50,
-                                                                      non_conifer_samps: 10}),
+var late_fires_strat_samps_4 = late_fire_assessments_4.map(rsr.get_stratified_samps({conifer_samps: conifer_samps,
+                                                                      non_conifer_samps: non_conifer_samps}),
                                               true);
                                                                     
-var fire_samps_description_4 = "fires-strat-samples_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_4";
+var fire_samps_description_4 = "fires-strat-samples_"  + latest_fire_year + "_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_4";
 
 Export.table.toDrive({
   'collection': late_fires_strat_samps_4.flatten(),
@@ -277,7 +281,7 @@ Export.table.toDrive({
 
 // Batch 5
 
-var late_target_fires_5 = perim
+var late_target_fires_5 = perim17
                     .filterBounds(sn)
                     .filter(ee.Filter.neq('alarm_date', null))
                     .filter(ee.Filter.gt('alarm_date', ee.Date('2016-06-07').millis()))
@@ -290,11 +294,11 @@ var late_fire_assessments_5 = late_target_fires_5.map( rsr.assess_whole_fire({ t
 }),
                                           true);
 
-var late_fires_strat_samps_5 = late_fire_assessments_5.map(rsr.get_stratified_samps({conifer_samps: 50,
-                                                                      non_conifer_samps: 10}),
+var late_fires_strat_samps_5 = late_fire_assessments_5.map(rsr.get_stratified_samps({conifer_samps: conifer_samps,
+                                                                      non_conifer_samps: non_conifer_samps}),
                                               true);
                                                                     
-var fire_samps_description_5 = "fires-strat-samples_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_5";
+var fire_samps_description_5 = "fires-strat-samples_"  + latest_fire_year + "_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_5";
 
 Export.table.toDrive({
   'collection': late_fires_strat_samps_5.flatten(),
@@ -306,7 +310,7 @@ Export.table.toDrive({
 
 // Batch 6
 
-var late_target_fires_6 = perim
+var late_target_fires_6 = perim17
                     .filterBounds(sn)
                     .filter(ee.Filter.neq('alarm_date', null))
                     .filter(ee.Filter.gt('alarm_date', ee.Date('2017-06-07').millis()))
@@ -319,11 +323,11 @@ var late_fire_assessments_6 = late_target_fires_6.map( rsr.assess_whole_fire({ t
 }),
                                           true);
 
-var late_fires_strat_samps_6 = late_fire_assessments_6.map(rsr.get_stratified_samps({conifer_samps: 50,
-                                                                      non_conifer_samps: 10}),
+var late_fires_strat_samps_6 = late_fire_assessments_6.map(rsr.get_stratified_samps({conifer_samps: conifer_samps,
+                                                                      non_conifer_samps: non_conifer_samps}),
                                               true);
                                                                     
-var fire_samps_description_6 = "fires-strat-samples_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_6";
+var fire_samps_description_6 = "fires-strat-samples_"  + latest_fire_year + "_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_6";
 
 Export.table.toDrive({
   'collection': late_fires_strat_samps_6.flatten(),
