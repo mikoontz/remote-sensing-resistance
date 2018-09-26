@@ -9,6 +9,7 @@ library(ggplot2)
 library(here)
 library(lubridate)
 library(brms)
+library(purrr)
 
 
 fires <- st_read(dsn = here::here("/data/features/fire_perim/fire_perim_sn_16_1_shp/"),
@@ -17,16 +18,11 @@ fires <- st_read(dsn = here::here("/data/features/fire_perim/fire_perim_sn_16_1_
 sn <- st_read(here::here("/data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp")) %>% 
   st_transform(4326)
 
-if (!file.exists(here::here("data/data_output/all-fire-samples_texture.rds"))) {
+if (!file.exists(here::here("data/data_output/all-fire-samples.rds"))) {
   source(here::here("data/data_carpentry/merge_fire-samples.R"))
 }
 
-load(here::here("data/data_output/all-fire-samples_texture.rds"))
-
-samps <- texture_samps
-
-# Extract unique Fire ID from the sample point IDs
-samps$fire_id <- substr(as.character(samps$id), start = 1, stop = 20)
+samps <- readRDS(here::here("data/data_output/all-fire-samples.rds"))
 
 circular_aspect <- function(aspect) {
   
@@ -72,9 +68,7 @@ circular_doy <- function(doy) {
 
 samps$c_doy <- circular_doy(samps$ordinal_day)
 
-samps$year_ <- as.numeric(as.character(samps$year_))
-
-timing_vars <- c("year_", "alarm_date", "cont_date", "c_doy")
+timing_vars <- c("alarm_year", "alarm_month", "alarm_day", "alarm_date", "cont_date", "c_doy")
 
 veg_vars <-
   sapply(X = 1:4, 
@@ -122,14 +116,29 @@ target_model <- model_summary[model_summary$response == "RBR" &
                                 model_summary$time_window == 48 &
                                 model_summary$interpolation == "bicubic", ]
 
+# Here are the other thresholds for the model using bicubic interpolation and a 48 day window:
+#   
+# target_model$unchanged equates to a CBI of 0
+# target_model$low_sev equates to a CBI of 0.1 -- threshold between "unchanged" and "low"
+# target_model$mod_se equates to a CBI of 1.25 -- threshold between "low" and "medium"
+# target_model$hi_se equates to a CBI of 2.25 -- threshold between "medium" and "high"
+
 ss$stand_replacing <- ifelse(ss$RBR > target_model$hi_sev, yes = 1, no = 0)
 
+# For 100-hour fuel moisture, we refer to @Stephens2012 who find 7.7% to be the 80th
+# percentile condition, 6.6% to be the 90th percentile condition, and 4.2% to be 
+# the 97.5th percentile condition. See also the note in @Stephens2013a about the significance
+# of 80th percentile conditions.
+# 
+# Create a variable for "extreme conditions" versus "non-extreme" conditions (with respect to fuel moisture) and interact it with the heterogeneity variable.
 # Extreme percentiles correspeond to 80th, 90th, and 97.5th percentiles of 100 hour
 # fuel moisture
 extreme_fm100_percentiles <- c(7.7, 6.6, 4.2)
 ss$extreme80_fm100 <- ifelse(ss$fm100 < 7.7, yes = 1, no = 0)
 ss$extreme90_fm100 <- ifelse(ss$fm100 < 6.6, yes = 1, no = 0)
 ss$extreme97.5_fm100 <- ifelse(ss$fm100 < 4.2, yes = 1, no = 0)
+
+# Consider also subsetting to only places that burned to avoid any impact of unburned area that happens to be within the fire perimeter.
 
 ss_burned <- ss %>% filter(ss$RBR > target_model$low_sev)
 
@@ -139,5 +148,5 @@ remoteSev_to_cbi <- function(data, response, a, b, c) {
 
 ss_burned$cbi <- remoteSev_to_cbi(data = ss_burned, response = "RBR", a = target_model$a, b = target_model$b, c = target_model$c)
 
-save(ss, file = here::here("data/data_output/all-fire-samples_texture_configured.rds"))
-save(ss_burned, file = here::here("data/data_output/burned-fire-samples_texture_configured.rds"))
+saveRDS(ss, file = here::here("data/data_output/all-fire-samples_configured.rds"))
+saveRDS(ss_burned, file = here::here("data/data_output/burned-fire-samples_configured.rds"))
