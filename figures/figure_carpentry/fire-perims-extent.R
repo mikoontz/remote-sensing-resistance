@@ -18,11 +18,11 @@ library(viridis)
 # Get the fire samples ----------------------------------------------------
 # object is called 'ss_burned'
 
-if (!file.exists("data/data_output/burned-fire-samples_texture_configured.rds")) {
+if (!file.exists("data/data_output/burned-fire-samples_configured.rds")) {
   source("data/data_carpentry/configure_fire-samples.R")
 }
 
-load(here::here("data/data_output/burned-fire-samples_texture_configured.rds"))
+ss_burned <- readRDS(here::here("data/data_output/burned-fire-samples_configured.rds"))
 
 # Get conifer forest ------------------------------------------------------
 
@@ -47,6 +47,24 @@ ca <- raster::getData(name = "GADM",country = "USA",level = 1, path = "data/feat
   filter(NAME_1 == "California") %>% 
   st_transform(st_crs(sn))
 
+# Get the CBI plot locations
+
+cbi_48_bicubic <- st_read("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE) %>% 
+  mutate(alarm_date = as.POSIXct(alarm_date / 1000, origin = "1970-01-01")) %>% 
+  mutate(alarm_date = floor_date(alarm_date, unit = "days")) %>% 
+  mutate(year = year(alarm_date))
+
+glimpse(cbi_48_bicubic)
+# Filter CBI plot data for just conifer forest ----------------------------
+
+cbi_conifer_only <- subset(cbi_48_bicubic, subset = conifer_forest == 1)
+cbi_conifer_only
+
+# Different years that the CBI plots came from
+years <- sort(unique(cbi_conifer_only$year))
+year_colors <- viridis(n_distinct(cbi_conifer_only$year))
+# year_colors <- sf.colors(n_distinct(cbi_conifer_only$year))
+plot_colors <- year_colors[match(cbi_conifer_only$year, years)]
 # Less_burned detailed CA outline in case first version makes things too slow ---------------------------------------
 
 # A lighter-weight California outline (not a multipolygon, not as detailed)
@@ -122,13 +140,18 @@ dev.off()
 
 # Tripanel plot of fire extent, mixed conifer extent, and samples from those fires used in analysis
 pdf("figures/study-geographic-setting.pdf", width = 17.3 / 2.54, height = 11 / 2.54)
-par(mfrow = c(1, 3), mar = c(0, 2, 0, 0), oma = c(0, 3, 0, 0), xpd = NA)
+par(mfrow = c(1, 3), mar = c(0, 0, 0, 0), oma = c(0, 0, 0, 0), xpd = NA)
 mar_old <- par()$mar
+
+plot(sn$geometry, cex.axis = 0.5, las = 1, col = "lightgrey")
+plot(mixed_con, col = c("white", "darkgreen"), add = TRUE, legend = FALSE)
+
+text(x = -119, y = 40, labels = "A", cex = 3)
 
 plot(sn$geometry, cex.axis = 0.5, las = 1, col = "lightgrey")
 plot(frap_mixed_con, add = TRUE, col = viridis(6), legend = FALSE)
 plot(frap_mixed_con, 
-     smallplot = c(0.085, 0.1, 0.45, 0.85), 
+     smallplot = c(0.32, 0.335, 0.2, 0.425), 
      legend.only = TRUE, 
      col = viridis(6), 
      legend.args = list(text = "Number\nof fires", 
@@ -138,11 +161,6 @@ plot(frap_mixed_con,
                       tcl = 1,
                       mgp = c(0, -2, 0)))
 
-text(x = -119, y = 40, labels = "A", cex = 3)
-
-plot(sn$geometry, cex.axis = 0.5, las = 1, col = "lightgrey")
-plot(mixed_con, col = c("white", "darkgreen"), add = TRUE, legend = FALSE)
-
 text(x = -119, y = 40, labels = "B", cex = 3)
 
 plot(sn$geometry, cex.axis = 0.5, las = 1, col = "lightgrey")
@@ -150,9 +168,13 @@ used_ss_burned <- ss_burned %>%
   filter(conifer_forest == 1)
 plot(ss_burned$geometry, add = TRUE, pch = 19, cex = 0.1)
 
+# Add the CBI plot locations
+plot(cbi_conifer_only$geometry, add = TRUE, pch = 19, cex = 0.1, col = "red")
+legend(x = "bottomleft", legend = c("CBI plot", "Remote\nsample"), pch = 19, col = 2:1, bty = "n", inset = c(0.1, 0.15), cex = 1.5, y.intersp = 1.4)
+
 text(x = -119, y = 40, labels = "C", cex = 3)
 
-par(fig = c(0, 0.15, 0, 0.35), new = TRUE, mar = rep(0, 4))
+par(fig = c(0, 0.2, 0, 0.55), new = TRUE, mar = rep(0, 4))
 plot(ca$geometry, axes = FALSE, outer = TRUE)
 plot(sn$geometry, add = TRUE, col = "lightgrey", outer = TRUE)
 # box(which = "figure")
