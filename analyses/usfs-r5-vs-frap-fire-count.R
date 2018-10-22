@@ -12,7 +12,7 @@ library(here)
 mixed_con <- raster::raster(here::here("data/data_output/landcover_PFR/mixed_conifer.tif"))
 sn <- sf::st_read(here::here("data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp"))
 
-r5 <- sf::st_read("data/features/veg_severity_perimeters18_1.gdb/") %>% st_transform(4326)
+r5 <- sf::st_read("data/features/fire_perim/veg_severity_perimeters18_1.gdb/") %>% st_transform(4326)
 
 r5_sn <-
   r5 %>% 
@@ -35,5 +35,10 @@ mixed_con_fires
 # how many of the fires have more than 0 pixels in yellow pine/mixed conifer forest?
 length(which(as.vector(mixed_con_fires) != 0))
 
+r5_sn <-
+  r5_sn %>% 
+  mutate(mixed_con_pixels = mixed_con_fires)
 
+r5_sn
 
+st_write(r5_sn, "data/data_output/region-5-geospatial-fires_sn_mixed-conifer/region-5-geospatial-fires_sn_mixed-conifer.shp")
