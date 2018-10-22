@@ -8,8 +8,12 @@ frap <- st_read(dsn = here::here("data/features/fire_perim/fire_perim_sn_16_1_sh
                  stringsAsFactors = FALSE) %>% 
   st_transform(4326)
 
-if (file.exists(here::here("data/data_output/usfs-fire-perimeters-sn.rds"))) {
-  load(here::here("data/data_output/usfs-fire-perimeters-sn.rds"))
+if (file.exists(here::here("data/data_output/region-5-geospatial-fires_sn_mixed-conifer/region-5-geospatial-fires_sn_mixed-conifer.shp"))) {
+  r5_sn_mc <- 
+    st_read(here::here("data/data_output/region-5-geospatial-fires_sn_mixed-conifer/region-5-geospatial-fires_sn_mixed-conifer.shp")) %>% 
+    rename(FIRE_YEAR = FIRE_YE,
+           FIRE_NAME = FIRE_NA,
+           mixed_con_pixels = mxd_cn_)
 } else {
   source(here::here("data/data_carpentry/filter-sn_usfs_fire_perims.R"))
 }
@@ -36,5 +40,8 @@ s <-
 total_conifer_fires <- nrow(s)
 conifer_year_range <- range(s$year)
 
-total_fires_usfs <- nrow(usfs_sn)
-unique(usfs_sn$FIRE_YEAR)
+total_fires_usfs <- 
+  r5_sn_mc %>% 
+  filter(mixed_con_pixels != 0) %>% 
+  nrow()
+unique(r5_sn_mc$FIRE_YEAR)
