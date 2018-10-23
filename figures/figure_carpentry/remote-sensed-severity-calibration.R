@@ -66,82 +66,82 @@ cbi_rdndvi <- cbi_calibration_stats(cbi_table = cbi_table,
 
 # Build the plots!
 cex_in_panel_text <- 1
-pos_in_panel_text <- c(0.95, 0.9, 0.85, 0.8)
+pos_in_panel_text <- c(0, 0.05, 0.10, 0.15, 0.20)
 pch_color <- "darkgrey"
 
 pdf("figures/remote-sensed-severity-calibration.pdf", width = 17.3 / 2.54, height = (17.3 / 2.54) * 0.6)
 par(mfrow = c(1, 3), oma = c(2, 2, 0, 0.5), mar = c(3, 3, 2, 0.25))
+
+# first panel: RBR 48 day window ------------------------------------------
+
 plot(x = cbi_mask_conifer(cbi_48_bicubic)$cbi_over, y = cbi_mask_conifer(cbi_48_bicubic)$RBR, 
      pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RBR (48-day window)")
 lines(cbi_over, yhat_rbr)
-text(x = 0, y = max(cbi_mask_conifer(cbi_48_bicubic)$RBR, na.rm = TRUE), 
-     labels = bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rbr$r2_kfold, 5))), 
-     pos = 4, 
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_48_bicubic)$RBR, na.rm = TRUE) * pos_in_panel_text[1], 
-     labels = expression("RBR = a + b * " ~ e^ ~ "c * cbi"),
-     pos = 4,
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_48_bicubic)$RBR, na.rm = TRUE) * pos_in_panel_text[2], 
-     labels = paste0("a = ", round(cbi_rbr$a, 5)),
-     pos = 4,
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_48_bicubic)$RBR, na.rm = TRUE) * pos_in_panel_text[3], 
-     labels = paste0("b = ", round(cbi_rbr$b, 5)),
-     pos = 4,
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_48_bicubic)$RBR, na.rm = TRUE) * pos_in_panel_text[4], 
-     labels = paste0("c = ", round(cbi_rbr$c, 5)),
-     pos = 4,
-     cex = cex_in_panel_text)
+
+rbr_labs <-
+  c(bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rbr$r2_kfold, 5))),
+  bquote("RBR=" ~ beta[0] ~ "+" ~ beta[1] ~ "*" ~ e^beta[2] ~ "*cbi"),
+  bquote(beta[0] ~ "=" ~ .(round(cbi_rbr$a, 5))),
+  bquote(beta[1] ~ "=" ~ .(round(cbi_rbr$b, 5))),
+  bquote(beta[2] ~ "=" ~ .(round(cbi_rbr$c, 5))))
+
+lapply(seq_along(rbr_labs),
+       FUN = function(i) {
+         max_val <- max(cbi_mask_conifer(cbi_48_bicubic)$RBR, na.rm = TRUE)
+         min_val <- min(cbi_mask_conifer(cbi_48_bicubic)$RBR, na.rm = TRUE)
+         
+         text(x = 0, y = max_val - (max_val - min_val) * pos_in_panel_text[i],
+              labels = rbr_labs[[i]],
+              pos = 4,
+              cex = cex_in_panel_text)
+         invisible()})
+
+# Second panel RdNBR 32 day window ----------------------------------------
 
 plot(x = cbi_mask_conifer(cbi_32_bilinear)$cbi_over, y = cbi_mask_conifer(cbi_32_bilinear)$RdNBR, 
      pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RdNBR (32-day window)")
 lines(cbi_over, yhat_rdnbr)
-text(x = 0, y = max(cbi_mask_conifer(cbi_32_bilinear)$RdNBR, na.rm = TRUE), 
-     labels = bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rdnbr$r2_kfold, 5))),
-     pos = 4, 
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_32_bilinear)$RdNBR, na.rm = TRUE) * pos_in_panel_text[1], 
-     labels = expression("RdNBR = a + b * " ~ e^ ~ "c * cbi"),
-     pos = 4,
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_32_bilinear)$RdNBR, na.rm = TRUE) * pos_in_panel_text[2], 
-     labels = paste0("a = ", round(cbi_rdnbr$a, 5)),
-     pos = 4,
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_32_bilinear)$RdNBR, na.rm = TRUE) * pos_in_panel_text[3], 
-     labels = paste0("b = ", round(cbi_rdnbr$b, 5)),
-     pos = 4,
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_32_bilinear)$RdNBR, na.rm = TRUE) * pos_in_panel_text[4], 
-     labels = paste0("c = ", round(cbi_rdnbr$c, 5)),
-     pos = 4,
-     cex = cex_in_panel_text)
+
+rdnbr_labs <- c(bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rdnbr$r2_kfold, 5))),
+                bquote("RdNBR = " ~ beta[0] ~ "+" ~ beta[1] ~ "*" ~ e^beta[2] ~ "*cbi"),
+                bquote(beta[0] ~ "=" ~ .(round(cbi_rdnbr$a, 5))),
+                bquote(beta[1] ~ "=" ~ .(round(cbi_rdnbr$b, 5))),
+                bquote(beta[2] ~ "=" ~ .(round(cbi_rdnbr$c, 5))))
+
+lapply(seq_along(rdnbr_labs),
+       FUN = function(i) {
+         max_val <- max(cbi_mask_conifer(cbi_32_bilinear)$RdNBR, na.rm = TRUE)
+         min_val <- min(cbi_mask_conifer(cbi_32_bilinear)$RdNBR, na.rm = TRUE)
+         
+         text(x = 0, y = max_val - (max_val - min_val) * pos_in_panel_text[i], 
+              labels = rdnbr_labs[[i]],
+              pos = 4, 
+              cex = cex_in_panel_text) 
+         invisible()})
+
+
+# Third panel: RdNDVI 48 day window ---------------------------------------
 
 plot(x = cbi_mask_conifer(cbi_48_bilinear)$cbi_over, y = cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, 
      pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RdNDVI (48-day window)")
 lines(cbi_over, yhat_rdndvi)
-text(x = 0, y = max(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE), 
-     labels = bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rdndvi$r2_kfold, 5))),
-     pos = 4, 
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE) * pos_in_panel_text[1], 
-     labels = expression("RdNDVI = a + b * " ~ e^ ~ "c * cbi"),
-     pos = 4,
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE) * pos_in_panel_text[2], 
-     labels = paste0("a = ", round(cbi_rdndvi$a, 5)),
-     pos = 4,
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE) * pos_in_panel_text[3], 
-     labels = paste0("b = ", round(cbi_rdndvi$b, 5)),
-     pos = 4,
-     cex = cex_in_panel_text)
-text(x = 0, y = max(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE) * pos_in_panel_text[4], 
-     labels = paste0("c = ", round(cbi_rdndvi$c, 5)),
-     pos = 4,
-     cex = cex_in_panel_text)
+
+rdndvi_labs <- list(bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rdndvi$r2_kfold, 5))),
+          bquote("RdNDVI = " ~ beta[0] ~ "+" ~ beta[1] ~ "*" ~ e^beta[2] ~ "*cbi"),
+          bquote(beta[0] ~ "=" ~ .(round(cbi_rdndvi$a, 5))),
+          bquote(beta[1] ~ "=" ~ .(round(cbi_rdndvi$b, 5))),
+          bquote(beta[2] ~ "=" ~ .(round(cbi_rdndvi$c, 5))))
+
+lapply(seq_along(rdndvi_labs),
+       FUN = function(i) {
+         max_val <- max(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE)
+         min_val <- min(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE)
+         
+         text(x = 0, y = max_val - (max_val - min_val) * pos_in_panel_text[i], 
+              labels = labs[[i]],
+              pos = 4, 
+              cex = cex_in_panel_text)
+       invisible()})
 
 mtext(text = "Composite Burn Index (CBI)", side = 1, outer = TRUE, line = 0)
 mtext(text = "Remotely measured severity", side = 2, outer = TRUE, line = 0)
