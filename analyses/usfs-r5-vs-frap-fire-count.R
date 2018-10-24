@@ -44,6 +44,12 @@ r5_sn
 
 st_write(r5_sn, "data/data_output/region-5-geospatial-fires_sn_mixed-conifer/region-5-geospatial-fires_sn_mixed-conifer.shp")
 
+# r5_sn <- st_read("data/data_output/region-5-geospatial-fires_sn_mixed-conifer/region-5-geospatial-fires_sn_mixed-conifer.shp")
+
+r5_sn
+
+# 744243.9 hectares of burned area in region 5 dataset
+sum(r5_sn$mxd_cn_ * 30 * 30) / 10000
 
 # The FRAP fire perimeters in mixed-con -----------------------------------
 
