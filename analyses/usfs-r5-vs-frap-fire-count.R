@@ -6,6 +6,7 @@
 # 2) The FRAP + Earth Engine method presented in this paper
 
 library(sf)
+library(tidyverse)
 library(raster)
 library(here)
 
@@ -42,3 +43,23 @@ r5_sn <-
 r5_sn
 
 st_write(r5_sn, "data/data_output/region-5-geospatial-fires_sn_mixed-conifer/region-5-geospatial-fires_sn_mixed-conifer.shp")
+
+
+# The FRAP fire perimeters in mixed-con -----------------------------------
+
+# Should already be intersected with the Sierra Nevada outline
+frap <- sf::st_read("data/features/fire_perim/fire17_1_sn")
+
+frap <- 
+  frap %>% 
+  mutate(mixed_con_pixels = as.vector(raster::extract(x = mixed_con, y = ., fun = function(x, ...) length(which(x == 1)))))
+
+mixed_con_frap <-
+  frap %>% 
+  filter(year_ %in% 1984:2017) %>% 
+  filter(mixed_con_pixels > 0)
+
+# approximate hectarage of total burned area in yellow pine/mixed-conifer forest
+# in the Sierra Nevada between 1984 and 2017: 771342.8
+# Out of ~ 2.25e6 hectares ~34%, but lots of overlapping burned area.
+sum(mixed_con_frap$mixed_con_pixels * 30 * 30) / 10000
