@@ -254,6 +254,40 @@ e_fm1_focalMean_neighborhoodMean_ggplot <-
 
 e_fm1_focalMean_neighborhoodMean_ggplot
 
+# Further exploration of this interaction. Usually these covariates are very correlated.
+# Means there's a bit of a dampened effect of vegetation density.
+# As both preFire veg density and neighborhood veg density increase (and they 
+# often do so together), there's a less dramatic increase in probability of HSF
+# As they both decrease, Pr(HSF) bottoms out
+# When do they decouple? 2 possible scenarios: a "donut" of high density forest
+# around a "hole" for the focal pixel NDVI. Or a high density central pixel
+# surrounded by much less dense forest. By this significant interaction, both
+# scenarios would result in higher Pr(HSF) than predicted just by an increase
+# in prefire vegetation density of the central pixel. But which actually 
+# occurs on the landscape (in our samples) that drives the model treating this
+# as an important variable?
+
+# This plot shows the difference between neighborhood mean NDVI and preFire
+# central pixel NDVI as a function of preFire central pixel NDVI
+# We want to know where the differences (y-axis) is greatest
+ggplot(ss_burned, aes(x = preFire_ndvi_s, y = focal_mean_ndvi_1_s - preFire_ndvi_s)) +
+  geom_point()
+
+# This plot shows a spline fit to the data above (using a random subset of points
+# so it doesn't run out of memory). Seems like the differences are greatest
+# at the low end of the preFire_ndvi metric, suggesting that the "hole" scenario
+# described above is more common when there is decoupling between the 
+# neighborhood NDVI and the central pixel NDVI. It makes sense why this scenario
+# would result in greater Pr(HSF) for the central pixel. The contagious effect
+# of high nearby veg density (which tends to increase Pr(HSF)) affects the 
+# central pixel, even if there isn't a high vegetation density there.
+ggplot(ss_burned[sample(1:nrow(ss_burned))[1:30000], ], aes(x = preFire_ndvi_s, y = focal_mean_ndvi_1_s - preFire_ndvi_s)) +
+  geom_point() +
+  geom_smooth(method = "loess")
+
+# 
+
+
 # focal mean interacting with neighborhood mean effect
 e_fm1_focalMean_neighborhoodMean_subset_2 <-
   e_fm1_focalMean_neighborhoodMean %>% 
