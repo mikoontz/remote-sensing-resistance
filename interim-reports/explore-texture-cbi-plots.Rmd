@@ -24,9 +24,8 @@ Load the data.
 
 ```{r load_data}
 # Get 48-day window, bicubic interpolation data
-# cbi <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp_texture.geojson"), stringsAsFactors = FALSE)
 
-cbi <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp_texture_10000.geojson"), stringsAsFactors = FALSE)
+cbi <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
 
 glimpse(cbi)
 ```

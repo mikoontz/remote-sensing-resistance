@@ -41,7 +41,7 @@ ca <- raster::getData(name = "GADM",country = "USA",level = 1, path = "data/feat
 sn <- st_read("data/features/SierraEcoregion_Jepson/") %>% st_transform(4326)
 
 # Get 48-day window, bicubic interpolation data ---------------------------
-cbi_48_bicubic <- st_read("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp_texture.geojson", stringsAsFactors = FALSE) %>% 
+cbi_48_bicubic <- st_read("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE) %>% 
   mutate(alarm_date = as.POSIXct(alarm_date / 1000, origin = "1970-01-01")) %>% 
   mutate(alarm_date = floor_date(alarm_date, unit = "days")) %>% 
   mutate(year = year(alarm_date))
