@@ -6,7 +6,6 @@ library(ggmap)
 library(rgdal)
 library(sf)
 
-# sn <- st_read("data/features/SierraEcoregion_TNC/")
 sn <- 
   st_read("data/features/SierraEcoregion_Jepson/") %>%
   st_transform(crs = "+init=epsg:4326")
