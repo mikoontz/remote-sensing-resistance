@@ -54,16 +54,28 @@ sum(r5_sn$mxd_cn_ * 30 * 30) / 10000
 # The FRAP fire perimeters in mixed-con -----------------------------------
 
 # Should already be intersected with the Sierra Nevada outline
-frap <- sf::st_read("data/features/fire_perim/fire17_1_sn")
+
+if(!file.exists("data/data_output/fire_perim/fire_17_1_sn_ypmc/fire_17_1_sn_ypmc.shp")) {
+  frap <- sf::st_read("data/data_output/fire_perim/fire17_1_sn")
+  frap <- 
+    frap %>% 
+    mutate(mixed_con_pixels = as.vector(raster::extract(x = mixed_con, y = ., fun = function(x, ...) length(which(x == 1)))))
+
+  st_write(frap, "data/data_output/fire_perim/fire_17_1_sn_ypmc/fire_17_1_sn_ypmc.shp")  
+}
 
 frap <- 
-  frap %>% 
-  mutate(mixed_con_pixels = as.vector(raster::extract(x = mixed_con, y = ., fun = function(x, ...) length(which(x == 1)))))
+  sf::st_read("data/data_output/fire_perim/fire_17_1_sn_ypmc/fire_17_1_sn_ypmc.shp") %>% 
+  rename(mixed_con_pixels = mxd_cn_)
 
 mixed_con_frap <-
   frap %>% 
   filter(year_ %in% 1984:2017) %>% 
   filter(mixed_con_pixels > 0)
+
+# About 791 fires with > 50% in YPMC
+mixed_con_frap %>% 
+  filter((mixed_con_pixels * 30 * 30) > (0.5 * area_ha * 10000))
 
 # approximate hectarage of total burned area in yellow pine/mixed-conifer forest
 # in the Sierra Nevada between 1984 and 2017: 771342.8
