@@ -7,9 +7,9 @@ library(here)
 if (file.exists(here::here("data/data_output/region-5-geospatial-fires_sn_mixed-conifer/region-5-geospatial-fires_sn_mixed-conifer.shp"))) {
   r5_sn_mc <- 
     st_read(here::here("data/data_output/region-5-geospatial-fires_sn_mixed-conifer/region-5-geospatial-fires_sn_mixed-conifer.shp")) %>% 
-    rename(FIRE_YEAR = FIRE_YE,
-           FIRE_NAME = FIRE_NA,
-           mixed_con_pixels = mxd_cn_)
+    dplyr::rename(FIRE_YEAR = FIRE_YE,
+                  FIRE_NAME = FIRE_NA,
+                  mixed_con_pixels = mxd_cn_)
 } else {
   source(here::here("analyses/usfs-r5-vs-frap-fire-count.R"))
 }
@@ -40,3 +40,8 @@ total_fires_usfs <-
   filter(mixed_con_pixels != 0) %>% 
   nrow()
 unique(r5_sn_mc$FIRE_YEAR)
+
+# Approxmiately many fires would be included under the Steel et al. 2018
+# criteria (> 50% burning in yellow pine mixed conifer)
+r5_sn_mc %>% 
+  filter((mixed_con_pixels * 30 * 30) > (0.5 * as.numeric(st_area(.))))
