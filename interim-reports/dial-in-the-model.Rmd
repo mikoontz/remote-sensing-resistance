@@ -19,7 +19,7 @@ library(cowplot)
 ```
 
 ```{r read_files, message = FALSE}
-fires <- st_read(dsn = here::here("/data/features/fire_perim/fire_perim_sn_16_1_shp/"),
+fires <- st_read(dsn = here::here("/data/data_output/fire_perim/fire17_1_sn"),
                  stringsAsFactors = FALSE) %>% 
   st_transform(4326)
 sn <- st_read(here::here("/data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp")) %>% 
