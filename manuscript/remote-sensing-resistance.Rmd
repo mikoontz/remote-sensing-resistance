@@ -1,8 +1,8 @@
 ---
 output: 
   pdf_document:
-    template: "ms_carpentry/mjk_ms_template.tex"
-    fig_caption: yes
+  template: "ms_carpentry/mjk_ms_template.tex"
+  fig_caption: yes
   # word_document:
   #   fig_width: 8
   #   fig_height: 7
@@ -30,18 +30,14 @@ csl: https://dl.dropboxusercontent.com/s/3xzxni46ldjzqd1/ecology-letters.csl
 
 title: 'Local variability of vegetation structure increases forest resilience to wildfire'
 author:
-  - Michael J Koontz^1,2^
-  - Malcolm P North^2,3^
-  - Stephen E Fick^4,5^
-  - Chhaya M Werner^6^
-  - Andrew M Latimer^2^
+  - Michael J. Koontz^1,2^, Malcolm P. North^2,3^, Stephen E. Fick^4,5^, Chhaya M. Werner^6^, Andrew M. Latimer^2^
 
 date:
   "^1^Graduate Group in Ecology, University of California, Davis; Davis, CA  \n
   ^2^Department of Plant Sciences, University of California, Davis; Davis, CA  \n
   ^3^Pacific Southwest Research Station, U.S.D.A. Forest Service; Mammoth Lakes, CA  \n
   ^4^U.S. Geological Survey, Southwest Biological Science Center \n
-  ^5^Department of Ecology and Evolutionary Bilogy, University of Colorado, Boulder; Boulder, CO
+  ^5^Department of Ecology and Evolutionary Bilogy, University of Colorado, Boulder; Boulder, CO \n
   ^6^Center for Population Biology, University of California, Davis; Davis, CA"
   
 # Author:
@@ -72,7 +68,7 @@ date:
 # - RdNBR
 # - remote sensing
 
-abstract: "The long-term peristence of forest ecosystems hinges on their resilience to changing conditions. Measurements of resilience are  critical for these valuable ecosystems, but are challenging to capture at relevant scales given a forest's temporal longevity and vast spatial extent. Wildfire plays a key role in structuring the vegetation of many forests, and vegetation structure can feedback to influence wildfire behavior. Local variability of vegetation structure can enable a forest stand to withstand wildfire disturbance and retain its essential identity and function-- a hallmark of a resilient system. We investigate the system-wide generality of this phenomenon over the entire spatial extent of the yellow pine/mixed-conifer forest system in the Sierra Nevada mountain range of California. We develop an approach to measure wildfire severity and local vegetation structure using Landsat satellite data and texture analysis across a 33-year time series of all known wildfires covering greater than 4 hectares in this region. We find that, on a system-wide scale, greater variability in local forest structure reduces the probability of a high severity wildfire. We find the most support for this relationship at the smallest spatial extent of vegetation structure tested, indicating this phenomenon manifests at a local scale. Variable forest structure thus makes yellow pine/mixed-conifer forest in the Sierra Nevada more resistant to inevitable wildfire disturbance on average, and may increase the probability of long-term forest persistence. Efforts to maintain or increase vegetation structure variability in forests, such as allowing fires to burn under some conditions, should be continued."
+abstract: "The long-term peristence of forest ecosystems hinges on their resilience to ongoing disturbance. Measurements of resilience for these valuable ecosystems are critical, but are challenging to capture at relevant scales given a forest's temporal longevity and vast spatial extent. Wildfire disturbance plays a key role in structuring the vegetation of many forests, and vegetation structure can feedback to influence wildfire behavior. High fuel loads and hot, dry conditions are known to increase wildfire-induced tree mortality, but local variability of vegetation structure can enable a forest to withstand wildfire disturbance and retain its essential identity and function-- a hallmark of a resilient system. We investigate the system-wide generality of variable forest structure confering resilience to the yellow pine/mixed-conifer forest of California's Sierra Nevada mountain range. Vegetation structure and disturbance severity can be reliably detected at system-wide spatiotemporal scales using satellite imagery. We use massively parallel cloud computing and texture analysis of Landsat satellite imagery to generate the most comprehensive dataset of wildfire severity and local variability of vegetation structure in this region to date, spanning its entire spatial extent and a 33-year time series of all known wildfires covering greater than 4 hectares. We find that, on a system-wide scale, greater variability in local forest structure reduces the probability of a high severity wildfire. We find the most support for this relationship at the smallest spatial extent of vegetation structure tested, indicating this phenomenon manifests at a local scale. Variable forest structure thus makes yellow pine/mixed-conifer forest in the Sierra Nevada more resistant to inevitable wildfire disturbance on average, and may increase the probability of long-term forest persistence. Efforts to maintain or increase vegetation structure variability in forests, such as allowing fires to burn under some conditions, should be continued."
 
 ---
 \doublespacing
@@ -368,8 +364,8 @@ print_cbi_models <- cbi_models
 print_cbi_models[, 5:13] <- round(cbi_models[, 5:13], 3)
 print_cbi_models <-
   print_cbi_models %>%
-  arrange(desc(r2_kfold)) %>% 
-  mutate(rank = 1:nrow(.)) %>% 
+  arrange(desc(r2_kfold)) %>%
+  mutate(rank = 1:nrow(.)) %>%
   dplyr::select(rank, response, time_window, interpolation, r2_kfold, a, b, c, low_sev, mod_sev, hi_sev)
 ```
 
@@ -382,25 +378,25 @@ fig_nums(name = "fig-cbi-calibration")
 
 ![Three top performing remotely-sensed severity metrics based on 5-fold cross validation (relative burn ratio, 48-day window, bicubic interpolation; relative delta normalized burn ratio, 32-day window, bilinear interpolation; and relative delta normalized difference vegetation index, 48-day window, bilinear interpolation) calculated using new automated image collation algorithms, calibrated to `r total_conifer_plots` field measures of fire severity (composite burn index). See Supplemental Table 1 for performance of all tested models.](../figures/remote-sensed-severity-calibration.pdf)
 
-We found that the remotely sensed relative burn ratio (RBR) metric of wildfire severity measured across a 48 day interval prior to the wildfire alarm date correlated best with ground based composite burn index (CBI) measurements of severity (5-fold cross validation $R^2 =$ `r print_cbi_models$r2_kfold[1]`; `r table_nums(name = "table-cbi-models", display = "cite")`). Our method to calculate remotely sensed severity using automated Landsat image fetching performs as well or better than most other reported methods that use hand-curation of Landsat imagery [@Edwards2018]. Further, several combinations of remotely sensed severity metrics, time windows, and interpolation methods validate well with the ground based severity metrics, including those based on NDVI which is calculated using reflectance in shorter wavelengths than those typically used for measuring severity (`r table_nums(name = "table-cbi-models", display = "cite")`). The top three models are depicted in `r fig_nums(name = "fig-cbi-calibration", display = "cite")`.
+We found that the remotely sensed relative burn ratio (RBR) metric of wildfire severity measured across a 48 day interval prior to the wildfire alarm date correlated best with ground based composite burn index (CBI) measurements of severity (5-fold cross validation $R^2 =$ `r print_cbi_models$r2_kfold[1]`; `r fig_nums(name = "fig-cbi-calibration", display = "cite")`). Our method to calculate remotely sensed severity using automated Landsat image fetching performs as well or better than most other reported methods that use hand-curation of Landsat imagery [@Edwards2018]. Further, several combinations of remotely sensed severity metrics, time windows, and interpolation methods validate well with the ground based severity metrics, including those based on NDVI which is calculated using reflectance in shorter wavelengths than those typically used for measuring severity (`r fig_nums(name = "fig-cbi-calibration", display = "cite")`). The top three models are depicted in `r fig_nums(name = "fig-cbi-calibration", display = "cite")`.
 
-```{r, results = "hide"}
-table_nums(name = "table-cbi-models")
-```
+<!-- ```{r, results = "hide"} -->
+<!-- table_nums(name = "table-cbi-models") -->
+<!-- ``` -->
 
-```{r cbi_models_table}
-knitr::kable(print_cbi_models[1:5, ],
-             format = "latex",
-             longtable = TRUE,
-             booktabs = TRUE,
-             caption = "Comparison of models used to validate and calibrate remotely sensed wildfire severity with ground based composite burn index (CBI) severity sorted in descending order by the $R^2$ value from a 5-fold cross validation. A total of 56 models were tested representing all possible combinations of 7 different measures of wildfire severity (RBR, dNBR, dNBR2, RdNBR, RdNBR2, dNDVI, and RdNDVI), 4 different time windows in which Landsat imagery was acquired and summarized with a median reducer on a pixel-by-pixel basis (16 days, 32 days, 48 days, and 64 days), and two different interpolation methods (bilinear and bicubic). The three parameters (\\textbeta\\textsubscript{0}, \\textbeta\\textsubscript{1}, and \\textbeta\\textsubscript{2}) from the nonlinear model fit described in Eq. \\ref{eq-cbi-calibration} are reported. For each model, the value of the remotely sensed wildfire severity measurement corresponding to the lower bounds of 3 commonly used categories of severity are reported ('low' corresponds to a CBI value of 0.1, 'mod' corresponds to a CBI value of 1.25, and 'high' corresponds to a CBI value of 2.25)",
-             caption.short = "Comparison of models used to validate and calibrate remotely sensed wildfire severity with CBI severity",
-             escape = FALSE,
-             col.names = c("Rank", "\\makecell[c]{Severity\\\\measure}", "\\makecell[c]{Time\\\\window}", "Interpolation", "\\makecell[c]{k-fold\\\\$R^2$}", "\\makecell[c]{\\textbeta\\textsubscript{0}}", "\\makecell[c]{\\textbeta\\textsubscript{1}}", "\\makecell[c]{\\textbeta\\textsubscript{2}}", "low", "mod", "high")) %>%
-  kable_styling(latex_options = c("repeat_header"))
-```
+<!-- ```{r cbi_models_table} -->
+<!-- knitr::kable(print_cbi_models, -->
+<!--              # format = "latex", -->
+<!--              longtable = TRUE, -->
+<!--              booktabs = TRUE, -->
+<!--              caption = "Comparison of models used to validate and calibrate remotely sensed wildfire severity with ground based composite burn index (CBI) severity sorted in descending order by the $R^2$ value from a 5-fold cross validation. A total of 56 models were tested representing all possible combinations of 7 different measures of wildfire severity (RBR, dNBR, dNBR2, RdNBR, RdNBR2, dNDVI, and RdNDVI), 4 different time windows in which Landsat imagery was acquired and summarized with a median reducer on a pixel-by-pixel basis (16 days, 32 days, 48 days, and 64 days), and two different interpolation methods (bilinear and bicubic). The three parameters (\\textbeta\\textsubscript{0}, \\textbeta\\textsubscript{1}, and \\textbeta\\textsubscript{2}) from the nonlinear model fit described in Eq. \\ref{eq-cbi-calibration} are reported. For each model, the value of the remotely sensed wildfire severity measurement corresponding to the lower bounds of 3 commonly used categories of severity are reported ('low' corresponds to a CBI value of 0.1, 'mod' corresponds to a CBI value of 1.25, and 'high' corresponds to a CBI value of 2.25)", -->
+<!--              caption.short = "Comparison of models used to validate and calibrate remotely sensed wildfire severity with CBI severity", -->
+<!--              escape = FALSE, -->
+<!--              col.names = c("Rank", "\\makecell[c]{Severity\\\\measure}", "\\makecell[c]{Time\\\\window}", "Interpolation", "\\makecell[c]{k-fold\\\\$R^2$}", "\\makecell[c]{\\textbeta\\textsubscript{0}}", "\\makecell[c]{\\textbeta\\textsubscript{1}}", "\\makecell[c]{\\textbeta\\textsubscript{2}}", "low", "mod", "high")) %>% -->
+<!--   kable_styling(latex_options = c("repeat_header")) -->
+<!-- ``` -->
 
-Based on these model comparisons, we used the relative burn ratio (RBR) calculated using a 48-day time window before the fire and bicubic interpolation as our metric of severity. We created the boolean response variable representing whether the sampled point burned at high severity or not by determining whether the RBR exceeded `r print_cbi_models$hi_sev[1]`, the threshold for high severity derived using the non-linear relationship in `r eq_nums(name = "eq-cbi-calibration", display = "cite")` (`r table_nums(name = "table-cbi-models", display = "cite")`). 
+Based on these model comparisons, we used the relative burn ratio (RBR) calculated using a 48-day time window before the fire and bicubic interpolation as our metric of severity. We created the boolean response variable representing whether the sampled point burned at high severity or not by determining whether the RBR exceeded `r print_cbi_models$hi_sev[1]`, the threshold for high severity derived using the non-linear relationship in `r eq_nums(name = "eq-cbi-calibration", display = "cite")` (`r fig_nums(name = "fig-cbi-calibration", display = "cite")`). 
 
 ## Prefire vegetation density, annual heat load, and topographic roughness effects on wildfire severity
 
