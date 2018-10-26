@@ -11,13 +11,6 @@ library(lubridate)
 library(brms)
 library(purrr)
 
-
-fires <- st_read(dsn = here::here("/data/features/fire_perim/fire_perim_sn_16_1_shp/"),
-                 stringsAsFactors = FALSE) %>% 
-  st_transform(4326)
-sn <- st_read(here::here("/data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp")) %>% 
-  st_transform(4326)
-
 if (!file.exists(here::here("data/data_output/all-fire-samples.rds"))) {
   source(here::here("data/data_carpentry/merge_fire-samples.R"))
 }

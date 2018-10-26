@@ -65,7 +65,7 @@ fires_4326 <-
 # Write the 2017 perimeters in epsg4326 format to a file
 fires_4326 %>% 
   select(-shape_area, -shape_length) %>% 
-  st_write(dsn = "data/features/fire_perim/fire17_1/fire17_1.shp", 
+  st_write(dsn = "data/data_output/fire_perim/fire17_1/fire17_1.shp", 
          driver = "ESRI Shapefile")
 
 # Transform Sierra Nevada fires to epsg4326 for upload to Earth Engine (potentially)
@@ -75,7 +75,7 @@ fires_sn_4326 <-
 
 fires_sn_4326 %>% 
   select(-shape_area, -shape_length) %>% 
-  st_write(dsn = "data/features/fire_perim/fire17_1_sn",
+  st_write(dsn = "data/data_output/fire_perim/fire17_1_sn",
            driver = "ESRI Shapefile")
 
 fires_by_year <-

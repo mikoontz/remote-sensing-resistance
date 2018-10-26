@@ -9,10 +9,10 @@ library(viridis)
 # Read in fire perimeters layers
 #st_layers(dsn = "features/FRAP-fire-perimeters/fire16_1.gdb") # what layers are aviailable in the geodatabase?
 fires <-
-  st_read("data/features/fire_perim/fire_perim_sn_16_1_shp/", stringsAsFactors = FALSE) %>% 
+  st_read("data/data_output/fire_perim/fire17_1_sn/fire17_1_sn.shp", stringsAsFactors = FALSE) %>% 
   st_transform(4326) %>% 
-  dplyr::select(YEAR_, FIRE_NAME, ALARM_DATE) %>% 
-  mutate(year = as.numeric(YEAR_)) %>% 
+  dplyr::select(year_, fire_name, alarm_date) %>% 
+  mutate(year = as.numeric(year_)) %>% 
   filter(year >= 1984) %>% 
   mutate(id = 1:nrow(.))
 sn <- st_read("data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp") %>% st_transform(4326)
