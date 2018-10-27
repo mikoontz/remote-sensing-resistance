@@ -55,27 +55,46 @@ sum(r5_sn$mxd_cn_ * 30 * 30) / 10000
 
 # Should already be intersected with the Sierra Nevada outline
 
-if(!file.exists("data/data_output/fire_perim/fire_17_1_sn_ypmc/fire_17_1_sn_ypmc.shp")) {
-  frap <- sf::st_read("data/data_output/fire_perim/fire17_1_sn")
-  frap <- 
-    frap %>% 
-    mutate(mixed_con_pixels = as.vector(raster::extract(x = mixed_con, y = ., fun = function(x, ...) length(which(x == 1)))))
+if(!file.exists("data/data_output/fire_perim/fire17_1_sn_ypmc/fire17_1_sn_ypmc.shp")) {
+  frap_sn <- sf::st_read("data/data_output/fire_perim/fire17_1_sn")
+  frap_sn_ypmc <- 
+    frap_sn %>% 
+    mutate(mixed_con_pixels = as.vector(raster::extract(x = mixed_con, y = ., fun = function(x, ...) length(which(x == 1))))) %>% 
+    filter(mixed_con_pixels > 0)
 
-  st_write(frap, "data/data_output/fire_perim/fire_17_1_sn_ypmc/fire_17_1_sn_ypmc.shp")  
+  st_write(frap_sn_ypmc, "data/data_output/fire_perim/fire17_1_sn_ypmc/fire17_1_sn_ypmc.shp")  
 }
 
-frap <- 
-  sf::st_read("data/data_output/fire_perim/fire_17_1_sn_ypmc/fire_17_1_sn_ypmc.shp") %>% 
-  rename(mixed_con_pixels = mxd_cn_)
+frap_sn_ypmc <- 
+  sf::st_read("data/data_output/fire_perim/fire17_1_sn_ypmc/fire17_1_sn_ypmc.shp") %>% 
+  rename(mixed_con_pixels = mxd_cn_,
+         alarm_date = alrm_dt,
+         gis_acres = gis_crs)
 
-mixed_con_frap <-
+frap_sn_ypmc <-
   frap %>% 
   filter(year_ %in% 1984:2017) %>% 
-  filter(mixed_con_pixels > 0)
+  filter(mixed_con_pixels > 0) %>% 
+  filter(!is.na(alarm_date))
 
-# About 791 fires with > 50% in YPMC
+# About 789 fires with > 50% in YPMC
 mixed_con_frap %>% 
   filter((mixed_con_pixels * 30 * 30) > (0.5 * area_ha * 10000))
+
+# Which fires were left out of the analysis, even though they burned partially
+# in YPMC forest and within the Sierra Nevada between 1984 and 2017?
+missing <-
+  mixed_con_frap %>% 
+  left_join(s, by = "gis_acres") %>% 
+  filter(is.na(alarm_date.y))
+
+plot(missing$geometry)
+
+missing %>% 
+  # filter(as.numeric(as.character(year_)) == 2017) %>% 
+  dplyr::select(year_, alarm_date.x, mixed_con_pixels) %>% 
+  arrange(alarm_date.x) %>% 
+  as.data.frame()
 
 # approximate hectarage of total burned area in yellow pine/mixed-conifer forest
 # in the Sierra Nevada between 1984 and 2017: 771342.8
