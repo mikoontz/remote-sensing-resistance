@@ -24,4 +24,15 @@ sn <-
   st_union() %>% 
   st_transform(4326)
 
-st_write(sn, dsn = "data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp")
+# Using the st_snap() function as also suggested in the same link above.
+# This seems to make the resulting geometry valid, which is handy.
+sn <- 
+  jep %>% 
+  dplyr::filter(Name %in% sn_names) %>% 
+  st_transform(3310) %>% 
+  st_snap(x = ., y = ., tolerance = 0.0001) %>%
+  st_union() %>% 
+  st_transform(4326) %>% 
+  st_zm()
+
+st_write(sn, dsn = "data/data_output/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp")
