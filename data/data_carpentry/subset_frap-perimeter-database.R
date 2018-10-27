@@ -80,7 +80,7 @@ fires_sn_4326 <-
   st_transform(4326)
 
 fires_sn_4326 %>% 
-  select(-shape_area, -shape_length) %>% 
+  dplyr::select(-shape_area, -shape_length) %>% 
   st_write(dsn = "data/data_output/fire_perim/fire17_1_sn",
            driver = "ESRI Shapefile")
 
