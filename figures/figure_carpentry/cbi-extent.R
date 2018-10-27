@@ -38,7 +38,7 @@ ca <- raster::getData(name = "GADM",country = "USA",level = 1, path = "data/feat
 
 
 # Get the outline of the Sierra Nevada ------------------------------------
-sn <- st_read("data/features/SierraEcoregion_Jepson/") %>% st_transform(4326)
+sn <- st_read("data/data_output/SierraEcoregion_Jepson/") %>% st_transform(4326)
 
 # Get 48-day window, bicubic interpolation data ---------------------------
 cbi_48_bicubic <- st_read("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE) %>% 

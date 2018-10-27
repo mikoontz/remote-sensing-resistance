@@ -7,7 +7,7 @@ library(rgdal)
 library(sf)
 
 sn <- 
-  st_read("data/features/SierraEcoregion_Jepson/") %>%
+  st_read("data/data_output/SierraEcoregion_Jepson/") %>%
   st_transform(crs = "+init=epsg:4326")
 
 #### First read the USGS data ####

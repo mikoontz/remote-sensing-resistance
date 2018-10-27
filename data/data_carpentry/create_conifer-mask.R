@@ -5,7 +5,7 @@ library(fasterize)
 library(rgdal)
 
 r <- raster("data/features/sierra_nevada_30m_landsat_template.tif")
-sn <- st_read("data/features/SierraEcoregion_Jepson/") %>%
+sn <- st_read("data/data_output/SierraEcoregion_Jepson/") %>%
   st_transform(proj4string(r))
 
 nsn <- st_read("data/features/fire_return_interval_departure/FRID_NorthSierra15_1.gdb/") %>%

@@ -30,11 +30,12 @@ fires <-
 glimpse(fires)
 
 # The Sierra Nevada geometry from the Jepson
-sn <- st_read("data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp") %>% 
-  st_transform(3310)
+sn <- st_read("data/data_output/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp") %>% 
+  st_transform(st_crs(fires))
 
 # Spatial subset to the Sierra Nevada region
-fires_sn <- fires[sn, ]
+fires_sn <- 
+  fires[sn, ]
 
 # 2345 fires in Sierra Nevada during Landsat 4-8
 glimpse(fires_sn)
@@ -47,6 +48,11 @@ fires_sn <-
 
 # 50 fires from the original FRAP database will be removed from our analysis  
 2345 - 2295
+
+# Clip the fire geometries so they don't extend beyond the Sierra Nevada
+fires_sn <-
+  fires_sn %>% 
+  st_intersection(sn)
 
 fires <-
   fires %>% 

@@ -15,7 +15,7 @@ fires <-
   mutate(year = as.numeric(year_)) %>% 
   filter(year >= 1984) %>% 
   mutate(id = 1:nrow(.))
-sn <- st_read("data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp") %>% st_transform(4326)
+sn <- st_read("data/data_output/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp") %>% st_transform(4326)
 
 r_template <- raster("data/data_output/landcover_PFR/mixed_conifer_sn-mask_10-fold-res.tif")
 

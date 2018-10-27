@@ -38,7 +38,7 @@ frap_mixed_con <-
   mask(mixed_con, maskvalue = 0)
 
 # Get the outline of the Sierra Nevada ------------------------------------
-sn <- st_read("data/features/SierraEcoregion_Jepson/") %>% st_transform(proj4string(frap))
+sn <- st_read("data/dat_output/SierraEcoregion_Jepson/") %>% st_transform(proj4string(frap))
 
 # Get California outline --------------------------------------------------
 

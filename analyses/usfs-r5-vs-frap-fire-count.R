@@ -11,7 +11,7 @@ library(raster)
 library(here)
 
 mixed_con <- raster::raster(here::here("data/data_output/landcover_PFR/mixed_conifer.tif"))
-sn <- sf::st_read(here::here("data/features/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp"))
+sn <- sf::st_read(here::here("data/data_output/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp"))
 
 r5 <- sf::st_read("data/features/fire_perim/veg_severity_perimeters18_1.gdb/") %>% st_transform(4326)
 
