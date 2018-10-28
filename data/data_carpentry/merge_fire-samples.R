@@ -17,6 +17,6 @@ samps <- do.call(rbind, samps_list)
 samps$fire_id <- substr(as.character(samps$id), start = 1, stop = 20)
 samps$samp_id <- as.numeric(substr(as.character(samps$id), start = 22, stop = nchar(as.character(samps$id))))
 samps$year <- as.numeric(as.character(samps$year_))
-samps <- select(samps, -year_)
+samps <- dplyr::select(samps, -year_)
 
 saveRDS(samps, file = here::here("data/data_output/all-fire-samples.rds"))
