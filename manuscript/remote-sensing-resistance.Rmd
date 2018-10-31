@@ -1,14 +1,14 @@
 ---
 output: 
-  pdf_document:
-  template: "ms_carpentry/mjk_ms_template.tex"
-  fig_caption: yes
-  # word_document:
-  #   fig_width: 8
-  #   fig_height: 7
-  #   fig_caption: true
-  #   df_print: kable
-  #   reference_docx: "ms_carpentry/mjk_ms_template_word.docx"
+  # pdf_document:
+  # template: "ms_carpentry/mjk_ms_template.tex"
+  # fig_caption: yes
+  word_document:
+    fig_width: 8
+    fig_height: 7
+    fig_caption: true
+    df_print: kable
+    reference_docx: "ms_carpentry/mjk_ms_template_word.docx"
 geometry: margin=1in
 header-includes: 
 - \usepackage{amsmath}
@@ -39,40 +39,11 @@ date:
   ^4^U.S. Geological Survey, Southwest Biological Science Center \n
   ^5^Department of Ecology and Evolutionary Bilogy, University of Colorado, Boulder; Boulder, CO \n
   ^6^Center for Population Biology, University of California, Davis; Davis, CA"
-  
-# Author:
-# - name: Michael J Koontz
-#   affiliation: 1
-# - name: Malcolm P North
-#   affiliation:
-#     - 1
-#     - 2
-# - name: Stephen E Fick
-#   affiliation: 3
-# - name: Chhaya M Werner
-#   affiliation: 4
-# - name: Andrew M Latimer
-#   affiliation: 1
-# affiliations:
-# - name: Graduate Group in Ecology, University of California, Davis, CA 95616 USA
-#   code: 1
-# - name: USDA Forest Service, Pacific Southwest Research Station, Davis, CA 95618 USA
-#   code: 2
-# - name: Stockholm Environment Institute, Stockholm 115 23, Sweden
-#   code: 3
-# - name: Center for Population Biology, University of California, Davis, CA 95616 USA
-#   code: 4
-# keywords: 
-# - resilience
-# - wildfire severity
-# - RdNBR
-# - remote sensing
 
 abstract: "The long-term peristence of forest ecosystems hinges on their resilience to ongoing disturbance. Measurements of resilience for these valuable ecosystems are critical, but are challenging to capture at relevant scales given a forest's temporal longevity and vast spatial extent. Wildfire disturbance plays a key role in structuring the vegetation of many forests, and vegetation structure can feedback to influence wildfire behavior. High fuel loads and hot, dry conditions are known to increase wildfire-induced tree mortality, but local variability of vegetation structure can enable a forest to withstand wildfire disturbance and retain its essential identity and function-- a hallmark of a resilient system. We investigate the system-wide generality of variable forest structure confering resilience to the yellow pine/mixed-conifer forest of California's Sierra Nevada mountain range. Vegetation structure and disturbance severity can be reliably detected at system-wide spatiotemporal scales using satellite imagery. We use massively parallel cloud computing and texture analysis of Landsat satellite imagery to generate the most comprehensive dataset of wildfire severity and local variability of vegetation structure in this region to date, spanning its entire spatial extent and a 33-year time series of all known wildfires covering greater than 4 hectares. We find that, on a system-wide scale, greater variability in local forest structure reduces the probability of a high severity wildfire. We find the most support for this relationship at the smallest spatial extent of vegetation structure tested, indicating this phenomenon manifests at a local scale. Variable forest structure thus makes yellow pine/mixed-conifer forest in the Sierra Nevada more resistant to inevitable wildfire disturbance on average, and may increase the probability of long-term forest persistence. Efforts to maintain or increase vegetation structure variability in forests, such as allowing fires to burn under some conditions, should be continued."
 
 ---
 \doublespacing
-
 
 ```{r setup, include=FALSE}
 library(here)
@@ -96,41 +67,11 @@ cbi_models <- read_csv(here::here("data/data_output/cbi_calibration_model_compar
 
 source(here::here("analyses/cbi_summary-stats.R"))
 source(here::here("analyses/fire-perims_summary-stats.R"))
+source(here::here("analyses/probability-of-high-severity.R"))
+source(here::here("analyses/model-comparison.R"))
 
 # # This .rds file has the R object name `ss_burned`
 # ss_burned <- readRDS(here::here("data/data_output/burned-fire-samples_configured.rds"))
-
-# source(here::here("analyses/probability-of-high-severity.R"))
-# 
-# ci_betas_1 <- as.data.frame(t(apply(betas_1, MARGIN = 2, FUN = function(x) c(lwr = quantile(x, probs = 0.025), mean = mean(x), upr = quantile(x, probs = 0.975)))))
-# colnames(ci_betas_1) <- c("lwr", "mean", "upr")
-# ci_betas_1$param <- row.names(ci_betas_1)
-# ci_betas_1$radius <- 1
-# 
-# ci_betas_2 <- as.data.frame(t(apply(betas_2, MARGIN = 2, FUN = function(x) c(lwr = quantile(x, probs = 0.025), mean = mean(x), upr = quantile(x, probs = 0.975)))))
-# colnames(ci_betas_2) <- c("lwr", "mean", "upr")
-# ci_betas_2$param <- row.names(ci_betas_2)
-# ci_betas_2$radius <- 2
-# 
-# ci_betas_3 <- as.data.frame(t(apply(betas_3, MARGIN = 2, FUN = function(x) c(lwr = quantile(x, probs = 0.025), mean = mean(x), upr = quantile(x, probs = 0.975)))))
-# colnames(ci_betas_3) <- c("lwr", "mean", "upr")
-# ci_betas_3$param <- row.names(ci_betas_3)
-# ci_betas_3$radius <- 3
-# 
-# ci_betas_4 <- as.data.frame(t(apply(betas_4, MARGIN = 2, FUN = function(x) c(lwr = quantile(x, probs = 0.025), mean = mean(x), upr = quantile(x, probs = 0.975)))))
-# colnames(ci_betas_4) <- c("lwr", "mean", "upr")
-# ci_betas_4$param <- row.names(ci_betas_4)
-# ci_betas_4$radius <- 4
-# 
-# ci_betas <- rbind(ci_betas_1, ci_betas_2, ci_betas_3, ci_betas_4)
-# 
-# 
-# # What is the mean fm100_s for non-extreme and extreme conditions?
-# fm100_s_means <- 
-#   ss_burned %>% 
-#   as.data.frame() %>% 
-#   group_by(extreme80_fm100) %>% 
-#   summarize(mean_fm100 = mean(fm100_s))
 ```
 
 # Introduction
@@ -266,7 +207,7 @@ Example algorithm outputs are shown in `r fig_nums(name = "fig-pre-post-rbr", di
 
 ### Calibrating remotely-sensed wildfire severity with field-measured wildfire severity
 
-We calibrated our remotely-sensed measure of wildfire severity with `r total_conifer_plots` field measures of overstory tree mortality from two previously published studies [@Zhu2006; @Sikkink2013] (`r fig_nums(name = "fig-geographic-extent", display = "cite")`). The Composite Burn Index (CBI) is a metric of vegetation mortality across several vertical vegetation strata [@Key2006] and has a long history of use as a standard for calibrating remotely-sensed severity data [@Miller2007; @Miller2009a; @Cansler2012; @Parks2014; @Prichard2014]. Following @Miller2007, @Miller2009a, and @Parks2014, we fit a non-linear model to each remotely-sensed severity metric of the following form:
+We calibrated our remotely-sensed measure of wildfire severity with `r total_conifer_plots` field measures of overstory tree mortality from two previously published studies [@Zhu2006; @Sikkink2013] (`r fig_nums(name = "fig-study-geographic-setting", display = "cite")`). The Composite Burn Index (CBI) is a metric of vegetation mortality across several vertical vegetation strata [@Key2006] and has a long history of use as a standard for calibrating remotely-sensed severity data [@Miller2007; @Miller2009a; @Cansler2012; @Parks2014; @Prichard2014; @Parks2018]. The CBI ranges from 0 (no fire impacts) to 3 (very high fire impacts) and is an integrated measure of vegetation mortality, scorching, and resprouting assessed in different vertical forest strata within a 30m diameter field plot [@Key2006]. Following @Miller2007, @Miller2009a, @Parks2014, and @Parks2018, we fit a non-linear model to each remotely-sensed severity metric of the following form:
 
 ```{r eq-cbi-calibration, results = "hide"}
 eq_nums(name = "eq-cbi-calibration")
@@ -275,7 +216,7 @@ eq_nums(name = "eq-cbi-calibration")
 (@eq-cbi-calibration) $\label{eq-cbi-calibration}
 \text{remote\_severity} = \beta_0 + \beta_1 e^{\beta_2 \text{cbi\_overstory}}$
 
-We fit the model in `r eq_nums(name = "eq-cbi-calibration", display = "cite")` for all 7 of our remotely-sensed severity metrics (RBR, dNBR, RdNBR, dNBR2, RdNBR2, dNDVI, RdNDVI) using 4 different time windows from which to collate satellite imagery (16, 32, 48, and 64 days). Following @Cansler2012 and @Parks2014, we used interpolation to extract remotely-sensed severity at the locations of the CBI field plots to better align remote and field measures of severity. We extracted remotely-sensed severity values using both bilinear interpolation, which returns a severity value weighted by the 4 pixel values nearest to the CBI plot location, and bicubic interpolation, which returns a severity value weighted by the 16 pixel values nearest to the CBI plot location. In total, we fit 56 models (7 severity measures, 4 time windows, 2 interpolation methods) and performed five-fold cross validation using the `modelr` and `purrr` packages. To compare goodness of model fits with @Miller2007, @Miller2009a, and @Parks2014, we report the average R^2^ value from the five folds for each of the 56 models but note that R^2^ for non-linear regressions do not have the same interpretation that they do for linear regression (i.e., R^2^ can be greater than 1 for non-linear regression, so it can't be interpreted as the proportion of variation explained by the model). 
+We fit the model in `r eq_nums(name = "eq-cbi-calibration", display = "cite")` for all 7 of our remotely-sensed severity metrics (RBR, dNBR, RdNBR, dNBR2, RdNBR2, dNDVI, RdNDVI) using 4 different time windows from which to collate satellite imagery (16, 32, 48, and 64 days). Following @Cansler2012, @Parks2014, and @Parks2018, we used interpolation to extract remotely-sensed severity at the locations of the CBI field plots to better align remote and field measures of severity. We extracted remotely-sensed severity values using both bilinear interpolation, which returns a severity value weighted by the 4 pixel values nearest to the CBI plot location, and bicubic interpolation, which returns a severity value weighted by the 16 pixel values nearest to the CBI plot location. In total, we fit 56 models (7 severity measures, 4 time windows, 2 interpolation methods) and performed five-fold cross validation using the `modelr` and `purrr` packages in R [@RCoreTeam2018]. To compare goodness of model fits with @Miller2007, @Miller2009a, and @Parks2014, we report the average R^2^ value from the five folds for each of the 56 models but note that R^2^ for non-linear regressions do not have the same interpretation that they do for linear regression (i.e., R^2^ can be greater than 1 for non-linear regression, so it can't be interpreted as the proportion of variation explained by the model). 
 
 ## Remote sensing other conditions
 
@@ -315,11 +256,11 @@ Where $pahl$ is the potential annual heat load, $aspect_{folded}$ is a transform
 
 ### Moisture conditions
 
-The modeled 100-hour fuel moisture data were sourced from the Gridmet product [@Abatzoglou2013a] and were calculated as the median 100-hour fuel moisture for the 3 days prior to the fire. The 100-hour fuel moisture is a correlate of the regional temperature and moisture which integrates the relative humidity, the length of day, and the amount of precipitation in the previous 24 hours. Thus, this measure is sensitive to multiple hot dry days, but not to diurnal variation in relative humidity.
+The modeled 100-hour fuel moisture data were sourced from the gridMET product, a gridded meteorological product with a daily temporal resolution and a 4km x 4km spatial resolution [@Abatzoglou2013a]. For our purposes, we calculated 100-hour fuel moisture as the median 100-hour fuel moisture for the 3 days prior to the fire. The 100-hour fuel moisture is a correlate of the regional temperature and moisture which integrates the relative humidity, the length of day, and the amount of precipitation in the previous 24 hours. Thus, this measure is sensitive to multiple hot dry days across the 4km x 4km spatial extent of each grid cell, but not to diurnal variation in relative humidity.  
 
 ### Remote samples
 
-Approximately 100 random points were selected within each FRAP fire perimeter in areas designated as yellow pine/mixed-conifer forest and the values of wildfire severity as well as the values of each covariate were extracted at those points.
+Approximately 100 random points were selected within each FRAP fire perimeter in areas designated as yellow pine/mixed-conifer forest and the values of wildfire severity as well as the values of each covariate were extracted at those points. The random sampling amounted to `r total_conifer_samps` total samples across `r total_conifer_fires` fires.
 
 ## Modeling the effect of forest variability on severity
 
@@ -331,28 +272,27 @@ severity_{i, j} &\sim Bern(\phi_{i,j}) \\
 logit(\phi_{i,j}) &= 
 \begin{aligned}
 & \beta_0 + \\
-& \beta_{\text{neighborhood\_stdev\_NDVI}} * \text{neighborhood\_stdev\_NDVI}_i + \\
+& \beta_{\text{nbhd\_stdev\_NDVI}} * \text{nbhd\_stdev\_NDVI}_i + \\
 & \beta_{\text{prefire\_NDVI}} * \text{prefire\_NDVI}_i + \\
-& \beta_{\text{neighborhood\_mean\_NDVI}} * \text{neighborhood\_mean\_NDVI}_i + \\
+& \beta_{\text{nbhd\_mean\_NDVI}} * \text{nbhd\_mean\_NDVI}_i + \\
 & \beta_{\text{fm100}} * \text{fm100}_i + \\
 & \beta_{\text{pahl}} * \text{pahl}_i + \\
 & \beta_{\text{topographic\_roughness}} * \text{topographic\_roughness}_i + \\
-& \beta_{\text{neighborhood\_stdev\_NDVI*fm100}} * \text{neighborhood\_stdev\_NDVI}_i * \text{fm100}_i + \\
-& \beta_{\text{neighborhood\_stdev\_NDVI*prefire\_NDVI}} * \text{neighborhood\_stdev\_NDVI}_i * \text{prefire\_NDVI}_i + \\
-& \beta_{\text{neighborhood\_mean\_NDVI*prefire\_NDVI}} * \text{neighborhood\_mean\_NDVI}_i * \text{prefire\_NDVI}_i + \\
+& \beta_{\text{nbhd\_stdev\_NDVI*fm100}} * \text{nbhd\_stdev\_NDVI}_i * \text{fm100}_i + \\
+& \beta_{\text{nbhd\_stdev\_NDVI*prefire\_NDVI}} * \text{nbhd\_stdev\_NDVI}_i * \text{prefire\_NDVI}_i + \\
+& \beta_{\text{nbhd\_stdev\_NDVI*nbhd\_mean\_NDVI}} * \text{nbhd\_stdev\_NDVI}_i * \text{nbhd\_mean\_NDVI}_i + \\
+& \beta_{\text{nbhd\_mean\_NDVI*prefire\_NDVI}} * \text{nbhd\_mean\_NDVI}_i * \text{prefire\_NDVI}_i + \\
 & \gamma_j
 \end{aligned}
 \\
 \gamma_j &\sim \mathcal{N}(0, \sigma_{\text{fire}})
 \end{aligned}$
 
-Each neighborhood size (90 m x 90 m, 150 m x 150 m, 210 m x 210 m, and 270 m x 270 m) was substituted in turn for the neighborhood standard deviation of NDVI, neighborhood mean NDVI, and terrain ruggedness covariates to generate a candidate set of 4 models. To assess the scale at which the forest structure variability effect manifests, we compared the 4 candidate models based on different neighborhood sizes using leave-one-out cross validation [@Vehtari2016]. We inferred that the neighborhood size window used in the best-performing model reflected the scale at which the forest structure variability effect had the most support. 
+Each neighborhood size (90m x 90m, 150m x 150m, 210m x 210m, and 270m x 270m) was substituted in turn for the neighborhood standard deviation of NDVI, neighborhood mean NDVI, and terrain ruggedness covariates to generate a candidate set of 4 models. To assess the scale at which the forest structure variability effect manifests, we compared the 4 candidate models based on different neighborhood sizes using leave-one-out cross validation (LOO cross validation) [@Vehtari2016].  We inferred that the neighborhood size window used in the best-performing model reflected the scale at which the forest structure variability effect had the most support. 
 
 ## Statistical software and data availability
 
 We used `R` for all statistical analyses [@RCoreTeam2018]. We used the `brms` package to fit mixed effects models in a Bayesian framework which implements the No U-Turn Sampler (NUTS) extension to the Hamiltonian Monte Carlo algorithm [@Hoffman2014; @Burkner2017]. We used 4 chains with 3000 samples per chain (1500 warmup samples and 1500 posterior samples) and chain convergence was assessed for each estimated parameter by ensuring Rhat values were less than or equal to 1.01 [@Burkner2017].
-
-Data are available via the Open Science Framework.
 
 # Results
 
@@ -368,14 +308,13 @@ print_cbi_models <-
 
 ## A new approach to remotely sensing wildfire severity
 
-
 ```{r, results = "hide"}
 fig_nums(name = "fig-cbi-calibration")
 ```
 
 ![Three top performing remotely-sensed severity metrics based on 5-fold cross validation (relative burn ratio, 48-day window, bicubic interpolation; relative delta normalized burn ratio, 32-day window, bilinear interpolation; and relative delta normalized difference vegetation index, 48-day window, bilinear interpolation) calculated using new automated image collation algorithms, calibrated to `r total_conifer_plots` field measures of fire severity (composite burn index). See Supplemental Table 1 for performance of all tested models.](../figures/remote-sensed-severity-calibration.pdf)
 
-We found that the remotely sensed relative burn ratio (RBR) metric of wildfire severity measured across a 48 day interval prior to the wildfire alarm date correlated best with ground based composite burn index (CBI) measurements of severity (5-fold cross validation $R^2 =$ `r print_cbi_models$r2_kfold[1]`; `r fig_nums(name = "fig-cbi-calibration", display = "cite")`). Our method to calculate remotely sensed severity using automated Landsat image fetching performs as well or better than most other reported methods that use hand-curation of Landsat imagery [@Edwards2018]. Further, several combinations of remotely sensed severity metrics, time windows, and interpolation methods validate well with the ground based severity metrics, including those based on NDVI which is calculated using reflectance in shorter wavelengths than those typically used for measuring severity (`r fig_nums(name = "fig-cbi-calibration", display = "cite")`). The top three models are depicted in `r fig_nums(name = "fig-cbi-calibration", display = "cite")`.
+We found that the remotely sensed relative burn ratio (RBR) metric of wildfire severity measured across a 48 day interval prior to the wildfire alarm date correlated best with ground based composite burn index (CBI) measurements of severity (5-fold cross validation $R^2 =$ `r print_cbi_models$r2_kfold[1]`; `r fig_nums(name = "fig-cbi-calibration", display = "cite")`; Supp. Table 1). Our method to calculate remotely sensed severity using automated Landsat image fetching performs as well or better than most other reported methods that use hand-curation of Landsat imagery (see review in @Edwards2018). Further, several combinations of remotely sensed severity metrics, time windows, and interpolation methods validate well with the ground based severity metrics, including those based on NDVI which is calculated using reflectance in shorter wavelengths than those typically used for measuring severity (`r fig_nums(name = "fig-cbi-calibration", display = "cite")`). The top three models are depicted in `r fig_nums(name = "fig-cbi-calibration", display = "cite")`.
 
 <!-- ```{r, results = "hide"} -->
 <!-- table_nums(name = "table-cbi-models") -->
@@ -393,25 +332,43 @@ We found that the remotely sensed relative burn ratio (RBR) metric of wildfire s
 <!--   kable_styling(latex_options = c("repeat_header")) -->
 <!-- ``` -->
 
+```{r param_estimates_latex, results = "hide"}
+knitr::kable(ci_betas_print_table,
+             # format = "latex",
+             caption = "Model parameter estimates for different neighborhood sizes.",
+             caption.short = "Model parameter estimates",
+             escape = FALSE,
+             col.names = c("Coefficient", "\\makecell[c]{90m x 90m\\\\neighborhood}", "\\makecell[c]{150m x 150m\\\\neighborhood}", "\\makecell[c]{210m x 210m\\\\neighborhood}", "\\makecell[c]{270m x 270m\\\\neighborhood}"))
+```
+
+```{r param_estimates_word, results = "hide"}
+knitr::kable(ci_betas_print_table_simple,
+             # format = "latex",
+             caption = "Model parameter estimates for different neighborhood sizes.",
+             caption.short = "Model parameter estimates",
+             escape = FALSE,
+             col.names = c("Coefficient", "90m x 90m neighborhood", "150m x 150m neighborhood}", "210m x 210m neighborhood", "270m x 270m neighborhood"))
+```
+
 Based on these model comparisons, we used the relative burn ratio (RBR) calculated using a 48-day time window before the fire and bicubic interpolation as our metric of severity. We created the boolean response variable representing whether the sampled point burned at high severity or not by determining whether the RBR exceeded `r print_cbi_models$hi_sev[1]`, the threshold for high severity derived using the non-linear relationship in `r eq_nums(name = "eq-cbi-calibration", display = "cite")` (`r fig_nums(name = "fig-cbi-calibration", display = "cite")`). 
 
-## Prefire vegetation density, annual heat load, and topographic roughness effects on wildfire severity
+## Prefire vegetation density, annual heat load, 100-hour fuel moisture, and topographic roughness effects on wildfire severity
 
 ```{r, results = "hide"}
 fig_nums(name = "fig-main-effects")
 ```
 
-![The main effects of the covariates having the strongest relationships with the probability of high severity fire.](../figures/prob-hi-sev-main-effects-credible-intervals.pdf)
+![The main effects of the covariates having the strongest relationships with the probability of high severity fire. All depicted relationships derive from the model using the 90m x 90m neighborhood size window for neighborhood standard deviation of NDVI, neighborhood mean of NDVI, and topographic roughness, as this was the best performing model of the four neighborhood sizes tested. The effect sizes of these covariates were similar for each neighborhood size tested.](../figures/prob-hi-sev-main-effects-credible-intervals.pdf)
 
-We found that the strongest influence on the probability of a forested area burning at high severity is the density of the vegetation, as measured by the prefire NDVI ($\beta_{\text{prefire\_ndvi}}=$ on the log-odds scale; `r fig_nums(name = "fig-main-effects", display = "cite")`). 
+We found that the strongest influence on the probability of a forested area burning at high severity is the density of the vegetation, as measured by the prefire NDVI ($\beta_{\text{prefire\_ndvi}}=$ `r round(ci_betas %>% filter(param == "b_preFire_ndvi" & radius == 1) %>% select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_preFire_ndvi" & radius == 1) %>% select(lwr, upr), 3)), collapse = ", ")`]) on the log-odds scale; `r fig_nums(name = "fig-main-effects", display = "cite")`). 
 
-For all 4 models using different neighborhood sizes for the heterogeneity and topographic roughness predictors, a greater prefire NDVI led to a greater probability of high severity fire. Potential annual heat load, which integrates aspect, slope, and latitude, also had a strong positive relationship with the probability of a high severity fire ($\beta_{\text{pahl}}=$ `r fig_nums(name = "fig-main-effects", display = "cite")`). 
+For all 4 models using different neighborhood sizes for the heterogeneity and topographic roughness predictors, a greater prefire NDVI led to a greater probability of high severity fire. Potential annual heat load, which integrates aspect, slope, and latitude, also had a strong positive relationship with the probability of a high severity fire ($\beta_{\text{pahl}}=$ `r round(ci_betas %>% filter(param == "b_pahl" & radius == 1) %>% select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_pahl" & radius == 1) %>% select(lwr, upr), 3)), collapse = ", ")`]) `r fig_nums(name = "fig-main-effects", display = "cite")`). 
 
-Areas that were located on southwest facing slopes at lower latitudes tended to be more likely to burn at high severity. We found no effect of local topographic roughness on wildfire severity at any neighborhood size ($\beta_{\text{topographic\_roughness}}=$ `r fig_nums(name = "fig-main-effects", display = "cite")`).
+Areas that were located on southwest facing slopes at lower latitudes tended to be more likely to burn at high severity. We found no effect of local topographic roughness on wildfire severity at any neighborhood size ($\beta_{\text{topographic\_roughness}}=$ `r round(ci_betas %>% filter(param == "b_topo_roughness" & radius == 1) %>% select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_topo_roughness" & radius == 1) %>% select(lwr, upr), 3)), collapse = ", ")`]) `r fig_nums(name = "fig-main-effects", display = "cite")`).
 
 ### 100 hour fuel moisture effect on wildfire severity
 
-We found a non-linear effect of 100 hour fuel moisture on wildfire severity such that, under normal fuel moisture conditions (100 hour fuel moisture greater than 20^th^ percentile), increasing fuel moisture had a strong negative effect of the probability of a high severity wildfire ($\beta_{\text{fm100}}=$ `r fig_nums(name = "fig-main-effects", display = "cite")`). 
+We found a strong negative relationship between 100 hour fuel moisture and wildfire severity such that increasing fuel moisture was associated with a reduction in the probability of a high severity wildfire ($\beta_{\text{fm100}}=$ `r round(ci_betas %>% filter(param == "b_fm100" & radius == 1) %>% select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_fm100" & radius == 1) %>% select(lwr, upr), 3)), collapse = ", ")`]) (`r fig_nums(name = "fig-main-effects", display = "cite")`). 
 
 
 ### Heterogeneity in vegetation structure effect on wildfire severity
@@ -421,7 +378,22 @@ We found strong evidence for an effect of heterogeneity of vegetation structure 
 An increasing heterogeneity of vegetation structure greatly reduced the probability of a high severity wildfire accounting for other variables
 
 
-### Neighborhood size window
+### Neighborhood size
+
+```{r, results = "hide"}
+table_nums(name = "table-ic-table")
+```
+
+```{r ic_print_table}
+knitr::kable(ic_print_table,
+             # format = "latex",
+             caption = "Comparison of four models described in Eq. \\ref{eq-severity-model} using different neighborhood sizes for calculating forest heterogeneity (standard deviation of NDVI within the neighborhood), neighborhood mean NDVI, and topographic roughness. LOO is calculated as -2 times the expected log pointwise predictive density (elpd) for a new dataset [@Vehtari2016]. The Bayesian R^2^ is \"data-based estimate of the proportion of variance explained for new data\" conditional on the model [@Gelman2018].",
+             caption.short = "Comparison of models using different neighborhood size windows to assess scale at which heterogeneity effect manifests",
+             escape = FALSE,
+             col.names = c("\\makecell[c]{Model}", "\\makecell[c]{Neighborhood size for\\\\heterogeneity measure}", "\\makecell[c]{LOO\\\\(-2*elpd)}", "\\makecell[c]{\\textDelta LOO\\\\to best model}", "\\makecell[c]{SE of\\\\\\textDelta LOO}", "\\makecell[c]{LOO\\\\model weight (\\%)}", "\\makecell[c]{Bayesian\\\\$R^2$}"),
+             align = rep("c", times = 5))
+```
+
 
 Leave-one-out cross validation.
 Local phenomenon.
@@ -433,11 +405,27 @@ Local phenomenon.
 
 We developed a new approach to calculating wildfire severity using remotely sensed images from the Landsat series of satellites using a minimal amount of user input-- a geometry (i.e., a point location or a perimeter polygon) and a fire start date. We found that the relative burn ratio (RBR) calculated using prefire Landsat images collected over a 48 day period prior to the fire and postfire Landsat images collected over a 48 day period one year after the prefire images validated the best with ground based severity measurements (composite burn index; CBI). We also found that several other remotely sensed measures of severity validated nearly as well with CBI data.
 
-We echo the conclusion of @Zhu2006 that the validation of differences between pre- and postfire NDVI to field measured severity data, which uses near infrared reflectance, is comparable to validation using more commonly used severity metrics (e.g., RdNBR and dNBR) that rely on short wave infrared reflectance. One immediately operational implication of this is that the increasing availability of low-cost small unhumanned aerial systems (sUAS a.k.a. drones) and near infrared detecting imagers (e.g., those used for agriculture monitoring) may be used to measure wildfire severity at very high spatial resolutions.
+We echo the conclusion of @Zhu2006 that the validation of differences between pre- and postfire NDVI to field measured severity data, which uses near infrared reflectance, is comparable to validation using more commonly used severity metrics (e.g., RdNBR and RBR) that rely on short wave infrared reflectance. One immediately operational implication of this is that the increasing availability of low-cost small unhumanned aerial systems (sUAS a.k.a. drones) and near infrared detecting imagers (e.g., those used for agriculture monitoring) may be used to measure wildfire severity at very high spatial resolutions.
 
-We used our new approach to calculate wildfire severity for `r total_conifer_fires` fires that burned in the Sierra Nevada yellow pine/mixed-conifer forest between 1984 and 2017. We additionally calculated 100 hour fuel moisture, local topographic roughness, potential annual heat load, prefire vegetation density, and the local heterogeneity of prefire vegetation density at 4 neighborhood sizes ranging from 0.81 hectares to 7.29 hectares. We modeled the effect of these variables on wildfire severity and found a strong positive relationship with both prefire vegetation density and potential annual heat load. We found no effect of topographic roughness on wildfire severity. We found a negative effect of 100 hour fuel moisture on severity, but only during normal fuel moisture conditions (100 hour fuel moisture greater than 20^th^ percentile). We found a strong negative effect of heterogeneity of vegetation structure on wildfire severity in normal fuel moisture conditions, and a strong positive effect of heterogeneity on severity in extreme fuel moisture conditions.
+@Parks2018 use pre-specified time windows to collate pre- and postfire imagery depending on Arizona, New Mexico, Utah (April through June); all other fires: June through September.
 
+region
 
+Something about time window and bicubic interpolation
+
+We used our new approach to calculate wildfire severity for `r total_conifer_fires` fires that burned in the Sierra Nevada yellow pine/mixed-conifer forest between 1984 and 2017. We additionally calculated 100 hour fuel moisture, local topographic roughness, potential annual heat load, prefire vegetation density, and the local heterogeneity of prefire vegetation density at 4 neighborhood sizes ranging from 0.81 hectares to 7.29 hectares. We modeled the effect of these variables on wildfire severity and found a strong positive relationship with both prefire vegetation density and potential annual heat load. We found no effect of topographic roughness on wildfire severity. We found a negative effect of 100 hour fuel moisture on severity. We found a strong negative effect of heterogeneity of vegetation structure on wildfire severity, approximately equal to the magnitude of the effect of potential annual heat load.
+
+### Effect of high severity
+"fire-created chaparral patches are more likely to reburn at high severity, which can result in inhibition of forest succession and a (semi-) permanent conversion to chaparral (Coppoletta et al. 2016, van Wagtendonk et al. 2012). [@Safford2017]"
+Probability of high severity fire and effect on old-growth [@Miller2017]
+Live fuel most important factor for Pr(HSF) [@Parks2018b]
+
+Mapping finer-scale structure with more resolved instruments [@Nomura2018]
+Mixed severity fire begets heterogeneous forest structure [@Malone2018]
+Sites lacking prior fire more likely to type convert [@Walker2018]
+High severity begets high severity [@Coppoletta2016]
+Our method may capture some finer scale complexity [@Dickinson2014]
+Type conversions with large, high severity patches [@Stephens2013; @Millar2015]
 
 ### Caveats
 
