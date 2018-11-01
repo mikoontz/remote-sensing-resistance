@@ -1,7 +1,6 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var cbi_sn = ee.FeatureCollection("users/mkoontz/cbi_sn"),
-    perim = ee.FeatureCollection("users/mkoontz/fire_perim_16_1"),
-    sn = ee.FeatureCollection("users/mkoontz/SierraEcoregion_Jepson");
+var sn = ee.FeatureCollection("users/mkoontz/SierraEcoregion_Jepson"),
+    perim = ee.FeatureCollection("users/mkoontz/fire17_1");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 var rsr = require('users/mkoontz/ee-remote-sensing-resistance:rsr-functions.js');
 
@@ -105,13 +104,13 @@ Map.addLayer(hamm_img, fireVizParamsPost, 'Postfire fire viz');
 // Map.addLayer(hamm_pt);
 // print(hamm_img.reduceRegion(ee.Reducer.first(), hamm_pt, 100))
 
-Export.image.toDrive({
-  image: hamm_img.float(),
-  description: 'hamm-fire_1987_visualize_full-res',
-  folder: 'ee',
-  region: hamm,
-  scale: 30
-});
+// Export.image.toDrive({
+//   image: hamm_img.float(),
+//   description: 'hamm-fire_1987_visualize_full-res',
+//   folder: 'ee',
+//   region: hamm,
+//   scale: 30
+// });
 
 // AMERICAN FIRE
 var timeWindow = 16*3;
@@ -133,13 +132,13 @@ var american_img = rsr.get_variables(american, timeWindow, resample_method, sats
 
 // Map.centerObject(american);
 
-Export.image.toDrive({
-  image: american_img.float(),
-  description: 'american-fire_2013_visualize_full-res',
-  folder: 'ee',
-  region: american,
-  scale: 30
-});
+// Export.image.toDrive({
+//   image: american_img.float(),
+//   description: 'american-fire_2013_visualize_full-res',
+//   folder: 'ee',
+//   region: american,
+//   scale: 30
+// });
 
 // // KING FIRE
 
@@ -210,10 +209,10 @@ var cottonwood_img = rsr.get_variables(cottonwood, timeWindow, resample_method, 
 Map.addLayer(cottonwood_img.select(['RBR']), RBR_viz, 'The Cottonwood fire of 1994');
 Map.centerObject(cottonwood_img);
 
-Export.image.toDrive({
-  image: cottonwood_img.float(),
-  description: 'cottonwood-fire_2009_visualize_full-res',
-  folder: 'ee',
-  region: cottonwood,
-  scale: 30
-});
+// Export.image.toDrive({
+//   image: cottonwood_img.float(),
+//   description: 'cottonwood-fire_2009_visualize_full-res',
+//   folder: 'ee',
+//   region: cottonwood,
+//   scale: 30
+// });

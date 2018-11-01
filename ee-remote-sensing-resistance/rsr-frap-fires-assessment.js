@@ -1,7 +1,8 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var perim16 = ee.FeatureCollection("users/mkoontz/fire_perim_16_1"),
     sn = ee.FeatureCollection("users/mkoontz/SierraEcoregion_Jepson"),
-    perim17 = ee.FeatureCollection("users/mkoontz/fire17_1");
+    perim17 = ee.FeatureCollection("users/mkoontz/fire17_1"),
+    fire17_1_sn_ypmc = ee.FeatureCollection("users/mkoontz/fire17_1_sn_ypmc");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 var rsr = require('users/mkoontz/ee-remote-sensing-resistance:rsr-functions.js');
 
@@ -9,8 +10,9 @@ var rsr = require('users/mkoontz/ee-remote-sensing-resistance:rsr-functions.js')
 // randomly sampled points within those perimeters
 // This is good for collecting the data that will be used for analysis of severity vs. heterogeneity hypotheses
 
-// For sampling within perimeters, how many samples in each fire for each cover class?
 var latest_fire_year = 2017;
+
+// For sampling within perimeters, how many samples in each fire for each cover class?
 var non_conifer_samps = 0;
 var conifer_samps = 100;
 var timeWindow = 48;
@@ -24,11 +26,60 @@ var all_fires = perim17
                     .filter(ee.Filter.gt('alarm_date', ee.Date('1982-08-22').millis()))
                     .filter(ee.Filter.lt('alarm_date', ee.Date('2017-12-31').millis()));
 
-print(all_fires.size());
 // 2143 possible fires within Sierra Nevada between these dates (through 2016)
 // 2294 possible fires within Sierra Nevada through 2017
+print(all_fires.size());
 // Some may not have imagery available at their location, some may not contain any conifer forest,
 // so the final number of sampled fires may be quite a bit less than this.
+
+// Number of possible fires within Sierra Nevada from 1984 to 2017 that 
+// burned at least partially in yellow pine/mixed-conifer
+print(fire17_1_sn_ypmc.size());
+
+var fire17_1_sn_ypmc = fire17_1_sn_ypmc.map(function (feature) {
+  feature = feature.set("alarm_date", feature.get("alrm_dt"))
+                   .set("comments", feature.get("commnts"))
+                   .set("cont_date", feature.get("cont_dt"))
+                   .set("c_method", feature.get("c_methd"))
+                   .set("fire_name", feature.get("fire_nam"))
+                   .set("gis_acres", feature.get("gis_crs"))
+                   .set("objective", feature.get("objectv"))
+                   .set("report_ac", feature.get("reprt_c"));
+  
+  feature = feature.set("alrm_dt", null)
+                   .set("cont_dt", null)
+                   .set("commnts", null)
+                   .set("c_methd", null)
+                   .set("fire_nam", null)
+                   .set("gis_crs", null)
+                   .set("objectv", null)
+                   .set("reprt_c", null);
+  
+  return feature;
+});
+
+var sats_string = '4578';
+var sats = ee.List(sats_string.split(''));
+
+var all_fire_assessments = fire17_1_sn_ypmc.map( rsr.assess_whole_fire_lite({ timeWindow: timeWindow,
+                                                                  resample_method: resample_method,
+                                                                  sats: sats
+}),
+                                          true);
+
+var all_fires_strat_samps = all_fire_assessments.map(rsr.get_stratified_samps({conifer_samps: conifer_samps,
+                                                                       non_conifer_samps: non_conifer_samps}),
+                                              true);
+                                                                    
+var all_fire_samps_description = "fires-strat-samples_" + latest_fire_year + "_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
+
+Export.table.toDrive({
+  'collection': all_fires_strat_samps.flatten(),
+  'description': all_fire_samps_description,
+  'folder': 'ee',
+  'fileNamePrefix': all_fire_samps_description,
+  'fileFormat': 'GeoJSON'
+});
 
 // Data availability:
 //  Landast 4 SR: August 22, 1982 and December 14, 1993

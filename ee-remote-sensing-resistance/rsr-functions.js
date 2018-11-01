@@ -334,6 +334,37 @@ var get_preFireGridmet = function(feature, gridmet_timeWindow, resample_method) 
   return ee.ImageCollection(preFireGridmetCol);
 };
 
+// get_earlyFireGridmet() returns a collection of raw daily GRIDMET images for gridmet_timeWindow number
+// of days after the fire's alarm date. This collection can then be used to calculate 
+// fire weather metrics that make the most sense measured during the fire, like
+// wind speed or the "Hot-dry-windy" index
+var get_earlyFireGridmet = function(feature, gridmet_timeWindow, resample_method) {
+  
+  var fireDate = ee.Date(feature.get('alarm_date'));
+  var firePerim = feature.geometry();
+
+  // Prefire image collection derivecd by gathering all images 
+  // from the fire alarm date until "gridmet_timeWindow" days after
+  // the fire alarm date.
+  // These variables define the time period to grab those images. 
+  var prestart = fireDate;
+  var preend = fireDate.advance(gridmet_timeWindow, 'day');
+
+  // Here is where we subset the Gridmet imagery. We filter the whole collection
+  // to just the images that were taken between the fire's alarm date and 
+  // "gridmet_timeWindow" days after the alarm date
+  var earlyFireGridmetCol = 
+    gridmet
+      .filterDate(prestart, preend)
+      .filterBounds(firePerim);
+      
+  earlyFireGridmetCol = ee.Algorithms.If(resample_method === 'none',
+                                        earlyFireGridmetCol,
+                                        earlyFireGridmetCol.map(map_resample(resample_method)));
+  
+  // Return the earlyFire image collection
+  return ee.ImageCollection(earlyFireGridmetCol);
+};
 
 // create_kernel() returns an equally-weighted square ee.kernel with the specified number of pixel radius
 //
@@ -1039,6 +1070,70 @@ var get_preFcumulativePrecip = function(feature, gridmet_timeWindow, resample_me
   return ee.Image(cumulativePrecip);
 };
 
+// gets the vapor pressure deficit
+var get_vpd = function(img) {
+
+  var vpd =  ee.Image(img.select(['vpd']));
+
+  return ee.Image(vpd);
+};
+
+var get_preFvpd = function(feature, gridmet_timeWindow, resample_method) {
+  var vpd = get_preFireGridmet(feature, gridmet_timeWindow, resample_method)
+                  .map(get_vpd)
+                  .median();
+  
+  vpd = ee.Algorithms.If( vpd.bandNames(),
+                                    ee.Image(vpd), 
+                                    null);
+
+  return ee.Image(vpd);
+};
+
+// gets the windspeed
+var get_vs = function(img) {
+
+  var vs =  ee.Image(img.select(['vs']));
+
+  return ee.Image(vs);
+};
+
+// Always get the early fire data for the wind speed. No point in knowing
+// wind speed before the fire.
+var get_earlyFvs = function(feature, gridmet_timeWindow, resample_method) {
+  var vs = get_earlyFireGridmet(feature, gridmet_timeWindow, resample_method)
+                  .map(get_vs)
+                  .median();
+  
+  vs = ee.Algorithms.If( vs.bandNames(),
+                                    ee.Image(vs), 
+                                    null);
+
+  return ee.Image(vs);
+};
+
+var get_hdw = function(img) {
+
+  var vs = ee.Image(img.select(['vs']));
+  var vpd = ee.Image(img.select(['vpd']));
+
+  var hdw = vpd.multiply(vs).rename(['hdw']);
+  
+  return ee.Image(hdw);
+};
+
+var get_earlyFhdw = function(feature, gridmet_timeWindow, resample_method) {
+  var hdw = get_earlyFireGridmet(feature, gridmet_timeWindow, resample_method)
+                  .map(get_hdw)
+                  .median();
+  
+  hdw = ee.Algorithms.If( hdw.bandNames(),
+                                    ee.Image(hdw), 
+                                    null);
+
+  return ee.Image(hdw);
+};
+
 
 // Texture analysis
 
@@ -1221,15 +1316,21 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
       
     var erc = get_preFerc(feature, 4, resample_method); // Take the median ERC for the 3 days prior to the fire
     var fm100 = get_preFfm100(feature, 4, resample_method); // Take the median 100 hour fuel moisture for 3 days prior to the fire
+    var vpd = get_preFvpd(feature, 4, resample_method); // Take the median Vapor Pressure Deficit for 3 days prior to the fire
     var cumulativeTempMax = get_preFcumulativeTempMax(feature, 31, resample_method); // Get sum of max temperature for 30 days before the fire (degrees C)
     var cumulativePrecip = get_preFcumulativePrecip(feature, 31, resample_method); // Get sum of precip for 30 days before the fire (mm)
-    
+    var vs = get_earlyFvs(feature, 3, resample_method); // median windspeed from the FIRST 3 days of fire
+    var hdw = get_earlyFhdw(feature, 3, resample_method); // median Hot-Dry-Windy index from the FIRST 3 days of fire
+        
     var export_weatherFuel =
       ee.Algorithms.If(erc,
           erc
             .addBands(fm100)
             .addBands(cumulativeTempMax)
-            .addBands(cumulativePrecip),
+            .addBands(cumulativePrecip)
+            .addBands(vpd)
+            .addBands(vs)
+            .addBands(hdw),
           null);
 
     // Create export image
@@ -1381,7 +1482,180 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
     return ee.Image(export_img);
 };
 
+// A computationally lighter-weight version of the function that gets all variables
+// Used to just focus on severity measurements that have demonstrated good 
+// corroboration with field measurements, and excludes texture measurements
 
+var get_variables_lite = function(feature, timeWindow, resample_method, sats) {   
+    
+    var geo = feature.geometry();
+    // Static features of this particular dataset
+    // var satellite = ee.Image(sat);
+    
+    // Static features of the point itself
+    var lonLat = ee.Image.pixelLonLat();
+    
+    var slope =  ee.Image(ee.Algorithms.If(resample_method === 'none',
+                                      get_slope(geo),
+                                      get_slope(geo).resample(resample_method)));
+
+    var aspect =  ee.Image(ee.Algorithms.If(resample_method === 'none',
+                                      get_aspect(geo),
+                                      get_aspect(geo).resample(resample_method)));
+
+    var local_elev =  ee.Image(ee.Algorithms.If(resample_method === 'none',
+                                        elev,
+                                        elev.resample(resample_method)));
+
+    var conifer = mixed_conifer.select('b1').int();
+   
+    // Not dependent on neighborhood size, but derived from the fire information
+    var date = ee.Image(
+      ee.Number(
+        feature.get('alarm_date')));
+    
+    var ordinal_day = ee.Image(
+      ee.Number(
+        ee.Date(
+          feature
+          .get('alarm_date'))
+        .getRelative('day', 'year')));
+    
+    var day = ee.Image(ee.Number(ee.Date(feature.get('alarm_date')).get('day')));
+    var month = ee.Image(ee.Number(ee.Date(feature.get('alarm_date')).get('month')));
+    var year = ee.Image(ee.Number(ee.Date(feature.get('alarm_date')).get('year')));
+    
+    var preFraw = get_preFireRaw_median(feature, timeWindow, resample_method, sats);
+    var postFraw = get_postFireRaw_median(feature, timeWindow, resample_method, sats);
+    
+    var preFnbr = get_preFnbr(feature, timeWindow, resample_method, sats);
+    var postFnbr = get_postFnbr(feature, timeWindow, resample_method, sats);
+    var rdnbr = get_RdNBR(feature, timeWindow, resample_method, sats);
+    
+    var preFndvi = get_preFndvi(feature, timeWindow, resample_method, sats);
+    var postFndvi = get_postFndvi(feature, timeWindow, resample_method, sats);
+    var rdndvi = get_RdNDVI(feature, timeWindow, resample_method, sats);
+    
+    var rbr = get_RBR(feature, timeWindow, resample_method, sats);
+    
+    // Variables that depend on neighborhood window size AND on fire information
+    // Radius of 1 pixel = 3x3 window = 90m x 90m = 8100 m^2 = 0.81 ha
+    var het_ndvi_1 = get_hetNDVI(feature, 1, timeWindow, resample_method, sats);
+    var focal_mean_ndvi_1 = get_focal_mean_NDVI(feature, 1, timeWindow, resample_method, sats);
+    var rough1 = get_roughness(feature, 1, resample_method);
+    
+    // Radius of 2 pixels = 5x5 window = 150m x 150m = 22500 m^2 = 2.25 ha
+    var het_ndvi_2 = get_hetNDVI(feature, 2, timeWindow, resample_method, sats);
+    var focal_mean_ndvi_2 = get_focal_mean_NDVI(feature, 2, timeWindow, resample_method, sats);
+    var rough2 = get_roughness(feature, 2, resample_method);
+
+    // Radius of 3 pixels = 7x7 window = 210m x 210m = 44100 m^2 = 4.41 ha
+    var het_ndvi_3 = get_hetNDVI(feature, 3, timeWindow, resample_method, sats);
+    var focal_mean_ndvi_3 = get_focal_mean_NDVI(feature, 3, timeWindow, resample_method, sats);
+    var rough3 = get_roughness(feature, 3, resample_method);
+
+    // Radius of 4 pixels = 9x9 window = 270m x 270m = 72900 m^2 = 7.29 ha
+    var het_ndvi_4 = get_hetNDVI(feature, 4, timeWindow, resample_method, sats);
+    var focal_mean_ndvi_4 = get_focal_mean_NDVI(feature, 4, timeWindow, resample_method, sats);
+    var rough4 = get_roughness(feature, 4, resample_method);
+
+    // weather/fuel condition variables
+      
+    var erc = get_preFerc(feature, 4, resample_method); // Take the median ERC for the 3 days prior to the fire
+    var fm100 = get_preFfm100(feature, 4, resample_method); // Take the median 100 hour fuel moisture for 3 days prior to the fire
+    var vpd = get_preFvpd(feature, 4, resample_method); // Take the median Vapor Pressure Deficit for 3 days prior to the fire
+    var vs = get_earlyFvs(feature, 3, resample_method); // median windspeed from the FIRST 3 days of fire
+    var hdw = get_earlyFhdw(feature, 3, resample_method); // median Hot-Dry-Windy index from the FIRST 3 days of fire
+    
+    var export_weatherFuel =
+      ee.Algorithms.If(erc,
+          erc
+            .addBands(fm100)
+            .addBands(vpd)
+            .addBands(vs)
+            .addBands(hdw),
+          null);
+
+    // Create export image
+    // If the rdnbr variable isn't null, then all other images should have been
+    // created, since the rdnbr algorithm checks both prefire and postfire imagery
+    // and returns a null if either aren't present
+  
+    var export_img =   
+      ee.Algorithms.If(rdnbr, 
+        rdnbr
+        .addBands(preFnbr)
+        .addBands(postFnbr)
+        .addBands(rdndvi)
+        .addBands(rbr)
+        .addBands(preFndvi)
+        .addBands(postFndvi)
+        .addBands(het_ndvi_1)
+        .addBands(focal_mean_ndvi_1)
+        .addBands(het_ndvi_2)
+        .addBands(focal_mean_ndvi_2)
+        .addBands(het_ndvi_3)
+        .addBands(focal_mean_ndvi_3)
+        .addBands(het_ndvi_4)
+        .addBands(focal_mean_ndvi_4)
+        .addBands(date)
+        .addBands(ordinal_day)
+        .addBands(year)
+        .addBands(month)
+        .addBands(day)
+        .addBands(lonLat)
+        .addBands(conifer)
+        .addBands(slope)
+        .addBands(aspect)
+        .addBands(rough1)
+        .addBands(rough2)
+        .addBands(rough3)
+        .addBands(rough4)
+        .addBands(local_elev)
+        .rename(['RdNBR',
+          'preFire_nbr',
+          'postFire_nbr',
+          'RdNDVI',
+          'RBR',
+          'preFire_ndvi',
+          'postFire_ndvi',
+          'het_ndvi_1',
+          'focal_mean_ndvi_1',
+          'het_ndvi_2',
+          'focal_mean_ndvi_2',
+          'het_ndvi_3',
+          'focal_mean_ndvi_3',
+          'het_ndvi_4',
+          'focal_mean_ndvi_4',
+          'date', 
+          'ordinal_day',
+          'alarm_year',
+          'alarm_month',
+          'alarm_day',
+          'lon', 
+          'lat', 
+          'conifer_forest',
+          'slope', 
+          'aspect',
+          'topo_roughness_1',
+          'topo_roughness_2',
+          'topo_roughness_3',
+          'topo_roughness_4',
+          'elev'])
+        .addBands(preFraw)
+        .addBands(postFraw),
+      null);
+
+    export_img = ee.Algorithms.If(export_img,
+                    ee.Algorithms.If(export_weatherFuel,
+                          ee.Image(export_img)
+                            .addBands(export_weatherFuel)
+                            .copyProperties(feature),
+                          null),
+                        null);
+
+    return ee.Image(export_img);
+};
 
 
 var calibrate_cbi = function(args) {
@@ -1433,9 +1707,29 @@ var assess_whole_fire = function(args) {
   };
 };
 
+var assess_whole_fire_lite = function(args) {
+  
+  var timeWindow = args.timeWindow;
+  var resample_method = args.resample_method;
+  var sats = args.sats;
+  
+  return function(feature) {
+    var geo = feature.geometry();
+    var var_img = get_variables_lite(feature, timeWindow, resample_method, sats);
+  
+    var export_img = ee.Algorithms.If(var_img, 
+                                      ee.Image(var_img).clip(geo).copyProperties(feature), 
+                                      null);
+
+    return ee.Image(export_img);
+  };
+};
+
 exports.get_variables = get_variables;
+exports.get_variables_lite = get_variables_lite;
 exports.calibrate_cbi = calibrate_cbi;
 exports.assess_whole_fire = assess_whole_fire;
+exports.assess_whole_fire_lite = assess_whole_fire_lite;
 exports.mixed_conifer = mixed_conifer;
 exports.get_stratified_samps = get_stratified_samps;
 exports.get_samps = get_samps;

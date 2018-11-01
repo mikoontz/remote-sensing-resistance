@@ -1,8 +1,8 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var mixed_conifer = ee.Image("users/mkoontz/mixed_conifer"),
-    frap_fires = ee.FeatureCollection("users/mkoontz/fire_perim_sn_16_1_v2"),
     sn = ee.FeatureCollection("users/mkoontz/SierraEcoregion_Jepson"),
-    perims = ee.FeatureCollection("users/mkoontz/fire_perim_16_1");
+    frap_fires = ee.FeatureCollection("users/mkoontz/fire17_1"),
+    mixed_con_vector = ee.FeatureCollection("users/mkoontz/mixed_conifer_vector2");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 var mix_con = mixed_conifer.updateMask(mixed_conifer.select(['b1']));
 
@@ -13,26 +13,30 @@ var frap_conifer_fires = mix_con.clipToCollection(frap_fires);
 Map.addLayer(frap_conifer_fires, {}, 'frap conifer fires');
 
 print(frap_fires.propertyNames());
-print(ee.Date(frap_fires.first().get('ALARM_DATE')));
+print(ee.Date(frap_fires.first().get('alarm_date')));
 
 var frap_satellite_era_fires = frap_fires
                   .filterBounds(sn)
-                  .filter(ee.Filter.neq('ALARM_DATE', null))
-                  .filter(ee.Filter.gte('ALARM_DATE', ee.Date('1984-01-01').millis()));
+                  .filter(ee.Filter.neq('alarm_date', null))
+                  .filter(ee.Filter.gte('alarm_date', ee.Date('1984-01-01').millis()));
 
 print(frap_satellite_era_fires.size())                                
-var num_frap_conifer_fires = frap_satellite_era_fires
-                                .reduceToImage(['ALARM_DATE'], ee.Reducer.countDistinct())
+var num_frap_conifer_fires_img = frap_satellite_era_fires
+                                .reduceToImage(['alarm_date'], ee.Reducer.countDistinct())
                                 .updateMask(mix_con)
                                 .clip(sn);
                                 
-Map.addLayer(num_frap_conifer_fires, {min: 0, max: 5, palette: ["440154", "31688E", "35B779", "FDE725"]}, "number of fires");
+Map.addLayer(num_frap_conifer_fires_img, {min: 0, max: 5, palette: ["440154", "31688E", "35B779", "FDE725"]}, "number of fires");
 Map.addLayer(sn);
 
-Export.image.toDrive({image: num_frap_conifer_fires,
+Export.image.toDrive({image: num_frap_conifer_fires_img,
                       description: "frap-fire-extent-image", 
                       folder: 'ee',
                       fileNamePrefix: "frap-fire-extent-image",
                       region: sn,
                       maxPixels: 3000000000,
                       scale: 30});
+
+// var num_frap_conifer_fires = frap_satellite_era_fires
+//                                 .filterBounds(mixed_con_vector);
+   
