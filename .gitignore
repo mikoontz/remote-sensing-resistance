@@ -17,3 +17,4 @@ data/ee_fire-images/hamm-fire_1987_visualize.tif
 data/ee_fire-samples/*
 manuscript/feedback
 *.rds
+data/data_carpentry/.ipynb_checkpoints/*
