@@ -14,6 +14,7 @@ data/features/fire_perim/fire17_1*
 figs/neighborhood_size_example_with_landsat_pixel.pptx
 data/ee_fire-images/american-fire_2013_visualize.tif
 data/ee_fire-images/hamm-fire_1987_visualize.tif
+data/ee_fire-images/*
 data/ee_fire-samples/*
 manuscript/feedback
 *.rds
