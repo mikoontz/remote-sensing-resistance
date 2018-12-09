@@ -61,7 +61,7 @@ var fire17_1_sn_ypmc = fire17_1_sn_ypmc.map(function (feature) {
 var sats_string = '4578';
 var sats = ee.List(sats_string.split(''));
 
-var all_fire_assessments = fire17_1_sn_ypmc.map( rsr.assess_whole_fire_lite({ timeWindow: timeWindow,
+var all_fire_assessments = fire17_1_sn_ypmc.map( rsr.assess_whole_fire({ timeWindow: timeWindow,
                                                                   resample_method: resample_method,
                                                                   sats: sats
 }),
@@ -72,6 +72,9 @@ var all_fires_strat_samps = all_fire_assessments.map(rsr.get_stratified_samps({c
                                               true);
                                                                     
 var all_fire_samps_description = "fires-strat-samples_" + latest_fire_year + "_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
+
+print(all_fires_strat_samps.getInfo());
+// Map.addLayer(all_fires_strat_samps);
 
 Export.table.toDrive({
   'collection': all_fires_strat_samps.flatten(),
