@@ -6,6 +6,17 @@ library(purrr)
 
 samps_files <- list.files(path = here::here("data/ee_fire-samples"), full.names = TRUE)
 samps_files <- samps_files[grepl(samps_files, pattern = "_[0-9].geojson")]
+
+samps_files <-
+  c("/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L45_none-interp.geojson", 
+    "/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L578_none-interp.geojson",
+    "/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L78_none-interp_1.geojson",
+    "/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L78_none-interp_2.geojson",
+    "/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L78_none-interp_3.geojson",
+    "/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L78_none-interp_4.geojson",
+    "/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L78_none-interp_5.geojson",
+    "/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L78_none-interp_6.geojson")
+
 samps_list <-
   samps_files %>%
   map(.f = function(file_name) {
