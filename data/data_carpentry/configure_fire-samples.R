@@ -11,11 +11,19 @@ library(lubridate)
 library(brms)
 library(purrr)
 
-if (!file.exists(here::here("data/data_output/all-fire-samples.rds"))) {
-  source(here::here("data/data_carpentry/merge_fire-samples.R"))
-}
+# if (!file.exists(here::here("data/data_output/all-fire-samples.rds"))) {
+#   source(here::here("data/data_carpentry/merge_fire-samples.R"))
+# }
+# 
+# samps <- readRDS(here::here("data/data_output/all-fire-samples.rds"))
 
-samps <- readRDS(here::here("data/data_output/all-fire-samples.rds"))
+samps <- st_read("/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L4578_none-interp.geojson")
+
+# Extract unique Fire ID from the sample point IDs
+samps$fire_id <- substr(as.character(samps$id), start = 1, stop = 20)
+samps$samp_id <- as.numeric(substr(as.character(samps$id), start = 22, stop = nchar(as.character(samps$id))))
+samps$year <- as.numeric(as.character(samps$year_))
+samps <- dplyr::select(samps, -year_)
 
 circular_aspect <- function(aspect) {
   
@@ -63,36 +71,51 @@ samps$c_doy <- circular_doy(samps$ordinal_day)
 
 timing_vars <- c("alarm_year", "alarm_month", "alarm_day", "alarm_date", "cont_date", "c_doy")
 
+# This code is for the veg_vars when the GLCM-based texture values are part of the samples
+# veg_vars <-
+#   sapply(X = 1:4, 
+#          FUN = function(i) paste(
+#            c(
+#              "focal_mean_ndvi",
+#              "focal_mean_ndwi",
+#              "het_ndvi",
+#              "het_ndwi",
+#              "ndvi_asm",
+#              "ndvi_contrast",
+#              "ndvi_corr",
+#              "ndvi_dent",
+#              "ndvi_diss",
+#              "ndvi_dvar",
+#              "ndvi_ent",
+#              "ndvi_idm",
+#              "ndvi_imcorr1",
+#              "ndvi_imcorr2",
+#              "ndvi_inertia",
+#              "ndvi_prom",
+#              "ndvi_savg",
+#              "ndvi_sent",
+#              "ndvi_shade",
+#              "ndvi_svar",
+#              "ndvi_var"
+#            ), i, sep = "_")) %>% 
+#   as.vector() %>% 
+#   c("preFire_ndvi", "preFire_ndwi")
+# 
+#
+# This code is for when additional gridMET derivatives are part of the samples
+# fireWeather_vars <- c("erc", "fm100", "vpd", "vs", "hdw")
+
+fireWeather_vars <- c("erc", "fm100", "tmmx")
+
 veg_vars <-
-  sapply(X = 1:4, 
+  sapply(X = 1:4,
          FUN = function(i) paste(
            c(
              "focal_mean_ndvi",
-             "focal_mean_ndwi",
-             "het_ndvi",
-             "het_ndwi",
-             "ndvi_asm",
-             "ndvi_contrast",
-             "ndvi_corr",
-             "ndvi_dent",
-             "ndvi_diss",
-             "ndvi_dvar",
-             "ndvi_ent",
-             "ndvi_idm",
-             "ndvi_imcorr1",
-             "ndvi_imcorr2",
-             "ndvi_inertia",
-             "ndvi_prom",
-             "ndvi_savg",
-             "ndvi_sent",
-             "ndvi_shade",
-             "ndvi_svar",
-             "ndvi_var"
-           ), i, sep = "_")) %>% 
-  as.vector() %>% 
-  c("preFire_ndvi", "preFire_ndwi")
+             "het_ndvi"), i, sep = "_")) %>%
+  as.vector() %>%
+  c("preFire_ndvi")
 
-fireWeather_vars <- c("erc", "fm100", "tmmx")
 
 all_vars <- c(topo_vars, timing_vars, veg_vars, fireWeather_vars)
 
