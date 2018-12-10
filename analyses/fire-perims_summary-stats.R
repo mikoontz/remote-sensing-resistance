@@ -11,7 +11,7 @@ if (file.exists(here::here("data/data_output/region-5-geospatial-fires_sn_mixed-
                   FIRE_NAME = FIRE_NA,
                   mixed_con_pixels = mxd_cn_)
 } else {
-  source(here::here("analyses/usfs-r5-vs-frap-fire-count.R"))
+  source(here::here("data/data_carpentry/ypmc-pixel-count-usfs-r5-vs-frap.R"))
 }
 
 if (file.exists(here::here("data/data_output/all-fire-samples_configured.rds"))) {
