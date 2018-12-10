@@ -380,7 +380,7 @@ var create_kernel = function(pixel_radius) {
   var weights = ee.List.repeat(ee.List.repeat(weight_val, pixel_diameter), pixel_diameter);
   
   var mid_row = ee.List.repeat(weight_val, pixel_radius)
-    .cat([0])
+    .cat([0]) // make this weight_val or 0 depending on whether you want to include or exclude the central pixel from calculations
     .cat(ee.List.repeat(weight_val, pixel_radius));
   
   weights = weights.set(pixel_radius, mid_row);
@@ -495,42 +495,42 @@ var get_postFndvi = function(feature, timeWindow, resample_method, sats) {
 };
 
 /////////////////////
-/* NDWI */
+/* ndmi */
 /////////////////////
 
-// get_NDWI() returns the normalized difference water index (NDWI) for each pixel of an image
-var get_NDWI = function(img) {
-  var ndwi = img.normalizedDifference(['B4', 'B5']);
+// get_ndmi() returns the normalized difference water index (ndmi) for each pixel of an image
+var get_ndmi = function(img) {
+  var ndmi = img.normalizedDifference(['B4', 'B5']);
   
-  return ee.Image(ndwi);
+  return ee.Image(ndmi);
 };
 
-// get_preFndwi() maps over the collection of pre-fire images, calculates NDWI on each, and takes the median for each pixel
-var get_preFndwi = function(feature, timeWindow, resample_method, sats) {
+// get_preFndmi() maps over the collection of pre-fire images, calculates ndmi on each, and takes the median for each pixel
+var get_preFndmi = function(feature, timeWindow, resample_method, sats) {
   
-  var preFndwi = get_preFireRaw(feature, timeWindow, resample_method, sats)
-                  .map(get_NDWI)
+  var preFndmi = get_preFireRaw(feature, timeWindow, resample_method, sats)
+                  .map(get_ndmi)
                   .median();
   
-  preFndwi = ee.Algorithms.If( preFndwi.bandNames(),
-                                    ee.Image(preFndwi), 
+  preFndmi = ee.Algorithms.If( preFndmi.bandNames(),
+                                    ee.Image(preFndmi), 
                                     null);
 
-  return ee.Image(preFndwi);
+  return ee.Image(preFndmi);
 };
 
-// get_postFndwi() maps over the collection of post-fire images, calculates NDWI on each, and takes the median for each pixel
-var get_postFndwi = function(feature, timeWindow, resample_method, sats) {
+// get_postFndmi() maps over the collection of post-fire images, calculates ndmi on each, and takes the median for each pixel
+var get_postFndmi = function(feature, timeWindow, resample_method, sats) {
   
-  var postFndwi = get_postFireRaw(feature, timeWindow, resample_method, sats)
-                    .map(get_NDWI)
+  var postFndmi = get_postFireRaw(feature, timeWindow, resample_method, sats)
+                    .map(get_ndmi)
                     .median();
   
-  postFndwi = ee.Algorithms.If( postFndwi.bandNames(),
-                                    ee.Image(postFndwi), 
+  postFndmi = ee.Algorithms.If( postFndmi.bandNames(),
+                                    ee.Image(postFndmi), 
                                     null);
 
-  return ee.Image(postFndwi);
+  return ee.Image(postFndmi);
 };
 
 /////////////////////
@@ -840,8 +840,8 @@ var get_RVI = function(feature, timeWindow, resample_method, sats) {
 //
 // Variables of interest: 
 // + Neighborhood window sizes of 3, 5, 7, and 9 pixels in diameter
-// + Focal NDVI, EVI, NDWI
-// + Neighborhood NDVI, EVI, NDWI
+// + Focal NDVI, EVI, ndmi
+// + Neighborhood NDVI, EVI, ndmi
 
 //
 // HETEROGENEITY COVARIATES
@@ -866,13 +866,13 @@ var get_hetNDVI = function(feature, pixel_radius, timeWindow, resample_method, s
   return ee.Image(het);
 };
 
-// get_hetNDWI() returns the heterogeneity of NDWI within a given pixel radius for each pixel in an image
-var get_hetNDWI = function(feature, pixel_radius, timeWindow, resample_method, sats) {
+// get_hetndmi() returns the heterogeneity of ndmi within a given pixel radius for each pixel in an image
+var get_hetndmi = function(feature, pixel_radius, timeWindow, resample_method, sats) {
   var kernel = create_kernel(pixel_radius);
-  var preFireCol_ndwi = get_preFireRaw(feature, timeWindow, resample_method, sats)
-                          .map(get_NDWI);
+  var preFireCol_ndmi = get_preFireRaw(feature, timeWindow, resample_method, sats)
+                          .map(get_ndmi);
 
-  var het = preFireCol_ndwi.map(function (img) {
+  var het = preFireCol_ndmi.map(function (img) {
           return img.reduceNeighborhood(ee.Reducer.stdDev(), kernel);
         });
   
@@ -923,15 +923,15 @@ var get_focal_mean_NDVI = function(feature, pixel_radius, timeWindow, resample_m
   return ee.Image(focal_mean);
 };
 
-// get_focal_mean_NDWI() returns the neighborhood mean of the NDWI for a given pixel radius
+// get_focal_mean_ndmi() returns the neighborhood mean of the ndmi for a given pixel radius
 // Could be valuable to account for this if using the neighborhood standard deviation at the same pixel radius
-var get_focal_mean_NDWI = function(feature, pixel_radius, timeWindow, resample_method, sats) 
+var get_focal_mean_ndmi = function(feature, pixel_radius, timeWindow, resample_method, sats) 
 {
   var kernel = create_kernel(pixel_radius);
-  var preFireCol_ndwi = get_preFireRaw(feature, timeWindow, resample_method, sats)
-                          .map(get_NDWI);
+  var preFireCol_ndmi = get_preFireRaw(feature, timeWindow, resample_method, sats)
+                          .map(get_ndmi);
 
-  var focal_mean = preFireCol_ndwi.map(function (img) {
+  var focal_mean = preFireCol_ndmi.map(function (img) {
           return img.reduceNeighborhood(ee.Reducer.mean(), kernel);
         });
 
@@ -1139,7 +1139,7 @@ var get_earlyFhdw = function(feature, gridmet_timeWindow, resample_method) {
 
 var get_texture = function(feature, size, timeWindow, resample_method, sats) {
 
-  var preFire_ndvi = get_preFndvi(feature, timeWindow, resample_method, sats).multiply(10000).toInt();
+  var preFire_ndvi = get_preFndvi(feature, timeWindow, resample_method, sats).unitScale(0,1).multiply(25).toByte();
   
   var texture = ee.Algorithms.If(preFire_ndvi.bandNames(),
     preFire_ndvi.glcmTexture({size: ee.Number.parse(size)})
@@ -1161,31 +1161,31 @@ var get_texture = function(feature, size, timeWindow, resample_method, sats) {
 
 // Spatial autocorrelation measure
 
-var get_gearys_c = function(feature, pixel_rad, timeWindow, resample_method, sats) {
+var get_gearys_c = function(feature, timeWindow, resample_method, sats) {
   
-  var neigh_length = pixel_rad + pixel_rad + 1;
-  
-  var kernel_size = Math.pow(neigh_length, 4);
-  var kern = create_kernel(pixel_rad);
-  
-  var preFire_ndvi = get_preFndvi(feature, timeWindow, resample_method, sats).multiply(10000).toInt();
-  
+  // Create a list of weights for a 9x9 kernel.
+  var list = [1, 1, 1, 1, 1, 1, 1, 1, 1];
+  // The center of the kernel is zero.
+  var centerList = [1, 1, 1, 1, 0, 1, 1, 1, 1];
+  // Assemble a list of lists: the 9x9 kernel weights as a 2-D matrix.
+  var lists = [list, list, list, list, centerList, list, list, list, list];
+  // Create the kernel from the weights.
+  // Non-zero weights represent the spatial neighborhood.
+  var kernel = ee.Kernel.fixed(9, 9, lists, -4, -4, false);
+
+  var preFire_ndvi = get_preFndvi(feature, timeWindow, resample_method, sats).unitScale(0,1).multiply(255).toByte();
+
   // Compute local Geary's C, a measure of spatial association.
   // Code modified from https://developers.google.com/earth-engine/image_texture
   
   var gearys = ee.Algorithms.If(preFire_ndvi.bandNames(),
                   preFire_ndvi
-                      .subtract(preFire_ndvi.neighborhoodToBands(kern))
-                      .pow(2)
-                      .reduce(ee.Reducer.sum())
-                      .divide(kernel_size),
+                      .subtract(preFire_ndvi.neighborhoodToBands(kernel))
+                      .pow(2).reduce(ee.Reducer.sum())
+                      .divide(Math.pow(9, 2)).rename('gearys_c'),
                   null);
                   
   gearys = ee.Image(gearys);
-  
-  gearys = ee.Algorithms.If(gearys.bandNames(),
-              gearys.rename(paste(ee.List(['gearys_c']), ee.String(ee.Number(pixel_rad)))),
-              null);
   
   return ee.Image(gearys);
 };
@@ -1256,61 +1256,63 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
     var rbr = get_RBR(feature, timeWindow, resample_method, sats);
     var rvi = get_RVI(feature, timeWindow, resample_method, sats);
     
-    var preFndwi = get_preFndwi(feature, timeWindow, resample_method, sats);
-    var postFndwi = get_postFndwi(feature, timeWindow, resample_method, sats);
+    var preFndmi = get_preFndmi(feature, timeWindow, resample_method, sats);
+    var postFndmi = get_postFndmi(feature, timeWindow, resample_method, sats);
 
+    // var gearys_c = get_gearys_c(feature, timeWindow, resample_method, sats);
+    var texture1 = get_texture(feature, '1', timeWindow, resample_method, sats);
+    // var texture2 = get_texture(feature, '2', timeWindow, resample_method, sats);
+    // var texture3 = get_texture(feature, '3', timeWindow, resample_method, sats);
+    // var texture4 = get_texture(feature, '4', timeWindow, resample_method, sats);
+    
     // Variables that depend on neighborhood window size AND on fire information
     // Radius of 1 pixel = 3x3 window = 90m x 90m = 8100 m^2 = 0.81 ha
     var het_ndvi_1 = get_hetNDVI(feature, 1, timeWindow, resample_method, sats);
-    var het_ndwi_1 = get_hetNDWI(feature, 1, timeWindow, resample_method, sats);
+    var het_ndmi_1 = get_hetndmi(feature, 1, timeWindow, resample_method, sats);
     // var het_evi_1 = get_hetEVI(feature, 1, timeWindow, resample_method, sats);
     
     var focal_mean_ndvi_1 = get_focal_mean_NDVI(feature, 1, timeWindow, resample_method, sats);
-    var focal_mean_ndwi_1 = get_focal_mean_NDWI(feature, 1, timeWindow, resample_method, sats);
+    var focal_mean_ndmi_1 = get_focal_mean_ndmi(feature, 1, timeWindow, resample_method, sats);
     // var focal_mean_evi_1 = get_focal_mean_EVI(feature, 1, timeWindow, resample_method, sats);
     
+  
     var rough1 = get_roughness(feature, 1, resample_method);
-    var texture1 = get_texture(feature, '1', timeWindow, resample_method, sats);
-    var gearys1 = get_gearys_c(feature, 1, timeWindow, resample_method, sats);
-    
+  
     // Radius of 2 pixels = 5x5 window = 150m x 150m = 22500 m^2 = 2.25 ha
     var het_ndvi_2 = get_hetNDVI(feature, 2, timeWindow, resample_method, sats);
-    var het_ndwi_2 = get_hetNDWI(feature, 2, timeWindow, resample_method, sats);
+    var het_ndmi_2 = get_hetndmi(feature, 2, timeWindow, resample_method, sats);
     // var het_evi_2 = get_hetEVI(feature, 2, timeWindow, resample_method, sats);
     
     var focal_mean_ndvi_2 = get_focal_mean_NDVI(feature, 2, timeWindow, resample_method, sats);
-    var focal_mean_ndwi_2 = get_focal_mean_NDWI(feature, 2, timeWindow, resample_method, sats);
+    var focal_mean_ndmi_2 = get_focal_mean_ndmi(feature, 2, timeWindow, resample_method, sats);
     // var focal_mean_evi_2 = get_focal_mean_EVI(feature, 2, timeWindow, resample_method, sats);
     
     var rough2 = get_roughness(feature, 2, resample_method);
-    var texture2 = get_texture(feature, '2', timeWindow, resample_method, sats);
-    var gearys2 = get_gearys_c(feature, 2, timeWindow, resample_method, sats);
+    // var gearys2 = get_gearys_c(feature, 2, timeWindow, resample_method, sats);
     
     // Radius of 3 pixels = 7x7 window = 210m x 210m = 44100 m^2 = 4.41 ha
     var het_ndvi_3 = get_hetNDVI(feature, 3, timeWindow, resample_method, sats);
-    var het_ndwi_3 = get_hetNDWI(feature, 3, timeWindow, resample_method, sats);
+    var het_ndmi_3 = get_hetndmi(feature, 3, timeWindow, resample_method, sats);
     // var het_evi_3 = get_hetEVI(feature, 3, timeWindow, resample_method, sats);
     
     var focal_mean_ndvi_3 = get_focal_mean_NDVI(feature, 3, timeWindow, resample_method, sats);
-    var focal_mean_ndwi_3 = get_focal_mean_NDWI(feature, 3, timeWindow, resample_method, sats);
+    var focal_mean_ndmi_3 = get_focal_mean_ndmi(feature, 3, timeWindow, resample_method, sats);
     // var focal_mean_evi_3 = get_focal_mean_EVI(feature, 3, timeWindow, resample_method, sats);
 
     var rough3 = get_roughness(feature, 3, resample_method);
-    var texture3 = get_texture(feature, '3', timeWindow, resample_method, sats);
-    var gearys3 = get_gearys_c(feature, 3, timeWindow, resample_method, sats);
+    // var gearys3 = get_gearys_c(feature, 3, timeWindow, resample_method, sats);
     
     // Radius of 4 pixels = 9x9 window = 270m x 270m = 72900 m^2 = 7.29 ha
     var het_ndvi_4 = get_hetNDVI(feature, 4, timeWindow, resample_method, sats);
-    var het_ndwi_4 = get_hetNDWI(feature, 4, timeWindow, resample_method, sats);
+    var het_ndmi_4 = get_hetndmi(feature, 4, timeWindow, resample_method, sats);
     // var het_evi_4 = get_hetEVI(feature, 4, timeWindow, resample_method, sats);
     
     var focal_mean_ndvi_4 = get_focal_mean_NDVI(feature, 4, timeWindow, resample_method, sats);
-    var focal_mean_ndwi_4 = get_focal_mean_NDWI(feature, 4, timeWindow, resample_method, sats);
+    var focal_mean_ndmi_4 = get_focal_mean_ndmi(feature, 4, timeWindow, resample_method, sats);
     // var focal_mean_evi_4 = get_focal_mean_EVI(feature, 4, timeWindow, resample_method, sats);
 
     var rough4 = get_roughness(feature, 4, resample_method);
-    var texture4 = get_texture(feature, '4', timeWindow, resample_method, sats);
-    var gearys4 = get_gearys_c(feature, 4, timeWindow, resample_method, sats);
+    // var gearys4 = get_gearys_c(feature, 4, timeWindow, resample_method, sats);
     
     // weather/fuel condition variables
       
@@ -1356,33 +1358,33 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
         .addBands(rvi)
         .addBands(preFndvi)
         .addBands(postFndvi)
-        .addBands(preFndwi)
-        .addBands(postFndwi)
+        .addBands(preFndmi)
+        .addBands(postFndmi)
         // .addBands(preFevi)
         // .addBands(postFevi)
         .addBands(het_ndvi_1)
-        .addBands(het_ndwi_1)
+        .addBands(het_ndmi_1)
         // .addBands(het_evi_1)
         .addBands(focal_mean_ndvi_1)
-        .addBands(focal_mean_ndwi_1)
+        .addBands(focal_mean_ndmi_1)
         // .addBands(focal_mean_evi_1)
         .addBands(het_ndvi_2)
-        .addBands(het_ndwi_2)
+        .addBands(het_ndmi_2)
         // .addBands(het_evi_2)
         .addBands(focal_mean_ndvi_2)
-        .addBands(focal_mean_ndwi_2)
+        .addBands(focal_mean_ndmi_2)
         // .addBands(focal_mean_evi_2)
         .addBands(het_ndvi_3)
-        .addBands(het_ndwi_3)
+        .addBands(het_ndmi_3)
         // .addBands(het_evi_3)
         .addBands(focal_mean_ndvi_3)
-        .addBands(focal_mean_ndwi_3)
+        .addBands(focal_mean_ndmi_3)
         // .addBands(focal_mean_evi_3)
         .addBands(het_ndvi_4)
-        .addBands(het_ndwi_4)
+        .addBands(het_ndmi_4)
         // .addBands(het_evi_4)
         .addBands(focal_mean_ndvi_4)
-        .addBands(focal_mean_ndwi_4)
+        .addBands(focal_mean_ndmi_4)
         // .addBands(focal_mean_evi_4)
         // .addBands(satellite)
         .addBands(date)
@@ -1415,33 +1417,33 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
           'RVI',
           'preFire_ndvi',
           'postFire_ndvi',
-          'preFire_ndwi',
-          'postFire_ndwi',
+          'preFire_ndmi',
+          'postFire_ndmi',
           // 'preFire_evi',
           // 'postFire_evi',
           'het_ndvi_1',
-          'het_ndwi_1',
+          'het_ndmi_1',
           // 'het_evi_1',
           'focal_mean_ndvi_1',
-          'focal_mean_ndwi_1',
+          'focal_mean_ndmi_1',
           // 'focal_mean_evi_1',
           'het_ndvi_2',
-          'het_ndwi_2',
+          'het_ndmi_2',
           // 'het_evi_2',
           'focal_mean_ndvi_2',
-          'focal_mean_ndwi_2',
+          'focal_mean_ndmi_2',
           // 'focal_mean_evi_2',
           'het_ndvi_3',
-          'het_ndwi_3',
+          'het_ndmi_3',
           // 'het_evi_3',
           'focal_mean_ndvi_3',
-          'focal_mean_ndwi_3',
+          'focal_mean_ndmi_3',
           // 'focal_mean_evi_3',
           'het_ndvi_4',
-          'het_ndwi_4',
+          'het_ndmi_4',
           // 'het_evi_4',
           'focal_mean_ndvi_4',
-          'focal_mean_ndwi_4',
+          'focal_mean_ndmi_4',
           // 'focal_mean_evi_4',
           // 'satellite', 
           'date', 
@@ -1460,10 +1462,10 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
           'topo_roughness_4',
           'elev'])
         .addBands(texture1)
-        .addBands(texture2)
-        .addBands(texture3)
-        .addBands(texture4)
-        .addBands(gearys1)
+        // .addBands(texture2)
+        // .addBands(texture3)
+        // .addBands(texture4)
+        // .addBands(gearys_c)
         // .addBands(gearys2)
         // .addBands(gearys3)
         // .addBands(gearys4)
