@@ -11,13 +11,14 @@ library(lubridate)
 library(brms)
 library(purrr)
 
-# if (!file.exists(here::here("data/data_output/all-fire-samples.rds"))) {
-#   source(here::here("data/data_carpentry/merge_fire-samples.R"))
-# }
-# 
-# samps <- readRDS(here::here("data/data_output/all-fire-samples.rds"))
-
-samps <- st_read("/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L4578_none-interp.geojson")
+if (!file.exists(here::here("/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L4578_none-interp.geojson"))) {
+  if (!file.exists(here::here("data/data_output/all-fire-samples.rds"))) {
+    source(here::here("data/data_carpentry/merge_fire-samples.R"))
+  }
+  
+  samps <- readRDS(here::here("data/data_output/all-fire-samples.rds"))
+} else {
+  samps <- st_read("/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L4578_none-interp.geojson") }
 
 # Extract unique Fire ID from the sample point IDs
 samps$fire_id <- substr(as.character(samps$id), start = 1, stop = 20)
