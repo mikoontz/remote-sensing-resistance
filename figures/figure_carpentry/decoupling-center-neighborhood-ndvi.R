@@ -57,7 +57,7 @@ r1_isolated_veg_patch_heterogenous[2,2] <- 1
 color_fnc <- colorRampPalette(colors = c("white", "forestgreen"))
 
 #### These plots will zoom to fit each plot window.
-pdf(here::here("figures/decoupling-center-neighborhood-ndvi.pdf"), width = 8.7 / 2.54, height = 8.7 / 2 / 2.54)
+png(here::here("figures/decoupling-center-neighborhood-ndvi.png"), width = 8.7 / 2.54, height = 8.7 / 2 / 2.54, res = 300, units = "in")
 par(mfrow = c(1, 2), mar = c(0, 0, 0.5, 0), oma = c(0, 2, 0, 0))
 
 n_colors_hom <- 3
