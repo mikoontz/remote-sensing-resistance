@@ -73,50 +73,53 @@ samps$c_doy <- circular_doy(samps$ordinal_day)
 timing_vars <- c("alarm_year", "alarm_month", "alarm_day", "alarm_date", "cont_date", "c_doy")
 
 # This code is for the veg_vars when the GLCM-based texture values are part of the samples
-# veg_vars <-
-#   sapply(X = 1:4, 
-#          FUN = function(i) paste(
-#            c(
-#              "focal_mean_ndvi",
-#              "focal_mean_ndwi",
-#              "het_ndvi",
-#              "het_ndwi",
-#              "ndvi_asm",
-#              "ndvi_contrast",
-#              "ndvi_corr",
-#              "ndvi_dent",
-#              "ndvi_diss",
-#              "ndvi_dvar",
-#              "ndvi_ent",
-#              "ndvi_idm",
-#              "ndvi_imcorr1",
-#              "ndvi_imcorr2",
-#              "ndvi_inertia",
-#              "ndvi_prom",
-#              "ndvi_savg",
-#              "ndvi_sent",
-#              "ndvi_shade",
-#              "ndvi_svar",
-#              "ndvi_var"
-#            ), i, sep = "_")) %>% 
-#   as.vector() %>% 
-#   c("preFire_ndvi", "preFire_ndwi")
-# 
-#
-# This code is for when additional gridMET derivatives are part of the samples
-# fireWeather_vars <- c("erc", "fm100", "vpd", "vs", "hdw")
-
-fireWeather_vars <- c("erc", "fm100", "tmmx")
-
 veg_vars <-
   sapply(X = 1:4,
          FUN = function(i) paste(
            c(
              "focal_mean_ndvi",
-             "het_ndvi"), i, sep = "_")) %>%
+             "focal_mean_ndmi",
+             "het_ndvi",
+             "het_ndmi",
+             "ndvi_asm",
+             "ndvi_contrast",
+             "ndvi_corr",
+             "ndvi_dent",
+             "ndvi_diss",
+             "ndvi_dvar",
+             "ndvi_ent",
+             "ndvi_idm",
+             "ndvi_imcorr1",
+             "ndvi_imcorr2",
+             "ndvi_inertia",
+             "ndvi_prom",
+             "ndvi_savg",
+             "ndvi_sent",
+             "ndvi_shade",
+             "ndvi_svar",
+             "ndvi_var"
+           ), i, sep = "_")) %>%
   as.vector() %>%
-  c("preFire_ndvi")
+  c("preFire_ndvi", "preFire_ndmi")
 
+
+# This code is for when additional gridMET derivatives are part of the samples
+fireWeather_vars <- c("erc", "fm100", "vpd", "vs", "hdw")
+
+# fireWeather_vars <- c("erc", "fm100", "tmmx")
+# 
+# veg_vars <-
+#   sapply(X = 1:4,
+#          FUN = function(i) paste(
+#            c(
+#              "focal_mean_ndvi",
+#              "het_ndvi"), i, sep = "_")) %>%
+#   as.vector() %>%
+#   c("preFire_ndvi")
+
+samps$gearys_c <- log(samps$gearys_c)
+
+all_vars <- c(topo_vars, timing_vars, veg_vars, fireWeather_vars, "gearys_c")
 
 all_vars <- c(topo_vars, timing_vars, veg_vars, fireWeather_vars)
 
