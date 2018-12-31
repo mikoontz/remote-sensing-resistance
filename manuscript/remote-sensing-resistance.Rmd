@@ -1,8 +1,8 @@
 ---
 output:
-#   pdf_document:
-#   template: "ms_carpentry/mjk_ms_template.tex"
-#   fig_caption: yes
+  pdf_document:
+  template: "ms_carpentry/mjk_ms_template.tex"
+  fig_caption: yes
   word_document:
     fig_width: 8
     fig_height: 7
