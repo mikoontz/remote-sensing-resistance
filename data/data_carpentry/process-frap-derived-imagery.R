@@ -2,7 +2,7 @@
 library(raster)
 library(rasterVis)
 
-band_names <- c('rdnbr', 'nbr', 'nbr_1', 'rdndvi', 'rbr', 'ndvi', 'ndvi_1', 'het_ndvi_1', 'nbhd_ndvi_1', 'het_ndvi_2', 'nbhd_ndvi_2', 'het_ndvi_3', 'nbhd_ndvi_3', 'het_ndvi_4', 'nbhd_ndvi_4', 'constant', 'constant_1', 'constant_2', 'constant_3', 'constant_4', 'longitude', 'latitude', 'ypmc', 'slope', 'aspect', 'topo_roughness_1', 'topo_roughness_2', 'topo_roughness_3', 'topo_roughness_4', 'elevation', 'B1_pre', 'B2_pre', 'B3_pre', 'B4_pre', 'B5_pre', 'B6_pre', 'B7_pre', 'B1_post', 'B2_post', 'B3_post', 'B4_post', 'B5_post', 'B6_post', 'B7_post', 'preFerc', 'preFfm100', 'preFvpd', 'earlyFvs', 'earlyFhdw')
+band_names <- c('rdnbr', 'prefire_nbr', 'postfire_nbr', 'rdndvi', 'rbr', 'prefire_ndvi', 'postfire_ndvi', 'nbhd_sd_ndvi_1', 'nbhd_mean_ndvi_1', 'nbhd_sd_ndvi_2', 'nbhd_mean_ndvi_2', 'nbhd_sd_ndvi_3', 'nbhd_mean_ndvi_3', 'nbhd_sd_ndvi_4', 'nbhd_mean_ndvi_4', 'date', 'ordinal_day', 'alarm_year', 'alarm_month', 'alarm_day', 'longitude', 'latitude', 'ypmc', 'slope', 'aspect', 'topo_roughness_1', 'topo_roughness_2', 'topo_roughness_3', 'topo_roughness_4', 'elevation', 'B1_prefire', 'B2_prefire', 'B3_prefire', 'B4_prefire', 'B5_prefire', 'B6_prefire', 'B7_prefire', 'B1_postfire', 'B2_postfire', 'B3_postfire', 'B4_postfire', 'B5_postfire', 'B6_postfire', 'B7_postfire', 'prefire_erc', 'prefire_fm100', 'prefire_vpd', 'earlyfire_vs', 'earlyfire_hdw')
 
 fire <- raster::stack("data/ee_fire-images/19880704_00017_0000395195b1272a72a0_epsg3310.tif")
 fire <- raster::stack("data/ee_fire-images/19870829_00059_0000de101e16afb630c0_epsg3310.tif")
