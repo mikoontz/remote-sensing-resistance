@@ -22,3 +22,6 @@ data/data_carpentry/.ipynb_checkpoints/*
 data/data_carpentry/ee-error-log.txt
 ee-remote-sensing-resistance/rsr-heterogeneity-check.js
 ee-remote-sensing-resistance/rsr-export-images.js
+data/data_carpentry/wildfire-severity_sierra-nevada-california-usa_ypmc_frap-derived/*
+data/data_carpentry/wildfire-severity_sierra-nevada-california-usa_ypmc_frap-derived.zip
+manuscript/*.docx
