@@ -57,14 +57,14 @@ r1_isolated_veg_patch_heterogenous[2,2] <- 1
 color_fnc <- colorRampPalette(colors = c("white", "forestgreen"))
 
 #### These plots will zoom to fit each plot window.
-png(here::here("figures/decoupling-center-neighborhood-ndvi.png"), width = 8.7 / 2.54, height = 8.7 / 2 / 2.54, res = 300, units = "in")
+png(here::here("figures/decoupling-center-neighborhood-ndvi.png"), width = 8.7, height = 8.7 / 2, res = 300, units = "in")
 par(mfrow = c(1, 2), mar = c(0, 0, 0.5, 0), oma = c(0, 2, 0, 0))
 
 n_colors_hom <- 3
 n_colors_het <- 1000
 box_width <- 5
 
-plot(r1_hole_in_forest_heterogenous, asp = 1, axes = FALSE, box = FALSE, legend = FALSE, bty = "n",      col = color_fnc(n_colors_het),
+plot(r1_hole_in_forest_heterogenous, asp = 1, axes = FALSE, box = FALSE, legend = FALSE, bty = "n", col = color_fnc(n_colors_het),
      breaks = seq(0, 1, length.out = n_colors_het))
 rect(xleft = -1.5, xright = 1.5, ybottom = -1.5, ytop = 1.5, lwd = box_width)
 mtext(side = 3, text = "\"Hole in the forest\"", line = -0.5)
@@ -77,3 +77,28 @@ rect(xleft = -1.5, xright = 1.5, ybottom = -1.5, ytop = 1.5, lwd = box_width)
 mtext(side = 3, text = "\"Isolated patch\"", line = -0.5)
 
 dev.off()
+
+
+plot(r1_hole_in_forest_heterogenous)
+
+forest_hole_ggplot <-
+  ggplot(r1_hole_in_forest_heterogenous %>% as.data.frame(xy = TRUE), aes(x = x, y = y)) +
+  geom_raster(aes(fill = layer), show.legend = FALSE) +
+  coord_equal() +
+  scale_fill_gradient(low = "#FFFFFF", high = "#228B22", na.value = "#FFFFFF", limits = c(0, 1)) +
+  theme_void() +
+  ggtitle("'Hole in the forest'") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+isolated_patch_ggplot <-
+  ggplot(r1_isolated_veg_patch_heterogenous %>% as.data.frame(xy = TRUE), aes(x = x, y = y)) +
+  geom_raster(aes(fill = layer), show.legend = FALSE) +
+  coord_equal() +
+  scale_fill_gradient(low = "#FFFFFF", high = "#228B22", na.value = "#FFFFFF", limits = c(0, 1)) +
+  theme_void() +
+  ggtitle("'Isolated patch'") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+panel_plot <- plot_grid(forest_hole_ggplot, isolated_patch_ggplot, ncol = 2, nrow = 1)
+
+ggsave(panel_plot, filename = here::here("figures/decoupling-center-neighborhood-ndvi.png"), width = 8.7, height = 8.7 / 2, units = "cm")

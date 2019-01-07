@@ -121,7 +121,7 @@ r3_heterogenous <- mosaic(r3_heterogenous, r_template, fun = sum)
 r4_homogenous <- mosaic(r4_homogenous, r_template, fun = sum)
 r4_heterogenous <- mosaic(r4_heterogenous, r_template, fun = sum)
 
-png(here::here("figures/heterogeneity-demo-raster.png"), width = 17.8 / 2.54, height = 17.8 / 2 / 2.54, res = 300, units = "in")
+png(here::here("figures/heterogeneity-demo-raster.png"), width = 17.8 / 2.54, height = 17.8 / 2 / 2.54, res = NA, units = "in")
 par(mfrow = c(2, 4), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(3, 4, 0, 0))
 n_colors_hom <- 3
 n_colors_het <- 1000
@@ -176,3 +176,7 @@ plot(r4_heterogenous, asp = 1, axes = FALSE, box = FALSE, legend = FALSE, bty = 
 rect(xleft = -4.5, xright = 4.5, ybottom = -4.5, ytop = 4.5, lwd = box_width)
 mtext(side = 1, text = "270m x 270m\n7.29ha", line = 2)
 dev.off()
+
+
+# Trying the ggplot way to make scaling better for png files
+

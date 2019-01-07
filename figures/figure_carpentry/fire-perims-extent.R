@@ -38,7 +38,7 @@ frap_mixed_con <-
   mask(mixed_con, maskvalue = 0)
 
 # Get the outline of the Sierra Nevada ------------------------------------
-sn <- st_read("data/dat_output/SierraEcoregion_Jepson/") %>% st_transform(proj4string(frap))
+sn <- st_read("data/data_output/SierraEcoregion_Jepson/") %>% st_transform(proj4string(frap))
 
 # Get California outline --------------------------------------------------
 
@@ -84,58 +84,58 @@ plot_colors <- year_colors[match(cbi_conifer_only$year, years)]
 #  Build the plot! --------------------------------------------------------
 
 # pdf("figures/frap-extent.pdf", width = 8.2 / 2.54, height = 10.2 /2.54)
-mar_old <- par()$mar
-fig_old <- par()$fig
-
-pdf("figures/frap-extent.pdf", width = 11 / 2.54, height = 11 /2.54)
-
-par(mar = rep(0, 4))
-plot(sn$geometry, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0), col = "lightgrey")
-plot(frap_mixed_con, add = TRUE, col = viridis(6))
-
-par(fig = c(0, 0.4, 0, 0.4), new = TRUE)
-plot(ca$geometry, axes = FALSE)
-box(which = "figure")
-plot(sn$geometry, add = TRUE, col = "lightgrey")
-
-par(fig = fig_old, new = FALSE, mar = mar_old)
-
-dev.off()
-
-
-# pdf("figures/fire-samples-extent.pdf", width = 8.2 / 2.54, height = 10.2 /2.54)
-pdf("figures/fire-samples-extent.pdf", width = 11 / 2.54, height = 11 /2.54)
-
-par(mar = rep(0, 4))
-plot(sn$geometry, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0), col = "lightgrey")
-plot(ss_burned$geometry, add = TRUE, pch = 19, cex = 0.01)
-
-par(fig = c(0, 0.4, 0, 0.4), new = TRUE)
-plot(ca$geometry, axes = FALSE)
-box(which = "figure")
-plot(sn$geometry, add = TRUE, col = "lightgrey")
-
-par(fig = fig_old, new = FALSE, mar = mar_old)
-
-dev.off()
-
-# Create a conifer plot
-
-pdf("figures/mixed-conifer.pdf", width = 11 / 2.54, height = 11 / 2.54)
-mixed_con <- raster("data/data_output/landcover_PFR/mixed_conifer_sn-mask_10-fold-res.tif")
-
-par(mar = rep(0, 4))
-plot(sn$geometry, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0), col = "lightgrey")
-plot(mixed_con, col = c("white", "darkgreen"), add = TRUE, legend = FALSE)
-
-par(fig = c(0, 0.4, 0, 0.4), new = TRUE)
-plot(ca$geometry, axes = FALSE)
-box(which = "figure")
-plot(sn$geometry, add = TRUE, col = "lightgrey")
-
-par(fig = fig_old, new = FALSE, mar = mar_old)
-
-dev.off()
+# mar_old <- par()$mar
+# fig_old <- par()$fig
+# 
+# pdf("figures/frap-extent.pdf", width = 11 / 2.54, height = 11 /2.54)
+# 
+# par(mar = rep(0, 4))
+# plot(sn$geometry, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0), col = "lightgrey")
+# plot(frap_mixed_con, add = TRUE, col = viridis(6))
+# 
+# par(fig = c(0, 0.4, 0, 0.4), new = TRUE)
+# plot(ca$geometry, axes = FALSE)
+# box(which = "figure")
+# plot(sn$geometry, add = TRUE, col = "lightgrey")
+# 
+# par(fig = fig_old, new = FALSE, mar = mar_old)
+# 
+# dev.off()
+# 
+# 
+# # pdf("figures/fire-samples-extent.pdf", width = 8.2 / 2.54, height = 10.2 /2.54)
+# pdf("figures/fire-samples-extent.pdf", width = 11 / 2.54, height = 11 /2.54)
+# 
+# par(mar = rep(0, 4))
+# plot(sn$geometry, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0), col = "lightgrey")
+# plot(ss_burned$geometry, add = TRUE, pch = 19, cex = 0.01)
+# 
+# par(fig = c(0, 0.4, 0, 0.4), new = TRUE)
+# plot(ca$geometry, axes = FALSE)
+# box(which = "figure")
+# plot(sn$geometry, add = TRUE, col = "lightgrey")
+# 
+# par(fig = fig_old, new = FALSE, mar = mar_old)
+# 
+# dev.off()
+# 
+# # Create a conifer plot
+# 
+# pdf("figures/mixed-conifer.pdf", width = 11 / 2.54, height = 11 / 2.54)
+# mixed_con <- raster("data/data_output/landcover_PFR/mixed_conifer_sn-mask_10-fold-res.tif")
+# 
+# par(mar = rep(0, 4))
+# plot(sn$geometry, cex.axis = 0.5, las = 1, mgp = c(3, 0.75, 0), col = "lightgrey")
+# plot(mixed_con, col = c("white", "darkgreen"), add = TRUE, legend = FALSE)
+# 
+# par(fig = c(0, 0.4, 0, 0.4), new = TRUE)
+# plot(ca$geometry, axes = FALSE)
+# box(which = "figure")
+# plot(sn$geometry, add = TRUE, col = "lightgrey")
+# 
+# par(fig = fig_old, new = FALSE, mar = mar_old)
+# 
+# dev.off()
 
 
 # Tripanel plot of fire extent, mixed conifer extent, and samples from those fires used in analysis
@@ -148,18 +148,23 @@ plot(mixed_con, col = c("white", "darkgreen"), add = TRUE, legend = FALSE)
 
 text(x = -119, y = 40, labels = "A", cex = 3)
 
+max_num_of_fires <- 3
+frap_mixed_con[frap_mixed_con > max_num_of_fires] <- max_num_of_fires
+
 plot(sn$geometry, cex.axis = 0.5, las = 1, col = "lightgrey")
-plot(frap_mixed_con, add = TRUE, col = viridis(6), legend = FALSE)
+plot(frap_mixed_con, add = TRUE, col = (viridis(max_num_of_fires)), legend = FALSE)
 plot(frap_mixed_con, 
      smallplot = c(0.32, 0.335, 0.2, 0.425), 
      legend.only = TRUE, 
-     col = viridis(6), 
+     col = (viridis(max_num_of_fires)), 
      legend.args = list(text = "Number\nof fires", 
                         side = 1, 
                         line = 3),
      axis.args = list(line = 0,
                       tcl = 1,
-                      mgp = c(0, -2, 0)))
+                      mgp = c(0, -2, 0),
+                      at = 1:max_num_of_fires,
+                      labels = c("1", "2", "3+")))
 
 text(x = -119, y = 40, labels = "B", cex = 3)
 
@@ -169,7 +174,7 @@ used_ss_burned <- ss_burned %>%
 plot(ss_burned$geometry, add = TRUE, pch = 19, cex = 0.1)
 
 # Add the CBI plot locations
-plot(cbi_conifer_only$geometry, add = TRUE, pch = 19, cex = 0.1, col = "red")
+plot(cbi_conifer_only$geometry, add = TRUE, pch = 19, cex = 0.2, col = "red")
 legend(x = "bottomleft", legend = c("CBI plot", "Remote\nsample"), pch = 19, col = 2:1, bty = "n", inset = c(0.1, 0.15), cex = 1.5, y.intersp = 1.4)
 
 text(x = -119, y = 40, labels = "C", cex = 3)
