@@ -1,0 +1,50 @@
+band_number,band_name,band_description
+1,rdnbr,Relative delta normalized burn ratio
+2,prefire_nbr,Prefire normalized burn ratio
+3,postfire_nbr,Postfire normalized burn ratio
+4,rdndvi,Relative delta normalized difference vegetation index
+5,rbr,Relative burn ratio
+6,prefire_ndvi,Prefire normalized difference vegetation index
+7,postfire_ndvi,Postfire normalized difference vegetation index
+8,nbhd_sd_ndvi_1,Neighborhood standard deviation of normalized difference vegetation index in a square with a 1-Landsat-pixel radius (90m x 90m); a measure of forest structural variability
+9,nbhd_mean_ndvi_1,Neighborhood mean of normalized difference vegetation index in a square with a 1-Landsat-pixel radius (90m x 90m)
+10,nbhd_sd_ndvi_2,Neighborhood standard deviation of normalized difference vegetation index in a square with a 2-Landsat-pixel radius (150m x 150m); a measure of forest structural variability
+11,nbhd_mean_ndvi_2,Neighborhood mean of normalized difference vegetation index in a square with a 2-Landsat-pixel radius (150m x 150m)
+12,nbhd_sd_ndvi_3,Neighborhood standard deviation of normalized difference vegetation index in a square with a 3-Landsat-pixel radius (210m x 210m); a measure of forest structural variability
+13,nbhd_mean_ndvi_3,Neighborhood mean of normalized difference vegetation index in a square with a 3-Landsat-pixel radius (210m x 210m)
+14,nbhd_sd_ndvi_4,Neighborhood standard deviation of normalized difference vegetation index in a square with a 4-Landsat-pixel radius (270m x 270m); a measure of forest structural variability
+15,nbhd_mean_ndvi_4,Neighborhood mean of normalized difference vegetation index in a square with a 4-Landsat-pixel radius (270m x 270m)
+16,date,Alarm date of the fire expressed as milliseconds since epoch (1970-01-01 00:00 GMT); all pixels in each image will have the same value
+17,ordinal_day,Alarm date day of the year; all pixels in each image will have the same value
+18,alarm_year,Year of the alarm date; all pixels in each image will have the same value
+19,alarm_month,Month of the alarm date; all pixels in each image will have the same value
+20,alarm_day,Day of the month of the alarm date; all pixels in each image will have the same value
+21,longitude,Longitude of the pixel in EPSG:4326
+22,latitude,Latitude of the pixel in EPSG:4326
+23,ypmc,Whether the pixel covered yellow pine/mixed-conifer forest according to the presettlement fire regime in the 2015 version of the US Forest Service Fire Return Interval Departure dataset
+24,slope,Slope of the pixel in degrees
+25,aspect,Aspect of the pixel in degrees
+26,topo_roughness_1,Neighborhood standard deviation of elevation in a square with a 1-Landsat-pixel radius (90m x 90m); a measure of topographic roughness
+27,topo_roughness_2,Neighborhood standard deviation of elevation in a square with a 2-Landsat-pixel radius (150m x 150m); a measure of topographic roughness
+28,topo_roughness_3,Neighborhood standard deviation of elevation in a square with a 3-Landsat-pixel radius (210m x 210m); a measure of topographic roughness
+29,topo_roughness_4,Neighborhood standard deviation of elevation in a square with a 4-Landsat-pixel radius (270m x 270m); a measure of topographic roughness
+30,elevation,Elevation in meters according to the Shuttle Range Topography Mission digital elevation model
+31,B1_prefire,"Prefire value of blue surface reflectance from Landsat satellites with radiometric correction; Band 1 for Landsat 4, 5, and 7 (0.45-0.52 μm); Band 2 for Landsat 8 (0.452-0.512 μm); scale factor of 0.0001"
+32,B2_prefire,"Prefire value of green surface reflectance from Landsat satellites with radiometric correction; Band 2 for Landsat 4, 5, and 7 (0.52-0.60 μm); Band 3 for Landsat 8 (0.533-0.590 μm); scale factor of 0.0001"
+33,B3_prefire,"Prefire value of red surface reflectance from Landsat satellites with radiometric correction; Band 3 for Landsat 4, 5, and 7 (0.63-0.69 μm); Band 4 for Landsat 8 (0.636-0.673 μm); scale factor of 0.0001"
+34,B4_prefire,"Prefire value of near infrared surface reflectance from Landsat satellites with radiometric correction; Band 4 for Landsat 4, 5, and 7 (0.77-0.90 μm); Band 5 for Landsat 8 (0.851-0.879 μm); scale factor of 0.0001"
+35,B5_prefire,"Prefire value of shortwave infrared 1 surface reflectance from Landsat satellites with radiometric correction; Band 5 for Landsat 4, 5, and 7 (1.55-1.75 μm); Band 6 for Landsat 8 (1.566-1.651 μm); scale factor of 0.0001"
+36,B6_prefire,"Prefire value of brightness temperature (Kelvin) from Landsat satellites with radiometric correction; Band 6 for Landsat 4, 5, and 7 (10.40-12.50 μm); Band 10 for Landsat 8 (10.60-11.19 μm); scale factor of 0.1"
+37,B7_prefire,"Prefire value of shortwave infrared 2 surface reflectance from Landsat satellites with radiometric correction; Band 7 for Landsat 4, 5, and 7 (2.08-2.35 μm); Band 7 for Landsat 8 (2.107-2.294 μm); scale factor of 0.0001"
+38,B1_postfire,"Postfire value of blue surface reflectance from Landsat satellites with radiometric correction; Band 1 for Landsat 4, 5, and 7 (0.45-0.52 μm); Band 2 for Landsat 8 (0.452-0.512 μm); scale factor of 0.0001"
+39,B2_postfire,"Postfire value of green surface reflectance from Landsat satellites with radiometric correction; Band 2 for Landsat 4, 5, and 7 (0.52-0.60 μm); Band 3 for Landsat 8 (0.533-0.590 μm); scale factor of 0.0001"
+40,B3_postfire,"Postfire value of red surface reflectance from Landsat satellites with radiometric correction; Band 3 for Landsat 4, 5, and 7 (0.63-0.69 μm); Band 4 for Landsat 8 (0.636-0.673 μm); scale factor of 0.0001"
+41,B4_postfire,"Postfire value of near infrared surface reflectance from Landsat satellites with radiometric correction; Band 4 for Landsat 4, 5, and 7 (0.77-0.90 μm); Band 5 for Landsat 8 (0.851-0.879 μm); scale factor of 0.0001"
+42,B5_postfire,"Postfire value of shortwave infrared 1 surface reflectance from Landsat satellites with radiometric correction; Band 5 for Landsat 4, 5, and 7 (1.55-1.75 μm); Band 6 for Landsat 8 (1.566-1.651 μm); scale factor of 0.0001"
+43,B6_postfire,"Postfire value of brightness temperature (Kelvin) from Landsat satellites with radiometric correction; Band 6 for Landsat 4, 5, and 7 (10.40-12.50 μm); Band 10 for Landsat 8 (10.60-11.19 μm); scale factor of 0.1"
+44,B7_postfire,"Postfire value of shortwave infrared 2 surface reflectance from Landsat satellites with radiometric correction; Band 7 for Landsat 4, 5, and 7 (2.08-2.35 μm); Band 7 for Landsat 8 (2.107-2.294 μm); scale factor of 0.0001"
+45,prefire_erc,gridMET-derived energy release component for 3 days prior to the fire alarm date
+46,prefire_fm100,gridMET-derived 100-hour fuel moisture for 3 days prior to the fire alarm date
+47,prefire_vpd,gridMET-derived vapor pressure deficit for 3 days prior to the fire alarm date
+48,earlyfire_vs,gridMET-derived wind velocity during the first 3 days of the fire (starting on the alarm date)
+49,earlyfire_hdw,gridMET-derived hot-windy-dry index for the first 3 days of the fire (starting on the alarm date)
