@@ -1,0 +1,131 @@
+---
+output:
+  # pdf_document:
+  # template: "ms_carpentry/mjk_ms_template.tex"
+  # fig_caption: yes
+  word_document:
+    fig_width: 8
+    fig_height: 7
+    fig_caption: true
+    df_print: kable
+    reference_docx: "ms_carpentry/mjk_ms_template_word.docx"
+geometry: margin=1in
+
+bibliography: "ms_carpentry/remote-sensing-resistance.bib"
+csl: https://raw.githubusercontent.com/citation-style-language/styles/master/pnas.csl
+
+---
+
+```{r setup, include=FALSE}
+library(here)
+library(readr)
+library(knitr)
+library(kableExtra)
+library(captioner)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+eq_nums <- captioner(prefix = "Eq. ")
+fig_nums <- captioner(prefix = "Supplemental Fig. ")
+
+```
+
+```{r get_references, results = "hide"}
+download.file("https://dl.dropboxusercontent.com/s/2ha48iabtlr5jbo/remote-sensing-resistance.bib", here::here("manuscript/ms_carpentry/remote-sensing-resistance.bib"))
+```
+
+
+```{r eq_ndvi, results = "hide"}
+eq_nums(name = "eq-ndvi")
+```
+
+```{r eq_ndmi, results = "hide"}
+eq_nums(name = "eq-ndmi")
+```
+
+```{r eq_nbr, results = "hide"}
+eq_nums(name = "eq-nbr")
+```
+
+```{r eq_nbr2, results = "hide"}
+eq_nums(name = "eq-nbr2")
+```
+
+### Supplemental methods
+
+```{r, results = "hide"}
+fig_nums(name = "fig-image-acquisition-algorithm")
+```
+
+![Schematic for how Landsat imagery was assembled in order to make comparisons between pre- and post-fire conditions. This schematic depicts a 64-day window of image collation prior to the fire which comprise the pre-fire image collection. A similar, 64-day window collection of imagery is assembled one year after the pre-fire image collection.](../figures/image-acquisition-algorithm.pdf)
+
+Normalized difference vegetation index (NDVI; `r eq_nums(name = "eq-ndvi", display = "cite")`) correlates with vegetation density, canopy cover, and leaf area index [@Rouse1973]. Normalized difference moisture index (NDMI; `r eq_nums(name = "eq-ndmi", display = "cite")`) correlates with similar vegetation characteristics as NDVI, but doesn't saturate at high levels of foliar biomass [@Gao1996, @Huesca2016]. Normalized burn ratio (NBR; `r eq_nums(name = "eq-nbr", display = "cite")`) and normalized burn ratio version 2 (NBR2; `r eq_nums(name = "eq-nbr2", display = "cite")`) respond strongly to fire effects on vegetation [@Lopez1991; @Key2006; @USGSlasrc2017; @USGSledaps2017; @Hawbaker2017].
+
+(@eq-ndvi) $\label{eq-ndvi}
+ndvi = \mathopen(nir - red\mathclose) / \mathopen(nir + red\mathclose)$
+
+(@eq-ndmi) $\label{eq-ndmi}
+ndmi = \mathopen(nir - swir1\mathclose) / \mathopen(nir + swir1\mathclose)$
+
+(@eq-nbr) $\label{eq-nbr}
+nbr = \mathopen(nir - swir2\mathclose) / \mathopen(nir + swir2\mathclose)$
+
+(@eq-nbr2) $\label{eq-nbr2}
+nbr2 = \mathopen(swir1 - swir2\mathclose) / \mathopen(swir1 + swir2\mathclose)$
+
+
+Where $nir$ is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on Landsat 8) and $red$ is the red band (band 3 on Landsat 4, 5, and 7; band 4 on Landsat 8), $swir1$ is the first short wave infrared band (band 5 on Landsat 4, 5, and 7; band 4 on Landsat 8), $swir2$ is the second short wave infrared band (band 7 on Landsat 4, 5, 7, and 8)
+
+```{r eq_dindex, results = "hide"}
+eq_nums(name = "eq-dindex")
+```
+
+We calculated the delta severity indices (dNBR, dNBR2, dNDVI) by subtracting the respective postfire indices from the prefire indices (NBR, NBR2, and NDVI) without multiplying by a rescaling constant (e.g., we did not multiply the result by 1000 as in @Miller2007; `r eq_nums("eq-dindex", display = "cite")`). Following @Reilly2017, we chose not to correct the delta indices using a phenological offset value (typically calculated as the delta index in homogeneous forest patch outside of the fire perimeter), as our approach implicitly accounts for phenology by incorporating multiple cloud-free images across the same time window both before the fire and one year later.
+
+(@eq-dindex) $\label{eq-dindex}
+dI = I_{\text{prefire}} - I_{\text{postfire}}$
+
+```{r eq_rdindex, results = "hide"}
+eq_nums(name = "eq-rdindex")
+```
+
+We calculated the relative delta severity indices, RdNBR and RdNDVI, by scaling the respective delta indices (dNBR and dNDVI) from `r eq_nums(name = "eq-rdindex", display = "cite")` by a square root transformation of the absolute value of the prefire index:
+
+(@eq-rdindex) $\label{eq-rdindex}
+RdI = \frac{dI}{\sqrt{\mathopen|I_{\text{prefire}}\mathclose|}}$
+
+
+```{r eq_rbr, results = "hide"}
+eq_nums(name = "eq-rbr")
+```
+
+We calculated the relative burn ratio (RBR) following @Parks2014 using `r eq_nums(name = "eq-rbr", display = "cite")`:
+
+(@eq-rbr) $\label{eq-rbr}
+RBR = \frac{dNBR}{NBR_{\text{prefire}} + 1.001}$
+
+
+```{r eq-potential-annual-heat-load, results = "hide"}
+eq_nums(name = "eq-potential-annual-heat-load")
+```
+
+We used the digital elevation model to calculate the potential annual heat load (`r eq_nums(name = "eq-potential-annual-heat-load", display = "cite")` at each pixel, which is an integrated measure of latitude, slope, and a folding transformation of aspect about the northeast-southwest line, such that northeast becomes 0 radians and southwest becomes $\pi$ radians [@McCune2002; with correction in @McCune2007]:
+
+(@eq-potential-annual-heat-load) $\begin{aligned}
+\label{eq-potential-annual-heat-load}
+aspect_{folded} &= \mathopen| \pi - \mathopen| aspect - \frac{5\pi}{4}\mathclose| \mathclose| \\
+log(pahl) &= \begin{aligned}
+&-1.467 + \\
+&1.582 * cos(latitude) cos(slope) - \\
+&1.5 * cos(aspect_{folded}) sin(slope) sin(latitude) - \\
+&0.262 * sin(lat) sin(slope) + \\
+&0.607 * sin(aspect_{folded}) sin(slope) \\
+\end{aligned}
+\end{aligned}$
+
+Where $pahl$ is the potential annual heat load, $aspect_{folded}$ is a transformation of aspect in radians, and both $latitude$ and $slope$ are extracted from a digital elevation model with units of radians.
+
+```{r, results = "hide"}
+fig_nums(name = "fig-decoupling-ndvi")
+```
+
+![Conceptual diagram of 'decoupling' that sometimes occurs between the central pixel NDVI and the neighborhood mean NDVI. In each of these scenarios, our model results suggest that the probability that the central pixel burns at high severity is higher than expected given the additive effect of the covariates. The left panel depicts the \"hole in the forest\" decoupling, which occurs more frequently, and the right panel depicts the \"isolated patch\" decoupling.](../figures/decoupling-center-neighborhood-ndvi.png)
