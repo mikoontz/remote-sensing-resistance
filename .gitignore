@@ -26,3 +26,4 @@ data/data_output/wildfire-severity_sierra-nevada-ca-usa_ypmc_1984-2017_rasters/*
 data/data_output/wildfire-severity_sierra-nevada-ca-usa_ypmc_1984-2017_rasters.zip
 manuscript/*.docx
 manuscript/cover-letter/*
+manuscript/submissions/*
