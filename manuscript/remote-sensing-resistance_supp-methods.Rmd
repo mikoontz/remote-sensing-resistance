@@ -1,14 +1,14 @@
 ---
 output:
-  # pdf_document:
-  # template: "ms_carpentry/mjk_ms_template.tex"
-  # fig_caption: yes
-  word_document:
-    fig_width: 8
-    fig_height: 7
-    fig_caption: true
-    df_print: kable
-    reference_docx: "ms_carpentry/mjk_ms_template_word.docx"
+  pdf_document:
+  template: "ms_carpentry/mjk_ms_template.tex"
+  fig_caption: yes
+  # word_document:
+  #   fig_width: 8
+  #   fig_height: 7
+  #   fig_caption: true
+  #   df_print: kable
+  #   reference_docx: "ms_carpentry/mjk_ms_template_word.docx"
 geometry: margin=1in
 
 bibliography: "ms_carpentry/remote-sensing-resistance.bib"
@@ -24,7 +24,7 @@ library(kableExtra)
 library(captioner)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
-eq_nums <- captioner(prefix = "Eq. ")
+eq_nums <- captioner(prefix = "Supplemental Eq. ")
 fig_nums <- captioner(prefix = "Supplemental Fig. ")
 
 ```
@@ -50,7 +50,9 @@ eq_nums(name = "eq-nbr")
 eq_nums(name = "eq-nbr2")
 ```
 
-### Supplemental methods
+# Supplemental Information
+
+## Supplemental methods
 
 ```{r, results = "hide"}
 fig_nums(name = "fig-image-acquisition-algorithm")
