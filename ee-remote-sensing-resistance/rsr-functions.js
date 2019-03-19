@@ -172,10 +172,7 @@ var merge_collections = function(start, end, bounds, sats) {
           l8sr
             .filterDate(start, end)
             .filterBounds(bounds)
-            .map(function(image){
-                      return image.rename(['B0', 'B1', 'B2', 'B3', 'B4', 'B5', 'B7', 'B6', 'B11', 'sr_aerosol', 'pixel_qa', 'radsat_qa'])
-                                  .select(['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'pixel_qa']);
-            }),
+            .select(['B2', 'B3', 'B4', 'B5', 'B6', 'B10', 'B7', 'pixel_qa'], ['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'pixel_qa']),
           ee.ImageCollection([]));
   // Explicit cast to Image Collection
   l8 = ee.ImageCollection(l8);
@@ -1137,9 +1134,9 @@ var get_earlyFhdw = function(feature, gridmet_timeWindow, resample_method) {
 
 // Texture analysis
 
-var get_texture = function(feature, size, timeWindow, resample_method, sats) {
+var get_texture = function(feature, size, timeWindow, resample_method, sats, gray_levels) {
 
-  var preFire_ndvi = get_preFndvi(feature, timeWindow, resample_method, sats).unitScale(0,1).multiply(25).toByte();
+  var preFire_ndvi = get_preFndvi(feature, timeWindow, resample_method, sats).unitScale(0,1).multiply(gray_levels).toByte();
   
   var texture = ee.Algorithms.If(preFire_ndvi.bandNames(),
     preFire_ndvi.glcmTexture({size: ee.Number.parse(size)})
@@ -1161,7 +1158,7 @@ var get_texture = function(feature, size, timeWindow, resample_method, sats) {
 
 // Spatial autocorrelation measure
 
-var get_gearys_c = function(feature, timeWindow, resample_method, sats) {
+var get_gearys_c = function(feature, timeWindow, resample_method, sats, gray_levels) {
   
   // Create a list of weights for a 9x9 kernel.
   var list = [1, 1, 1, 1, 1, 1, 1, 1, 1];
@@ -1173,7 +1170,7 @@ var get_gearys_c = function(feature, timeWindow, resample_method, sats) {
   // Non-zero weights represent the spatial neighborhood.
   var kernel = ee.Kernel.fixed(9, 9, lists, -4, -4, false);
 
-  var preFire_ndvi = get_preFndvi(feature, timeWindow, resample_method, sats).unitScale(0,1).multiply(255).toByte();
+  var preFire_ndvi = get_preFndvi(feature, timeWindow, resample_method, sats).unitScale(0,1).multiply(gray_levels).toByte();
 
   // Compute local Geary's C, a measure of spatial association.
   // Code modified from https://developers.google.com/earth-engine/image_texture
@@ -1191,9 +1188,9 @@ var get_gearys_c = function(feature, timeWindow, resample_method, sats) {
 };
              
              
-var get_variables = function(feature, timeWindow, resample_method, sats) {   
+var get_variables = function(feature, timeWindow, resample_method, sats, gray_levels) {   
     
-    var geo = feature.geometry();
+    // var geo = feature.geometry();
     // Static features of this particular dataset
     // var satellite = ee.Image(sat);
     
@@ -1201,12 +1198,12 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
     var lonLat = ee.Image.pixelLonLat();
     
     var slope =  ee.Image(ee.Algorithms.If(resample_method === 'none',
-                                      get_slope(geo),
-                                      get_slope(geo).resample(resample_method)));
+                                      get_slope(feature),
+                                      get_slope(feature).resample(resample_method)));
 
     var aspect =  ee.Image(ee.Algorithms.If(resample_method === 'none',
-                                      get_aspect(geo),
-                                      get_aspect(geo).resample(resample_method)));
+                                      get_aspect(feature),
+                                      get_aspect(feature).resample(resample_method)));
 
     var local_elev =  ee.Image(ee.Algorithms.If(resample_method === 'none',
                                         elev,
@@ -1259,11 +1256,11 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
     var preFndmi = get_preFndmi(feature, timeWindow, resample_method, sats);
     var postFndmi = get_postFndmi(feature, timeWindow, resample_method, sats);
 
-    // var gearys_c = get_gearys_c(feature, timeWindow, resample_method, sats);
-    var texture1 = get_texture(feature, '1', timeWindow, resample_method, sats);
-    // var texture2 = get_texture(feature, '2', timeWindow, resample_method, sats);
-    // var texture3 = get_texture(feature, '3', timeWindow, resample_method, sats);
-    // var texture4 = get_texture(feature, '4', timeWindow, resample_method, sats);
+    var gearys_c = get_gearys_c(feature, timeWindow, resample_method, sats, gray_levels);
+    var texture1 = get_texture(feature, '1', timeWindow, resample_method, sats, gray_levels);
+    var texture2 = get_texture(feature, '2', timeWindow, resample_method, sats, gray_levels);
+    var texture3 = get_texture(feature, '3', timeWindow, resample_method, sats, gray_levels);
+    var texture4 = get_texture(feature, '4', timeWindow, resample_method, sats, gray_levels);
     
     // Variables that depend on neighborhood window size AND on fire information
     // Radius of 1 pixel = 3x3 window = 90m x 90m = 8100 m^2 = 0.81 ha
@@ -1462,10 +1459,10 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
           'topo_roughness_4',
           'elev'])
         .addBands(texture1)
-        // .addBands(texture2)
-        // .addBands(texture3)
-        // .addBands(texture4)
-        // .addBands(gearys_c)
+        .addBands(texture2)
+        .addBands(texture3)
+        .addBands(texture4)
+        .addBands(gearys_c)
         // .addBands(gearys2)
         // .addBands(gearys3)
         // .addBands(gearys4)
@@ -1490,7 +1487,7 @@ var get_variables = function(feature, timeWindow, resample_method, sats) {
 
 var get_variables_lite = function(feature, timeWindow, resample_method, sats) {   
     
-    var geo = feature.geometry();
+    // var geo = feature.geometry();
     // Static features of this particular dataset
     // var satellite = ee.Image(sat);
     
@@ -1498,12 +1495,12 @@ var get_variables_lite = function(feature, timeWindow, resample_method, sats) {
     var lonLat = ee.Image.pixelLonLat();
     
     var slope =  ee.Image(ee.Algorithms.If(resample_method === 'none',
-                                      get_slope(geo),
-                                      get_slope(geo).resample(resample_method)));
+                                      get_slope(feature),
+                                      get_slope(feature).resample(resample_method)));
 
     var aspect =  ee.Image(ee.Algorithms.If(resample_method === 'none',
-                                      get_aspect(geo),
-                                      get_aspect(geo).resample(resample_method)));
+                                      get_aspect(feature),
+                                      get_aspect(feature).resample(resample_method)));
 
     var local_elev =  ee.Image(ee.Algorithms.If(resample_method === 'none',
                                         elev,
@@ -1696,13 +1693,14 @@ var assess_whole_fire = function(args) {
   var timeWindow = args.timeWindow;
   var resample_method = args.resample_method;
   var sats = args.sats;
+  var gray_levels = args.gray_levels;
   
   return function(feature) {
-    var geo = feature.geometry();
-    var var_img = get_variables(feature, timeWindow, resample_method, sats);
+    // var geo = feature.geometry();
+    var var_img = get_variables(feature, timeWindow, resample_method, sats, gray_levels);
   
     var export_img = ee.Algorithms.If(var_img, 
-                                      ee.Image(var_img).clip(geo).copyProperties(feature), 
+                                      ee.Image(var_img).clip(feature).copyProperties(feature), 
                                       null);
 
     return ee.Image(export_img);
@@ -1716,11 +1714,11 @@ var assess_whole_fire_lite = function(args) {
   var sats = args.sats;
   
   return function(feature) {
-    var geo = feature.geometry();
+    // var geo = feature.geometry();
     var var_img = get_variables_lite(feature, timeWindow, resample_method, sats);
   
     var export_img = ee.Algorithms.If(var_img, 
-                                      ee.Image(var_img).clip(geo).copyProperties(feature), 
+                                      ee.Image(var_img).clip(feature).copyProperties(feature), 
                                       null);
 
     return ee.Image(export_img);
@@ -1739,3 +1737,5 @@ exports.get_samps = get_samps;
 // are being used for calculations?
 exports.get_preFireRaw = get_preFireRaw;
 exports.get_postFireRaw = get_postFireRaw;
+exports.merge_collections = merge_collections;
+exports.mask_cloud_water_snow = mask_cloud_water_snow;
