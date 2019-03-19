@@ -1,4 +1,5 @@
 # Script to rename bands of the Python raster exports
+library(tidyverse)
 library(raster)
 library(rasterVis)
 
@@ -11,9 +12,19 @@ fire <- raster::stack("data/ee_fire-images/19870830_00177_0000f8d62e28cf5fa43c_e
 fire <- raster::stack("data/ee_fire-images/19870830_00421_00003a70ebf6fedca59e_epsg3310.tif")
 
 names(fire) <- band_names
+
 # Overall RBR values from the model
-burned_unburned_rbr_threshold <- 0.041191844
-high_sev_low_sev_rbr_threshold <- 0.2836425
+best_model <- 
+  read_csv(here::here("data/data_output/cbi_calibration_model_comparison.csv")) %>% 
+  dplyr::arrange(desc(r2_kfold)) %>% 
+  dplyr::slice(1)
+
+low_sev_lower_rbr_threshold <- best_model$low_sev
+# low_sev_lower_rbr_threshold <- 0.04509658
+mod_sev_lower_rbr_threshold <- best_model$mod_sev
+# mod_sev_lower_rbr_threshold <- 0.1125589
+hi_sev_lower_rbr_threshold <- best_model$hi_sev
+# hi_sev_lower_rbr_threshold <- 0.2823349
 
 # A severity palette
 RBR_viz <- c('#008000', '#ffff00', '#ffA500', '#ff0000')
