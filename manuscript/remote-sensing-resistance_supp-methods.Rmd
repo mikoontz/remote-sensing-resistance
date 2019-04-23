@@ -1,38 +1,53 @@
 ---
-output:
-  pdf_document:
-  template: "ms_carpentry/mjk_ms_template.tex"
-  fig_caption: yes
-  # word_document:
-  #   fig_width: 8
-  #   fig_height: 7
-  #   fig_caption: true
-  #   df_print: kable
-  #   reference_docx: "ms_carpentry/mjk_ms_template_word.docx"
+output:  pdf_document
 geometry: margin=1in
 
-bibliography: "ms_carpentry/remote-sensing-resistance.bib"
-csl: https://raw.githubusercontent.com/citation-style-language/styles/master/pnas.csl
+bibliography: ms_carpentry/remote-sensing-resistance.bib
+csl: ms_carpentry/pnas.csl
 
+header-includes:
+  - \usepackage[left]{lineno}
+  - \linenumbers
+  - \usepackage{setspace}
+  - \doublespacing
+  - \DeclareUnicodeCharacter{200E}{}
+  - \DeclareUnicodeCharacter{0008}{}
+  - \usepackage{caption}
+  - \captionsetup[figure]{labelformat=empty}
+  - \captionsetup[table]{labelformat=empty}
+  - \usepackage{float}
 ---
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, fig.pos="H")
+```
+
+```{r dependencies}
 library(here)
 library(readr)
 library(knitr)
-library(kableExtra)
+library(pander)
+library(tidyverse)
 library(captioner)
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
-eq_nums <- captioner(prefix = "Supplemental Eq. ")
-fig_nums <- captioner(prefix = "Supplemental Fig. ")
+eq_nums <- captioner(prefix = "Supplemental Equation")
+fig_nums <- captioner(prefix = "Supplemental Figure")
+table_nums <- captioner(prefix = "Supplemental Table")
+
+ci_betas_print_table <- read_csv(here::here("analyses/analyses_output/ci_betas_print_table.csv"))
+ci_betas_print_table_simple <- read_csv(here::here("analyses/analyses_output/ci_betas_print_table_simple.csv"))
+
+cbi_models <- read_csv(here::here("data/data_output/cbi_calibration_model_comparison.csv"))
+
+print_cbi_models <- cbi_models
+print_cbi_models[, 5:13] <- round(cbi_models[, 5:13], 3)
+print_cbi_models <-
+  print_cbi_models %>%
+  arrange(desc(r2_kfold)) %>%
+  mutate(rank = 1:nrow(.)) %>%
+  dplyr::select(rank, response, time_window, interpolation, r2_kfold, a, b, c, low_sev, mod_sev, hi_sev)
 
 ```
-
-```{r get_references, results = "hide"}
-download.file("https://dl.dropboxusercontent.com/s/2ha48iabtlr5jbo/remote-sensing-resistance.bib", here::here("manuscript/ms_carpentry/remote-sensing-resistance.bib"))
-```
-
 
 ```{r eq_ndvi, results = "hide"}
 eq_nums(name = "eq-ndvi")
@@ -53,12 +68,6 @@ eq_nums(name = "eq-nbr2")
 # Supplemental Information
 
 ## Supplemental methods
-
-```{r, results = "hide"}
-fig_nums(name = "fig-image-acquisition-algorithm")
-```
-
-![Schematic for how Landsat imagery was assembled in order to make comparisons between pre- and post-fire conditions. This schematic depicts a 64-day window of image collation prior to the fire which comprise the pre-fire image collection. A similar, 64-day window collection of imagery is assembled one year after the pre-fire image collection.](../figures/image-acquisition-algorithm.pdf)
 
 Normalized difference vegetation index (NDVI; `r eq_nums(name = "eq-ndvi", display = "cite")`) correlates with vegetation density, canopy cover, and leaf area index [@Rouse1973]. Normalized difference moisture index (NDMI; `r eq_nums(name = "eq-ndmi", display = "cite")`) correlates with similar vegetation characteristics as NDVI, but doesn't saturate at high levels of foliar biomass [@Gao1996, @Huesca2016]. Normalized burn ratio (NBR; `r eq_nums(name = "eq-nbr", display = "cite")`) and normalized burn ratio version 2 (NBR2; `r eq_nums(name = "eq-nbr2", display = "cite")`) respond strongly to fire effects on vegetation [@Lopez1991; @Key2006; @USGSlasrc2017; @USGSledaps2017; @Hawbaker2017].
 
@@ -126,8 +135,74 @@ log(pahl) &= \begin{aligned}
 
 Where $pahl$ is the potential annual heat load, $aspect_{folded}$ is a transformation of aspect in radians, and both $latitude$ and $slope$ are extracted from a digital elevation model with units of radians.
 
+## Supplemental figures and tables
+
 ```{r, results = "hide"}
-fig_nums(name = "fig-decoupling-ndvi")
+table_nums(name = "table-cbi-models", caption = "Comparison of models used to validate and calibrate remotely sensed wildfire severity with ground-based composite burn index (CBI) severity sorted in descending order by the R^2^ value from a 5-fold cross validation. A total of 56 models were tested representing all possible combinations of 7 different measures of wildfire severity (RBR, dNBR, dNBR2, RdNBR, RdNBR2, dNDVI, and RdNDVI), 4 different time windows in which Landsat imagery was acquired and summarized with a median reducer on a pixel-by-pixel basis (16 days, 32 days, 48 days, and 64 days), and two different interpolation methods (bilinear and bicubic). The three parameters ($\\beta_0$, $\\beta_1$, and $\\beta_2$) from the nonlinear model fit described in Eq. 1 are reported. For each model, the value of the remotely sensed wildfire severity measurement corresponding to the lower bounds of 3 commonly used categories of severity are reported ('low' corresponds to a CBI value of 0.1, 'mod' corresponds to a CBI value of 1.25, and 'high' corresponds to a CBI value of 2.25)")
 ```
 
-![Conceptual diagram of 'decoupling' that sometimes occurs between the central pixel NDVI and the neighborhood mean NDVI. In each of these scenarios, our model results suggest that the probability that the central pixel burns at high severity is higher than expected given the additive effect of the covariates. The left panel depicts the \"hole in the forest\" decoupling, which occurs more frequently, and the right panel depicts the \"isolated patch\" decoupling.](../figures/decoupling-center-neighborhood-ndvi.png)
+```{r cbi_models_table, echo = FALSE, include = TRUE, results = 'asis'}
+print_cbi_models <-
+  print_cbi_models %>% 
+  dplyr::rename(Rank = rank,
+                `Severity measure` = response,
+                `Time window` = time_window,
+                Interpolation = interpolation,
+                `k-fold R^2^` = r2_kfold,
+                `$\\beta_0$` = a,
+                `$\\beta_1$` = b,
+                `$\\beta_2$` = c,
+                low = low_sev,
+                mod = mod_sev,
+                high = hi_sev)
+
+pandoc.table(print_cbi_models, 
+             split.tables = Inf,
+             caption = table_nums(name = "table-cbi-models"),
+             keep.line.breaks = TRUE)
+```
+
+
+```{r, results = "hide"}
+table_nums("table-ci-betas-print", caption = "Model parameter estimates for different neighborhood sizes. Values represent the mean parameter estimates with 95% credible intervals in parentheses.")
+```
+
+
+```{r param_estimates_word, eval = TRUE, results = "asis"}
+ci_betas_print_table_simple <-
+  ci_betas_print_table_simple %>% 
+  dplyr::rename(Coefficient = print_param,
+                `90m x 90m\nneighborhood` = `1`, 
+                `150m x 150m\nneighborhood` = `2`, 
+                `210m x 210m\nneighborhood` = `3`, 
+                `270m x 270m\nneighborhood` = `4`)
+
+pandoc.table(ci_betas_print_table_simple, 
+             split.tables = Inf,
+             caption = table_nums(name = "table-ci-betas-print"),
+             keep.line.breaks = TRUE,
+             justify = "lcccc")
+```
+
+```{r, results='asis', eval=(opts_knit$get('rmarkdown.pandoc.to') == 'latex')}
+cat('\\pagebreak')
+```
+
+```{r, results = "hide"}
+fig_nums(name = "fig-image-acquisition-algorithm", caption = "Schematic for how Landsat imagery was assembled in order to make comparisons between pre- and post-fire conditions. This schematic depicts a 64-day window of image collation prior to the fire which comprise the pre-fire image collection. A similar, 64-day window collection of imagery is assembled one year after the pre-fire image collection.")
+```
+
+![`r fig_nums(name = "fig-image-acquisition-algorithm")`](../figures/image-acquisition-algorithm.pdf){ height=3in }
+
+```{r, results='asis', eval=(opts_knit$get('rmarkdown.pandoc.to') == 'latex')}
+cat('\\pagebreak')
+```
+
+```{r, results = "hide"}
+fig_nums(name = "fig-decoupling-ndvi", caption = "Conceptual diagram of 'decoupling' that sometimes occurs between the central pixel NDVI and the neighborhood mean NDVI. In each of these scenarios, our model results suggest that the probability that the central pixel burns at high severity is higher than expected given the additive effect of the covariates. The left panel depicts the \"hole in the forest\" decoupling, which occurs more frequently, and the right panel depicts the \"isolated patch\" decoupling.")
+```
+
+![`r fig_nums(name = "fig-decoupling-ndvi")`](../figures/decoupling-center-neighborhood-ndvi.png){ height=2in }
+
+
+# References
