@@ -18,3 +18,11 @@ total_conifer_cbi_fires <- n_distinct(conifer_only_cbi$fire_name)
 total_conifer_cbi_years <- sort(unique(year(conifer_only_cbi$date)))
 
 sort(unique(year(conifer_only_cbi$date)))
+
+cbi_summary_stats_list <-
+  list(total_conifer_cbi_plots = total_conifer_cbi_plots,
+       total_conifer_cbi_fires = total_conifer_cbi_fires,
+       total_conifer_cbi_years = total_conifer_cbi_years,
+       total_plots = total_plots)
+
+write_rds(cbi_summary_stats_list, here::here("analyses/analyses_output/cbi_summary_stats_list.rds"))

@@ -52,5 +52,3 @@ if(!file.exists(here::here("data/data_output/ic_print_table.csv"))) {
   write_csv(ic_print_table, here::here("data/data_output/ic_print_table.csv"))
   
 }
-
-ic_print_table <- read_csv(here::here("data/data_output/ic_print_table.csv"))

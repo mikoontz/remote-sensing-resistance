@@ -90,6 +90,8 @@ ci_betas_4$radius <- 4
 ci_betas <- rbind(ci_betas_1, ci_betas_2, ci_betas_3, ci_betas_4)
 ci_betas
 
+write_csv(ci_betas, here::here("analyses/analyses_output/ci_betas.csv"))
+
 param_order <- data.frame(order = ci_betas %>% filter(!str_detect(param, "prior")) %>% select(param) %>% pull %>% unique() %>% seq_along(), 
                           param = c("b_intercept", 
                                     "b_het", 
@@ -165,6 +167,8 @@ ci_betas_print_table <-
   select(print_param, `1`, `2`, `3`, `4`)
 
 ci_betas_print_table
+write_csv(ci_betas_print_table, here::here("analyses/analyses_output/ci_betas_print_table.csv"))
+
 
 ci_betas_print_table_simple <-
   ci_betas %>% 
@@ -177,3 +181,4 @@ ci_betas_print_table_simple <-
   arrange(order) %>% 
   select(print_param, `1`, `2`, `3`, `4`)
 
+write_csv(ci_betas_print_table_simple, here::here("analyses/analyses_output/ci_betas_print_table_simple.csv"))

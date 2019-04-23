@@ -18,7 +18,7 @@ if (file.exists(here::here("data/data_output/all-fire-samples_configured.rds")))
   ss <- readRDS(here::here("data/data_output/all-fire-samples_configured.rds"))
   ss_burned <- readRDS(here::here("data/data_output/burned-fire-samples_configured.rds"))
 } else {
-  source(here::here("data/data_carpentry/configure_fire_samples.R"))
+  source(here::here("data/data_carpentry/configure_fire-samples.R"))
 }
 
 total_conifer_samps <- 
@@ -26,11 +26,13 @@ total_conifer_samps <-
   filter(conifer_forest == 1) %>% 
   nrow()
 
-s <-
-  ss_burned %>%
-  filter(conifer_forest == 1) %>% 
-  group_by(fire_id, year, gis_acres, agency, alarm_date, cont_date, cause, comments, date, fire_name, fire_num, inc_num, objective, ordinal_day, state, unit_id, c_method, report_ac, mxd_cn_) %>% 
-  nest()
+frap_sn_ypmc <- st_read(here::here("data/data_output/fire_perim/fire17_1_sn_ypmc/fire17_1_sn_ypmc.shp"))
+
+# s <-
+#   ss_burned %>%
+#   filter(conifer_forest == 1) %>%
+#   group_by(fire_id, year, gis_acres, agency, alarm_date, cont_date, cause, comments, date, fire_name, fire_num, inc_num, objective, ordinal_day, state, unit_id, c_method, report_ac, mxd_cn_) %>%
+#   nest()
 
 # Approxmiately many fires would be included under the Steel et al. 2018
 # criteria (> 50% burning in yellow pine mixed conifer)
@@ -53,13 +55,33 @@ r5_area_ypmc_burned <-
   pull(total_area_ypmc)
 
 # This is the number of FRAP-derived fires (our algorithm) that burned at least
-# partially in 
-frap_fire_count_ypmc <- nrow(s)
+# partially in YPMC
+
+frap_fire_count_ypmc <-
+  ss_burned %>%
+  st_drop_geometry() %>% 
+  filter(conifer_forest == 1) %>% 
+  dplyr::pull(fire_id) %>% 
+  unique() %>% 
+  length()
+    
+# frap_fire_count_ypmc <- 
+#   frap_sn_ypmc %>% 
+#   nrow()
 
 frap_area_ypmc_burned <-
-  s %>% 
+  frap_sn_ypmc %>% 
   summarize(total_area_ypmc = sum(mxd_cn_) * 30 * 30 / 10000) %>% 
   pull(total_area_ypmc)
 
 # How many more hectares are covered by our new dataset?
 (frap_area_ypmc_burned - r5_area_ypmc_burned)
+
+fire_perims_summary_stats_list <-
+  list(frap_area_ypmc_burned = frap_area_ypmc_burned,
+       frap_fire_count_ypmc = frap_fire_count_ypmc,
+       r5_area_ypmc_burned = r5_area_ypmc_burned,
+       r5_fire_count_ypmc = r5_fire_count_ypmc,
+       total_conifer_samps = total_conifer_samps)
+
+write_rds(fire_perims_summary_stats_list, here::here("analyses/analyses_output/fire_perims_summary_stats_list.rds"))

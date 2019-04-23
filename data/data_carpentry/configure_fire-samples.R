@@ -78,9 +78,9 @@ veg_vars <-
          FUN = function(i) paste(
            c(
              "focal_mean_ndvi",
-             "focal_mean_ndmi",
+             "focal_mean_ndwi",
              "het_ndvi",
-             "het_ndmi",
+             "het_ndwi",
              "ndvi_asm",
              "ndvi_contrast",
              "ndvi_corr",
@@ -100,11 +100,11 @@ veg_vars <-
              "ndvi_var"
            ), i, sep = "_")) %>%
   as.vector() %>%
-  c("preFire_ndvi", "preFire_ndmi")
+  c("preFire_ndvi", "preFire_ndwi")
 
 
 # This code is for when additional gridMET derivatives are part of the samples
-fireWeather_vars <- c("erc", "fm100", "vpd", "vs", "hdw")
+fireWeather_vars <- c("erc", "fm100")
 
 # fireWeather_vars <- c("erc", "fm100", "tmmx")
 # 
