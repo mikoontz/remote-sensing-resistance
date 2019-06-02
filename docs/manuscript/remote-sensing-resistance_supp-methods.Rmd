@@ -2,8 +2,8 @@
 output:  pdf_document
 geometry: margin=1in
 
-bibliography: ms_carpentry/remote-sensing-resistance.bib
-csl: ms_carpentry/pnas.csl
+bibliography: ../docs_carpentry/remote-sensing-resistance.bib
+csl: ../docs_carpentry/pnas.csl
 
 header-includes:
   - \usepackage[left]{lineno}
@@ -69,7 +69,7 @@ eq_nums(name = "eq-nbr2")
 
 ## Supplemental methods
 
-Normalized difference vegetation index (NDVI; `r eq_nums(name = "eq-ndvi", display = "cite")`) correlates with vegetation density, canopy cover, and leaf area index [@Rouse1973]. Normalized difference moisture index (NDMI; `r eq_nums(name = "eq-ndmi", display = "cite")`) correlates with similar vegetation characteristics as NDVI, but doesn't saturate at high levels of foliar biomass [@Gao1996, @Huesca2016]. Normalized burn ratio (NBR; `r eq_nums(name = "eq-nbr", display = "cite")`) and normalized burn ratio version 2 (NBR2; `r eq_nums(name = "eq-nbr2", display = "cite")`) respond strongly to fire effects on vegetation [@Lopez1991; @Key2006; @USGSlasrc2017; @USGSledaps2017; @Hawbaker2017].
+Normalized difference vegetation index (NDVI; `r eq_nums(name = "eq-ndvi", display = "cite")`) correlates with vegetation density, canopy cover, and leaf area index [@rouse1973]. Normalized difference moisture index (NDMI; `r eq_nums(name = "eq-ndmi", display = "cite")`) correlates with similar vegetation characteristics as NDVI, but doesn't saturate at high levels of foliar biomass [@gao1996, @huesca2016]. Normalized burn ratio (NBR; `r eq_nums(name = "eq-nbr", display = "cite")`) and normalized burn ratio version 2 (NBR2; `r eq_nums(name = "eq-nbr2", display = "cite")`) respond strongly to fire effects on vegetation [@garcia1991; @key2006; @usgs2017a; @usgs2017; @hawbaker2017].
 
 (@eq-ndvi) $\label{eq-ndvi}
 ndvi = \mathopen(nir - red\mathclose) / \mathopen(nir + red\mathclose)$
@@ -90,7 +90,7 @@ Where $nir$ is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on 
 eq_nums(name = "eq-dindex")
 ```
 
-We calculated the delta severity indices (dNBR, dNBR2, dNDVI) by subtracting the respective postfire indices from the prefire indices (NBR, NBR2, and NDVI) without multiplying by a rescaling constant (e.g., we did not multiply the result by 1000 as in @Miller2007; `r eq_nums("eq-dindex", display = "cite")`). Following @Reilly2017, we chose not to correct the delta indices using a phenological offset value (typically calculated as the delta index in homogeneous forest patch outside of the fire perimeter), as our approach implicitly accounts for phenology by incorporating multiple cloud-free images across the same time window both before the fire and one year later.
+We calculated the delta severity indices (dNBR, dNBR2, dNDVI) by subtracting the respective postfire indices from the prefire indices (NBR, NBR2, and NDVI) without multiplying by a rescaling constant (e.g., we did not multiply the result by 1000 as in @miller2007; `r eq_nums("eq-dindex", display = "cite")`). Following @reilly2017, we chose not to correct the delta indices using a phenological offset value (typically calculated as the delta index in homogeneous forest patch outside of the fire perimeter), as our approach implicitly accounts for phenology by incorporating multiple cloud-free images across the same time window both before the fire and one year later.
 
 (@eq-dindex) $\label{eq-dindex}
 dI = I_{\text{prefire}} - I_{\text{postfire}}$
@@ -109,7 +109,7 @@ RdI = \frac{dI}{\sqrt{\mathopen|I_{\text{prefire}}\mathclose|}}$
 eq_nums(name = "eq-rbr")
 ```
 
-We calculated the relative burn ratio (RBR) following @Parks2014 using `r eq_nums(name = "eq-rbr", display = "cite")`:
+We calculated the relative burn ratio (RBR) following @parks2014 using `r eq_nums(name = "eq-rbr", display = "cite")`:
 
 (@eq-rbr) $\label{eq-rbr}
 RBR = \frac{dNBR}{NBR_{\text{prefire}} + 1.001}$
@@ -119,7 +119,7 @@ RBR = \frac{dNBR}{NBR_{\text{prefire}} + 1.001}$
 eq_nums(name = "eq-potential-annual-heat-load")
 ```
 
-We used the digital elevation model to calculate the potential annual heat load (`r eq_nums(name = "eq-potential-annual-heat-load", display = "cite")` at each pixel, which is an integrated measure of latitude, slope, and a folding transformation of aspect about the northeast-southwest line, such that northeast becomes 0 radians and southwest becomes $\pi$ radians [@McCune2002; with correction in @McCune2007]:
+We used the digital elevation model to calculate the potential annual heat load (`r eq_nums(name = "eq-potential-annual-heat-load", display = "cite")` at each pixel, which is an integrated measure of latitude, slope, and a folding transformation of aspect about the northeast-southwest line, such that northeast becomes 0 radians and southwest becomes $\pi$ radians [@mccune2002; with correction in @mccune2007]:
 
 (@eq-potential-annual-heat-load) $\begin{aligned}
 \label{eq-potential-annual-heat-load}
@@ -192,7 +192,7 @@ cat('\\pagebreak')
 fig_nums(name = "fig-image-acquisition-algorithm", caption = "Schematic for how Landsat imagery was assembled in order to make comparisons between pre- and post-fire conditions. This schematic depicts a 64-day window of image collation prior to the fire which comprise the pre-fire image collection. A similar, 64-day window collection of imagery is assembled one year after the pre-fire image collection.")
 ```
 
-![`r fig_nums(name = "fig-image-acquisition-algorithm")`](../figures/image-acquisition-algorithm.pdf){ height=3in }
+![`r fig_nums(name = "fig-image-acquisition-algorithm")`](../../figures/image-acquisition-algorithm.pdf){ height=3in }
 
 ```{r, results='asis', eval=(opts_knit$get('rmarkdown.pandoc.to') == 'latex')}
 cat('\\pagebreak')
@@ -202,7 +202,7 @@ cat('\\pagebreak')
 fig_nums(name = "fig-decoupling-ndvi", caption = "Conceptual diagram of 'decoupling' that sometimes occurs between the central pixel NDVI and the neighborhood mean NDVI. In each of these scenarios, our model results suggest that the probability that the central pixel burns at high severity is higher than expected given the additive effect of the covariates. The left panel depicts the \"hole in the forest\" decoupling, which occurs more frequently, and the right panel depicts the \"isolated patch\" decoupling.")
 ```
 
-![`r fig_nums(name = "fig-decoupling-ndvi")`](../figures/decoupling-center-neighborhood-ndvi.png){ height=2in }
+![`r fig_nums(name = "fig-decoupling-ndvi")`](../../figures/decoupling-center-neighborhood-ndvi.png){ height=2in }
 
 
 # References
