@@ -1,5 +1,4 @@
 ---
-output:  pdf_document
 geometry: margin=1in
 
 bibliography: ../docs_carpentry/remote-sensing-resistance.bib
@@ -16,6 +15,8 @@ header-includes:
   - \captionsetup[figure]{labelformat=empty}
   - \captionsetup[table]{labelformat=empty}
   - \usepackage{float}
+
+output:  pdf_document
 ---
 
 ```{r setup, include=FALSE}

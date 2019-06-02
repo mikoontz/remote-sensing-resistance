@@ -23,7 +23,6 @@ params:
   date_generated: !r format(Sys.Date(), "%B %d, %Y")
   
 
-output: pdf_document
 geometry: margin=1in
 header-includes:
   - \usepackage[left]{lineno}
@@ -34,6 +33,7 @@ header-includes:
   - \usepackage{caption}
   - \captionsetup[figure]{labelformat=empty}
   - \captionsetup[table]{labelformat=empty}
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
