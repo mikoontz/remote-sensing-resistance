@@ -3,20 +3,21 @@ bibliography: ../docs_carpentry/remote-sensing-resistance.bib
 csl: ../docs_carpentry/pnas.csl
 
 params:
-  title: Local variability of vegetation structure increases forest resilience to wildfire
+  title: Local variability of vegetation structure increases dry, western US forest resilience to wildfire
   author: |
-    Michael J. Koontz^1,2,\*^,
-    Malcolm P. North^2,3^,
-    Chhaya M. Werner^2,4^,
-    Stephen E. Fick^5,6^,
+    Michael J. Koontz^1,2,3\*^,
+    Malcolm P. North^2,4^,
+    Chhaya M. Werner^2,5^,
+    Stephen E. Fick^6,7^,
     Andrew M. Latimer^2^
   affiliation: |
     ^1^Graduate Group in Ecology, University of California; Davis, CA  
     ^2^Department of Plant Sciences, University of California; Davis, CA  
-    ^3^Pacific Southwest Research Station, U.S.D.A. Forest Service; Davis, CA  
-    ^4^Center for Population Biology, University of California; Davis, CA  
-    ^5^U.S. Geological Survey, Southwest Biological Science Center  
-    ^6^Department of Ecology and Evolutionary Biology, University of Colorado; Boulder, CO  
+    ^3^Earth Lab, University of Colorado-Boulder; Boulder, CO  
+    ^4^Pacific Southwest Research Station, U.S.D.A. Forest Service; Davis, CA  
+    ^5^Center for Population Biology, University of California; Davis, CA  
+    ^6^U.S. Geological Survey, Southwest Biological Science Center  
+    ^7^Department of Ecology and Evolutionary Biology, University of Colorado; Boulder, CO  
   
   correspondence: |
     michael.koontz@colorado.edu
@@ -33,6 +34,7 @@ header-includes:
   - \usepackage{caption}
   - \captionsetup[figure]{labelformat=empty}
   - \captionsetup[table]{labelformat=empty}
+  
 output: pdf_document
 ---
 
