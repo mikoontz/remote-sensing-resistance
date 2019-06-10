@@ -3,20 +3,21 @@ bibliography: ../docs_carpentry/remote-sensing-resistance.bib
 csl: ../docs_carpentry/pnas.csl
 
 params:
-  title: Local variability of vegetation structure increases forest resilience to wildfire
+  title: Local variability of vegetation structure increases dry, western US forest resilience to wildfire
   author: |
-    Michael J. Koontz^1,2,\*^,
-    Malcolm P. North^2,3^,
-    Chhaya M. Werner^2,4^,
-    Stephen E. Fick^5,6^,
+    Michael J. Koontz^1,2,3\*^,
+    Malcolm P. North^2,4^,
+    Chhaya M. Werner^2,5^,
+    Stephen E. Fick^6,7^,
     Andrew M. Latimer^2^
   affiliation: |
     ^1^Graduate Group in Ecology, University of California; Davis, CA  
     ^2^Department of Plant Sciences, University of California; Davis, CA  
-    ^3^Pacific Southwest Research Station, U.S.D.A. Forest Service; Davis, CA  
-    ^4^Center for Population Biology, University of California; Davis, CA  
-    ^5^U.S. Geological Survey, Southwest Biological Science Center  
-    ^6^Department of Ecology and Evolutionary Biology, University of Colorado; Boulder, CO  
+    ^3^Earth Lab, University of Colorado-Boulder; Boulder, CO  
+    ^4^Pacific Southwest Research Station, U.S.D.A. Forest Service; Davis, CA  
+    ^5^Center for Population Biology, University of California; Davis, CA  
+    ^6^U.S. Geological Survey, Southwest Biological Science Center  
+    ^7^Department of Ecology and Evolutionary Biology, University of Colorado; Boulder, CO  
   
   correspondence: |
     michael.koontz@colorado.edu
@@ -33,6 +34,7 @@ header-includes:
   - \usepackage{caption}
   - \captionsetup[figure]{labelformat=empty}
   - \captionsetup[table]{labelformat=empty}
+  
 output: pdf_document
 ---
 
@@ -101,6 +103,18 @@ The long-term persistence of forest ecosystems hinges on their resilience to ong
 A "resilient" forest endures disturbance and is likely to persist. Resilience to wildfire may derive from variability in vegetation structure, which interrupts fuel continuity and prevents fire from killing overstory trees. Testing the generality and scale of this phenomenon is challenging because forests are vast, long-lived ecosystems. We develop a novel cloud computing approach to consistently quantify forest structural variability and fire severity across >30 years and nearly 1,000 wildfires in California's Sierra Nevada. We find that greater small-scale structural variability increases resilience by reducing rates of fire-induced tree mortality. Resilience of these forests is likely compromised by structural homogenization from a century of fire suppression, but may be restored with management that increases structural variability of vegetation.
 
 # Introduction
+
+Papers to include: 
+@randerson2012 (importance of small fires)
+@keeley2009 (definition of fire severity/behavior)
+@graham2019 (brining local-scale environmental heterogeneity to broad-scale analyses)
+
+Resilience deeper dive
+@peters2004 (cross-scale interactions and feedbacks influencing probability of catastrophe)
+@schoennagel2017 (fires as social-ecological systems; explicit resilience framework)
+@seidl2016b (search for resilience; changing disturbance regimes)
+
+
 
 Biological systems comprising heterogeneous elements can retain their fundamental properties in the face of regular disturbance. This ability of a heterogeneous system to absorb disturbances, reorganize, and to persist within a domain of stability with respect to its identity, structure, function, and feedbacks is termed resilience [@holling1973; @walker2004]. Resilience has been demonstrated in complex biological systems characterized by a variety of different types of “heterogeneity” including genetic diversity [@reusch2005; @baskett2009; @agashe2009], species diversity [@tilman1994; @chesson2000; @cadotte2013], functional diversity [@gazol2016], topoclimatic complexity [@ackerly2010; @lenoir2013], and temporal environmental variation [@questad2008]. An emerging paradigm in forest ecology is that resilience to disturbances such as wildfire and insect outbreaks may arise from spatial variability in the structure of vegetation [@stephens2008; @north2009a; @virah-sawmy2009]. 
 
