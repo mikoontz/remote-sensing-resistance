@@ -16,7 +16,6 @@ data/ee_fire-images/american-fire_2013_visualize.tif
 data/ee_fire-images/hamm-fire_1987_visualize.tif
 data/ee_fire-images/*
 data/ee_fire-samples/*
-docs/manuscript/feedback
 *.rds
 data/data_carpentry/.ipynb_checkpoints/*
 data/data_carpentry/ee-error-log.txt
@@ -27,3 +26,6 @@ data/data_output/wildfire-severity_sierra-nevada-ca-usa_ypmc_1984-2017_rasters.z
 docs/manuscript/*.docx
 docs/manuscript/cover-letter/*
 docs/manuscript/submissions/*
+docs/manuscript/drafts/*
+docs/manuscript/feedback/*
+
