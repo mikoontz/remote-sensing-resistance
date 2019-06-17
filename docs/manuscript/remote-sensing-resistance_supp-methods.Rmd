@@ -16,7 +16,7 @@ header-includes:
   - \captionsetup[table]{labelformat=empty}
   - \usepackage{float}
 
-output:  pdf_document
+output:  word_document
 ---
 
 ```{r setup, include=FALSE}
@@ -69,6 +69,12 @@ eq_nums(name = "eq-nbr2")
 # Supplemental Information
 
 ## Supplemental methods
+
+Wildfire severity typically describes the proportion of vegetation mortality resulting from fire [@keeley2009], and can be measured by comparing pre- and postfire satellite imagery for a specific area [@key2006]. This usually requires considerable manual effort for image collation and processing, followed by calibration with field data [@miller2007; @miller2009a; @desantis2010; @cansler2012; @veraverbeke2013; @parks2014a; @prichard2014; @edwards2018; @fernandez-garcia2018]. Hurculean efforts to measure severity across broad spatial extents, such as the Monitoring Trends in Burn Severity project [@eidenshink2007], exist but often must sacrifice coverage of smaller fires which are far more common [@calkin2005], may have different severity expectations compared to larger fires [@cansler2014; @harvey2016b], and are generally important contributors to global fire effects [@randerson2012]. Automated efforts to remotely assess wildfire have arisen, but they tend to focus on more aggregate measures of wildfire such as whether an area burned or the probability that it burned rather than the severity of the burn [@bastarrika2011; @goodwin2014; @boschetti2015; @hawbaker2017], but see [@reilly2017; @parks2018]. Here, we present a method to automate the measurement of wildfire severity using minimal user inputs: a geometry of interest (a wildfire perimeter or a field plot location) and an alarm date (the date the fire was discovered). This information is readily available in many fire-prone areas (such as California, via the Fire and Resource Assessment Program; http://frap.fire.ca.gov/projects/fire_data/fire_perimeters_index) or could be derived using existing products (such as the Landsat Burned Area Essential Climate Variable product described in @hawbaker2017). 
+
+Vegetation characteristics can be measured using remotely-sensed imagery [@rouse1973; @asner2016; @young2017] and texture analysis of this imagery can quantify ecologically relevant local environmental heterogeneity across broad spatial extents [@wood2012; @huang2014; @stein2014; @tuanmu2015; @graham2019], which may be used as a direct measure of ecosystem resilience [@kefi2014]. Developed for image classification and computer vision, texture analysis characterizes each pixel in an image by a summary statistic of its neighboring pixels, and represents a measure of local heterogeneity which itself varies across the landscape [@haralick1973]. Texture analysis of forested areas detects heterogeneity of overstory vegetation, which corresponds to fuel loading and continuity, capturing the primary influence of vegetation structure on fire behavior.
+
+We calibrate 56 configurations of our algorithmic approach to ground-based wildfire severity measurements, and select the best performing severity metric to generate a comprehensive, system-wide severity dataset. 
 
 Normalized difference vegetation index (NDVI; `r eq_nums(name = "eq-ndvi", display = "cite")`) correlates with vegetation density, canopy cover, and leaf area index [@rouse1973]. Normalized difference moisture index (NDMI; `r eq_nums(name = "eq-ndmi", display = "cite")`) correlates with similar vegetation characteristics as NDVI, but doesn't saturate at high levels of foliar biomass [@gao1996, @huesca2016]. Normalized burn ratio (NBR; `r eq_nums(name = "eq-nbr", display = "cite")`) and normalized burn ratio version 2 (NBR2; `r eq_nums(name = "eq-nbr2", display = "cite")`) respond strongly to fire effects on vegetation [@garcia1991; @key2006; @usgs2017a; @usgs2017; @hawbaker2017].
 
