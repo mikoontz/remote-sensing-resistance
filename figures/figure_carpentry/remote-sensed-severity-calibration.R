@@ -77,6 +77,7 @@ par(mfrow = c(1, 3), oma = c(2, 2, 0, 0.5), mar = c(3, 3, 2, 0.25))
 plot(x = cbi_mask_conifer(cbi_48_bicubic)$cbi_over, y = cbi_mask_conifer(cbi_48_bicubic)$RBR, 
      pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RBR (48-day window)")
 lines(cbi_over, yhat_rbr)
+# segments(x0 = 0, x1 = 3, y0 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][1, "hi_sev"]), y1 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][1, "hi_sev"]))
 
 rbr_labs <-
   c(bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rbr$r2_kfold, 5))),
@@ -101,6 +102,7 @@ lapply(seq_along(rbr_labs),
 plot(x = cbi_mask_conifer(cbi_32_bilinear)$cbi_over, y = cbi_mask_conifer(cbi_32_bilinear)$RdNBR, 
      pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RdNBR (32-day window)")
 lines(cbi_over, yhat_rdnbr)
+# segments(x0 = 0, x1 = 3, y0 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][2, "hi_sev"]), y1 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][2, "hi_sev"]))
 
 rdnbr_labs <- c(bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rdnbr$r2_kfold, 5))),
                 bquote("RdNBR = " ~ beta[0] ~ "+" ~ beta[1] ~ "*" ~ e^beta[2] ~ "*cbi"),
@@ -125,6 +127,7 @@ lapply(seq_along(rdnbr_labs),
 plot(x = cbi_mask_conifer(cbi_48_bilinear)$cbi_over, y = cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, 
      pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RdNDVI (48-day window)")
 lines(cbi_over, yhat_rdndvi)
+# segments(x0 = 0, x1 = 3, y0 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][3, "hi_sev"]), y1 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][3, "hi_sev"]))
 
 rdndvi_labs <- list(bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rdndvi$r2_kfold, 5))),
           bquote("RdNDVI = " ~ beta[0] ~ "+" ~ beta[1] ~ "*" ~ e^beta[2] ~ "*cbi"),
@@ -138,7 +141,7 @@ lapply(seq_along(rdndvi_labs),
          min_val <- min(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE)
          
          text(x = 0, y = max_val - (max_val - min_val) * pos_in_panel_text[i], 
-              labels = labs[[i]],
+              labels = rdndvi_labs[[i]],
               pos = 4, 
               cex = cex_in_panel_text)
        invisible()})
