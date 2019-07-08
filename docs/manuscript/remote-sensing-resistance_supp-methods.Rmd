@@ -116,7 +116,7 @@ RdI = \frac{dI}{\sqrt{\mathopen|I_{\text{prefire}}\mathclose|}}$
 eq_nums(name = "eq-rbr")
 ```
 
-We calculated the relative burn ratio (RBR) following @parks2014 using `r eq_nums(name = "eq-rbr", display = "cite")`:
+We calculated the relative burn ratio (RBR) following @parks2014a using `r eq_nums(name = "eq-rbr", display = "cite")`:
 
 (@eq-rbr) $\label{eq-rbr}
 RBR = \frac{dNBR}{NBR_{\text{prefire}} + 1.001}$
