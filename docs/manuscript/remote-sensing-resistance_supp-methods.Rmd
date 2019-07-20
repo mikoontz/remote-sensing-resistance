@@ -38,6 +38,16 @@ table_nums <- captioner(prefix = "Supplemental Table")
 ci_betas_print_table <- read_csv(here::here("analyses/analyses_output/ci_betas_print_table.csv"))
 ci_betas_print_table_simple <- read_csv(here::here("analyses/analyses_output/ci_betas_print_table_simple.csv"))
 
+cbi_summary_stats_list <- read_rds(here::here("analyses/analyses_output/cbi_summary_stats_list.rds"))
+total_conifer_cbi_plots <- cbi_summary_stats_list$total_conifer_cbi_plots
+
+fire_perims_summary_stats_list <- read_rds(here::here("analyses/analyses_output/fire_perims_summary_stats_list.rds"))
+frap_area_ypmc_burned <- fire_perims_summary_stats_list$frap_area_ypmc_burned
+frap_fire_count_ypmc <- fire_perims_summary_stats_list$frap_fire_count_ypmc
+r5_area_ypmc_burned <- fire_perims_summary_stats_list$r5_area_ypmc_burned
+r5_fire_count_ypmc <- fire_perims_summary_stats_list$r5_fire_count_ypmc
+total_conifer_samps <- fire_perims_summary_stats_list$total_conifer_samps
+
 cbi_models <- read_csv(here::here("data/data_output/cbi_calibration_model_comparison.csv"))
 
 print_cbi_models <- cbi_models
@@ -70,11 +80,45 @@ eq_nums(name = "eq-nbr2")
 
 ## Supplemental methods
 
-Wildfire severity typically describes the proportion of vegetation mortality resulting from fire [@keeley2009], and can be measured by comparing pre- and postfire satellite imagery for a specific area [@key2006]. This usually requires considerable manual effort for image collation and processing, followed by calibration with field data [@miller2007; @miller2009a; @desantis2010; @cansler2012; @veraverbeke2013; @parks2014a; @prichard2014; @edwards2018; @fernandez-garcia2018]. Hurculean efforts to measure severity across broad spatial extents, such as the Monitoring Trends in Burn Severity project [@eidenshink2007], exist but often must sacrifice coverage of smaller fires which are far more common [@calkin2005], may have different severity expectations compared to larger fires [@cansler2014; @harvey2016b], and are generally important contributors to global fire effects [@randerson2012]. Automated efforts to remotely assess wildfire have arisen, but they tend to focus on more aggregate measures of wildfire such as whether an area burned or the probability that it burned rather than the severity of the burn [@bastarrika2011; @goodwin2014; @boschetti2015; @hawbaker2017], but see [@reilly2017; @parks2018]. Here, we present a method to automate the measurement of wildfire severity using minimal user inputs: a geometry of interest (a wildfire perimeter or a field plot location) and an alarm date (the date the fire was discovered). This information is readily available in many fire-prone areas (such as California, via the Fire and Resource Assessment Program; http://frap.fire.ca.gov/projects/fire_data/fire_perimeters_index) or could be derived using existing products (such as the Landsat Burned Area Essential Climate Variable product described in @hawbaker2017). 
+### Remote sensing vegetation characteristics, including forest structural variability
 
 Vegetation characteristics can be measured using remotely-sensed imagery [@rouse1973; @asner2016; @young2017] and texture analysis of this imagery can quantify ecologically relevant local environmental heterogeneity across broad spatial extents [@wood2012; @huang2014; @stein2014; @tuanmu2015; @graham2019], which may be used as a direct measure of ecosystem resilience [@kefi2014]. Developed for image classification and computer vision, texture analysis characterizes each pixel in an image by a summary statistic of its neighboring pixels, and represents a measure of local heterogeneity which itself varies across the landscape [@haralick1973]. Texture analysis of forested areas detects heterogeneity of overstory vegetation, which corresponds to fuel loading and continuity, capturing the primary influence of vegetation structure on fire behavior.
 
-We calibrate 56 configurations of our algorithmic approach to ground-based wildfire severity measurements, and select the best performing severity metric to generate a comprehensive, system-wide severity dataset. 
+### Remote sensing potential annual heat load
+
+We used the digital elevation model to calculate the potential annual heat load (`r eq_nums(name = "eq-potential-annual-heat-load", display = "cite")` at each pixel, which is an integrated measure of latitude, slope, and a folding transformation of aspect about the northeast-southwest line, such that northeast becomes 0 radians and southwest becomes $\pi$ radians [@mccune2002; with correction in @mccune2007]:
+
+(@eq-potential-annual-heat-load) $\begin{aligned}
+\label{eq-potential-annual-heat-load}
+aspect_{folded} &= \mathopen| \pi - \mathopen| aspect - \frac{5\pi}{4}\mathclose| \mathclose| \\
+log(pahl) &= \begin{aligned}
+&-1.467 + \\
+&1.582 * cos(latitude) cos(slope) - \\
+&1.5 * cos(aspect_{folded}) sin(slope) sin(latitude) - \\
+&0.262 * sin(lat) sin(slope) + \\
+&0.607 * sin(aspect_{folded}) sin(slope) \\
+\end{aligned}
+\end{aligned}$
+
+Where $pahl$ is the potential annual heat load, $aspect_{folded}$ is a transformation of aspect in radians, and both $latitude$ and $slope$ are extracted from a digital elevation model with units of radians.
+
+### Remote sensing wildfire severity
+
+Wildfire severity typically describes the proportion of vegetation mortality resulting from fire [@keeley2009], and can be measured by comparing pre- and postfire satellite imagery for a specific area [@key2006]. This usually requires considerable manual effort for image collation and processing, followed by calibration with field data [@miller2007; @miller2009a; @desantis2010; @cansler2012; @veraverbeke2013; @parks2014a; @prichard2014; @edwards2018; @fernandez-garcia2018]. Herculean efforts to measure severity across broad spatial extents, such as the Monitoring Trends in Burn Severity project [@eidenshink2007], exist but often must sacrifice coverage of smaller fires which are far more common [@calkin2005], may have different severity expectations compared to larger fires [@cansler2014; @harvey2016b], and are generally important contributors to global fire effects [@randerson2012]. Automated efforts to remotely assess wildfire have arisen, but they tend to focus on more aggregate measures of wildfire such as whether an area burned or the probability that it burned rather than the severity of the burn [@bastarrika2011; @goodwin2014; @boschetti2015; @hawbaker2017], but see [@reilly2017; @parks2018]. Here, we present a method to automate the measurement of wildfire severity using minimal user inputs: a geometry of interest (a wildfire perimeter or a field plot location) and an alarm date (the date the fire was discovered). This information is readily available in many fire-prone areas (such as California, via the Fire and Resource Assessment Program; http://frap.fire.ca.gov/projects/fire_data/fire_perimeters_index) or could be derived using existing products (such as the Landsat Burned Area Essential Climate Variable product described in @hawbaker2017). 
+
+We calibrate 28 configurations of our algorithmic approach to ground-based wildfire severity measurements, and select the best performing severity metric to generate a comprehensive, system-wide severity dataset. Our approach more than doubles the number of fire events represented from `r r5_fire_count_ypmc` to `r frap_fire_count_ypmc`, though only increases the total burned area represented from `r formatC(r5_area_ypmc_burned, format = "e", digits = 2)` to `r formatC(frap_area_ypmc_burned, format = "e", digits = 2)` hectares because most of the additional fires are small.
+
+#### Fetching and processing pre- and postfire imagery
+
+For each fire perimeter, we fetched a time series of prefire Landsat images starting the day before the fire alarm date and extending backward in time by a pre-deined time window. An analogous postfire time series of Landsat imagery was fetched exactly one year after the date range used to filter the prefire collection. We tested 4 time windows, 16, 32, 48, or 64 days, which were chosen to ensure that at least 1, 2, 3, or 4 Landsat images were captured by the date range (Supplemental Fig. 1). The Landsat archive we filtered included imagery from Landsat 4, 5, 7, and 8, so each pre- and postfire image collection may contain a mix of scenes from different satellite sources to enhance coverage. For each image in the pre- and postfire image collections, we masked pixels that were not clear (i.e., clouds, cloud shadows, snow, and water) using the CFMask algorithm [@foga2017].
+
+For each Landsat image in the prefire and postfire collections, we calculated standard indices that capture vegetation cover and fire effects such as charring. Normalized difference vegetation index (NDVI) correlates with vegetation density, canopy cover, and leaf area index [@rouse1973]. Normalized burn ratio (NBR) and normalized burn ratio version 2 (NBR2) respond strongly to fire effects on vegetation [@garcia1991; @key2006; @usgs2017; @usgs2017a; @hawbaker2017] (Equations in Supplemental Methods).
+
+We composited each pre- and postfire image collection (including the pixel values representing NDVI, NBR, and NBR2) into a single pre- and postfire image using a median reducer, which calculated the median of the unmasked values on a per-pixel basis across the stack of images in each collection. Composite pre- and postfire images can be successfully used to measure wildfire severity instead of using raw, individual images [@parks2018].
+
+#### Spectral indices of wildfire severity
+
+Using the composited images, we calculated commonly used metrics of remotely-sensed wildfire severity to validate against ground-based data: the relative burn ratio (RBR) [@parks2014a], the delta normalized burn ratio (dNBR) [@eidenshink2007; @miller2007], the relative delta normalized burn ratio (RdNBR) [@miller2007; @miller2012a], the delta normalized burn ratio 2 (dNBR2) [@hawbaker2017], the relative delta normalized burn ratio 2 (RdNBR2), and the delta normalized difference vegetation index (dNDVI) [@eidenshink2007]. We also calculated an analogous metric to RdNBR using NDVI: the relative delta normalized difference vegetation index (RdNDVI). We calculated the delta severity indices (dNBR, dNBR2, dNDVI) without multiplying by a rescaling constant (e.g., we did not multiply the result by 1000 as in @miller2007). Following @reilly2017, we did not correct the delta indices using a phenological offset value, as our approach implicitly accounts for phenology by incorporating multiple cloud-free images across the same time window both before the fire and one year later.
 
 Normalized difference vegetation index (NDVI; `r eq_nums(name = "eq-ndvi", display = "cite")`) correlates with vegetation density, canopy cover, and leaf area index [@rouse1973]. Normalized difference moisture index (NDMI; `r eq_nums(name = "eq-ndmi", display = "cite")`) correlates with similar vegetation characteristics as NDVI, but doesn't saturate at high levels of foliar biomass [@gao1996, @huesca2016]. Normalized burn ratio (NBR; `r eq_nums(name = "eq-nbr", display = "cite")`) and normalized burn ratio version 2 (NBR2; `r eq_nums(name = "eq-nbr2", display = "cite")`) respond strongly to fire effects on vegetation [@garcia1991; @key2006; @usgs2017a; @usgs2017; @hawbaker2017].
 
@@ -89,7 +133,6 @@ nbr = \mathopen(nir - swir2\mathclose) / \mathopen(nir + swir2\mathclose)$
 
 (@eq-nbr2) $\label{eq-nbr2}
 nbr2 = \mathopen(swir1 - swir2\mathclose) / \mathopen(swir1 + swir2\mathclose)$
-
 
 Where $nir$ is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on Landsat 8) and $red$ is the red band (band 3 on Landsat 4, 5, and 7; band 4 on Landsat 8), $swir1$ is the first short wave infrared band (band 5 on Landsat 4, 5, and 7; band 4 on Landsat 8), $swir2$ is the second short wave infrared band (band 7 on Landsat 4, 5, 7, and 8)
 
@@ -126,21 +169,20 @@ RBR = \frac{dNBR}{NBR_{\text{prefire}} + 1.001}$
 eq_nums(name = "eq-potential-annual-heat-load")
 ```
 
-We used the digital elevation model to calculate the potential annual heat load (`r eq_nums(name = "eq-potential-annual-heat-load", display = "cite")` at each pixel, which is an integrated measure of latitude, slope, and a folding transformation of aspect about the northeast-southwest line, such that northeast becomes 0 radians and southwest becomes $\pi$ radians [@mccune2002; with correction in @mccune2007]:
+#### Calibrating remotely-sensed wildfire severity with field-measured wildfire severity
 
-(@eq-potential-annual-heat-load) $\begin{aligned}
-\label{eq-potential-annual-heat-load}
-aspect_{folded} &= \mathopen| \pi - \mathopen| aspect - \frac{5\pi}{4}\mathclose| \mathclose| \\
-log(pahl) &= \begin{aligned}
-&-1.467 + \\
-&1.582 * cos(latitude) cos(slope) - \\
-&1.5 * cos(aspect_{folded}) sin(slope) sin(latitude) - \\
-&0.262 * sin(lat) sin(slope) + \\
-&0.607 * sin(aspect_{folded}) sin(slope) \\
-\end{aligned}
-\end{aligned}$
+We calibrated these 28 severity metrics with `r total_conifer_cbi_plots` field measures of fire effects to overstory vegetation--- the overstory component of the Composite Burn Index (CBI)--- from two previously published studies [@zhu2006; @sikkink2013]. CBI is a metric of vegetation mortality across several vertical vegetation strata within a 30m diameter field plot, and the overstory component characterizes fire effects to the overstory vegetation specifically [@key2006]. CBI ranges from 0 (no fire impacts) to 3 (very high fire impacts), and has a long and successful history of use as a standard for calibrating remotely-sensed severity data in western U.S. dry forests [@key2006; @miller2007; @miller2009a; @cansler2012; @parks2014a; @prichard2014; @parks2018].
 
-Where $pahl$ is the potential annual heat load, $aspect_{folded}$ is a transformation of aspect in radians, and both $latitude$ and $slope$ are extracted from a digital elevation model with units of radians.
+Following @miller2007, @miller2009a, @parks2014a, and @parks2018, we fit a non-linear model to each remotely-sensed severity metric of the following form:
+
+```{r eq-cbi-calibration, results = "hide"}
+eq_nums(name = "eq-cbi-calibration")
+```
+
+(@eq-cbi-calibration) $\label{eq-cbi-calibration}
+\text{remote\_severity} = \beta_0 + \beta_1 e^{\beta_2 \text{cbi\_overstory}}$
+
+We fit the model in `r eq_nums(name = "eq-cbi-calibration", display = "cite")` for all 7 of our remotely-sensed severity metrics (RBR, dNBR, RdNBR, dNBR2, RdNBR2, dNDVI, RdNDVI) using 4 different time windows from which to collate satellite imagery (16, 32, 48, and 64 days). Following @cansler2012, @parks2014a, and @parks2018, we used bilinear interpolation to extract remotely-sensed severity at the locations of the CBI field plots to better align remote and field measurements. We also extracted remotely-sensed severity values using bicubic interpolation, which produces smoother imagery but is more computationally demanding. In total, we fit 56 models (7 severity measures, 4 time windows, 2 interpolation methods) and performed five-fold cross validation using the `modelr` and `purrr` packages in R [@wickham2019; @henry2019; @rcoreteam2018]. To compare goodness of model fits with @miller2007, @miller2009a, and @parks2014a, we report the average R^2^ value from the cross validation for each of the 56 models. 
 
 ## Supplemental figures and tables
 
