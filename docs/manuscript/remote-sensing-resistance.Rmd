@@ -113,7 +113,7 @@ print_cbi_models <-
 
 *Statement of authorship:* MJK, CMW, SEF, MPN, and AML conceived the study. MJK, SEF, and CMW wrote the Earth Engine code. MJK performed the analysis, with input from all authors. MJK wrote the first draft of the manuscript. All authors contributed substantially to editing and revisions.
 
-*Data accessibility statement:* Data and analysis code are available on the Open Science Framework at https://osf.io/27nsr/.
+*Data accessibility statement:* The data and analysis code supporting the results are archived on the Open Science Framework at www.doi.org/10.17605/OSF.IO/27NSR.
 
 *Date report generated:* `r params$date_generated`
 
