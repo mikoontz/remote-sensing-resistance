@@ -23,7 +23,7 @@ params:
     Remote sensing resilience
   keywords: |
     resilience, wildfire, severity, texture analysis, forest structure, Sierra Nevada, forest, disturbance
-  correspondence: 4001 Discovery Drive; Boulder, CO 80303; michael.koontz@colorado.edu
+  correspondence: 4001 Discovery Drive; Boulder, CO 80303; michael.koontz@colorado.edu; (970) 682-4727
     
   date_generated: !r format(Sys.Date(), "%B %d, %Y")
   

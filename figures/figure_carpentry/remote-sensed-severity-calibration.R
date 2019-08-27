@@ -53,7 +53,7 @@ cbi_rbr <- cbi_calibration_stats(cbi_table = cbi_table,
 fm_rdnbr <- cbi_fit(data = cbi_mask_conifer(cbi_32_bilinear), response = "RdNBR")
 yhat_rdnbr <- predict(object = fm_rdnbr, newdata = data.frame(cbi_over))
 cbi_rdnbr <- cbi_calibration_stats(cbi_table = cbi_table, 
-                                   response = "RBR", 
+                                   response = "RdNBR", 
                                    time_window = 32, 
                                    interpolation = "bilinear")
 
