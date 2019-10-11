@@ -7,33 +7,35 @@ We rely on Google Earth Engine and R as our GIS. All Earth Engine code is in the
 
 The written manuscript is in the ms folder. The primary document is a .Rmd file, which is rendered as a .docx and as a .pdf. The .pdf is viewable on GitHub. I'm hoping this setup will allow programming-savy co-authors to interact with the code and the writing through the same version control framework, but also allow some flexibility for a more-typical "track changes on a Microsoft Word document" sort of relationship with the work.
 
-*Original source of Jepson Ecoregion data:*
+## Data sources
+
+### Jepson Ecoregion data for delineating "Sierra Nevada"
 
 "Jepson Flora Project (eds.) 2016. Jepson eFlora, http://ucjeps.berkeley.edu/eflora/ [accessed on Mar 07, 2016]"
 
 Contact Dr. David Baxter for a GIS layer.
 
-*Fire Return Interval Departure data source (for designating yellow pine/mixed-conifer):*
+### Fire Return Interval Departure data source for designating "yellow pine/mixed-conifer" (ypmc)
 
 https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327836
 
-*Composite Burn Index (CBI) data sources:*
+### Composite Burn Index (CBI) data sources
 
 Zhu, Z.; C. Key; D. Ohlen; N. Benson. 2006. Evaluate Sensitivities of Burn-Severity Mapping Algorithms for Different Ecosystems and Fire Histories in the United States. Final Report to the Joint Fire Science Program, Project JFSP 01-1-4-12, October 12, 2006. 35pp. [link](https://archive.usgs.gov/archive/sites/www.nrmsc.usgs.gov/science/fire/cbi/plotdata.html)
 
 Sikkink, Pamela G.; Dillon, Gregory K.; Keane,Robert E.; Morgan, Penelope; Karau, Eva C.; Holden, Zachary A.; Silverstein, Robin P. 2013. Composite Burn Index (CBI) data and field photos collected for the FIRESEV project, western United States. Fort Collins, CO: Forest Service Research Data Archive. [link](https://doi.org/10.2737/RDS-2013-0017)
 
-*Reproducing the analysis:*
+## Reproducing the analysis
 
 Data carpentry steps can be found in data/data_carpentry and the scripts are
 numbered in the order they should be executed in.
 
-01_convert-jepson-ecoregions.R
-02_create-ypmc-mask.R
-03_subset-frap-perimeter-database.R
-04_clean-cbi-data.R
+- 01_convert-jepson-ecoregions.R
+- 02_create-ypmc-mask.R
+- 03_subset-frap-perimeter-database.R
+- 04_clean-cbi-data.R
 
-Upload the CBI data output from 04_clean-cbi-data.R to Earth Engine. 
+Next, upload the CBI data output from 04_clean-cbi-data.R to Earth Engine. 
 The Earth Engine asset is publicly available at: 
 ee.FeatureCollection("users/mkoontz/cbi_sn")
 
