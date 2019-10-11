@@ -10,7 +10,7 @@ library(tidyverse)
 library(raster)
 library(here)
 
-mixed_con <- raster::raster(here::here("data/data_output/landcover_PFR/mixed_conifer.tif"))
+mixed_con <- raster::raster(here::here("data/data_output/landcover_PFR/ypmc-mask.tif"))
 sn <- sf::st_read(here::here("data/data_output/SierraEcoregion_Jepson/SierraEcoregion_Jepson.shp"))
 r5 <- sf::st_read("data/features/fire_perim/veg_severity_perimeters18_1.gdb/") %>% st_transform(4326)
 
@@ -36,17 +36,3 @@ if (!file.exists(here::here("data/data_output/region-5-geospatial-fires_sn_mixed
   
 } else {
   r5_sn <- st_read(here::here("data/data_output/region-5-geospatial-fires_sn_mixed-conifer/region-5-geospatial-fires_sn_mixed-conifer.shp"))}
-
-# The FRAP fire perimeters in mixed-con -----------------------------------
-
-# Should already be intersected with the Sierra Nevada outline
-
-if (!file.exists("data/data_output/fire_perim/fire17_1_sn_ypmc/fire17_1_sn_ypmc.shp")) {
-  frap_sn <- sf::st_read("data/data_output/fire_perim/fire17_1_sn")
-  frap_sn_ypmc <- 
-    frap_sn %>% 
-    mutate(mixed_con_pixels = as.vector(raster::extract(x = mixed_con, y = ., fun = function(x, ...) length(which(x == 1))))) %>% 
-    filter(mixed_con_pixels > 0)
-
-  st_write(frap_sn_ypmc, "data/data_output/fire_perim/fire17_1_sn_ypmc/fire17_1_sn_ypmc.shp")  
-}
