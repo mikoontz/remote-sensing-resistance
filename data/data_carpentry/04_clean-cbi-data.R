@@ -6,16 +6,14 @@ library(ggmap)
 library(rgdal)
 library(sf)
 
-sn <- 
-  st_read("data/data_output/SierraEcoregion_Jepson/") %>%
-  st_transform(crs = "+init=epsg:4326")
+sn <- st_read("data/data_output/SierraEcoregion_Jepson/")
 
 #### First read the USGS data ####
 
 # USGS Data from Zhu et al. 2006 (https://www.firescience.gov/projects/01-1-4-12/project/01-1-4-12_final_report.pdf)
 # Spatial data from https://archive.usgs.gov/archive/sites/www.nrmsc.usgs.gov/science/fire/cbi/plotdata.html
 #### Read files ####
-filepaths <- list.files(path = "data/features/cbi_data/usgs", full.names = TRUE, pattern = ".csv")
+filepaths <- list.files(path = "data/data_raw/cbi_data/usgs", full.names = TRUE, pattern = ".csv")
 usgs_list <- lapply(filepaths, FUN = function(file) read.csv(file, stringsAsFactors = FALSE))
 usgs_list <- lapply(usgs_list, function(x) subset(x[which(x$qual_ea == 1), ]))
 usgs_cbi <- do.call(rbind, usgs_list)
@@ -300,7 +298,7 @@ plot(sn, add = TRUE)
 # All data available from: https://www.fs.usda.gov/rds/archive/Product/RDS-2013-0017/
 # Sikkink, Pamela G.; Dillon, Gregory K.; Keane,Robert E.; Morgan, Penelope; Karau, Eva C.; Holden, Zachary A.; Silverstein, Robin P. 2013. Composite Burn Index (CBI) data and field photos collected for the FIRESEV project, western United States. Fort Collins, CO: Forest Service Research Data Archive. https://doi.org/10.2737/RDS-2013-0017
 
-fd <- read.csv("data/features/cbi_data/firesev_landfire/FIRESEV_Dataset_All_variables.csv", skip = 1)
+fd <- read.csv("data/data_raw/cbi_data/firesev_landfire/FIRESEV_Dataset_All_variables.csv", skip = 1)
 
 # Look just at the overstory columns (i.e. not the substrate (A) or small tree strata (B))
 # CBI measurements with a _t suffix have a "smallest twig" component included
@@ -365,5 +363,5 @@ plot(st_geometry(sn_cbi))
 plot(st_geometry(sn), add = TRUE)  
 
 # Write the objects as both a kml and a shapefile
-st_write(obj = sn_cbi, dsn = "data/features/cbi_data/cbi_sn/cbi_sn.shp")
-st_write(obj = sn_cbi, dsn = "data/features/cbi_data/cbi_sn/cbi_sn.kml")
+dir.create("data/data_output/cbi_sn", recursive = TRUE)
+st_write(obj = sn_cbi, dsn = "data/data_output/cbi_sn/cbi_sn.shp")

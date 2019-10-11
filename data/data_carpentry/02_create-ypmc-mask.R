@@ -32,8 +32,10 @@ writeRaster(x = sn_r, filename = "data/data_output/landcover_PFR/ypmc-mask.tif",
 
 # Create a low-res version of the ypmc-mask (clipped to the Sierra Nevada geometry)
 # Good for visualization only, as it isn't the same resolution of the Landsat data
-r_masked <- raster(sn, resolution = res(r) * 10)
-sn_r_masked <- fasterize(sf = sn_v, raster = r_masked)
+r_lowres <- raster(sn, resolution = res(r) * 10)
+sn_r_masked <- fasterize(sf = sn_v, raster = r_lowres) %>% mask(mask = sn)
+
 plot(sn_r_masked)
+plot(sn$geometry, add = TRUE)
 
 writeRaster(x = sn_r_masked, filename = "data/data_output/landcover_PFR/ypmc-mask_10-fold-res.tif", overwrite = TRUE)
