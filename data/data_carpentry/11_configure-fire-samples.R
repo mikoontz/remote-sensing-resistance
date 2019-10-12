@@ -4,21 +4,21 @@
 
 library(lubridate)
 library(sf)
-library(dplyr)
-library(ggplot2)
+library(tidyverse)
 library(here)
 library(lubridate)
 library(brms)
 library(purrr)
 
-if (!file.exists(here::here("/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L4578_none-interp.geojson"))) {
-  if (!file.exists(here::here("data/data_output/all-fire-samples.rds"))) {
-    source(here::here("data/data_carpentry/merge_fire-samples.R"))
-  }
-  
-  samps <- readRDS(here::here("data/data_output/all-fire-samples.rds"))
-} else {
-  samps <- st_read("/Users/mikoontz/dev/manuscripts/remote-sensing-resistance/data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L4578_none-interp.geojson") }
+# if (!file.exists(here::here("data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L4578_none-interp.geojson"))) {
+#   if (!file.exists(here::here("data/data_output/all-fire-samples.rds"))) {
+#     source(here::here("data/data_carpentry/merge_fire-samples.R"))
+#   }
+#   
+#   samps <- readRDS(here::here("data/data_output/all-fire-samples.rds"))
+# } else {
+  samps <- st_read("data/data_output/ee_fire-samples/fires-strat-samples_2018_48-day-window_L4578_none-interp.geojson") 
+  # }
 
 # Extract unique Fire ID from the sample point IDs
 samps$fire_id <- substr(as.character(samps$id), start = 1, stop = 20)
@@ -49,7 +49,7 @@ samps$folded_aspect <- fold_aspect(samps$aspect)
 # H column: slope
 # I column: folded aspect
 
-# Potential 
+# Potential annual heat load
 pahl <- function(lat, slope, folded_asp) {
   lat <- lat * pi / 180
   slope <- slope * pi / 180
@@ -78,48 +78,14 @@ veg_vars <-
          FUN = function(i) paste(
            c(
              "focal_mean_ndvi",
-             "focal_mean_ndwi",
-             "het_ndvi",
-             "het_ndwi",
-             "ndvi_asm",
-             "ndvi_contrast",
-             "ndvi_corr",
-             "ndvi_dent",
-             "ndvi_diss",
-             "ndvi_dvar",
-             "ndvi_ent",
-             "ndvi_idm",
-             "ndvi_imcorr1",
-             "ndvi_imcorr2",
-             "ndvi_inertia",
-             "ndvi_prom",
-             "ndvi_savg",
-             "ndvi_sent",
-             "ndvi_shade",
-             "ndvi_svar",
-             "ndvi_var"
+             "het_ndvi"
            ), i, sep = "_")) %>%
   as.vector() %>%
-  c("preFire_ndvi", "preFire_ndwi")
+  c("preFire_ndvi")
 
 
 # This code is for when additional gridMET derivatives are part of the samples
-fireWeather_vars <- c("erc", "fm100")
-
-# fireWeather_vars <- c("erc", "fm100", "tmmx")
-# 
-# veg_vars <-
-#   sapply(X = 1:4,
-#          FUN = function(i) paste(
-#            c(
-#              "focal_mean_ndvi",
-#              "het_ndvi"), i, sep = "_")) %>%
-#   as.vector() %>%
-#   c("preFire_ndvi")
-
-samps$gearys_c <- log(samps$gearys_c)
-
-all_vars <- c(topo_vars, timing_vars, veg_vars, fireWeather_vars, "gearys_c")
+fireWeather_vars <- c("erc", "fm100", "hdw")
 
 all_vars <- c(topo_vars, timing_vars, veg_vars, fireWeather_vars)
 
@@ -129,9 +95,9 @@ mixed_con <-
 
 ss <-
   mixed_con %>%
-  mutate_at(.vars = all_vars, .funs = funs(s = as.numeric(scale(.))))
+  mutate_at(.vars = all_vars, .funs = list(s = scale))
 
-model_summary <- read.csv(here::here("data/data_output/cbi_calibration_model_comparison.csv"), stringsAsFactors = FALSE)
+model_summary <- read.csv(here::here("data/analyses_output/cbi-calibration-model-comparison.csv"), stringsAsFactors = FALSE)
 target_model <- model_summary[model_summary$response == "RBR" &
                                 model_summary$time_window == 48 &
                                 model_summary$interpolation == "bicubic", ]
@@ -145,19 +111,6 @@ target_model <- model_summary[model_summary$response == "RBR" &
 
 ss$stand_replacing <- ifelse(ss$RBR > target_model$hi_sev, yes = 1, no = 0)
 
-# For 100-hour fuel moisture, we refer to @Stephens2012 who find 7.7% to be the 80th
-# percentile condition, 6.6% to be the 90th percentile condition, and 4.2% to be 
-# the 97.5th percentile condition. See also the note in @Stephens2013a about the significance
-# of 80th percentile conditions.
-# 
-# Create a variable for "extreme conditions" versus "non-extreme" conditions (with respect to fuel moisture) and interact it with the heterogeneity variable.
-# Extreme percentiles correspeond to 80th, 90th, and 97.5th percentiles of 100 hour
-# fuel moisture
-extreme_fm100_percentiles <- c(7.7, 6.6, 4.2)
-ss$extreme80_fm100 <- ifelse(ss$fm100 < 7.7, yes = 1, no = 0)
-ss$extreme90_fm100 <- ifelse(ss$fm100 < 6.6, yes = 1, no = 0)
-ss$extreme97.5_fm100 <- ifelse(ss$fm100 < 4.2, yes = 1, no = 0)
-
 # Consider also subsetting to only places that burned to avoid any impact of unburned area that happens to be within the fire perimeter.
 
 ss_burned <- ss %>% filter(ss$RBR > target_model$low_sev)
@@ -168,5 +121,5 @@ remoteSev_to_cbi <- function(data, response, a, b, c) {
 
 ss_burned$cbi <- remoteSev_to_cbi(data = ss_burned, response = "RBR", a = target_model$a, b = target_model$b, c = target_model$c)
 
-saveRDS(ss, file = here::here("data/data_output/all-fire-samples_configured.rds"))
-saveRDS(ss_burned, file = here::here("data/data_output/burned-fire-samples_configured.rds"))
+write_csv(ss, path = here::here("data/data_output/all-fire-samples_configured.csv"))
+write_csv(ss_burned, path = here::here("data/data_output/burned-fire-samples_configured.csv"))
