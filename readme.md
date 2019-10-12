@@ -27,19 +27,33 @@ Sikkink, Pamela G.; Dillon, Gregory K.; Keane,Robert E.; Morgan, Penelope; Karau
 
 ## Reproducing the analysis
 
-Data carpentry steps can be found in data/data_carpentry and the scripts are
-numbered in the order they should be executed in.
+All scripts are numbered in the order of these steps. Note that some steps
+involve uploading assets to Earth Engine, so these steps won't have a script
+associated with them. In this case, there will be a discontinuity in the 
+numbering of the scripts to highlight that there will be a step (of some kind)
+to complete before moving on.
 
-- 01_convert-jepson-ecoregions.R
-- 02_create-ypmc-mask.R
-- 03_subset-frap-perimeter-database.R
-- 04_clean-cbi-data.R
+Raw data are found in "data/data_raw/". Data carpentry 
+(aka munging/wrangling/cleaning) steps can be found in "data/data_carpentry/". 
+The resulting data products from carpentry steps are stored in 
+"data/data_output/".
 
-Next, upload the CBI data output from 04_clean-cbi-data.R to Earth Engine. 
+Analyses scripts are found in "analyses/". Intermediate output (e.g., a summary
+table from a model, a .rds file representing an R object of a long-running 
+model) can be found in "analyses/analyses_output/"
+
+1. data/data_carpentry/01_convert-jepson-ecoregions.R
+2. In Earth Engine, run the 02_create-raster-template.js script to create a 
+template raster co-registered with the Landsat product that will be used for
+the yellow pine/mixed-conifer mask.
+3. data/data_carpentry/03_create-ypmc-mask.R
+4. data/data_carpentry/04_subset-frap-perimeter-database.R
+5. data/data_carpentry/05_clean-cbi-data.R
+6. Upload the CBI data output from 05_clean-cbi-data.R to Earth Engine. 
 The Earth Engine asset is publicly available at: 
 ee.FeatureCollection("users/mkoontz/cbi_sn")
 
-In Earth Engine, run the rsr-sn-cbi-calibration.js script to generate (and
+7. In Earth Engine, run the 07_rsr-sn-cbi-calibration.js script to generate (and
 export) eight .geoJSON files with the CBI plot information along with a number of
 spectral severity calculations. Each .geoJSON file represents one combination of
 interpolation type (bicubic or bilinear) and four time windows used to collate
@@ -47,17 +61,14 @@ the pre- and post-fire imagery (16, 32, 48, and 64 days). The resulting .geoJSON
 files should be downloaded from your Google Drive and saved in:
 "data/data_output/ee_cbi-calibration/"
 
-The next step is calibrating the spectral data using k-fold cross validation. 
-The script is located here:
+8. analyses/08_cbi-k-fold-cross-validation.R
 
-analyses/01_cbi-k-fold-cross-validation.R
-
-Upload the fire perimeters containing some yellow pine/mixed-conifer (ypmc) 
-pixels output from the 03_subset-frap-perimeter-database.R script to Earth 
+9. Upload the fire perimeters containing some yellow pine/mixed-conifer (ypmc) 
+pixels output from the 04_subset-frap-perimeter-database.R script to Earth 
 Engine. The Earth Engine asset is publicly available at: 
 ee.FeatureCollection("users/mkoontz/fire18_1_sn_ypmc")
 
-Using the best interpolation, spectral severity. and time window from the 
+10. Using the best interpolation, spectral severity. and time window from the 
 cross-fold validation, calculate the fire severity, vegetation characteristics,
 and regional climate characteristics that we will use for modelling by running
-the rsr-frap-fires-assessment.js script in Earth Engine.
+the 10_rsr-frap-fires-assessment.js script in Earth Engine.
