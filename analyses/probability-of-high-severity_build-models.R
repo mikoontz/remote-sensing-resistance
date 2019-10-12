@@ -11,17 +11,17 @@ library(lubridate)
 library(brms)
 
 
-if(!file.exists(here::here("data/data_output/all-fire-samples_configured.rds"))) {
+if(!file.exists(here::here("data/data_output/burned-fire-samples_configured.csv"))) {
   source(here::here("data/data_carpentry/configure_fire-samples.R"))
 }
 
-# This .rds file has the R object name `ss_burned`
-ss_burned <- readRDS(here::here("data/data_output/burned-fire-samples_configured.rds"))
-# This .rds file has the R object name `ss`
-ss <- readRDS(here::here("data/data_output/all-fire-samples_configured.rds"))
+# This .csv file represents the burned samples extracted from Earth Engine
+# That is, the severity was over the threshold corresponding to a CBI of 0.1
+ss_burned <- readRDS(here::here("data/data_output/burned-fire-samples_configured.csv"))
 
 # Severe or not as bernoulli response, heterogeneity, preFire NDVI, prefire neighborhood mean NDVI, heterogeneity interacts with fm100, preFire NDVI, and neighborhood mean NDVI, only samples that were burned
 
+(start <- Sys.time())
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <- brm(stand_replacing ~ 
                                                                      het_ndvi_1_s +
                                                                      focal_mean_ndvi_1_s +
@@ -55,6 +55,7 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <- brm(stand_replaci
                                                                      prior(prior = student_t(3, 0, 10), class = sd),
                                                                      prior(prior = normal(0, 1), class = sd, group = fire_id)
                                                                    ))
+(Sys.time() - start)
 
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- brm(stand_replacing ~ 
                                                                      het_ndvi_2_s +
