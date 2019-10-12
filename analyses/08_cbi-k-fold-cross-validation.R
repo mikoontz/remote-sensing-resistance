@@ -27,32 +27,32 @@ library(here)
 ###
 
 # Get 16-day window, bilinear interpolation data
-cbi_16_bilinear <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_16-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
+cbi_16_bilinear <- st_read(here::here("data/data_output/ee_cbi-calibration/cbi-calibration_16-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 32-day window, bilinear interpolation data
-cbi_32_bilinear <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_32-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
+cbi_32_bilinear <- st_read(here::here("data/data_output/ee_cbi-calibration/cbi-calibration_32-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 48-day window, bilinear interpolation data
-cbi_48_bilinear <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
+cbi_48_bilinear <- st_read(here::here("data/data_output/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 64-day window, bilinear interpolation data
-cbi_64_bilinear <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_64-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
+cbi_64_bilinear <- st_read(here::here("data/data_output/ee_cbi-calibration/cbi-calibration_64-day-window_L57_bilinear-interp.geojson"), stringsAsFactors = FALSE)
 
 ### 
 ### Bicubic interpolation
 ###
 
 # Get 16-day window, bicubic interpolation data
-cbi_16_bicubic <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_16-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
+cbi_16_bicubic <- st_read(here::here("data/data_output/ee_cbi-calibration/cbi-calibration_16-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 32-day window, bicubic interpolation data
-cbi_32_bicubic <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_32-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
+cbi_32_bicubic <- st_read(here::here("data/data_output/ee_cbi-calibration/cbi-calibration_32-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 48-day window, bicubic interpolation data
-cbi_48_bicubic <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
+cbi_48_bicubic <- st_read(here::here("data/data_output/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
 
 # Get 64-day window, bicubic interpolation data
-cbi_64_bicubic <- st_read(here::here("data/ee_cbi-calibration/cbi-calibration_64-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
+cbi_64_bicubic <- st_read(here::here("data/data_output/ee_cbi-calibration/cbi-calibration_64-day-window_L57_bicubic-interp.geojson"), stringsAsFactors = FALSE)
 
 cbi_list <- list(bilinear_16 = cbi_16_bilinear,
                  bilinear_32 = cbi_32_bilinear,
@@ -78,37 +78,39 @@ r2 <- function(m) {
 ###
 
 severity_kfold <- function(data, response, k) {
+  response <- sym(response)
+  # response <- sym(response)
   # Let the response variable be flexible and turn the string into a full formula for the nls() function
-  formula <- as.formula(paste0(response, " ~ a + b * exp(cbi_over * c)"))
+  my_formula <- as.formula(paste0(as_name(response), " ~ a + b * exp(cbi_over * c)"))
 
   data %>%
-    as.data.frame() %>%
-    select(-geometry) %>% # Remove the geometry column
+    st_drop_geometry() %>% # Remove the geometry column
     crossv_kfold(k = k) %>% # Divide the data into k folds with a test and training set associated with each of the k sets
-    mutate(model = map(train, ~ nls(formula = formula, 
-                                    data = as.data.frame(.),
-                                    start = list(a = 0, b = 1, c = 1)))) %>%
-    mutate(predicted = map2(model, test, ~ augment(.x, newdata = .y))) %>% # parallel mapping of the model and test data.frames to add, as a new column, the predicted severity values for the test data ffrom a model fit to the training data
+    mutate(model = map(train, ~ nls(formula = my_formula,
+                                    data = as_tibble(.),
+                                    start = list(a = 10, b = 100, c = 1)))) %>%
+    mutate(predicted = map2(model, test, ~ augment(.x, newdata = as_tibble(.y)))) %>% # parallel mapping of the model and test data.frames to add, as a new column, the predicted severity values for the test data ffrom a model fit to the training data
     unnest(predicted) %>%
-    mutate_(residual = interp(~.fitted - response, response = as.name(response))) %>% # calculate residuals (we use the interp() function to allow the response variable to be a flexible argument passed by the user)
+    mutate(residual := .fitted - (!!response), # calculate residuals
+           response = as_label(response)) %>% 
     group_by(.id) %>%
-    summarize_(
-      sst = interp(~ sum( (response - mean(response, na.rm = TRUE)) ^ 2, na.rm = TRUE), response = as.name(response)), # Total sum of squares
-      sse = interp(~sum(residual ^ 2, na.rm = TRUE)), # sum of squares error
-      mse = interp(~mean(residual ^ 2, na.rm = TRUE))) %>% # mean square error
+    summarize(
+      sst = sum( (!!response - mean(!!response, na.rm = TRUE)) ^ 2, na.rm = TRUE), response = as_label(!!response), # Total sum of squares
+      sse = sum(residual ^ 2, na.rm = TRUE), # sum of squares error
+      mse = mean(residual ^ 2, na.rm = TRUE)) %>% # mean square error
     mutate(r.squared = 1 - sse / sst) # calculate r.squared value (note this is *not* the same interpretation as the R^2 in a linear model)
 }
 
 ### Leave out dEVI and RdEVI because they have some weirdness.
-d <- cbi_list[[1]]
-plot(d$cbi_over, d$dEVI)
-plot(d$cbi_over, d$RdEVI)
+d <- cbi_list[[7]]
+plot(d$cbi_over, d$RdNBR)
+plot(d$cbi_over, d$RBR)
 
 ###
 ### Include just conifer forest data, as determined by pre-EuroAmerican-settlement fire regime types from the Fire Return Interval Departure database
 ###
 
-# Response values (9): RdNBR, dNBR, RdNBR2, dNBR2, RdNDVI, dNDVI, RBR (we leave out dEVI and RdEVI because they are just bad model fits)
+# Response values (7): RdNBR, dNBR, RdNBR2, dNBR2, RdNDVI, dNDVI, RBR (we leave out dEVI and RdEVI because they are just bad model fits)
 # Interpolation (2): bilinear, bicubic
 # Window period (4): 16 day, 32 day, 48 day, 64 day
 # Model fit variables: a, b, c, R^2
@@ -121,8 +123,9 @@ conifer_filter <- TRUE # Just use CBI plots found in yellow pine/mixed conifer f
 
 num_rows <- length(response_vars) * length(interpolation_vars) * length(time_window_vars)
 
-set.seed(1117) # Set seed at current time for reproducibility
+set.seed(42)
 
+# 10-fold cross validation
 # Create data structure to hold results
 model_summary <- data.frame(id = 1:num_rows, 
                             expand.grid(response = response_vars, 
@@ -143,7 +146,7 @@ model_summary <- data.frame(id = 1:num_rows,
 for (i in seq_along(cbi_list)) {
   # Iterate through the different remotely-sensed wildfire severity metrics
   for (j in seq_along(response_vars)) {
-    
+    print(paste(i, j))
     parse_list_name <- unlist(strsplit(names(cbi_list[i]), "_")) # Get what time_window/interpolation type from the list element name
     interp <- parse_list_name[1]
     time_window <- as.numeric(parse_list_name[2])
@@ -157,12 +160,12 @@ for (i in seq_along(cbi_list)) {
     model <- as.formula(paste0(response_vars[j], " ~ a + b * exp(cbi_over * c)"))
     fitted_model <- try(nls(formula = model, 
                             data = data[drop = TRUE],
-                            start = list(a = 0, b = 1, c = 1),
+                            start = list(a = 10, b = 100, c = 1),
                             model = TRUE))
     
-    r2_kfold <- try(severity_kfold(data = data[drop = TRUE], 
+    r2_kfold <- try(severity_kfold(data = data, 
                                    response = response_vars[j], 
-                                   k = 5) %>% 
+                                   k = 10) %>% 
                       summarize(mean(r.squared)) 
                     %>% as.numeric())
     r2_all <- try(r2(fitted_model))
@@ -188,7 +191,8 @@ model_summary
 model_summary[order(model_summary$r2_kfold, decreasing = TRUE), ]
 model_summary[order(model_summary$r2_all, decreasing = TRUE), ]
 
-write.csv(model_summary, here::here("data/data_output/cbi_calibration_model_comparison.csv"), row.names = FALSE)
+dir.create("data/analyses_output", recursive = TRUE)
+write.csv(model_summary, here::here("data/analyses_output/cbi-calibration-model-comparison.csv"), row.names = FALSE)
 # For conifer forest, it appears that the bicubic interpolation of RBR and using 
 # a 48-day window prior to the fire results in the best fit to on-the-ground severity. 
 # Best model using all the data is RBR, bicubic, 32-day window
@@ -196,3 +200,25 @@ write.csv(model_summary, here::here("data/data_output/cbi_calibration_model_comp
 # depending on how the random assignment of training and test data go.
 # For instance, RdNDVI ends up on top pretty often.
 
+test <- cbi_48_bicubic %>% 
+  dplyr::filter(conifer_forest == 1)
+
+fm1 <- nls(cbi_over ~ SSasympOff(RBR, Asym, lrc, c0), data = test)
+fm2 <- nls(cbi_over ~ SSasymp(RBR, Asym, R0, lrc), data = test)
+fm3 <- nls(cbi_over ~ log((RBR - a) / b) / c, data = test, start = list(a = 10, b = 100, c = 1))
+fm4 <- nls(cbi_over ~ SSlogis(RBR, Asym, xmid, scal), data = test)
+fm5 <- gam(cbi_over ~ te(RBR), data = test)
+fm6 <- lm(cbi_over ~ RBR, data = test)
+
+plot(test$RBR, test$cbi_over)
+points(test$RBR, predict(fm1, newdata = test), col = "red", pch = 19)
+points(test$RBR, predict(fm2, newdata = test), col = "blue", pch = 19)
+points(test$RBR, predict(fm4, newdata = test), col = "orange", pch = 19)
+points(test$RBR, predict(fm5, newdata = test), col = "purple", pch = 19)
+
+plot(fm1)
+AIC(fm1, fm2, fm4, fm5, fm6)
+
+
+# CBI = Asym * (1 - exp(-(RBR - c0)*exp(lrc)))
+# CBI = coef(fm1)["Asym"] * (1 - exp(-(test$RBR - coef(fm1)["c0"])*exp(coef(fm1)["lrc"])))
