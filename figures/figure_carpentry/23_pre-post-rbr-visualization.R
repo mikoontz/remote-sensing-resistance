@@ -5,7 +5,7 @@ library(here)
 library(dplyr)
 library(viridis)
 
-model_summary <- read.csv(here::here("data/data_output/cbi_calibration_model_comparison.csv"), stringsAsFactors = FALSE)
+model_summary <- read.csv(here::here("analyses/analyses_output/cbi-calibration-model-comparison.csv"), stringsAsFactors = FALSE)
 target_model <- model_summary[model_summary$response == "RBR" &
                                 model_summary$time_window == 48 &
                                 model_summary$interpolation == "bicubic", ]
@@ -15,16 +15,23 @@ target_model$low_sev # equates to a CBI of 0.1 -- threshold between "unchanged" 
 target_model$mod_sev # equates to a CBI of 1.25 -- threshold between "low" and "medium"
 target_model$hi_sev # equates to a CBI of 2.25 -- threshold between "medium" and "high"
 
-hamm <- brick(here::here("data/ee_fire-images/hamm-fire_1987_visualize_med-res.tif"))
-american <- brick(here::here("data/ee_fire-images/american-fire_2013_visualize_med-res.tif"))
+hamm <- brick(here::here("figures/hamm-fire_1987_visualize_med-res.tif"))
+american <- brick(here::here("figures/american-fire_2013_visualize_med-res.tif"))
 
 bandNames <- c('RdNBR',
+               'RBR',
+               'dNBR',
+               'dNBR2',
+               'RdNBR2',
+               'dNDVI',
+               'RdNDVI',
+               'dEVI',
                'preFire_nbr',
                'postFire_nbr',
-               'RdNDVI',
-               'RBR',
                'preFire_ndvi',
                'postFire_ndvi',
+               'preFire_evi',
+               'postFire_evi',
                'het_ndvi_1',
                'focal_mean_ndvi_1',
                'het_ndvi_2',
@@ -73,10 +80,10 @@ names(american) <- bandNames
 
 # Green to red palette
 RBR_cols <- c('#008000', '#ffff00', '#ffA500', '#ff0000') 
+
 # Colorblind-friendly palette
 RBR_cols <- viridis(4)
 RBR_cols <- inferno(4)
-?viridis
 
 plot_pre_post_rbr <- function(r, rgb_bands = c("B3", "B2", "B1")) {
   rgb_bands_pre <- paste0(rgb_bands, "_pre")
@@ -103,49 +110,6 @@ plot_pre_post_rbr(hamm)
 plot_pre_post_rbr(american)
 
 legend("topleft", xpd = NA, legend = c("Unburned", "Low severity", "Moderate severity", "High severity"), 
-       col = RBR_cols, pch = 15, bty = "n", cex = 1, inset = c(0, -0.2))
+       pt.bg = RBR_cols, col = "black", pch = 22, bty = "n", cex = 1, inset = c(0, -0.2))
 dev.off()
-
-# var natVizParamsPre = {
-#   bands: ['B3_pre', 'B2_pre', 'B1_pre'],
-#   min: 0,
-#   max: 2000,
-#   gamma: [0.9, 1.1, 1]
-# };
-# 
-# var natVizParamsPost = {
-#   bands: ['B3_post', 'B2_post', 'B1_post'],
-#   min: 0,
-#   max: 2000,
-#   gamma: [0.9, 1.1, 1]
-# };
-# 
-# // Define the visualization parameters.
-# var falseVizParamsPre = {
-#   bands: ['B4_pre', 'B3_pre', 'B2_pre'],
-#   min: 0,
-#   max: 10000,
-#   gamma: [1, 1, 1]
-# };
-# 
-# var falseVizParamsPost = {
-#   bands: ['B4_post', 'B3_post', 'B2_post'],
-#   min: 0,
-#   max: 10000,
-#   gamma: [1, 1, 1]
-# };
-# 
-# var fireVizParamsPre = {
-#   bands: ['B7_pre', 'B4_pre', 'B2_pre'],
-#   min: 0,
-#   max: 5000,
-#   gamma: [0.9, 0.8, 1]
-# };
-# 
-# var fireVizParamsPost = {
-#   bands: ['B7_post', 'B4_post', 'B2_post'],
-#   min: 0,
-#   max: 5000,
-#   gamma: [0.9, 0.8, 1]
-# };
 

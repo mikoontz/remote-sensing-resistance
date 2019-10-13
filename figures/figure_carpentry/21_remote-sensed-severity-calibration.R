@@ -7,17 +7,13 @@ library(readr)
 
 # Get 48-day window, bicubic interpolation data
 # For the RBR severity metric
-cbi_48_bicubic <- st_read("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
+cbi_48_bicubic <- st_read("data/data_output/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bicubic-interp.geojson", stringsAsFactors = FALSE)
 
 # Get 32-day window, bilinear interpolation data
 # For the RdNBR severity metric
-cbi_32_bilinear <- st_read("data/ee_cbi-calibration/cbi-calibration_32-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
+cbi_32_bilinear <- st_read("data/data_output/ee_cbi-calibration/cbi-calibration_32-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
 
-# Get 48-day window, bilinear interpolation data
-# For the RdNDVI severity metric
-cbi_48_bilinear <- st_read("data/ee_cbi-calibration/cbi-calibration_48-day-window_L57_bilinear-interp.geojson", stringsAsFactors = FALSE)
-
-cbi_table <- read_csv("data/data_output/cbi_calibration_model_comparison.csv")
+cbi_table <- read_csv("analyses/analyses_output/cbi-calibration-model-comparison.csv")
 
 
 cbi_mask_conifer <- function(data) {
@@ -50,18 +46,18 @@ cbi_rbr <- cbi_calibration_stats(cbi_table = cbi_table,
                                  time_window = 48, 
                                  interpolation = "bicubic")
 
-fm_rdnbr <- cbi_fit(data = cbi_mask_conifer(cbi_32_bilinear), response = "RdNBR")
-yhat_rdnbr <- predict(object = fm_rdnbr, newdata = data.frame(cbi_over))
-cbi_rdnbr <- cbi_calibration_stats(cbi_table = cbi_table, 
-                                   response = "RdNBR", 
+fm_rdndvi <- cbi_fit(data = cbi_mask_conifer(cbi_32_bilinear), response = "RdNDVI")
+yhat_rdndvi <- predict(object = fm_rdndvi, newdata = data.frame(cbi_over))
+cbi_rdndvi <- cbi_calibration_stats(cbi_table = cbi_table, 
+                                   response = "RdNDVI", 
                                    time_window = 32, 
                                    interpolation = "bilinear")
 
-fm_rdndvi <- cbi_fit(data = cbi_mask_conifer(cbi_48_bilinear), response = "RdNDVI")
-yhat_rdndvi <- predict(object = fm_rdndvi, newdata = data.frame(cbi_over))
-cbi_rdndvi <- cbi_calibration_stats(cbi_table = cbi_table, 
-                                    response = "RdNDVI", 
-                                    time_window = 48, 
+fm_rdnbr <- cbi_fit(data = cbi_mask_conifer(cbi_32_bilinear), response = "RdNBR")
+yhat_rdnbr <- predict(object = fm_rdnbr, newdata = data.frame(cbi_over))
+cbi_rdnbr <- cbi_calibration_stats(cbi_table = cbi_table, 
+                                    response = "RdNBR", 
+                                    time_window = 32, 
                                     interpolation = "bilinear")
 
 # Build the plots!
@@ -97,7 +93,33 @@ lapply(seq_along(rbr_labs),
               cex = cex_in_panel_text)
          invisible()})
 
-# Second panel RdNBR 32 day window ----------------------------------------
+
+
+# Second panel: RdNDVI 48 day window ---------------------------------------
+
+plot(x = cbi_mask_conifer(cbi_32_bilinear)$cbi_over, y = cbi_mask_conifer(cbi_32_bilinear)$RdNDVI, 
+     pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RdNDVI (32-day window)")
+lines(cbi_over, yhat_rdndvi)
+# segments(x0 = 0, x1 = 3, y0 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][3, "hi_sev"]), y1 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][3, "hi_sev"]))
+
+rdndvi_labs <- list(bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rdndvi$r2_kfold, 5))),
+          bquote("RdNDVI = " ~ beta[0] ~ "+" ~ beta[1] ~ "*" ~ e^beta[2] ~ "*cbi"),
+          bquote(beta[0] ~ "=" ~ .(round(cbi_rdndvi$a, 5))),
+          bquote(beta[1] ~ "=" ~ .(round(cbi_rdndvi$b, 5))),
+          bquote(beta[2] ~ "=" ~ .(round(cbi_rdndvi$c, 5))))
+
+lapply(seq_along(rdndvi_labs),
+       FUN = function(i) {
+         max_val <- max(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE)
+         min_val <- min(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE)
+         
+         text(x = 0, y = max_val - (max_val - min_val) * pos_in_panel_text[i], 
+              labels = rdndvi_labs[[i]],
+              pos = 4, 
+              cex = cex_in_panel_text)
+       invisible()})
+
+# Third panel RdNBR 32 day window ----------------------------------------
 
 plot(x = cbi_mask_conifer(cbi_32_bilinear)$cbi_over, y = cbi_mask_conifer(cbi_32_bilinear)$RdNBR, 
      pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RdNBR (32-day window)")
@@ -121,30 +143,6 @@ lapply(seq_along(rdnbr_labs),
               cex = cex_in_panel_text) 
          invisible()})
 
-
-# Third panel: RdNDVI 48 day window ---------------------------------------
-
-plot(x = cbi_mask_conifer(cbi_48_bilinear)$cbi_over, y = cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, 
-     pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RdNDVI (48-day window)")
-lines(cbi_over, yhat_rdndvi)
-# segments(x0 = 0, x1 = 3, y0 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][3, "hi_sev"]), y1 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][3, "hi_sev"]))
-
-rdndvi_labs <- list(bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rdndvi$r2_kfold, 5))),
-          bquote("RdNDVI = " ~ beta[0] ~ "+" ~ beta[1] ~ "*" ~ e^beta[2] ~ "*cbi"),
-          bquote(beta[0] ~ "=" ~ .(round(cbi_rdndvi$a, 5))),
-          bquote(beta[1] ~ "=" ~ .(round(cbi_rdndvi$b, 5))),
-          bquote(beta[2] ~ "=" ~ .(round(cbi_rdndvi$c, 5))))
-
-lapply(seq_along(rdndvi_labs),
-       FUN = function(i) {
-         max_val <- max(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE)
-         min_val <- min(cbi_mask_conifer(cbi_48_bilinear)$RdNDVI, na.rm = TRUE)
-         
-         text(x = 0, y = max_val - (max_val - min_val) * pos_in_panel_text[i], 
-              labels = rdndvi_labs[[i]],
-              pos = 4, 
-              cex = cex_in_panel_text)
-       invisible()})
 
 mtext(text = "Composite Burn Index (CBI)", side = 1, outer = TRUE, line = 0)
 mtext(text = "Remotely measured severity", side = 2, outer = TRUE, line = 0)
