@@ -86,4 +86,5 @@ for each neighborhood window size) by running
 the models built in step 12 by running 
 "analyses/13_probability-of-high-severity.R"
 
-14. 
+14. Calculate summary information for the CBI calibration step by running
+"analyses/14_cbi-summary-stats.R"

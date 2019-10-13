@@ -73,7 +73,6 @@ r5_fire_count_ypmc <- fire_perims_summary_stats_list$r5_fire_count_ypmc
 total_conifer_samps <- fire_perims_summary_stats_list$total_conifer_samps
 
 ci_betas <- read_csv(here::here("analyses/analyses_output/ci_betas.csv"))
-ci_betas_print_table <- read_csv(here::here("analyses/analyses_output/ci_betas_print_table.csv"))
 ci_betas_print_table_simple <- read_csv(here::here("analyses/analyses_output/ci_betas_print_table_simple.csv"))
 
 ic_print_table <- read_csv(here::here("data/data_output/ic_print_table.csv"))

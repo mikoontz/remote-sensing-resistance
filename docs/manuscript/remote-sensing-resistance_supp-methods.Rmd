@@ -35,7 +35,6 @@ eq_nums <- captioner(prefix = "Supplemental Equation")
 fig_nums <- captioner(prefix = "Supplemental Figure")
 table_nums <- captioner(prefix = "Supplemental Table")
 
-ci_betas_print_table <- read_csv(here::here("analyses/analyses_output/ci_betas_print_table.csv"))
 ci_betas_print_table_simple <- read_csv(here::here("analyses/analyses_output/ci_betas_print_table_simple.csv"))
 
 cbi_summary_stats_list <- read_rds(here::here("analyses/analyses_output/cbi_summary_stats_list.rds"))
