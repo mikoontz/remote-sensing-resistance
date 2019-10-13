@@ -86,5 +86,13 @@ for each neighborhood window size) by running
 the models built in step 12 by running 
 "analyses/13_probability-of-high-severity.R"
 
-14. Calculate summary information for the CBI calibration step by running
-"analyses/14_cbi-summary-stats.R"
+14. Perform model comparisons between models built at different scales to 
+determine the primary scale of effect of the heterogeneity. Run the
+"analyses/14_model-comparison.R" script.
+
+15. Calculate summary information for the CBI calibration step by running
+"analyses/15_cbi-summary-stats.R"
+
+16. Compare the currently best-available YPMC wildfire dataset (USFS Region 5
+Geospatial) to what we have developed by calculating some additional attribute
+information. Run "data/data_carpentry/16_ypmc-pixel-count-usfs-r5.R"
