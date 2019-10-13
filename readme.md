@@ -104,3 +104,23 @@ Geospatial) to what we have developed by running
 18. Get Spearman's correlation between prefire NDVI of central pixel and the
 prefire neighborhood mean NDVI of surrounding pixels to help support the 
 interpretation of model coefficients.
+
+## Recreating figures
+
+19. Generate a rasterized version of the fire perimeters to display on the
+geographic setting map by running 
+"figures/figures_carpentry/19_rasterize-fire-perimeters.R"
+
+20. Create Figure 1 (geographic extent of study) by running
+"figures/figures_carpentry/20_geographic-extent-of-study.R"
+
+21. Create Figure 2 (demonstration of calibration of algorithm to ground-based
+severity) by running 
+"figures/figures_carpentry/21_remote-sensed-severity-calibration.R"
+
+22. In Earth Engine, generate two example severity maps of fires by running
+22_rsr-visualize.js. Download the resulting raster files from your Google Drive
+and store them in "figures/"
+
+23. Generate Figure 3 (example severity maps for Hamm and American fires) by
+running "figures/figures_carpentry/23_pre-post-rbr-visualization.R"
