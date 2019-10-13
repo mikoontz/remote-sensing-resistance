@@ -1,7 +1,7 @@
-Remote sensing resilience
+Remote sensing resistance
 ================
 
-This repository represents the entirety of the "remote sensing resilience" project which seeks to address the question: Does heterogeneity in forest structure make a forest resistant to wildfire? That is, does greater heterogeneity decrease wildfire severity when a fire inevitably occurs?
+This repository represents the entirety of the "remote sensing resistance" project which seeks to address the question: Does heterogeneity in forest structure make a forest resistant to wildfire? That is, does greater heterogeneity decrease wildfire severity when a fire inevitably occurs?
 
 We rely on Google Earth Engine and R as our GIS. All Earth Engine code is in the ee-remote-sensing-resistance folder, which is itself a repository housed in Google's version control system. We mirror it here such that this repository remains a complete representation of the project.
 
