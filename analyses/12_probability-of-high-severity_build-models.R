@@ -20,6 +20,7 @@ ss_burned <- read_csv(here::here("data/data_output/burned-fire-samples_configure
 # Severe or not as bernoulli response, heterogeneity, preFire NDVI, prefire neighborhood mean NDVI, heterogeneity interacts with fm100, preFire NDVI, and neighborhood mean NDVI, only samples that were burned
 
 (start <- Sys.time())
+set.seed(1)
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <- brm(stand_replacing ~ 
                                                                      het_ndvi_1_s +
                                                                      focal_mean_ndvi_1_s +
@@ -35,7 +36,7 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <- brm(stand_replaci
                                                                    family = bernoulli(), 
                                                                    data = ss_burned, 
                                                                    sample_prior = TRUE, 
-                                                                   iter = 4000, 
+                                                                   iter = 5000, 
                                                                    chains = 4, 
                                                                    cores = 4,
                                                                    prior = c(
@@ -57,6 +58,7 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <- brm(stand_replaci
 (Sys.time() - start)
 
 (start <- Sys.time())
+set.seed(2)
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- brm(stand_replacing ~ 
                                                                      het_ndvi_2_s +
                                                                      focal_mean_ndvi_2_s +
@@ -72,7 +74,7 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- brm(stand_replaci
                                                                    family = bernoulli(), 
                                                                    data = ss_burned, 
                                                                    sample_prior = TRUE, 
-                                                                   iter = 4000, 
+                                                                   iter = 5000, 
                                                                    chains = 4,
                                                                    cores = 4,
                                                                    prior = c(
@@ -94,6 +96,7 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- brm(stand_replaci
 (Sys.time() - start)
 
 (start <- Sys.time())
+set.seed(3)
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm <- brm(stand_replacing ~ 
                                                                      het_ndvi_3_s +
                                                                      focal_mean_ndvi_3_s +
@@ -109,7 +112,7 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm <- brm(stand_replaci
                                                                    family = bernoulli(), 
                                                                    data = ss_burned, 
                                                                    sample_prior = TRUE, 
-                                                                   iter = 4000, 
+                                                                   iter = 5000, 
                                                                    chains = 4, 
                                                                    cores = 4,
                                                                    prior = c(
@@ -131,6 +134,7 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm <- brm(stand_replaci
 (Sys.time() - start)
 
 (start <- Sys.time())
+set.seed(4)
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm <- brm(stand_replacing ~ 
                                                                      het_ndvi_4_s +
                                                                      focal_mean_ndvi_4_s +
@@ -146,7 +150,7 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm <- brm(stand_replaci
                                                                    family = bernoulli(), 
                                                                    data = ss_burned, 
                                                                    sample_prior = TRUE, 
-                                                                   iter = 4000, 
+                                                                   iter = 5000, 
                                                                    chains = 4, 
                                                                    cores = 4,
                                                                    prior = c(
