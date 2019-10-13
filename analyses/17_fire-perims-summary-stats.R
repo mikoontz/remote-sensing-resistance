@@ -8,11 +8,11 @@ if (file.exists(here::here("data/data_output/region-5-geospatial-fires_sn_ypmc/r
   r5_sn_ypmc <- 
     st_read(here::here("data/data_output/region-5-geospatial-fires_sn_ypmc/region-5-geospatial-fires_sn_ypmc.shp"))
 } else {
-  source(here::here("data/data_carpentry/ypmc-pixel-count-usfs-r5.R"))
+  source(here::here("data/data_carpentry/16_ypmc-pixel-count-usfs-r5.R"))
 }
 
-if (file.exists(here::here("data/data_output/all-fire-samples_configured.csv"))) {
-  ss_burned <- read.csv(here::here("data/data_output/burned-fire-samples_configured.csv"), stringsAsFactors = FALSE)
+if (file.exists(here::here("data/data_output/all-fire-samples_configured.geoJSON"))) {
+  ss_burned <- sf::st_read(here::here("data/data_output/burned-fire-samples_configured.geoJSON"), stringsAsFactors = FALSE)
 } else {
   source(here::here("data/data_carpentry/11_configure-fire-samples.R"))
 }

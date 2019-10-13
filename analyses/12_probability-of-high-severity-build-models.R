@@ -9,13 +9,13 @@ library(here)
 library(lubridate)
 library(brms)
 
-if(!file.exists(here::here("data/data_output/burned-fire-samples_configured.csv"))) {
+if(!file.exists(here::here("data/data_output/burned-fire-samples_configured.geoJSON"))) {
   source(here::here("data/data_carpentry/11_configure-fire-samples.R"))
 }
 
 # This .csv file represents the burned samples extracted from Earth Engine
 # That is, the severity was over the threshold corresponding to a CBI of 0.1
-ss_burned <- read_csv(here::here("data/data_output/burned-fire-samples_configured.csv"))
+ss_burned <- sf::st_read(here::here("data/data_output/burned-fire-samples_configured.geoJSON")) %>% st_drop_geometry()
 
 # Severe or not as bernoulli response, heterogeneity, preFire NDVI, prefire neighborhood mean NDVI, heterogeneity interacts with fm100, preFire NDVI, and neighborhood mean NDVI, only samples that were burned
 

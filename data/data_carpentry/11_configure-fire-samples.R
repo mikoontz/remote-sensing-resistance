@@ -10,15 +10,7 @@ library(lubridate)
 library(brms)
 library(purrr)
 
-# if (!file.exists(here::here("data/ee_fire-samples/fires-strat-samples_2017_48-day-window_L4578_none-interp.geojson"))) {
-#   if (!file.exists(here::here("data/data_output/all-fire-samples.rds"))) {
-#     source(here::here("data/data_carpentry/merge_fire-samples.R"))
-#   }
-#   
-#   samps <- readRDS(here::here("data/data_output/all-fire-samples.rds"))
-# } else {
-  samps <- st_read("data/data_output/ee_fire-samples/fires-strat-samples_2018_48-day-window_L4578_none-interp.geojson") 
-  # }
+samps <- st_read("data/data_output/ee_fire-samples/fires-strat-samples_2018_48-day-window_L4578_none-interp.geojson") 
 
 # Extract unique Fire ID from the sample point IDs
 samps$fire_id <- substr(as.character(samps$id), start = 1, stop = 20)
@@ -97,7 +89,7 @@ ss <-
   mixed_con %>%
   mutate_at(.vars = all_vars, .funs = list(s = scale))
 
-model_summary <- read.csv(here::here("data/analyses_output/cbi-calibration-model-comparison.csv"), stringsAsFactors = FALSE)
+model_summary <- read.csv(here::here("analyses/analyses_output/cbi-calibration-model-comparison.csv"), stringsAsFactors = FALSE)
 target_model <- model_summary[model_summary$response == "RBR" &
                                 model_summary$time_window == 48 &
                                 model_summary$interpolation == "bicubic", ]
@@ -121,5 +113,5 @@ remoteSev_to_cbi <- function(data, response, a, b, c) {
 
 ss_burned$cbi <- remoteSev_to_cbi(data = ss_burned, response = "RBR", a = target_model$a, b = target_model$b, c = target_model$c)
 
-write_csv(ss, path = here::here("data/data_output/all-fire-samples_configured.csv"))
-write_csv(ss_burned, path = here::here("data/data_output/burned-fire-samples_configured.csv"))
+sf::st_write(obj = ss, dsn = here::here("data/data_output/all-fire-samples_configured.geoJSON"))
+sf::st_write(obj = ss_burned, dsn = here::here("data/data_output/burned-fire-samples_configured.geoJSON"))
