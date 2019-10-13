@@ -5,7 +5,7 @@ library(tidyverse)
 library(here)
 library(brms)
 
-if(!file.exists(here::here("data/data_output/ic-print-table.csv"))) {
+if(!file.exists(here::here("analyses/analyses_output/ic-print-table.csv"))) {
   
   fm1 <- readRDS(here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm.rds"))
   fm2 <- readRDS(here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm.rds"))
@@ -50,6 +50,6 @@ if(!file.exists(here::here("data/data_output/ic-print-table.csv"))) {
                                loo_model_weights_pct = round(100 * loo_model_weights, 2),
                                R2 = round(R2_estimates, 3))
   
-  write_csv(ic_print_table, here::here("data/data_output/ic-print-table.csv"))
+  write_csv(ic_print_table, here::here("analyses/analyses_output/ic-print-table.csv"))
   
 }
