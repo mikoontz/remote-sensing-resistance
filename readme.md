@@ -100,3 +100,7 @@ Run "data/data_carpentry/16_ypmc-pixel-count-usfs-r5.R"
 17. Compare the currently best-available YPMC wildfire dataset (USFS Region 5
 Geospatial) to what we have developed by running 
 "analyses/17_fire-perims-summary-stats.R"
+
+18. Get Spearman's correlation between prefire NDVI of central pixel and the
+prefire neighborhood mean NDVI of surrounding pixels to help support the 
+interpretation of model coefficients.
