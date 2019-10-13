@@ -4,20 +4,18 @@
 
 library(lubridate)
 library(sf)
-library(dplyr)
-library(ggplot2)
+library(tidyverse)
 library(here)
 library(lubridate)
 library(brms)
 
-
 if(!file.exists(here::here("data/data_output/burned-fire-samples_configured.csv"))) {
-  source(here::here("data/data_carpentry/configure_fire-samples.R"))
+  source(here::here("data/data_carpentry/11_configure-fire-samples.R"))
 }
 
 # This .csv file represents the burned samples extracted from Earth Engine
 # That is, the severity was over the threshold corresponding to a CBI of 0.1
-ss_burned <- readRDS(here::here("data/data_output/burned-fire-samples_configured.csv"))
+ss_burned <- read_csv(here::here("data/data_output/burned-fire-samples_configured.csv"))
 
 # Severe or not as bernoulli response, heterogeneity, preFire NDVI, prefire neighborhood mean NDVI, heterogeneity interacts with fm100, preFire NDVI, and neighborhood mean NDVI, only samples that were burned
 
@@ -37,8 +35,9 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <- brm(stand_replaci
                                                                    family = bernoulli(), 
                                                                    data = ss_burned, 
                                                                    sample_prior = TRUE, 
-                                                                   iter = 3000, 
+                                                                   iter = 4000, 
                                                                    chains = 4, 
+                                                                   cores = 4,
                                                                    prior = c(
                                                                      prior(prior = normal(0, 1), class = b),
                                                                      prior(prior = normal(0, 1), class = b, coef = het_ndvi_1_s),
@@ -57,6 +56,7 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <- brm(stand_replaci
                                                                    ))
 (Sys.time() - start)
 
+(start <- Sys.time())
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- brm(stand_replacing ~ 
                                                                      het_ndvi_2_s +
                                                                      focal_mean_ndvi_2_s +
@@ -72,8 +72,9 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- brm(stand_replaci
                                                                    family = bernoulli(), 
                                                                    data = ss_burned, 
                                                                    sample_prior = TRUE, 
-                                                                   iter = 3000, 
-                                                                   chains = 4, 
+                                                                   iter = 4000, 
+                                                                   chains = 4,
+                                                                   cores = 4,
                                                                    prior = c(
                                                                      prior(prior = normal(0, 1), class = b),
                                                                      prior(prior = normal(0, 1), class = b, coef = het_ndvi_2_s),
@@ -90,7 +91,9 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- brm(stand_replaci
                                                                      prior(prior = student_t(3, 0, 10), class = sd),
                                                                      prior(prior = normal(0, 1), class = sd, group = fire_id)
                                                                    ))
+(Sys.time() - start)
 
+(start <- Sys.time())
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm <- brm(stand_replacing ~ 
                                                                      het_ndvi_3_s +
                                                                      focal_mean_ndvi_3_s +
@@ -106,8 +109,9 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm <- brm(stand_replaci
                                                                    family = bernoulli(), 
                                                                    data = ss_burned, 
                                                                    sample_prior = TRUE, 
-                                                                   iter = 3000, 
+                                                                   iter = 4000, 
                                                                    chains = 4, 
+                                                                   cores = 4,
                                                                    prior = c(
                                                                      prior(prior = normal(0, 1), class = b),
                                                                      prior(prior = normal(0, 1), class = b, coef = het_ndvi_3_s),
@@ -124,7 +128,9 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm <- brm(stand_replaci
                                                                      prior(prior = student_t(3, 0, 10), class = sd),
                                                                      prior(prior = normal(0, 1), class = sd, group = fire_id)
                                                                    ))
+(Sys.time() - start)
 
+(start <- Sys.time())
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm <- brm(stand_replacing ~ 
                                                                      het_ndvi_4_s +
                                                                      focal_mean_ndvi_4_s +
@@ -140,8 +146,9 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm <- brm(stand_replaci
                                                                    family = bernoulli(), 
                                                                    data = ss_burned, 
                                                                    sample_prior = TRUE, 
-                                                                   iter = 3000, 
+                                                                   iter = 4000, 
                                                                    chains = 4, 
+                                                                   cores = 4,
                                                                    prior = c(
                                                                      prior(prior = normal(0, 1), class = b),
                                                                      prior(prior = normal(0, 1), class = b, coef = het_ndvi_4_s),
@@ -158,6 +165,7 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm <- brm(stand_replaci
                                                                      prior(prior = student_t(3, 0, 10), class = sd),
                                                                      prior(prior = normal(0, 1), class = sd, group = fire_id)
                                                                    ))                                                     
+(Sys.time() - start)
 
 # Save the models as .rds objects
 
@@ -176,26 +184,35 @@ saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, file = here
 
 # First, the 1-pixel window model
 # Start by adding less computationally intensive measures, Bayesian R^2 and WAIC
+
+(start <- Sys.time())
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, ic = c("R2", "waic"))
+  add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, criterion = c("R2", "waic"))
 # Save the updated model with the WAIC and Bayesian R^2 values attached
-saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm.rds"))
+# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm.rds"))
+
 
 # 2-pixel window model
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, ic = c("R2", "waic"))
+  add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, criterion = c("R2", "waic"))
 # Save the updated model with the WAIC and Bayesian R^2 values attached
-saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm.rds"))
+# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm.rds"))
 
 # 3-pixel window model
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, ic = c("R2", "waic"))
-saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm.rds"))
+  add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, criterion = c("R2", "waic"))
+# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm.rds"))
 
 # 4-pixel window model
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, ic = c("R2", "waic"))
-saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm.rds"))
+  add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, criterion = c("R2", "waic"))
+# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm.rds"))
+(Sys.time() - start)
+
+compare_ic(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, 
+           fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, 
+           fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, 
+           fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, ic = "waic")
 
 # print method for the WAIC values suggest to try loo instead of WAIC because of p_waic estimates greater than 0.4
 # Adding the LOO information criteria, which are much more computationally intensive
@@ -204,52 +221,32 @@ saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, file = here
 # Trying to use the pointwise = TRUE method to calculate values for each observation independently took >30 hours and didn't finish
 
 # 1-pixel model
-fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, ic = "loo")
-
-# Warning message about 2 observations with high Pareto K diagnostic value (> 0.7)
-# so we use reloo = TRUE to refit the model 2 times (once for each bad observation) and
+# We use reloo = TRUE to refit the model for problematic observations and
 # get the pointwise ELPD value for those two observations
+# This will refit the model XXX times to compute the ELPDs for the XXX problematic observations directly. 
+(start <- Sys.time())
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, ic = "loo", reloo = TRUE)
+  add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, criterion = "loo", reloo = TRUE)
+(Sys.time() - start)
 
 saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm.rds"))
 
 # 2-pixel model
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, ic = "loo")
-# Warning message about 3 observations with high Pareto K diagnostic value (> 0.7)
-# so we use reloo = TRUE to refit the model 3 times (once for each bad observation) and
-# get the pointwise ELPD value for those 3 observations
-fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, ic = "loo", reloo = TRUE)
+  add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, criterion = "loo", reloo = TRUE)
 
 saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm.rds"))
 
 # 3-pixel model
-fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, ic = "loo")
-# Warning message about 5 observations with high Pareto K diagnostic value (> 0.7)
-# so we use reloo = TRUE to refit the model 5 times (once for each bad observation) and
-# get the pointwise ELPD value for those 5 observations
-# Warning message:
-# Found 5 observations with a pareto_k > 0.7 in model 'structure(list(formula = structure(list(formula = stand_replacing ~  het_ndvi_3_s + focal_mean_nd'. 
 # It is recommended to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
-# This will refit the model 5 times to compute the ELPDs for the problematic observations directly. 
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, ic = "loo", reloo = TRUE)
+  add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, criterion = "loo", reloo = TRUE)
 
 saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm.rds"))
 
 # 4-pixel model
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, ic = "loo")
-# Warning message:
-# Found 5 observations with a pareto_k > 0.7 in model 'structure(list(formula = structure(list(formula = stand_replacing ~ het_ndvi_4_s + focal_mean_nd'. 
-# It is recommended to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
-# This will refit the model 5 times to compute the ELPDs for the problematic observations directly. 
-fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm <- 
-  add_ic(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, ic = "loo", reloo = TRUE)
+  add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, criterion = "loo", reloo = TRUE)
 
 saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm.rds"))
 
