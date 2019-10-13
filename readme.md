@@ -127,3 +127,14 @@ running "figures/figures_carpentry/23_pre-post-rbr-visualization.R"
 
 24. Generate Figure 4 (heterogeneity toy example) by running
 "figures/figures_carpentry/24_heterogeneity-demo-raster.R"
+
+25. Generate Figure 5 (effects of covariates on probability of high severity
+fire) by running 
+"figures/figures_carpentry/25_prob-hi-sev_main-effects-with-credible-intervals.R"
+
+26. Generate Supplemental Figure 1 (cartoon of image acquisition algorithm) by
+running "figures/figures_carpentry/26_image-acquisition-algorithm.R"
+
+27. Generate Supplemental Figure 2 (central pixel/neighborhood NDVI decoupling)
+toy example by running 
+"figures/figures_carpentry/27_decoupling-center-neighborhood-ndvi.R"

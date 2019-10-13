@@ -6,7 +6,7 @@ timeWindow <- 2
 boxHeight <- 0.25
 boxAdj <- 0.1 # 0 means the box will be centered on the timeline, 1/2 and its bottom will be on the timeline, -1/2 and its top will be on the timeline
 
-pdf("figs/image-acquisition-algorithm.pdf", width = 11.0 / 2.54, height = 5.0 / 2.54, pointsize = 10)
+pdf("figures/image-acquisition-algorithm.pdf", width = 11.0 / 2.54, height = 5.0 / 2.54, pointsize = 10)
 par(mar = c(0, 0, 0, 0))
 plot(y ~ x, data = dataf, type = "p", axes = FALSE, xlab = NA, ylab = NA, pch = 19, cex = 0.5)
 lines(y ~ x, data = dataf)
