@@ -124,3 +124,6 @@ and store them in "figures/"
 
 23. Generate Figure 3 (example severity maps for Hamm and American fires) by
 running "figures/figures_carpentry/23_pre-post-rbr-visualization.R"
+
+24. Generate Figure 4 (heterogeneity toy example) by running
+"figures/figures_carpentry/24_heterogeneity-demo-raster.R"
