@@ -71,4 +71,19 @@ ee.FeatureCollection("users/mkoontz/fire18_1_sn_ypmc")
 10. Using the best interpolation, spectral severity. and time window from the 
 cross-fold validation, calculate the fire severity, vegetation characteristics,
 and regional climate characteristics that we will use for modelling by running
-the 10_rsr-frap-fires-assessment.js script in Earth Engine.
+the 10_rsr-frap-fires-assessment.js script in Earth Engine. The resulting 
+.geoJSON should be downloaded from your Google Drive and saved as:
+"data/data_output/ee_fire-samples/fires-strat-samples_2018_48-day-window_L4578_none-interp.geojson"
+
+11. Prepare the fire samples for analysis by running 
+"analyses/11_configure-fire-samples.R"
+
+12. Build the primary analysis models for the paper (four separate models-- one
+for each neighborhood window size) by running 
+"analyses/12_probability-of-high-severity-build-models.R"
+
+13. Summarize the posterior distributions of the estimated coefficients of
+the models built in step 12 by running 
+"analyses/13_probability-of-high-severity.R"
+
+14. 

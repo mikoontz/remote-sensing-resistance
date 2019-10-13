@@ -19,11 +19,11 @@ fm2 <- readRDS(here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhood
 fm3 <- readRDS(here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm.rds"))
 fm4 <- readRDS(here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm.rds"))
 
-if(!file.exists(here::here("data/data_output/burned-fire-samples_configured.rds"))) {
-  source(here::here("data/data_carpentry/configure_fire-samples.R"))
+if(!file.exists(here::here("data/data_output/burned-fire-samples_configured.csv"))) {
+  source(here::here("data/data_carpentry/configure-fire-samples.R"))
 }
 # This .rds file has the R object name `ss_burned`
-ss_burned <- readRDS(here::here("data/data_output/burned-fire-samples_configured.rds"))
+ss_burned <- readr::read_csv(here::here("data/data_output/burned-fire-samples_configured.csv"))
 
 get_beta_coef <- function(m) {
   # Output will be a distribution for Intercept, heterogeneity in normal conditions, heterogeneity in extreme conditions, fm100 in normal conditions, fm100 in extreme conditions, preFire_ndvi, topo_roughness, and pahl
@@ -44,7 +44,7 @@ get_beta_coef <- function(m) {
   b_het_ndvi.preFire_ndvi <- dplyr::select(betas, matches("^b_het_ndvi_._s:preFire_ndvi_s")) %>% pull()
   b_het_ndvi.fm100 <- dplyr::select(betas, matches("^b_het_ndvi_._s:fm100_s")) %>% pull()
   
-  b_intercept_prior <- betas_prior$b_Intercept
+  b_intercept_prior <- betas_prior$Intercept
   b_het_prior <-  dplyr::select(betas_prior, matches("b_het_ndvi_._s$")) %>% pull()
   b_topo_roughness_prior <- dplyr::select(betas_prior, matches("b_topo_roughness_._s$")) %>% pull()
   b_neighborhood_mean_prior <- dplyr::select(betas_prior, matches("b_focal_mean_ndvi_._s$")) %>% pull()
@@ -90,95 +90,17 @@ ci_betas_4$radius <- 4
 ci_betas <- rbind(ci_betas_1, ci_betas_2, ci_betas_3, ci_betas_4)
 ci_betas
 
-write_csv(ci_betas, here::here("analyses/analyses_output/ci_betas.csv"))
-
-param_order <- data.frame(order = ci_betas %>% filter(!str_detect(param, "prior")) %>% select(param) %>% pull %>% unique() %>% seq_along(), 
-                          param = c("b_intercept", 
-                                    "b_het", 
-                                    "b_preFire_ndvi", 
-                                    "b_fm100", 
-                                    "b_pahl", 
-                                    "b_topo_roughness", 
-                                    "b_neighborhood_mean", 
-                                    "b_het_ndvi.preFire_ndvi", 
-                                    "b_het_ndvi.neighborhood_mean_ndvi", 
-                                    "b_het_ndvi.fm100", 
-                                    "b_neighborhood_mean_ndvi.preFire_ndvi"), 
-                          print_param = c("$\\beta_0$", 
-                                          "$\\beta_{\\text{nbhd\\_stdev\\_NDVI}}$", 
-                                          "$\\beta_{\\text{prefire\\_NDVI}}$", 
-                                          "$\\beta_{\\text{fm100}}$", 
-                                          "$\\beta_{\\text{pahl}}$", 
-                                          "$\\beta_{\\text{topographic\\_roughness}}$", 
-                                          "$\\beta_{\\text{nbhd\\_mean\\_NDVI}}$", 
-                                          "$\\beta_{\\text{nbhd\\_stdev\\_NDVI*prefire\\_NDVI}}$", 
-                                          "$\\beta_{\\text{nbhd\\_stdev\\_NDVI*nbhd\\_mean\\_NDVI}}$", 
-                                          "$\\beta_{\\text{nbhd\\_stdev\\_NDVI*fm100}}$", 
-                                          "$\\beta_{\\text{nbhd\\_mean\\_NDVI*prefire\\_NDVI}}$"),
-                          stringsAsFactors = FALSE)
-# \\textbeta\\textsubscript{0}
-
-# & \beta_0 + \\
-# & \beta_{\text{neighborhood\_stdev\_NDVI}} * \text{neighborhood\_stdev\_NDVI}_i + \\
-# & \beta_{\text{prefire\_NDVI}} * \text{prefire\_NDVI}_i + \\
-# & \beta_{\text{neighborhood\_mean\_NDVI}} * \text{neighborhood\_mean\_NDVI}_i + \\
-# & \beta_{\text{fm100}} * \text{fm100}_i + \\
-# & \beta_{\text{pahl}} * \text{pahl}_i + \\
-# & \beta_{\text{topographic\_roughness}} * \text{topographic\_roughness}_i + \\
-# & \beta_{\text{neighborhood\_stdev\_NDVI*fm100}} * \text{neighborhood\_stdev\_NDVI}_i * \text{fm100}_i + \\
-# & \beta_{\text{neighborhood\_stdev\_NDVI*prefire\_NDVI}} * \text{neighborhood\_stdev\_NDVI}_i * \text{prefire\_NDVI}_i + \\
-# & \beta_{\text{neighborhood\_mean\_NDVI*prefire\_NDVI}} * \text{neighborhood\_mean\_NDVI}_i * \text{prefire\_NDVI}_i
-
-
-
-# ci_betas_print_table <-
-#   ci_betas %>% 
-#   mutate_at(.vars = vars(lwr, mean, upr), .funs = funs(round), 3) %>% 
-#   mutate(print_col = paste0(ifelse(abs(mean) == mean,
-#                                    yes = str_pad(as.character(mean), side = "right", pad = "0", width = 5),
-#                                    no = str_pad(as.character(mean), side = "right", pad = "0", width = 6)),
-#                             " (", 
-#                             ifelse(abs(lwr) == lwr, 
-#                                    yes = str_pad(as.character(lwr), side = "right", pad = "0", width = 5), 
-#                                    no = str_pad(as.character(lwr), side = "right", pad = "0", width = 6)),
-#                             ", ",
-#                             ifelse(abs(upr) == upr,
-#                                    yes = str_pad(as.character(upr), side = "right", pad = "0", width = 5),
-#                                    no = str_pad(as.character(upr), side = "right", pad = "0", width = 6)),
-#                             ")")) %>% 
-#   select(param, radius, print_col) %>% 
-#   filter(!str_detect(param, "prior")) %>% 
-#   spread(key = radius, value = print_col) %>% 
-#   left_join(param_order, by = "param") %>% 
-#   arrange(order) %>% 
-#   select(-order)
-# 
-# ci_betas_print_table
-
-ci_betas_print_table <-
-  ci_betas %>% 
-  mutate_at(.vars = vars(lwr, mean, upr), .funs = funs(round), 3) %>% 
-  mutate(print_col = paste0("$\\makecell{", mean, " \\tabularnewline (", lwr, ", ", upr, ")}$")) %>% 
-  select(param, radius, print_col) %>% 
-  filter(!str_detect(param, "prior")) %>% 
-  spread(key = radius, value = print_col) %>% 
-  left_join(param_order, by = "param") %>% 
-  arrange(order) %>% 
-  select(print_param, `1`, `2`, `3`, `4`)
-
-ci_betas_print_table
-write_csv(ci_betas_print_table, here::here("analyses/analyses_output/ci_betas_print_table.csv"))
-
+write_csv(ci_betas, here::here("analyses/analyses_output/ci-betas.csv"))
 
 ci_betas_print_table_simple <-
   ci_betas %>% 
-  mutate_at(.vars = vars(lwr, mean, upr), .funs = funs(round), 3) %>% 
-  mutate(print_col = paste0(mean, " (", lwr, ", ", upr, ")")) %>% 
-  select(param, radius, print_col) %>% 
-  filter(!str_detect(param, "prior")) %>% 
-  spread(key = radius, value = print_col) %>% 
-  left_join(param_order, by = "param") %>% 
-  arrange(order) %>% 
-  select(print_param, `1`, `2`, `3`, `4`)
+  dplyr::mutate_at(.vars = vars(lwr, mean, upr), .funs = funs(round), 3) %>% 
+  dplyr::mutate(print_col = paste0(mean, " (", lwr, ", ", upr, ")")) %>% 
+  dplyr::select(param, radius, print_col) %>% 
+  dplyr::filter(!str_detect(param, "prior")) %>% 
+  tidyr::pivot_wider(names_from = radius, values_from = print_col) %>% 
+  dplyr::left_join(param_order, by = "param") %>% 
+  dplyr::arrange(order) %>% 
+  dplyr::select(print_param, `1`, `2`, `3`, `4`)
 
-write_csv(ci_betas_print_table_simple, here::here("analyses/analyses_output/ci_betas_print_table_simple.csv"))
+write_csv(ci_betas_print_table_simple, here::here("analyses/analyses_output/ci-betas-print-table-simple.csv"))
