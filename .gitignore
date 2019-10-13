@@ -13,8 +13,10 @@ data/data_carpentry/.ipynb_checkpoints/*
 
 data/data_carpentry/ee-error-log.txt
 
-ee-remote-sensing-resistance/rsr-heterogeneity-check.js
 ee-remote-sensing-resistance/rsr-export-images.js
+ee-remote-sensing-resistance/rsr-heterogeneity-check.js
+ee-remote-sensing-resistance/rsr-heterogeneity-demo.js
+ee-remote-sensing-resistance/intersect-fire-perims-conifer-forest.js
 
 figs/neighborhood_size_example_with_landsat_pixel.pptx
 

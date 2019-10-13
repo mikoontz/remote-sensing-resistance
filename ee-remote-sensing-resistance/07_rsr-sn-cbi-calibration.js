@@ -37,9 +37,8 @@ var calibrated_cbi = target_cbi_plots.map(rsr.calibrate_cbi({ timeWindow: timeWi
 }),
                                             true);
 
-var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_texture_10000";
+var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
 
-print(target_cbi_plots.getInfo());
 Export.table.toDrive({
   'collection': calibrated_cbi,
   'description': cbi_calibration_description,
@@ -47,8 +46,7 @@ Export.table.toDrive({
   'fileNamePrefix': cbi_calibration_description,
   'fileFormat': 'GeoJSON'
 });
-
-
+print(calibrated_cbi);
 // 16 * 2 day window and bilinear interpolation
 var timeWindow = 16*2;
 var resample_method = 'bilinear';
@@ -59,7 +57,7 @@ var calibrated_cbi = target_cbi_plots.map(rsr.calibrate_cbi({ timeWindow: timeWi
 }),
                                             true);
 
-var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_texture_10000";
+var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': calibrated_cbi,
@@ -79,7 +77,7 @@ var calibrated_cbi = target_cbi_plots.map(rsr.calibrate_cbi({ timeWindow: timeWi
 }),
                                             true);
 
-var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_texture_10000";
+var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': calibrated_cbi,
@@ -99,7 +97,7 @@ var calibrated_cbi = target_cbi_plots.map(rsr.calibrate_cbi({ timeWindow: timeWi
 }),
                                             true);
 
-var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_texture_10000";
+var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': calibrated_cbi,
@@ -122,7 +120,7 @@ var calibrated_cbi = target_cbi_plots.map(rsr.calibrate_cbi({ timeWindow: timeWi
 }),
                                             true);
 
-var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_texture_10000";
+var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': calibrated_cbi,
@@ -143,7 +141,7 @@ var calibrated_cbi = target_cbi_plots.map(rsr.calibrate_cbi({ timeWindow: timeWi
 }),
                                             true);
 
-var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_texture_10000";
+var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': calibrated_cbi,
@@ -163,7 +161,7 @@ var calibrated_cbi = target_cbi_plots.map(rsr.calibrate_cbi({ timeWindow: timeWi
 }),
                                             true);
 
-var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_texture_10000";
+var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': calibrated_cbi,
@@ -183,7 +181,7 @@ var calibrated_cbi = target_cbi_plots.map(rsr.calibrate_cbi({ timeWindow: timeWi
 }),
                                             true);
 
-var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp_texture_10000";
+var cbi_calibration_description = "cbi-calibration_" + timeWindow + "-day-window_L" + sats_string + "_" + resample_method + "-interp";
 
 Export.table.toDrive({
   'collection': calibrated_cbi,

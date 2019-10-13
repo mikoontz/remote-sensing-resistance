@@ -8,7 +8,8 @@ var mixed_conifer = ee.Image("users/mkoontz/mixed_conifer"),
     l8sr = ee.ImageCollection("LANDSAT/LC08/C01/T1_SR"),
     perim = ee.FeatureCollection("users/mkoontz/fire_perim_16_1"),
     sn = ee.FeatureCollection("users/mkoontz/SierraEcoregion_Jepson"),
-    cbi_sn = ee.FeatureCollection("users/mkoontz/cbi_sn");
+    cbi_sn = ee.FeatureCollection("users/mkoontz/cbi_sn"),
+    fires = ee.FeatureCollection("users/mkoontz/fire18_1_sn_ypmc");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 // HELPER FUNCTIONS
 // Generally for gathering and masking imagery, and not for
@@ -458,7 +459,8 @@ var get_stratified_samps = function(args) {
 
 // get_NDVI() returns the normalized difference vegetation index (NDVI) for each pixel of an image
 var get_NDVI = function(img) {
-  var ndvi = img.normalizedDifference(['B4', 'B3']).rename('ndvi');
+  var ndvi = img.normalizedDifference(['B4', 'B3']).rename('ndvi')
+  .multiply(1000);
   
   return ee.Image(ndvi);
 };
@@ -537,22 +539,29 @@ var get_postFndmi = function(feature, timeWindow, resample_method, sats) {
 // get_EVI() returns the enhanced vegetation index (EVI) at each pixel of an image
 var get_EVI = function (img) {
    
-  var evi_numerator = 
-    img.select('B4')
-      .subtract(img.select('B3'));
+  // var evi_numerator = 
+  //   img.select('B4')
+  //     .subtract(img.select('B3'));
     
-  var evi_denominator = 
-    img.select('B4')
-      .add(img.select('B3').multiply(6))
-      .subtract(img.select('B1').multiply(7.5))
-      .add(1);
+  // var evi_denominator = 
+  //   img.select('B4')
+  //     .add(img.select('B3').multiply(6))
+  //     .subtract(img.select('B1').multiply(7.5))
+  //     .add(1);
   
-  var evi = 
-    evi_numerator
-      .divide(evi_denominator)
-      .multiply(2.5);
+  // var evi = 
+  //   evi_numerator
+  //     .divide(evi_denominator)
+  //     .multiply(2.5);
 
-  return ee.Image(evi);
+  // Code adapted from Parks et al., 2019
+  return ee.Image(img.expression(
+              '(2.5 * ((B4 - B3) / (B4 + (6 * B3) - (7.5 * B1) + 1)))',
+              {'B4': img.select('B4').multiply(0.0001),
+              'B3': img.select('B3').multiply(0.0001),
+              'B1': img.select('B1').multiply(0.0001),
+              }).toFloat());
+          
 };
 
 // get_preFevi() maps over the collection of pre-fire images, calculates EVI on each, and takes the median for each pixel
@@ -589,7 +598,8 @@ var get_postFevi = function(feature, timeWindow, resample_method, sats) {
 
 // get_NBR() returns the normalized burn ratio (NBR) for each pixel of an image
 var get_NBR = function(img) {
-  var nbr = img.normalizedDifference(['B4', 'B7']);
+  var nbr = img.normalizedDifference(['B4', 'B7']).rename('nbr')
+  .multiply(1000);
   
   return ee.Image(nbr);
 };
@@ -628,7 +638,8 @@ var get_postFnbr = function(feature, timeWindow, resample_method, sats) {
 
 //  get_NBR2() returns the normalized burn ratio 2 (NBR2) value at each pixel for an image
 var get_NBR2 = function(img) {
-  var nbr2 = img.normalizedDifference(['B5', 'B7']);
+  var nbr2 = img.normalizedDifference(['B5', 'B7']).rename('nbr2')
+  .multiply(1000);
   
   return ee.Image(nbr2);
 };
@@ -797,7 +808,7 @@ var get_RBR = function(feature, timeWindow, resample_method, sats) {
   var delta_nbr = get_dNBR(feature, timeWindow, resample_method, sats);
   
   var RBR = ee.Algorithms.If( delta_nbr,
-                                delta_nbr.divide(preFire_nbr.add(1.001)), 
+                                delta_nbr.divide(preFire_nbr.divide(1000).add(1.001)), 
                                 null);
 
   return ee.Image(RBR);
@@ -1529,13 +1540,21 @@ var get_variables_lite = function(feature, timeWindow, resample_method, sats) {
     
     var preFnbr = get_preFnbr(feature, timeWindow, resample_method, sats);
     var postFnbr = get_postFnbr(feature, timeWindow, resample_method, sats);
-    var rdnbr = get_RdNBR(feature, timeWindow, resample_method, sats);
     
     var preFndvi = get_preFndvi(feature, timeWindow, resample_method, sats);
     var postFndvi = get_postFndvi(feature, timeWindow, resample_method, sats);
-    var rdndvi = get_RdNDVI(feature, timeWindow, resample_method, sats);
     
+    var preFevi = get_preFevi(feature, timeWindow, resample_method, sats);
+    var postFevi = get_postFevi(feature, timeWindow, resample_method, sats);
+    
+    var rdnbr = get_RdNBR(feature, timeWindow, resample_method, sats);
     var rbr = get_RBR(feature, timeWindow, resample_method, sats);
+    var dnbr = get_dNBR(feature, timeWindow, resample_method, sats);
+    var dnbr2 = get_dNBR2(feature, timeWindow, resample_method, sats);
+    var rdnbr2 = get_RdNBR2(feature, timeWindow, resample_method, sats);
+    var dndvi = get_dNDVI(feature, timeWindow, resample_method, sats);
+    var rdndvi = get_RdNDVI(feature, timeWindow, resample_method, sats);
+    var devi = get_dEVI(feature, timeWindow, resample_method, sats);
     
     // Variables that depend on neighborhood window size AND on fire information
     // Radius of 1 pixel = 3x3 window = 90m x 90m = 8100 m^2 = 0.81 ha
@@ -1583,12 +1602,19 @@ var get_variables_lite = function(feature, timeWindow, resample_method, sats) {
     var export_img =   
       ee.Algorithms.If(rdnbr, 
         rdnbr
+        .addBands(rbr)
+        .addBands(dnbr)
+        .addBands(dnbr2)
+        .addBands(rdnbr2)
+        .addBands(dndvi)
+        .addBands(rdndvi)
+        .addBands(devi)
         .addBands(preFnbr)
         .addBands(postFnbr)
-        .addBands(rdndvi)
-        .addBands(rbr)
         .addBands(preFndvi)
         .addBands(postFndvi)
+        .addBands(preFevi)
+        .addBands(postFevi)
         .addBands(het_ndvi_1)
         .addBands(focal_mean_ndvi_1)
         .addBands(het_ndvi_2)
@@ -1612,12 +1638,19 @@ var get_variables_lite = function(feature, timeWindow, resample_method, sats) {
         .addBands(rough4)
         .addBands(local_elev)
         .rename(['RdNBR',
+          'RBR',
+          'dNBR',
+          'dNBR2',
+          'RdNBR2',
+          'dNDVI',
+          'RdNDVI',
+          'dEVI',
           'preFire_nbr',
           'postFire_nbr',
-          'RdNDVI',
-          'RBR',
           'preFire_ndvi',
           'postFire_ndvi',
+          'preFire_evi',
+          'postFire_evi',
           'het_ndvi_1',
           'focal_mean_ndvi_1',
           'het_ndvi_2',
@@ -1656,16 +1689,16 @@ var get_variables_lite = function(feature, timeWindow, resample_method, sats) {
     return ee.Image(export_img);
 };
 
-
 var calibrate_cbi = function(args) {
   
   var timeWindow = args.timeWindow;
   var resample_method = args.resample_method;
   var sats = args.sats;
+  var gray_levels = 10;
   
   return function(feature) {
     var geo = feature.geometry();
-    var var_img = get_variables(feature, timeWindow, resample_method, sats);
+    var var_img = get_variables_lite(feature, timeWindow, resample_method, sats);
   
     var reduce_to_point_dict = ee.Algorithms.If(var_img,
                                         var_img
