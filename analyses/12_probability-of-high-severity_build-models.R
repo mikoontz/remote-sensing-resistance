@@ -173,10 +173,10 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm <- brm(stand_replaci
 
 # Save the models as .rds objects
 
-saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm.rds"))
-saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm.rds"))
-saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm.rds"))
-saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm.rds"))
+# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm.rds"))
+# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm.rds"))
+# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm.rds"))
+# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm.rds"))
 
 # Add information criteria
 
@@ -193,30 +193,30 @@ saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, file = here
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <- 
   add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, criterion = c("R2", "waic"))
 # Save the updated model with the WAIC and Bayesian R^2 values attached
-# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm.rds"))
+saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm.rds"))
 
 
 # 2-pixel window model
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- 
   add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, criterion = c("R2", "waic"))
 # Save the updated model with the WAIC and Bayesian R^2 values attached
-# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm.rds"))
+saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm.rds"))
 
 # 3-pixel window model
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm <- 
   add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, criterion = c("R2", "waic"))
-# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm.rds"))
+saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm.rds"))
 
 # 4-pixel window model
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm <- 
   add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, criterion = c("R2", "waic"))
-# saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm.rds"))
+saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm.rds"))
 (Sys.time() - start)
 
-compare_ic(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, 
-           fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, 
-           fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, 
-           fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, ic = "waic")
+loo_compare(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, 
+            fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, 
+            fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, 
+            fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, criterion = "waic")
 
 # print method for the WAIC values suggest to try loo instead of WAIC because of p_waic estimates greater than 0.4
 # Adding the LOO information criteria, which are much more computationally intensive
@@ -236,21 +236,31 @@ fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm <-
 saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm.rds"))
 
 # 2-pixel model
+(start <- Sys.time())
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm <- 
   add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, criterion = "loo", reloo = TRUE)
 
 saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm.rds"))
+(Sys.time() - start)
 
 # 3-pixel model
-# It is recommended to set 'reloo = TRUE' in order to calculate the ELPD without the assumption that these observations are negligible. 
+(start <- Sys.time())
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm <- 
   add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, criterion = "loo", reloo = TRUE)
 
 saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm.rds"))
+(Sys.time() - start)
 
 # 4-pixel model
+(start <- Sys.time())
 fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm <- 
   add_criterion(x = fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, criterion = "loo", reloo = TRUE)
 
 saveRDS(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, file = here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm.rds"))
 
+(Sys.time() - start)
+
+loo_compare(fm_sevOrNot_het_neighborhoodMean_preFireNDVI_1_ssBurned_brm, 
+            fm_sevOrNot_het_neighborhoodMean_preFireNDVI_2_ssBurned_brm, 
+            fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm, 
+            fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm, criterion = "loo")
