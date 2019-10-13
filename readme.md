@@ -93,6 +93,10 @@ determine the primary scale of effect of the heterogeneity. Run the
 15. Calculate summary information for the CBI calibration step by running
 "analyses/15_cbi-summary-stats.R"
 
-16. Compare the currently best-available YPMC wildfire dataset (USFS Region 5
-Geospatial) to what we have developed by calculating some additional attribute
-information. Run "data/data_carpentry/16_ypmc-pixel-count-usfs-r5.R"
+16. Calculate some additional attribute information for the USFS Region 5 GIS
+dataset-- the current best severity dataset for the Sierra Nevada. 
+Run "data/data_carpentry/16_ypmc-pixel-count-usfs-r5.R"
+
+17. Compare the currently best-available YPMC wildfire dataset (USFS Region 5
+Geospatial) to what we have developed by running 
+"analyses/17_fire-perims-summary-stats.R"
