@@ -19,11 +19,11 @@ fm2 <- readRDS(here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhood
 fm3 <- readRDS(here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_3_ssBurned_brm.rds"))
 fm4 <- readRDS(here::here("analyses/analyses_output/fm_sevOrNot_het_neighborhoodMean_preFireNDVI_4_ssBurned_brm.rds"))
 
-if(!file.exists(here::here("data/data_output/burned-fire-samples_configured.csv"))) {
-  source(here::here("data/data_carpentry/configure-fire-samples.R"))
+if(!file.exists(here::here("data/data_output/burned-fire-samples_configured.geoJSON"))) {
+  source(here::here("data/data_carpentry/11_configure-fire-samples.R"))
 }
 # This .rds file has the R object name `ss_burned`
-ss_burned <- readr::read_csv(here::here("data/data_output/burned-fire-samples_configured.csv"))
+ss_burned <- sf::st_read(here::here("data/data_output/burned-fire-samples_configured.geoJSON")) %>% st_drop_geometry()
 
 get_beta_coef <- function(m) {
   # Output will be a distribution for Intercept, heterogeneity in normal conditions, heterogeneity in extreme conditions, fm100 in normal conditions, fm100 in extreme conditions, preFire_ndvi, topo_roughness, and pahl
@@ -91,6 +91,31 @@ ci_betas <- rbind(ci_betas_1, ci_betas_2, ci_betas_3, ci_betas_4)
 ci_betas
 
 write_csv(ci_betas, here::here("analyses/analyses_output/ci-betas.csv"))
+
+param_order <- data.frame(order = ci_betas %>% filter(!str_detect(param, "prior")) %>% dplyr::select(param) %>% pull %>% unique() %>% seq_along(), 
+                          param = c("b_intercept", 
+                                    "b_het", 
+                                    "b_preFire_ndvi", 
+                                    "b_fm100", 
+                                    "b_pahl", 
+                                    "b_topo_roughness", 
+                                    "b_neighborhood_mean", 
+                                    "b_het_ndvi.preFire_ndvi", 
+                                    "b_het_ndvi.neighborhood_mean_ndvi", 
+                                    "b_het_ndvi.fm100", 
+                                    "b_neighborhood_mean_ndvi.preFire_ndvi"), 
+                          print_param = c("$\\beta_0$", 
+                                          "$\\beta_{\\text{nbhd\\_stdev\\_NDVI}}$", 
+                                          "$\\beta_{\\text{prefire\\_NDVI}}$", 
+                                          "$\\beta_{\\text{fm100}}$", 
+                                          "$\\beta_{\\text{pahl}}$", 
+                                          "$\\beta_{\\text{topographic\\_roughness}}$", 
+                                          "$\\beta_{\\text{nbhd\\_mean\\_NDVI}}$", 
+                                          "$\\beta_{\\text{nbhd\\_stdev\\_NDVI*prefire\\_NDVI}}$", 
+                                          "$\\beta_{\\text{nbhd\\_stdev\\_NDVI*nbhd\\_mean\\_NDVI}}$", 
+                                          "$\\beta_{\\text{nbhd\\_stdev\\_NDVI*fm100}}$", 
+                                          "$\\beta_{\\text{nbhd\\_mean\\_NDVI*prefire\\_NDVI}}$"),
+                          stringsAsFactors = FALSE)
 
 ci_betas_print_table_simple <-
   ci_betas %>% 
