@@ -138,3 +138,23 @@ running "figures/figures_carpentry/26_image-acquisition-algorithm.R"
 27. Generate Supplemental Figure 2 (central pixel/neighborhood NDVI decoupling)
 toy example by running 
 "figures/figures_carpentry/27_decoupling-center-neighborhood-ndvi.R"
+
+## Export full geoTIFF images of each fire (with severity and predictor variables)
+
+28. Run "data/data_carpentry/28_ee-get-fire-ids-and-dates-for-mass-EE-export.R"
+to get the fire IDs and the fire dates to pass to the Earth Engine python
+interface in order to avoid needing to use .getInfo() calls to get the same 
+information. A way to make this smoother might be to read in the .csv 
+representing the FRAP perimeters' metadata (including the Earth Engine system
+index) to the python code directly. This approach is a bit of a kludge...
+
+29. Paste the fire IDs and the fire alarm dates derived from step 28 as a python
+list in the "data/data_carpentry/29_ee-get-frap-derived-imagery.ipynb" file and
+run this script to iterate through all those fire ids and calulate severity
+plus the predictor varibles for the model (including regional climate, 
+vegetation values, raw band values for Landsat before and after the fire, 
+heterogeneity of vegetation, etc.)
+
+30. Connect the original FRAP database of fire perimeters with the Earth Engine-
+derived metadata from the samples of those fires. Also create a table of the
+metadata for the rasters.
