@@ -158,3 +158,11 @@ heterogeneity of vegetation, etc.)
 30. Connect the original FRAP database of fire perimeters with the Earth Engine-
 derived metadata from the samples of those fires. Also create a table of the
 metadata for the rasters.
+
+## Demonstrate how to work with rasters available on the Open Science Framework
+
+31. Rasters are available as a "component" to the full project on the OSF at this
+address: https://osf.io/ke4qj/. The 
+"data/data_carpentry/31_basic-manipulations-of-remote-sensing-resistance-rasters.R"
+gives a few examples of how to find fire rasters of interest, name the bands,
+and visualize them.
