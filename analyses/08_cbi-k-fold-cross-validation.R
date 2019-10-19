@@ -199,26 +199,3 @@ write.csv(model_summary, here::here("analyses/analyses_output/cbi-calibration-mo
 # The ranking of models is fairly variable, with many taking the top spot
 # depending on how the random assignment of training and test data go.
 # For instance, RdNDVI ends up on top pretty often.
-
-test <- cbi_48_bicubic %>% 
-  dplyr::filter(conifer_forest == 1)
-
-fm1 <- nls(cbi_over ~ SSasympOff(RBR, Asym, lrc, c0), data = test)
-fm2 <- nls(cbi_over ~ SSasymp(RBR, Asym, R0, lrc), data = test)
-fm3 <- nls(cbi_over ~ log((RBR - a) / b) / c, data = test, start = list(a = 10, b = 100, c = 1))
-fm4 <- nls(cbi_over ~ SSlogis(RBR, Asym, xmid, scal), data = test)
-fm5 <- gam(cbi_over ~ te(RBR), data = test)
-fm6 <- lm(cbi_over ~ RBR, data = test)
-
-plot(test$RBR, test$cbi_over)
-points(test$RBR, predict(fm1, newdata = test), col = "red", pch = 19)
-points(test$RBR, predict(fm2, newdata = test), col = "blue", pch = 19)
-points(test$RBR, predict(fm4, newdata = test), col = "orange", pch = 19)
-points(test$RBR, predict(fm5, newdata = test), col = "purple", pch = 19)
-
-plot(fm1)
-AIC(fm1, fm2, fm4, fm5, fm6)
-
-
-# CBI = Asym * (1 - exp(-(RBR - c0)*exp(lrc)))
-# CBI = coef(fm1)["Asym"] * (1 - exp(-(test$RBR - coef(fm1)["c0"])*exp(coef(fm1)["lrc"])))
