@@ -5,6 +5,7 @@ library(raster)
 library(rasterVis)
 library(tidyverse)
 library(sf)
+library(viridis)
 
 # Read the raster band metadata file
 band_metadata <- read_csv("data/data_output/wildfire-severity_sierra-nevada-ca-usa_ypmc_1984-2018_raster-metadata.csv")
@@ -95,4 +96,18 @@ levelplot(target_img[["rbr"]], at = breaks, col.regions = cols)
 # coordinate reference system of the raster imagery
 plot(target_img[["rbr"]])
 plot(st_transform(st_geometry(target_img_ftr), 3310), add = TRUE)
+
+
+# converting spectral severity to CBI(overstory) --------------------------
+# for a givent target model
+# This target model is RBR using a 48-day time window
+
+target_model
+
+rbr <- target_img[["rbr"]]
+cbi <- rbr
+cbi[rbr <= target_model$unchanged] <- 0
+cbi[rbr > target_model$unchanged] <- log(((cbi[rbr > target_model$unchanged]) - target_model$a) / target_model$b) / target_model$c
+
+plot(cbi, col = magma(100))
 
