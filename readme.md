@@ -166,3 +166,16 @@ address: https://osf.io/ke4qj/. The
 "data/data_carpentry/31_basic-manipulations-of-remote-sensing-resistance-rasters.R"
 gives a few examples of how to find fire rasters of interest, name the bands,
 and visualize them.
+
+## Generating the manuscript documents
+
+32. The main text of the manuscript is an RMarkdown file that can found in
+"docs/manuscript/remote-sensing-resistance.Rmd". Knitting this document will
+create the .pdf version of the main text, assuming the rest of the steps have
+been completed to generate intermediate data and analyses outputs, as well as 
+to generate figures.
+
+33. The supplemental material of the manuscript is also an RMarkdown file that
+can be found in "docs/manuscript/remote-sensing-resistance_supp-methods.Rmd".
+Like the main text, knitting this file will generate the supplemental information
+document so long as the prior steps have been completed.
