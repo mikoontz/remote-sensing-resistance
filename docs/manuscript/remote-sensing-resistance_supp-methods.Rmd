@@ -2,7 +2,7 @@
 geometry: margin=1in
 
 bibliography: ../docs_carpentry/remote-sensing-resistance.bib
-csl: ../docs_carpentry/pnas.csl
+csl: ../docs_carpentry/ecology-letters.csl
 
 header-includes:
   - \usepackage[left]{lineno}
@@ -16,7 +16,7 @@ header-includes:
   - \captionsetup[table]{labelformat=empty}
   - \usepackage{float}
 
-output:  word_document
+output:  pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -35,19 +35,19 @@ eq_nums <- captioner(prefix = "Supplemental Equation")
 fig_nums <- captioner(prefix = "Supplemental Figure")
 table_nums <- captioner(prefix = "Supplemental Table")
 
-ci_betas_print_table_simple <- read_csv(here::here("analyses/analyses_output/ci_betas_print_table_simple.csv"))
+ci_betas_print_table_simple <- read_csv(here::here("analyses/analyses_output/ci-betas-print-table-simple.csv"))
 
-cbi_summary_stats_list <- read_rds(here::here("analyses/analyses_output/cbi_summary_stats_list.rds"))
+cbi_summary_stats_list <- read_rds(here::here("analyses/analyses_output/cbi-summary-stats-list.rds"))
 total_conifer_cbi_plots <- cbi_summary_stats_list$total_conifer_cbi_plots
 
-fire_perims_summary_stats_list <- read_rds(here::here("analyses/analyses_output/fire_perims_summary_stats_list.rds"))
+fire_perims_summary_stats_list <- read_rds(here::here("analyses/analyses_output/fire-perims-summary-stats-list.rds"))
 frap_area_ypmc_burned <- fire_perims_summary_stats_list$frap_area_ypmc_burned
 frap_fire_count_ypmc <- fire_perims_summary_stats_list$frap_fire_count_ypmc
 r5_area_ypmc_burned <- fire_perims_summary_stats_list$r5_area_ypmc_burned
 r5_fire_count_ypmc <- fire_perims_summary_stats_list$r5_fire_count_ypmc
 total_conifer_samps <- fire_perims_summary_stats_list$total_conifer_samps
 
-cbi_models <- read_csv(here::here("data/data_output/cbi_calibration_model_comparison.csv"))
+cbi_models <- read_csv(here::here("analyses/analyses_output/cbi-calibration-model-comparison.csv"))
 
 print_cbi_models <- cbi_models
 print_cbi_models[, 5:13] <- round(cbi_models[, 5:13], 3)
@@ -113,25 +113,22 @@ For each fire perimeter, we fetched a time series of prefire Landsat images star
 
 For each Landsat image in the prefire and postfire collections, we calculated standard indices that capture vegetation cover and fire effects such as charring. Normalized difference vegetation index (NDVI) correlates with vegetation density, canopy cover, and leaf area index [@rouse1973]. Normalized burn ratio (NBR) and normalized burn ratio version 2 (NBR2) respond strongly to fire effects on vegetation [@garcia1991; @key2006; @usgs2017; @usgs2017a; @hawbaker2017] (Equations in Supplemental Methods).
 
-We composited each pre- and postfire image collection (including the pixel values representing NDVI, NBR, and NBR2) into a single pre- and postfire image using a median reducer, which calculated the median of the unmasked values on a per-pixel basis across the stack of images in each collection. Composite pre- and postfire images can be successfully used to measure wildfire severity instead of using raw, individual images [@parks2018].
+We composited each pre- and postfire image collection (including the pixel values representing NDVI, NBR, and NBR2) into a single pre- and postfire image using a median reducer, which calculated the median of the unmasked values on a per-pixel basis across the stack of images in each collection. Composite pre- and postfire images can be successfully used to measure wildfire severity instead of using raw, individual images [@parks2018; @parks2019].
 
 #### Spectral indices of wildfire severity
 
-Using the composited images, we calculated commonly used metrics of remotely-sensed wildfire severity to validate against ground-based data: the relative burn ratio (RBR) [@parks2014a], the delta normalized burn ratio (dNBR) [@eidenshink2007; @miller2007], the relative delta normalized burn ratio (RdNBR) [@miller2007; @miller2012a], the delta normalized burn ratio 2 (dNBR2) [@hawbaker2017], the relative delta normalized burn ratio 2 (RdNBR2), and the delta normalized difference vegetation index (dNDVI) [@eidenshink2007]. We also calculated an analogous metric to RdNBR using NDVI: the relative delta normalized difference vegetation index (RdNDVI). We calculated the delta severity indices (dNBR, dNBR2, dNDVI) without multiplying by a rescaling constant (e.g., we did not multiply the result by 1000 as in @miller2007). Following @reilly2017, we did not correct the delta indices using a phenological offset value, as our approach implicitly accounts for phenology by incorporating multiple cloud-free images across the same time window both before the fire and one year later.
+Using the composited images, we calculated commonly used metrics of remotely-sensed wildfire severity to validate against ground-based data: the relative burn ratio (RBR) [@parks2014a], the delta normalized burn ratio (dNBR) [@eidenshink2007; @miller2007], the relative delta normalized burn ratio (RdNBR) [@miller2007; @miller2012a], the delta normalized burn ratio 2 (dNBR2) [@hawbaker2017], the relative delta normalized burn ratio 2 (RdNBR2), and the delta normalized difference vegetation index (dNDVI) [@eidenshink2007]. We also calculated an analogous metric to RdNBR using NDVI: the relative delta normalized difference vegetation index (RdNDVI). Following @reilly2017, we did not correct the delta indices using a phenological offset value, as our approach implicitly accounts for phenology by incorporating multiple cloud-free images across the same time window both before the fire and one year later.
 
-Normalized difference vegetation index (NDVI; `r eq_nums(name = "eq-ndvi", display = "cite")`) correlates with vegetation density, canopy cover, and leaf area index [@rouse1973]. Normalized difference moisture index (NDMI; `r eq_nums(name = "eq-ndmi", display = "cite")`) correlates with similar vegetation characteristics as NDVI, but doesn't saturate at high levels of foliar biomass [@gao1996, @huesca2016]. Normalized burn ratio (NBR; `r eq_nums(name = "eq-nbr", display = "cite")`) and normalized burn ratio version 2 (NBR2; `r eq_nums(name = "eq-nbr2", display = "cite")`) respond strongly to fire effects on vegetation [@garcia1991; @key2006; @usgs2017a; @usgs2017; @hawbaker2017].
+Normalized difference vegetation index (NDVI; `r eq_nums(name = "eq-ndvi", display = "cite")`) correlates with vegetation density, canopy cover, and leaf area index [@rouse1973]. Normalized burn ratio (NBR; `r eq_nums(name = "eq-nbr", display = "cite")`) and normalized burn ratio version 2 (NBR2; `r eq_nums(name = "eq-nbr2", display = "cite")`) respond strongly to fire effects on vegetation [@garcia1991; @key2006; @usgs2017a; @usgs2017; @hawbaker2017].
 
 (@eq-ndvi) $\label{eq-ndvi}
-ndvi = \mathopen(nir - red\mathclose) / \mathopen(nir + red\mathclose)$
-
-(@eq-ndmi) $\label{eq-ndmi}
-ndmi = \mathopen(nir - swir1\mathclose) / \mathopen(nir + swir1\mathclose)$
+ndvi = \mathopen(nir - red\mathclose) / \mathopen(nir + red\mathclose) * 1000$
 
 (@eq-nbr) $\label{eq-nbr}
-nbr = \mathopen(nir - swir2\mathclose) / \mathopen(nir + swir2\mathclose)$
+nbr = \mathopen(nir - swir2\mathclose) / \mathopen(nir + swir2\mathclose) * 1000$
 
 (@eq-nbr2) $\label{eq-nbr2}
-nbr2 = \mathopen(swir1 - swir2\mathclose) / \mathopen(swir1 + swir2\mathclose)$
+nbr2 = \mathopen(swir1 - swir2\mathclose) / \mathopen(swir1 + swir2\mathclose) * 1000$
 
 Where $nir$ is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on Landsat 8) and $red$ is the red band (band 3 on Landsat 4, 5, and 7; band 4 on Landsat 8), $swir1$ is the first short wave infrared band (band 5 on Landsat 4, 5, and 7; band 4 on Landsat 8), $swir2$ is the second short wave infrared band (band 7 on Landsat 4, 5, 7, and 8)
 
@@ -151,7 +148,7 @@ eq_nums(name = "eq-rdindex")
 We calculated the relative delta severity indices, RdNBR and RdNDVI, by scaling the respective delta indices (dNBR and dNDVI) from `r eq_nums(name = "eq-rdindex", display = "cite")` by a square root transformation of the absolute value of the prefire index:
 
 (@eq-rdindex) $\label{eq-rdindex}
-RdI = \frac{dI}{\sqrt{\mathopen|I_{\text{prefire}}\mathclose|}}$
+RdI = \frac{dI}{\sqrt{\mathopen|I_{\text{prefire}}/1000\mathclose|}}$
 
 
 ```{r eq_rbr, results = "hide"}
@@ -161,7 +158,7 @@ eq_nums(name = "eq-rbr")
 We calculated the relative burn ratio (RBR) following @parks2014a using `r eq_nums(name = "eq-rbr", display = "cite")`:
 
 (@eq-rbr) $\label{eq-rbr}
-RBR = \frac{dNBR}{NBR_{\text{prefire}} + 1.001}$
+RBR = \frac{dNBR}{NBR_{\text{prefire}}/1000 + 1.001}$
 
 
 ```{r eq-potential-annual-heat-load, results = "hide"}
@@ -186,7 +183,7 @@ We fit the model in `r eq_nums(name = "eq-cbi-calibration", display = "cite")` f
 ## Supplemental figures and tables
 
 ```{r, results = "hide"}
-table_nums(name = "table-cbi-models", caption = "Comparison of models used to validate and calibrate remotely sensed wildfire severity with ground-based composite burn index (CBI) severity sorted in descending order by the R^2^ value from a 5-fold cross validation. A total of 56 models were tested representing all possible combinations of 7 different measures of wildfire severity (RBR, dNBR, dNBR2, RdNBR, RdNBR2, dNDVI, and RdNDVI), 4 different time windows in which Landsat imagery was acquired and summarized with a median reducer on a pixel-by-pixel basis (16 days, 32 days, 48 days, and 64 days), and two different interpolation methods (bilinear and bicubic). The three parameters ($\\beta_0$, $\\beta_1$, and $\\beta_2$) from the nonlinear model fit described in Eq. 1 are reported. For each model, the value of the remotely sensed wildfire severity measurement corresponding to the lower bounds of 3 commonly used categories of severity are reported ('low' corresponds to a CBI value of 0.1, 'mod' corresponds to a CBI value of 1.25, and 'high' corresponds to a CBI value of 2.25)")
+table_nums(name = "table-cbi-models", caption = "Comparison of models used to validate and calibrate remotely sensed wildfire severity with ground-based composite burn index (CBI) severity sorted in descending order by the R^2^ value from a 10-fold cross validation. A total of 56 models were tested representing all possible combinations of 7 different measures of wildfire severity (RBR, dNBR, dNBR2, RdNBR, RdNBR2, dNDVI, and RdNDVI), 4 different time windows in which Landsat imagery was acquired and summarized with a median reducer on a pixel-by-pixel basis (16 days, 32 days, 48 days, and 64 days), and two different interpolation methods (bilinear and bicubic). The three parameters ($\\beta_0$, $\\beta_1$, and $\\beta_2$) from the nonlinear model fit described in Eq. 1 are reported. For each model, the value of the remotely sensed wildfire severity measurement corresponding to the lower bounds of 3 commonly used categories of severity are reported ('low' corresponds to a CBI value of 0.1, 'mod' corresponds to a CBI value of 1.25, and 'high' corresponds to a CBI value of 2.25)")
 ```
 
 ```{r cbi_models_table, echo = FALSE, include = TRUE, results = 'asis'}
