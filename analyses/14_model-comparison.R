@@ -44,9 +44,9 @@ if(!file.exists(here::here("analyses/analyses_output/ic-print-table.csv"))) {
   loo_model_weights <- model_weights(fm1, fm2, fm3, fm4, weights = "loo")
   ic_print_table <- data.frame(model = 1:4, 
                                neighborhood_size = neighborhood_size, 
-                               loo = round(ic_table$elpd_loo, 3), 
-                               delta = round(-1 * ic_table$elpd_diff, 3), 
-                               se = c("", as.character(round(ic_table$se_diff[2:4], 3))), 
+                               loo = round(ic_table$elpd_loo * -2, 3), 
+                               delta = round(-1 * ic_table$elpd_diff * 2, 3), 
+                               se = c("", as.character(round(ic_table$se_diff[2:4] * 2, 3))), 
                                loo_model_weights_pct = round(100 * loo_model_weights, 2),
                                R2 = round(R2_estimates, 3))
   
