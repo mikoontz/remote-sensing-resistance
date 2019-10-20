@@ -77,7 +77,7 @@ lines(cbi_over, yhat_rbr)
 
 rbr_labs <-
   c(bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rbr$r2_kfold, 5))),
-  bquote("RBR=" ~ beta[0] ~ "+" ~ beta[1] ~ "*" ~ e^beta[2] ~ "*cbi"),
+  bquote("RBR=" ~ beta[0] ~ "+" ~ beta[1] ~ e^(beta[2]*cbi)),
   bquote(beta[0] ~ "=" ~ .(round(cbi_rbr$a, 5))),
   bquote(beta[1] ~ "=" ~ .(round(cbi_rbr$b, 5))),
   bquote(beta[2] ~ "=" ~ .(round(cbi_rbr$c, 5))))
@@ -95,7 +95,7 @@ lapply(seq_along(rbr_labs),
 
 
 
-# Second panel: RdNDVI 48 day window ---------------------------------------
+# Second panel: RdNDVI 32 day window ---------------------------------------
 
 plot(x = cbi_mask_conifer(cbi_32_bilinear)$cbi_over, y = cbi_mask_conifer(cbi_32_bilinear)$RdNDVI, 
      pch = 19, col = pch_color, xlab = NA, ylab = NA, las = 1, main = "RdNDVI (32-day window)")
@@ -103,7 +103,7 @@ lines(cbi_over, yhat_rdndvi)
 # segments(x0 = 0, x1 = 3, y0 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][3, "hi_sev"]), y1 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][3, "hi_sev"]))
 
 rdndvi_labs <- list(bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rdndvi$r2_kfold, 5))),
-          bquote("RdNDVI = " ~ beta[0] ~ "+" ~ beta[1] ~ "*" ~ e^beta[2] ~ "*cbi"),
+          bquote("RdNDVI = " ~ beta[0] ~ "+" ~ beta[1] ~e^(beta[2]*cbi)),
           bquote(beta[0] ~ "=" ~ .(round(cbi_rdndvi$a, 5))),
           bquote(beta[1] ~ "=" ~ .(round(cbi_rdndvi$b, 5))),
           bquote(beta[2] ~ "=" ~ .(round(cbi_rdndvi$c, 5))))
@@ -127,7 +127,7 @@ lines(cbi_over, yhat_rdnbr)
 # segments(x0 = 0, x1 = 3, y0 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][2, "hi_sev"]), y1 = pull(cbi_table[order(cbi_table$r2_kfold, decreasing = TRUE), ][2, "hi_sev"]))
 
 rdnbr_labs <- c(bquote(R^2 ~ "(k-fold)" ~ "=" ~ .(round(cbi_rdnbr$r2_kfold, 5))),
-                bquote("RdNBR = " ~ beta[0] ~ "+" ~ beta[1] ~ "*" ~ e^beta[2] ~ "*cbi"),
+                bquote("RdNBR = " ~ beta[0] ~ "+" ~ beta[1] ~ e^(beta[2]*cbi)),
                 bquote(beta[0] ~ "=" ~ .(round(cbi_rdnbr$a, 5))),
                 bquote(beta[1] ~ "=" ~ .(round(cbi_rdnbr$b, 5))),
                 bquote(beta[2] ~ "=" ~ .(round(cbi_rdnbr$c, 5))))
