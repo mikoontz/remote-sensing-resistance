@@ -79,6 +79,11 @@ eq_nums(name = "eq-nbr2")
 
 ## Supplemental methods
 
+### Study system
+
+We considered "yellow pine/mixed-conifer forest" to be all areas designated as a yellow pine, dry mixed-conifer, or moist mixed-conifer pre-settlement fire regime (PFR) in the USFS Fire Return Interval Departure database (https://www.fs.usda.gov/detail/r5/landmanagement/gis/?cid=STELPRDB5327836), which reflects potential vegetation and is less sensitive to recent land cover change [@steel2018]. We considered the Sierra Nevada region to be the area within the Sierra Nevada Foothills, the High Sierra Nevada, and the Tehachapi Mountain Area Jepson ecoregions [@jepsonfloraproject2016]. 
+
+
 ### Remote sensing vegetation characteristics, including forest structural variability
 
 Vegetation characteristics can be measured using remotely-sensed imagery [@rouse1973; @asner2016; @young2017] and texture analysis of this imagery can quantify ecologically relevant local environmental heterogeneity across broad spatial extents [@wood2012; @huang2014; @stein2014; @tuanmu2015; @graham2019], which may be used as a direct measure of ecosystem resilience [@kefi2014]. Developed for image classification and computer vision, texture analysis characterizes each pixel in an image by a summary statistic of its neighboring pixels, and represents a measure of local heterogeneity which itself varies across the landscape [@haralick1973]. Texture analysis of forested areas detects heterogeneity of overstory vegetation, which corresponds to fuel loading and continuity, capturing the primary influence of vegetation structure on fire behavior.
@@ -103,7 +108,7 @@ Where $pahl$ is the potential annual heat load, $aspect_{folded}$ is a transform
 
 ### Remote sensing wildfire severity
 
-Wildfire severity typically describes the proportion of vegetation mortality resulting from fire [@keeley2009], and can be measured by comparing pre- and postfire satellite imagery for a specific area [@key2006]. This usually requires considerable manual effort for image collation and processing, followed by calibration with field data [@miller2007; @miller2009a; @desantis2010; @cansler2012; @veraverbeke2013; @parks2014a; @prichard2014; @edwards2018; @fernandez-garcia2018]. Herculean efforts to measure severity across broad spatial extents, such as the Monitoring Trends in Burn Severity project [@eidenshink2007], exist but often must sacrifice coverage of smaller fires which are far more common [@calkin2005], may have different severity expectations compared to larger fires [@cansler2014; @harvey2016b], and are generally important contributors to global fire effects [@randerson2012]. Automated efforts to remotely assess wildfire have arisen, but they tend to focus on more aggregate measures of wildfire such as whether an area burned or the probability that it burned rather than the severity of the burn [@bastarrika2011; @goodwin2014; @boschetti2015; @hawbaker2017], but see [@reilly2017; @parks2018]. Here, we present a method to automate the measurement of wildfire severity using minimal user inputs: a geometry of interest (a wildfire perimeter or a field plot location) and an alarm date (the date the fire was discovered). This information is readily available in many fire-prone areas (such as California, via the Fire and Resource Assessment Program; http://frap.fire.ca.gov/projects/fire_data/fire_perimeters_index) or could be derived using existing products (such as the Landsat Burned Area Essential Climate Variable product described in @hawbaker2017). 
+Wildfire severity typically describes the proportion of vegetation mortality resulting from fire [@keeley2009], and can be measured by comparing pre- and postfire satellite imagery for a specific area [@key2006]. This usually requires considerable manual effort for image collation and processing, followed by calibration with field data [@miller2007; @miller2009a; @desantis2010; @cansler2012; @veraverbeke2013; @parks2014a; @prichard2014; @edwards2018; @fernandez-garcia2018]. Herculean efforts to measure severity across broad spatial extents, such as the Monitoring Trends in Burn Severity project [@eidenshink2007], exist but often must sacrifice coverage of smaller fires which are far more common [@calkin2005], may have different severity expectations compared to larger fires [@cansler2014; @harvey2016b], and are generally important contributors to global fire effects [@randerson2012]. Automated efforts to remotely assess wildfire have arisen, but they tend to focus on more aggregate measures of wildfire such as whether an area burned or the probability that it burned rather than the severity of the burn [@bastarrika2011; @goodwin2014; @boschetti2015; @hawbaker2017], but see [@reilly2017; @parks2018]. Here, we present a method to automate the measurement of wildfire severity using minimal user inputs: a geometry of interest (a wildfire perimeter or a field plot location) and an alarm date (the date the fire was discovered). This information is readily available in many fire-prone areas (such as California, via the Fire and Resource Assessment Program; https://frap.fire.ca.gov/frap-projects/fire-perimeters/) or could be derived using existing products (such as the Landsat Burned Area Essential Climate Variable product described in @hawbaker2017). 
 
 We calibrate 28 configurations of our algorithmic approach to ground-based wildfire severity measurements, and select the best performing severity metric to generate a comprehensive, system-wide severity dataset. Our approach more than doubles the number of fire events represented from `r r5_fire_count_ypmc` to `r frap_fire_count_ypmc`, though only increases the total burned area represented from `r formatC(r5_area_ypmc_burned, format = "e", digits = 2)` to `r formatC(frap_area_ypmc_burned, format = "e", digits = 2)` hectares because most of the additional fires are small.
 
@@ -180,6 +185,12 @@ eq_nums(name = "eq-cbi-calibration")
 
 We fit the model in `r eq_nums(name = "eq-cbi-calibration", display = "cite")` for all 7 of our remotely-sensed severity metrics (RBR, dNBR, RdNBR, dNBR2, RdNBR2, dNDVI, RdNDVI) using 4 different time windows from which to collate satellite imagery (16, 32, 48, and 64 days). Following @cansler2012, @parks2014a, and @parks2018, we used bilinear interpolation to extract remotely-sensed severity at the locations of the CBI field plots to better align remote and field measurements. We also extracted remotely-sensed severity values using bicubic interpolation, which produces smoother imagery but is more computationally demanding. In total, we fit 56 models (7 severity measures, 4 time windows, 2 interpolation methods) and performed five-fold cross validation using the `modelr` and `purrr` packages in R [@wickham2019; @henry2019; @rcoreteam2018]. To compare goodness of model fits with @miller2007, @miller2009a, and @parks2014a, we report the average R^2^ value from the cross validation for each of the 56 models. 
 
+### Some implications of this methodological development
+
+We developed an approach to calculating wildfire severity leveraging the cloud-based data catalog, the large parallel processing system, and the distribution of computation tasks in Google Earth Engine to enable rapid high-throughput analyses of earth observation data [@gorelick2017; @parks2018a; @parks2019]. Our programmatic assessment of wildfire severity across the `r frap_fire_count_ypmc` Sierra Nevada yellow pine/mixed-conifer fires in the FRAP perimeter database, which enabled consistent assessment of severity for a broad representation of fires including smaller events [@randerson2012]. We found that the relative burn ratio (RBR) calculated using prefire Landsat images collected over a 48-day period prior to the fire and postfire Landsat images collected over a 48-day period one year after the prefire images validated the best with ground-based severity measurements (composite burn index; CBI). Further, we found that this programmatic approach was robust to a wide range of severity metrics, time windows, and interpolation techniques.  
+
+We echo the conclusion of @zhu2006 that the validation of differences between pre- and postfire NDVI to field-measured severity data, which uses near infrared reflectance, is comparable to validation using more commonly used severity metrics (e.g., RdNBR and RBR) that rely on short wave infrared reflectance. One immediately operational implication of this is that the increasing availability of low-cost small unhumanned aerial systems (sUAS a.k.a. drones) and near-infrared-detecting imagers (e.g., those used for agriculture monitoring) may be used to reliably assess wildfire severity at very high spatial resolutions.
+
 ## Supplemental figures and tables
 
 ```{r, results = "hide"}
@@ -217,10 +228,10 @@ table_nums("table-ci-betas-print", caption = "Model parameter estimates for diff
 ci_betas_print_table_simple <-
   ci_betas_print_table_simple %>% 
   dplyr::rename(Coefficient = print_param,
-                `90m x 90m\nneighborhood` = `1`, 
-                `150m x 150m\nneighborhood` = `2`, 
-                `210m x 210m\nneighborhood` = `3`, 
-                `270m x 270m\nneighborhood` = `4`)
+                `90 x 90m\nneighborhood` = `1`, 
+                `150 x 150m\nneighborhood` = `2`, 
+                `210 x 210m\nneighborhood` = `3`, 
+                `270 x 270m\nneighborhood` = `4`)
 
 pandoc.table(ci_betas_print_table_simple, 
              split.tables = Inf,
@@ -249,5 +260,8 @@ fig_nums(name = "fig-decoupling-ndvi", caption = "Conceptual diagram of 'decoupl
 
 ![`r fig_nums(name = "fig-decoupling-ndvi")`](../../figures/decoupling-center-neighborhood-ndvi.png){ height=2in }
 
+## Data availability
+
+All data and analysis code are available via the Open Science Framework (DOI: 10.17605/OSF.IO/27NSR) including a new dataset representing wildfire severity, vegetation characteristics, and regional climate conditions within the perimeters of 1,090 fires from the FRAP database that burned in yellow pine/mixed-conifer forest in the Sierra Nevada, California between 1984 and 2018. 
 
 # References
