@@ -18,7 +18,8 @@ ee-remote-sensing-resistance/rsr-heterogeneity-check.js
 ee-remote-sensing-resistance/rsr-heterogeneity-demo.js
 ee-remote-sensing-resistance/intersect-fire-perims-conifer-forest.js
 
-figs/neighborhood_size_example_with_landsat_pixel.pptx
+figures/american-fire_2013_visualize_full-res.tif
+figures/hamm-fire_1987_visualize_full-res.tif
 
 docs/manuscript/*.docx
 docs/manuscript/cover-letter/*
@@ -31,3 +32,5 @@ docs/manuscript/*.docx
 docs/manuscript/recent-pubs-by-coauthors
 
 docs/docs_carpentry/ecology-letters.csl
+
+ELE-00808-2019.R1_final-submission-materials/*
