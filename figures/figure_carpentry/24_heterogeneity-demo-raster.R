@@ -121,7 +121,8 @@ r3_heterogenous <- mosaic(r3_heterogenous, r_template, fun = sum)
 r4_homogenous <- mosaic(r4_homogenous, r_template, fun = sum)
 r4_heterogenous <- mosaic(r4_heterogenous, r_template, fun = sum)
 
-png(here::here("figures/heterogeneity-demo-raster.png"), width = 17.8 / 2.54, height = 17.8 / 2 / 2.54, res = 500, units = "in")
+# png(here::here("figures/heterogeneity-demo-raster.png"), width = 17.8 / 2.54, height = 17.8 / 2 / 2.54, res = 500, units = "in")
+pdf(here::here("figures/heterogeneity-demo-raster.pdf"), width = 17.8 / 2.54, height = 17.8 / 2 / 2.54)
 par(mfrow = c(2, 4), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(3, 4, 0, 0))
 n_colors_hom <- 3
 n_colors_het <- 1000
