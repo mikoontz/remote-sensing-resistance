@@ -59,22 +59,6 @@ print_cbi_models <-
 
 ```
 
-```{r eq_ndvi, results = "hide"}
-eq_nums(name = "eq-ndvi")
-```
-
-```{r eq_ndmi, results = "hide"}
-eq_nums(name = "eq-ndmi")
-```
-
-```{r eq_nbr, results = "hide"}
-eq_nums(name = "eq-nbr")
-```
-
-```{r eq_nbr2, results = "hide"}
-eq_nums(name = "eq-nbr2")
-```
-
 # Supplemental Information
 
 ## Supplemental methods
@@ -90,7 +74,7 @@ Vegetation characteristics can be measured using remotely-sensed imagery [@rouse
 
 ### Remote sensing potential annual heat load
 
-We used the digital elevation model to calculate the potential annual heat load (`r eq_nums(name = "eq-potential-annual-heat-load", display = "cite")` at each pixel, which is an integrated measure of latitude, slope, and a folding transformation of aspect about the northeast-southwest line, such that northeast becomes 0 radians and southwest becomes $\pi$ radians [@mccune2002; with correction in @mccune2007]:
+We used the digital elevation model to calculate the potential annual heat load (`r eq_nums(name = "eq-potential-annual-heat-load", display = "cite")`) at each pixel, which is an integrated measure of latitude, slope, and a folding transformation of aspect about the northeast-southwest line, such that northeast becomes 0 radians and southwest becomes $\pi$ radians [@mccune2002; with correction in @mccune2007]:
 
 (@eq-potential-annual-heat-load) $\begin{aligned}
 \label{eq-potential-annual-heat-load}
@@ -116,7 +100,7 @@ We calibrate 28 configurations of our algorithmic approach to ground-based wildf
 
 For each fire perimeter, we fetched a time series of prefire Landsat images starting the day before the fire alarm date and extending backward in time by a pre-deined time window. An analogous postfire time series of Landsat imagery was fetched exactly one year after the date range used to filter the prefire collection. We tested 4 time windows, 16, 32, 48, or 64 days, which were chosen to ensure that at least 1, 2, 3, or 4 Landsat images were captured by the date range (Supplemental Fig. 1). The Landsat archive we filtered included imagery from Landsat 4, 5, 7, and 8, so each pre- and postfire image collection may contain a mix of scenes from different satellite sources to enhance coverage. For each image in the pre- and postfire image collections, we masked pixels that were not clear (i.e., clouds, cloud shadows, snow, and water) using the CFMask algorithm [@foga2017].
 
-For each Landsat image in the prefire and postfire collections, we calculated standard indices that capture vegetation cover and fire effects such as charring. Normalized difference vegetation index (NDVI) correlates with vegetation density, canopy cover, and leaf area index [@rouse1973]. Normalized burn ratio (NBR) and normalized burn ratio version 2 (NBR2) respond strongly to fire effects on vegetation [@garcia1991; @key2006; @usgs2017; @usgs2017a; @hawbaker2017] (Equations in Supplemental Methods).
+For each Landsat image in the prefire and postfire collections, we calculated standard indices that capture vegetation cover and fire effects such as charring. Normalized difference vegetation index (NDVI) correlates with vegetation density, canopy cover, and leaf area index [@rouse1973]. Normalized burn ratio (NBR) and normalized burn ratio version 2 (NBR2) respond strongly to fire effects on vegetation [@garcia1991; @key2006; @usgs2017; @usgs2017a; @hawbaker2017] (Equations in 'Spectral indices of wildfire severity' section below).
 
 We composited each pre- and postfire image collection (including the pixel values representing NDVI, NBR, and NBR2) into a single pre- and postfire image using a median reducer, which calculated the median of the unmasked values on a per-pixel basis across the stack of images in each collection. Composite pre- and postfire images can be successfully used to measure wildfire severity instead of using raw, individual images [@parks2018; @parks2019].
 
@@ -141,7 +125,7 @@ Where $nir$ is the near infrared band (band 4 on Landsat 4, 5, and 7; band 5 on 
 eq_nums(name = "eq-dindex")
 ```
 
-We calculated the delta severity indices (dNBR, dNBR2, dNDVI) by subtracting the respective postfire indices from the prefire indices (NBR, NBR2, and NDVI) without multiplying by a rescaling constant (e.g., we did not multiply the result by 1000 as in @miller2007; `r eq_nums("eq-dindex", display = "cite")`). Following @reilly2017, we chose not to correct the delta indices using a phenological offset value (typically calculated as the delta index in homogeneous forest patch outside of the fire perimeter), as our approach implicitly accounts for phenology by incorporating multiple cloud-free images across the same time window both before the fire and one year later.
+We calculated the delta severity indices (dNBR, dNBR2, dNDVI) by subtracting the respective postfire indices from the prefire indices (NBR, NBR2, and NDVI; `r eq_nums("eq-dindex", display = "cite")`). Following @reilly2017, we chose not to correct the delta indices using a phenological offset value (typically calculated as the delta index in homogeneous forest patch outside of the fire perimeter), as our approach implicitly accounts for phenology by incorporating multiple cloud-free images across the same time window both before the fire and one year later.
 
 (@eq-dindex) $\label{eq-dindex}
 dI = I_{\text{prefire}} - I_{\text{postfire}}$
@@ -150,7 +134,7 @@ dI = I_{\text{prefire}} - I_{\text{postfire}}$
 eq_nums(name = "eq-rdindex")
 ```
 
-We calculated the relative delta severity indices, RdNBR and RdNDVI, by scaling the respective delta indices (dNBR and dNDVI) from `r eq_nums(name = "eq-rdindex", display = "cite")` by a square root transformation of the absolute value of the prefire index:
+We calculated the relative delta severity indices, RdNBR and RdNDVI, by scaling the respective delta indices (dNBR and dNDVI) from `r eq_nums(name = "eq-dindex", display = "cite")` by a square root transformation of the absolute value of the prefire index:
 
 (@eq-rdindex) $\label{eq-rdindex}
 RdI = \frac{dI}{\sqrt{\mathopen|I_{\text{prefire}}/1000\mathclose|}}$
@@ -191,10 +175,29 @@ We developed an approach to calculating wildfire severity leveraging the cloud-b
 
 We echo the conclusion of @zhu2006 that the validation of differences between pre- and postfire NDVI to field-measured severity data, which uses near infrared reflectance, is comparable to validation using more commonly used severity metrics (e.g., RdNBR and RBR) that rely on short wave infrared reflectance. One immediately operational implication of this is that the increasing availability of low-cost small unhumanned aerial systems (sUAS a.k.a. drones) and near-infrared-detecting imagers (e.g., those used for agriculture monitoring) may be used to reliably assess wildfire severity at very high spatial resolutions.
 
+## Data availability
+
+All data and analysis code are available via the Open Science Framework (DOI: 10.17605/OSF.IO/27NSR) including a new dataset representing wildfire severity, vegetation characteristics, and regional climate conditions within the perimeters of 1,090 fires from the FRAP database that burned in yellow pine/mixed-conifer forest in the Sierra Nevada, California between 1984 and 2018. 
+
 ## Supplemental figures and tables
 
 ```{r, results = "hide"}
+fig_nums(name = "fig-image-acquisition-algorithm", caption = "Schematic for how Landsat imagery was assembled in order to make comparisons between pre- and post-fire conditions. This schematic depicts a 64-day window of image collation prior to the fire which comprise the pre-fire image collection. A similar, 64-day window collection of imagery is assembled one year after the pre-fire image collection.")
+```
+
+```{r, results='asis', eval=(opts_knit$get('rmarkdown.pandoc.to') == 'latex')}
+cat('\\pagebreak')
+```
+
+![`r fig_nums(name = "fig-image-acquisition-algorithm")`](../../figures/image-acquisition-algorithm.pdf){ height=3in }
+
+```{r, results = "hide"}
 table_nums(name = "table-cbi-models", caption = "Comparison of models used to validate and calibrate remotely sensed wildfire severity with ground-based composite burn index (CBI) severity sorted in descending order by the R^2^ value from a 10-fold cross validation. A total of 56 models were tested representing all possible combinations of 7 different measures of wildfire severity (RBR, dNBR, dNBR2, RdNBR, RdNBR2, dNDVI, and RdNDVI), 4 different time windows in which Landsat imagery was acquired and summarized with a median reducer on a pixel-by-pixel basis (16 days, 32 days, 48 days, and 64 days), and two different interpolation methods (bilinear and bicubic). The three parameters ($\\beta_0$, $\\beta_1$, and $\\beta_2$) from the nonlinear model fit described in Eq. 1 are reported. For each model, the value of the remotely sensed wildfire severity measurement corresponding to the lower bounds of 3 commonly used categories of severity are reported ('low' corresponds to a CBI value of 0.1, 'mod' corresponds to a CBI value of 1.25, and 'high' corresponds to a CBI value of 2.25)")
+```
+
+
+```{r, results='asis', eval=(opts_knit$get('rmarkdown.pandoc.to') == 'latex')}
+cat('\\pagebreak')
 ```
 
 ```{r cbi_models_table, echo = FALSE, include = TRUE, results = 'asis'}
@@ -224,6 +227,10 @@ table_nums("table-ci-betas-print", caption = "Model parameter estimates for diff
 ```
 
 
+```{r, results='asis', eval=(opts_knit$get('rmarkdown.pandoc.to') == 'latex')}
+cat('\\pagebreak')
+```
+
 ```{r param_estimates_word, eval = TRUE, results = "asis"}
 ci_betas_print_table_simple <-
   ci_betas_print_table_simple %>% 
@@ -240,28 +247,18 @@ pandoc.table(ci_betas_print_table_simple,
              justify = "lcccc")
 ```
 
-```{r, results='asis', eval=(opts_knit$get('rmarkdown.pandoc.to') == 'latex')}
-cat('\\pagebreak')
-```
-
-```{r, results = "hide"}
-fig_nums(name = "fig-image-acquisition-algorithm", caption = "Schematic for how Landsat imagery was assembled in order to make comparisons between pre- and post-fire conditions. This schematic depicts a 64-day window of image collation prior to the fire which comprise the pre-fire image collection. A similar, 64-day window collection of imagery is assembled one year after the pre-fire image collection.")
-```
-
-![`r fig_nums(name = "fig-image-acquisition-algorithm")`](../../figures/image-acquisition-algorithm.pdf){ height=3in }
-
-```{r, results='asis', eval=(opts_knit$get('rmarkdown.pandoc.to') == 'latex')}
-cat('\\pagebreak')
-```
-
 ```{r, results = "hide"}
 fig_nums(name = "fig-decoupling-ndvi", caption = "Conceptual diagram of 'decoupling' that sometimes occurs between the central pixel NDVI and the neighborhood mean NDVI. In each of these scenarios, our model results suggest that the probability that the central pixel burns at high severity is higher than expected given the additive effect of the covariates. The left panel depicts the \"hole in the forest\" decoupling, which occurs more frequently, and the right panel depicts the \"isolated patch\" decoupling.")
 ```
 
+```{r, results='asis', eval=(opts_knit$get('rmarkdown.pandoc.to') == 'latex')}
+cat('\\pagebreak')
+```
+
 ![`r fig_nums(name = "fig-decoupling-ndvi")`](../../figures/decoupling-center-neighborhood-ndvi.png){ height=2in }
 
-## Data availability
-
-All data and analysis code are available via the Open Science Framework (DOI: 10.17605/OSF.IO/27NSR) including a new dataset representing wildfire severity, vegetation characteristics, and regional climate conditions within the perimeters of 1,090 fires from the FRAP database that burned in yellow pine/mixed-conifer forest in the Sierra Nevada, California between 1984 and 2018. 
+```{r, results='asis', eval=(opts_knit$get('rmarkdown.pandoc.to') == 'latex')}
+cat('\\pagebreak')
+```
 
 # References
