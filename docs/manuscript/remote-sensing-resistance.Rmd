@@ -39,7 +39,9 @@ header-includes:
   - \captionsetup[figure]{labelformat=empty}
   - \captionsetup[table]{labelformat=empty}
   
-output: pdf_document
+output: 
+  pdf_document:
+    keep_tex: true
 ---
 
 ```{r setup, include=FALSE}
@@ -175,7 +177,7 @@ fig_nums(name = "fig-cbi-calibration")
 ![`r fig_nums(name = "fig-cbi-calibration", display = "cite")`. Three top performing remotely-sensed severity metrics based on ten-fold cross validation (relative burn ratio, 48-day window, bicubic interpolation; relative delta normalized burn ratio, 32-day window, bilinear interpolation; and relative delta normalized difference vegetation index, 48-day window, bilinear interpolation) calculated using new automated image collation algorithms, calibrated to `r total_conifer_cbi_plots` field measures of fire severity (composite burn index). See Supplemental Table 1 for performance of all tested models.](../../figures/remote-sensed-severity-calibration.pdf) 
 
 
-![`r fig_nums(name = "fig-pre-post-rbr", display = "cite")`. Example algorithm outputs for the Hamm Fire of 1987 (top half) and the American Fire of 2013 (bottom half) showing: prefire true color composite image (left third), postfire true color composite image (center third), relative burn ratio (RBR) calculation using a 48-day image collation window before the fire and one year later (right third). For visualization purposes, these algorithm outputs have been resampled to a resolution of 100m x 100m from their original resolution of 30 x 30m, and the continous severity index has been binned into severity categories. Data used for analyses were sampled from the outputs at the original resolution.](../../figures/pre-post-rbr.pdf)
+![`r fig_nums(name = "fig-pre-post-rbr", display = "cite")`. Example algorithm outputs for the Hamm Fire of 1987 (top half) and the American Fire of 2013 (bottom half) showing: prefire true color composite image (left third), postfire true color composite image (center third), relative burn ratio (RBR) calculation using a 48-day image collation window before the fire and one year later (right third). For visualization purposes, the continous severity index has been binned into severity categories.](../../figures/pre-post-rbr.pdf)
 
 Using the non-linear relationship between RBR and CBI, we calculated the threshold RBR corresponding to "high-severity" signifying complete or near-complete overstory mortality using the common CBI high-severity lower threshold of 2.25 (i.e., an RBR value of `r print_cbi_models[1, "hi_sev"] %>% pull()`; `r fig_nums(name = "fig-pre-post-rbr", display = "cite")`) [@miller2007]. 
 
@@ -187,7 +189,7 @@ fig_nums(name = "fig-heterogeneity-raster")
 
 We used texture analysis to calculate a remotely-sensed measure of local forest variability [@haralick1973; @tuanmu2015]. Within a moving square neighborhood window with sides of 90m (3x3 pixels), 150m (5x5 pixels), 210m (7x7 pixels), and 270m (9x9 pixels), we calculated forest variability for each pixel as the standard deviation of the NDVI values of its neighbors (not including itself). NDVI correlates well with foliar biomass, leaf area index, and vegetation cover [@rouse1973], so a higher standard deviation of NDVI within a given local neighborhood corresponds to discontinuous canopy cover and abrupt vegetation edges (see `r fig_nums(name = "fig-heterogeneity-raster", display = "cite")`) [@franklin1986]. 
 
-![`r fig_nums(name = "fig-heterogeneity-raster", display = "cite")`. Example of homogenous forest (top row) and heterogenous forest (bottom row) with the same mean NDVI values (~0.6). Each column represents forest structural variability measured using a different neighborhood size. NDVI is represented by a white to green color gradient, and pixels that are not included in the forest structural variability metric are colored gray.](../../figures/heterogeneity-demo-raster.png)
+![`r fig_nums(name = "fig-heterogeneity-raster", display = "cite")`. Example of homogenous forest (top row) and heterogenous forest (bottom row) with the same mean NDVI values (~0.6). Each column represents forest structural variability measured using a different neighborhood size. NDVI is represented by a white to green color gradient, and pixels that are not included in the forest structural variability metric are colored gray.](../../figures/heterogeneity-demo-raster.pdf)
 
 ## Assessing other conditions
 
