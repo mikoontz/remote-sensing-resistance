@@ -15,8 +15,10 @@ target_model$low_sev # equates to a CBI of 0.1 -- threshold between "unchanged" 
 target_model$mod_sev # equates to a CBI of 1.25 -- threshold between "low" and "medium"
 target_model$hi_sev # equates to a CBI of 2.25 -- threshold between "medium" and "high"
 
-hamm <- brick(here::here("figures/hamm-fire_1987_visualize_med-res.tif"))
-american <- brick(here::here("figures/american-fire_2013_visualize_med-res.tif"))
+# hamm <- brick(here::here("figures/hamm-fire_1987_visualize_med-res.tif"))
+# american <- brick(here::here("figures/american-fire_2013_visualize_med-res.tif"))
+hamm <- brick(here::here("figures/hamm-fire_1987_visualize_full-res.tif"))
+american <- brick(here::here("figures/american-fire_2013_visualize_full-res.tif"))
 
 bandNames <- c('RdNBR',
                'RBR',

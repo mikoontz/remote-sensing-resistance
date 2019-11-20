@@ -107,6 +107,14 @@ Export.image.toDrive({
   scale: 100
 });
 
+Export.image.toDrive({
+  image: hamm_img.float(),
+  description: 'hamm-fire_1987_visualize_full-res',
+  folder: 'ee',
+  region: hamm,
+  scale: 30
+});
+
 // AMERICAN FIRE
 var timeWindow = 16*3;
 var resample_method = 'bicubic';
@@ -135,6 +143,13 @@ Export.image.toDrive({
   scale: 100
 });
 
+Export.image.toDrive({
+  image: american_img.float(),
+  description: 'american-fire_2013_visualize_full-res',
+  folder: 'ee',
+  region: american,
+  scale: 30
+});
 
 // Other fires of interest
 
