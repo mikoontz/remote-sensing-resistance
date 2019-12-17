@@ -210,6 +210,29 @@ severity_{i, j} &\sim Bern(\phi_{i,j}) \\
 logit(\phi_{i,j}) &= 
 \begin{aligned}
 & \beta_0 + \\
+& \beta_{\text{nbhd\_stdev\_NDVI}} * X_1 + \\
+& \beta_{\text{prefire\_NDVI}} * X_2 + \\
+& \beta_{\text{nbhd\_mean\_NDVI}} * X_3 + \\
+& \beta_{\text{fm100}} * X_4 + \\
+& \beta_{\text{pahl}} * X_5 + \\
+& \beta_{\text{topographic\_roughness}} * X_6 + \\
+& \beta_{\text{nbhd\_stdev\_NDVI*fm100}} * X_1 * X_4 + \\
+& \beta_{\text{nbhd\_stdev\_NDVI*prefire\_NDVI}} * X_1 * X_2 + \\
+& \beta_{\text{nbhd\_stdev\_NDVI*nbhd\_mean\_NDVI}} * X_1 * X_3 + \\
+& \beta_{\text{nbhd\_mean\_NDVI*prefire\_NDVI}} * X_3 * X_2 + \\
+& \gamma_j
+\end{aligned}
+\\
+\gamma_j &\sim \mathcal{N}(0, \sigma_{\text{fire}})
+\end{aligned}$
+
+(@eq-severity-model)
+$\begin{aligned}
+\label{eq-severity-model}
+severity_{i, j} &\sim Bern(\phi_{i,j}) \\
+logit(\phi_{i,j}) &= 
+\begin{aligned}
+& \beta_0 + \\
 & \beta_{\text{nbhd\_stdev\_NDVI}} * \text{nbhd\_stdev\_NDVI}_i + \\
 & \beta_{\text{prefire\_NDVI}} * \text{prefire\_NDVI}_i + \\
 & \beta_{\text{nbhd\_mean\_NDVI}} * \text{nbhd\_mean\_NDVI}_i + \\
