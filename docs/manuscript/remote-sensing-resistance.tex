@@ -173,7 +173,7 @@ revisions.
 supporting the results are archived on the Open Science Framework at
 www.doi.org/10.17605/OSF.IO/27NSR.
 
-\emph{Date report generated:} November 20, 2019
+\emph{Date report generated:} December 17, 2019
 
 \hypertarget{abstract}{%
 \section{Abstract}\label{abstract}}
@@ -576,7 +576,7 @@ to 1.01 (Bürkner 2017).
 \setcounter{enumi}{1}
 \tightlist
 \item
-  \(\begin{aligned} \label{eq-severity-model} severity_{i, j} &\sim Bern(\phi_{i,j}) \\ logit(\phi_{i,j}) &= \begin{aligned} & \beta_0 + \\ & \beta_{\text{nbhd\_stdev\_NDVI}} * \text{nbhd\_stdev\_NDVI}_i + \\ & \beta_{\text{prefire\_NDVI}} * \text{prefire\_NDVI}_i + \\ & \beta_{\text{nbhd\_mean\_NDVI}} * \text{nbhd\_mean\_NDVI}_i + \\ & \beta_{\text{fm100}} * \text{fm100}_i + \\ & \beta_{\text{pahl}} * \text{pahl}_i + \\ & \beta_{\text{topographic\_roughness}} * \text{topographic\_roughness}_i + \\ & \beta_{\text{nbhd\_stdev\_NDVI*fm100}} * \text{nbhd\_stdev\_NDVI}_i * \text{fm100}_i + \\ & \beta_{\text{nbhd\_stdev\_NDVI*prefire\_NDVI}} * \text{nbhd\_stdev\_NDVI}_i * \text{prefire\_NDVI}_i + \\ & \beta_{\text{nbhd\_stdev\_NDVI*nbhd\_mean\_NDVI}} * \text{nbhd\_stdev\_NDVI}_i * \text{nbhd\_mean\_NDVI}_i + \\ & \beta_{\text{nbhd\_mean\_NDVI*prefire\_NDVI}} * \text{nbhd\_mean\_NDVI}_i * \text{prefire\_NDVI}_i + \\ & \gamma_j \end{aligned} \\ \gamma_j &\sim \mathcal{N}(0, \sigma_{\text{fire}}) \end{aligned}\)
+  \(\begin{aligned} \label{eq-severity-model} se&verity_{i, j} \sim Bern(\phi_{i,j}) \\ lo&git(\phi_{i,j}) = \\ & \beta_0 + \\ & \beta_{\text{nbhd\_stdev\_NDVI}}X_{1,i} + \\ & \beta_{\text{prefire\_NDVI}}X_{2,i} + \\ & \beta_{\text{nbhd\_mean\_NDVI}}X_{3,i} + \\ & \beta_{\text{fm100}}X_{4,i} + \\ & \beta_{\text{pahl}}X_{5,i} + \\ & \beta_{\text{topographic\_roughness}}X_{6,i} + \\ & \beta_{\text{nbhd\_stdev\_NDVI*fm100}}X_{1,i}X_{4,i} + \\ & \beta_{\text{nbhd\_stdev\_NDVI*prefire\_NDVI}}X_{1,i}X_{2,i} + \\ & \beta_{\text{nbhd\_stdev\_NDVI*nbhd\_mean\_NDVI}}X_{1,i}X_{3,i} + \\ & \beta_{\text{nbhd\_mean\_NDVI*prefire\_NDVI}}X_{3,i}X_{2,i} + \\ & \gamma_j \\ \gamma_j &\sim \mathcal{N}(0, \sigma_{\text{fire}}) \end{aligned}\)
 \end{enumerate}
 
 \hypertarget{scale-of-effect-of-forest-structure-variability}{%
@@ -771,7 +771,7 @@ topographic roughness on wildfire severity
 
 There was also a strong negative interaction between the neighborhood
 mean NDVI and the prefire NDVI of the central pixel
-(\(\beta_{\text{nbhd\_mean\_NDVI*prefire\_NDVI}}\) -0.54; 95\% CI:
+(\(\beta_{\text{nbhd\_mean\_NDVI*prefire\_NDVI}}\) = -0.54; 95\% CI:
 {[}-0.587, -0.494{]}).
 
 From the same model, we found strong evidence for a negative effect of

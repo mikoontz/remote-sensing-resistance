@@ -153,7 +153,7 @@ Our study assesses the effect of vegetation structure on wildfire severity in th
 
 ## Programatically assessing wildfire severity
 
-We measured forest vegetation characteristics and wildfire severity using imagery from the Landsat series of satellites post-processed to surface reflectance using radiometric corrections [@masek2006; @vermote2016; @usgs2017a; @usgs2017]. Landsat satellites image the entire Earth approximately every 16 days with a 30m pixel resolution. We used Google Earth Engine for image collation and processing [@gorelick2017].
+We measured forest vegetation characteristics and wildfire severity using imagery from the Landsat series of satellites post-processed to surface reflectance using radiometric corrections [@masek2006; @vermote2016; @usgs2018; @usgs2018a]. Landsat satellites image the entire Earth approximately every 16 days with a 30m pixel resolution. We used Google Earth Engine for image collation and processing [@gorelick2017].
 
 We calculated wildfire severity for the most comprehensive record of fire perimeters in California: the Fire and Resource Assessment Program (FRAP) fire perimeter database (https://frap.fire.ca.gov/frap-projects/fire-perimeters/). The FRAP database includes all known fires that covered more than 4 hectares, compared to the regional standard database which includes fires covering greater than 80 hectares [@miller2012a; @steel2018] and the national standard database Monitoring Trends in Burn Severity (MTBS) which includes fires covering greater than 400 hectares in the western U.S. [@eidenshink2007]. Smaller fire events are important contributors to fire regimes, but their effects are often underrepresented in analyses of fire effects [@randerson2012]. The FRAP perimeters are error-checked, but it is possible that duplicated events are occasionally represented in the database. Using the FRAP database, we quantified fire severity within each perimeter of `r frap_fire_count_ypmc` wildfires in the Sierra Nevada yellow pine/mixed-conifer forest that burned between 1984 and 2018, which more than doubles the number of fire events with severity assessments compared to the regional standard database.
 
@@ -206,45 +206,20 @@ We used a hierarchical logistic regression model (`r eq_nums(name = "eq-severity
 (@eq-severity-model)
 $\begin{aligned}
 \label{eq-severity-model}
-severity_{i, j} &\sim Bern(\phi_{i,j}) \\
-logit(\phi_{i,j}) &= 
-\begin{aligned}
+se&verity_{i, j} \sim Bern(\phi_{i,j}) \\
+lo&git(\phi_{i,j}) = \\
 & \beta_0 + \\
-& \beta_{\text{nbhd\_stdev\_NDVI}} * X_1 + \\
-& \beta_{\text{prefire\_NDVI}} * X_2 + \\
-& \beta_{\text{nbhd\_mean\_NDVI}} * X_3 + \\
-& \beta_{\text{fm100}} * X_4 + \\
-& \beta_{\text{pahl}} * X_5 + \\
-& \beta_{\text{topographic\_roughness}} * X_6 + \\
-& \beta_{\text{nbhd\_stdev\_NDVI*fm100}} * X_1 * X_4 + \\
-& \beta_{\text{nbhd\_stdev\_NDVI*prefire\_NDVI}} * X_1 * X_2 + \\
-& \beta_{\text{nbhd\_stdev\_NDVI*nbhd\_mean\_NDVI}} * X_1 * X_3 + \\
-& \beta_{\text{nbhd\_mean\_NDVI*prefire\_NDVI}} * X_3 * X_2 + \\
+& \beta_{\text{nbhd\_stdev\_NDVI}}X_{1,i} + \\
+& \beta_{\text{prefire\_NDVI}}X_{2,i} + \\
+& \beta_{\text{nbhd\_mean\_NDVI}}X_{3,i} + \\
+& \beta_{\text{fm100}}X_{4,i} + \\
+& \beta_{\text{pahl}}X_{5,i} + \\
+& \beta_{\text{topographic\_roughness}}X_{6,i} + \\
+& \beta_{\text{nbhd\_stdev\_NDVI*fm100}}X_{1,i}X_{4,i} + \\
+& \beta_{\text{nbhd\_stdev\_NDVI*prefire\_NDVI}}X_{1,i}X_{2,i} + \\
+& \beta_{\text{nbhd\_stdev\_NDVI*nbhd\_mean\_NDVI}}X_{1,i}X_{3,i} + \\
+& \beta_{\text{nbhd\_mean\_NDVI*prefire\_NDVI}}X_{3,i}X_{2,i} + \\
 & \gamma_j
-\end{aligned}
-\\
-\gamma_j &\sim \mathcal{N}(0, \sigma_{\text{fire}})
-\end{aligned}$
-
-(@eq-severity-model)
-$\begin{aligned}
-\label{eq-severity-model}
-severity_{i, j} &\sim Bern(\phi_{i,j}) \\
-logit(\phi_{i,j}) &= 
-\begin{aligned}
-& \beta_0 + \\
-& \beta_{\text{nbhd\_stdev\_NDVI}} * \text{nbhd\_stdev\_NDVI}_i + \\
-& \beta_{\text{prefire\_NDVI}} * \text{prefire\_NDVI}_i + \\
-& \beta_{\text{nbhd\_mean\_NDVI}} * \text{nbhd\_mean\_NDVI}_i + \\
-& \beta_{\text{fm100}} * \text{fm100}_i + \\
-& \beta_{\text{pahl}} * \text{pahl}_i + \\
-& \beta_{\text{topographic\_roughness}} * \text{topographic\_roughness}_i + \\
-& \beta_{\text{nbhd\_stdev\_NDVI*fm100}} * \text{nbhd\_stdev\_NDVI}_i * \text{fm100}_i + \\
-& \beta_{\text{nbhd\_stdev\_NDVI*prefire\_NDVI}} * \text{nbhd\_stdev\_NDVI}_i * \text{prefire\_NDVI}_i + \\
-& \beta_{\text{nbhd\_stdev\_NDVI*nbhd\_mean\_NDVI}} * \text{nbhd\_stdev\_NDVI}_i * \text{nbhd\_mean\_NDVI}_i + \\
-& \beta_{\text{nbhd\_mean\_NDVI*prefire\_NDVI}} * \text{nbhd\_mean\_NDVI}_i * \text{prefire\_NDVI}_i + \\
-& \gamma_j
-\end{aligned}
 \\
 \gamma_j &\sim \mathcal{N}(0, \sigma_{\text{fire}})
 \end{aligned}$
@@ -258,7 +233,7 @@ Each neighborhood size (90m, 150m, 210m, 270m) was substituted in turn for the n
 Our programmatic assessment of wildfire severity calibrates as well or better than other reported methods that often require substantial manual intervention [@edwards2018]. We found that this approach was robust to a wide range of spectral severity metrics, time windows, and interpolation techniques, including those based on NDVI are seldom-used in this system (`r fig_nums(name = "fig-cbi-calibration", display = "cite")`; Supp. Tab. 1; Supp. methods).
 
 ```{r, results = "hide"}
-table_nums(name = "table-ic-table", caption = "Comparison of four models described in Eq. \\ref{eq-severity-model} using different neighborhood sizes for calculating forest structural variability (standard deviation of NDVI within the neighborhood), neighborhood mean NDVI, and topographic roughness (standard deviation of elevation within the neighborhood). LOO is a measure of a model's predictive accuracy (with lower values corresponding to more accurate prediction) and is calculated as -2 times the expected log pointwise predictive density (elpd) for a new dataset [@vehtari2017]. $\\Delta$LOO is the difference between a model's LOO and the lowest LOO in a set of models (i.e., the model with the best predictive accuracy). The Bayesian $R^2$ is a 'data-based estimate of the proportion of variance explained for new data' [@gelman2018]. Note that Bayesian $R^2$ values are conditional on the model so shouldn't be compared across models, though they can be informative about a single model at a time.")
+table_nums(name = "table-ic-table", caption = "Comparison of four models described in Eq. \\ref{eq-severity-model} using different neighborhood sizes for calculating forest structural variability (standard deviation of NDVI within the neighborhood), neighborhood mean NDVI, and topographic roughness (standard deviation of elevation within the neighborhood). LOO is a measure of a model's predictive accuracy (with lower values corresponding to more accurate prediction) and is calculated as -2 times the expected log pointwise predictive density (elpd) for a new dataset [@vehtari2017]. $\\Delta$LOO is the difference between a model's LOO and the lowest LOO in a set of models (i.e., the model with the best predictive accuracy). The Bayesian $R^2$ is a 'data-based estimate of the proportion of variance explained for new data' [@gelman2019]. Note that Bayesian $R^2$ values are conditional on the model so shouldn't be compared across models, though they can be informative about a single model at a time.")
 ```
 
 ```{r ic_print_table, echo = FALSE, include = TRUE, results = 'asis'}
@@ -290,7 +265,7 @@ We report the results from fitting the model described in `r eq_nums(name = "eq-
 
 The strongest influence on the probability of a forested area burning at high-severity was the a pixel's prefire NDVI, with a greater prefire NDVI increasing the probability of high-severity fire ($\beta_{\text{prefire\_ndvi}}=$ `r round(ci_betas %>% filter(param == "b_preFire_ndvi" & radius == 1) %>% select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_preFire_ndvi" & radius == 1) %>% select(lwr, upr), 3)), collapse = ", ")`]); `r fig_nums(name = "fig-main-effects", display = "cite")`). There was a strong negative relationship between 100-hour fuel moisture and wildfire severity such that increasing 100-hour fuel moisture was associated with a decreasing probability of a high-severity wildfire ($\beta_{\text{fm100}}=$ `r round(ci_betas %>% filter(param == "b_fm100" & radius == 1) %>% select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_fm100" & radius == 1) %>% select(lwr, upr), 3)), collapse = ", ")`]) (`r fig_nums(name = "fig-main-effects", display = "cite")`). Potential annual heat load, which integrates aspect, slope, and latitude, also had a strong positive relationship with the probability of a high-severity fire. Areas that were located on southwest facing sloped terrain at lower latitudes had the highest potential annual heat load, and were more likely to burn at high-severity ($\beta_{\text{pahl}}=$ `r round(ci_betas %>% filter(param == "b_pahl" & radius == 1) %>% select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_pahl" & radius == 1) %>% select(lwr, upr), 3)), collapse = ", ")`]) `r fig_nums(name = "fig-main-effects", display = "cite")`). We found a negative effect of the prefire neighborhood mean NDVI on the probability of a pixel burning at high-severity ($\beta_{\text{nbhd\_mean\_NDVI}}=$ `r round(ci_betas %>% filter(param == "b_neighborhood_mean" & radius == 1) %>% select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_neighborhood_mean" & radius == 1) %>% select(lwr, upr), 3)), collapse = ", ")`]). This is in contrast to the positive effect of the prefire NDVI of the pixel itself. We found no effect of local topographic roughness on wildfire severity ($\beta_{\text{topographic\_roughness}}=$ `r round(ci_betas %>% filter(param == "b_topo_roughness" & radius == 1) %>% select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_topo_roughness" & radius == 1) %>% select(lwr, upr), 3)), collapse = ", ")`]).
 
-There was also a strong negative interaction between the neighborhood mean NDVI and the prefire NDVI of the central pixel ($\beta_{\text{nbhd\_mean\_NDVI*prefire\_NDVI}}$ `r round(ci_betas %>% filter(param == "b_neighborhood_mean_ndvi.preFire_ndvi" & radius == 1) %>% select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_neighborhood_mean_ndvi.preFire_ndvi" & radius == 1) %>% select(lwr, upr), 3)), collapse = ", ")`]). 
+There was also a strong negative interaction between the neighborhood mean NDVI and the prefire NDVI of the central pixel ($\beta_{\text{nbhd\_mean\_NDVI*prefire\_NDVI}}$ = `r round(ci_betas %>% filter(param == "b_neighborhood_mean_ndvi.preFire_ndvi" & radius == 1) %>% select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_neighborhood_mean_ndvi.preFire_ndvi" & radius == 1) %>% select(lwr, upr), 3)), collapse = ", ")`]). 
 
 From the same model, we found strong evidence for a negative effect of variability of vegetation structure on the probability of a high-severity wildfire ($\beta_{\text{nbhd\_stdev\_NDVI}}=$ `r round(ci_betas %>% filter(param == "b_het" & radius == 1) %>% dplyr::select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_het" & radius == 1) %>% dplyr::select(lwr, upr), 3)), collapse = ", ")`]); `r fig_nums(name = "fig-main-effects", display = "cite")`). We also found significant interactions between variability of vegetation structure and prefire NDVI of the central pixel $\beta_{\text{nbhd\_stdev\_NDVI*prefire\_NDVI}}=$ `r round(ci_betas %>% filter(param == "b_het_ndvi.preFire_ndvi" & radius == 1) %>% dplyr::select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_het_ndvi.preFire_ndvi" & radius == 1) %>% dplyr::select(lwr, upr), 3)), collapse = ", ")`]) as well as between variability of vegetation structure and neighborhood mean NDVI ($\beta_{\text{nbhd\_stdev\_NDVI*nbhd\_mean\_NDVI}}=$ `r round(ci_betas %>% filter(param == "b_het_ndvi.neighborhood_mean_ndvi" & radius == 1) %>% dplyr::select(mean) %>% pull(), 3)`; 95% CI: [`r paste(as.character(round(ci_betas %>% filter(param == "b_het_ndvi.neighborhood_mean_ndvi" & radius == 1) %>% dplyr::select(lwr, upr), 3)), collapse = ", ")`]).
 
